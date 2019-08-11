@@ -8,7 +8,6 @@ class NotImplementedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: new Text(title)),
         body: Center(child: const Text('The page is not implemented yet!')));
   }
 }

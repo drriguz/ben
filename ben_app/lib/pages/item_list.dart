@@ -32,7 +32,7 @@ const List<Choice> tabItems = const <Choice>[
   const Choice(title: '媒体'),
   const Choice(title: '密码'),
   const Choice(title: '记事'),
-  const Choice(title: '文本'),
+  const Choice(title: '文件'),
 ];
 
 class _ItemListPageState extends State<ItemListPage> {
@@ -40,40 +40,54 @@ class _ItemListPageState extends State<ItemListPage> {
 
   void _onDropdownSelected(Choice choice) {}
 
+  TabBar _createTabBar() {
+    return TabBar(
+        tabs: tabItems.map((Choice tabItem) {
+      return new Tab(text: tabItem.title);
+    }).toList());
+  }
+
+  TabBarView _createTabBarView() {
+    return TabBarView(
+        children: tabItems.map((Choice tabItem) {
+      return new NotImplementedPage(title: tabItem.title);
+    }).toList());
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Stack(
-            children: <Widget>[
-              Center(
-                child: SearchBar(),
+    return DefaultTabController(
+        length: tabItems.length,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Stack(
+              children: <Widget>[
+                Center(
+                  child: SearchBar(),
+                )
+              ],
+            ),
+            bottom: _createTabBar(),
+            actions: <Widget>[
+              new IconButton(
+                  icon: Icon(FontIcon.backup), onPressed: _onPressed),
+              new PopupMenuButton<Choice>(
+                onSelected: _onDropdownSelected,
+                itemBuilder: (BuildContext context) {
+                  return menuItems.map((Choice choice) {
+                    return new PopupMenuItem<Choice>(
+                      value: choice,
+                      child: ListTile(
+                        leading: Icon(choice.icon),
+                        title: Text(choice.title),
+                      ),
+                    );
+                  }).toList();
+                },
               )
             ],
           ),
-          actions: <Widget>[
-            new IconButton(icon: Icon(FontIcon.backup), onPressed: _onPressed),
-            new PopupMenuButton<Choice>(
-              onSelected: _onDropdownSelected,
-              itemBuilder: (BuildContext context) {
-                return menuItems.map((Choice choice) {
-                  return new PopupMenuItem<Choice>(
-                    value: choice,
-                    child: ListTile(
-                      leading: Icon(choice.icon),
-                      title: Text(choice.title),
-                    ),
-                  );
-                }).toList();
-              },
-            )
-          ],
-        ),
-        body: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return CardListItem(title: "建设银行", subtitle: "9771");
-            }));
+          body: _createTabBarView(),
+        ));
   }
 }
