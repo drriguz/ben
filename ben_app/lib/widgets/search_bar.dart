@@ -10,7 +10,7 @@ class SearchBar extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 20.0),
           decoration: InputDecoration(
             prefixIcon: Icon(
-              AliIcon.search,
+              FontIcon.search,
               color: Colors.white,
               size: 22.0,
             ),

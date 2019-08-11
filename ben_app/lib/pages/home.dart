@@ -32,11 +32,12 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(AliIcon.list), title: Text("记事")),
-          BottomNavigationBarItem(icon: Icon(AliIcon.list), title: Text("隐私")),
-          BottomNavigationBarItem(icon: Icon(AliIcon.group), title: Text("管理")),
+          BottomNavigationBarItem(icon: Icon(FontIcon.list), title: Text("私密")),
+          BottomNavigationBarItem(icon: Icon(FontIcon.flag), title: Text("地标")),
           BottomNavigationBarItem(
-              icon: Icon(AliIcon.toolbox), title: Text("工具箱")),
+              icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
+          BottomNavigationBarItem(
+              icon: Icon(FontIcon.backup), title: Text("同步")),
         ],
         type: BottomNavigationBarType.fixed,
         // without this line tab icon won't display
