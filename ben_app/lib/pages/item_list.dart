@@ -1,7 +1,8 @@
-import 'package:ben_app/widgets/card.dart';
-
+import '../modes/choice.dart';
+import '../widgets/card.dart';
 import '../theme/icons.dart';
 import '../widgets/search_bar.dart';
+
 import 'package:flutter/material.dart';
 
 import 'not_implemented.dart';
@@ -11,46 +12,49 @@ class ItemListPage extends StatefulWidget {
   State<ItemListPage> createState() => _ItemListPageState();
 }
 
-class Choice {
-  const Choice({this.title, this.icon});
-
-  final String title;
-  final IconData icon;
-}
-
-const List<Choice> menuItems = const <Choice>[
-  const Choice(title: '关于', icon: Icons.directions_car),
-  const Choice(title: '分享', icon: Icons.directions_bus),
-  const Choice(title: '反馈', icon: Icons.directions_railway),
-  const Choice(title: '偏好设置', icon: Icons.directions_walk),
-  const Choice(title: '检查更新', icon: Icons.directions_walk),
+const List<MenuChoice> menuItems = const <MenuChoice>[
+  const MenuChoice('关于', 'about', Icons.directions_car),
+  const MenuChoice('分享', 'share', Icons.directions_bus),
+  const MenuChoice('反馈', 'feedback', Icons.directions_railway),
+  const MenuChoice('偏好设置', 'settings', Icons.directions_walk),
+  const MenuChoice('检查更新', 'update', Icons.directions_walk),
 ];
 
-const List<Choice> tabItems = const <Choice>[
-  const Choice(title: '卡片'),
-  const Choice(title: '证书'),
-  const Choice(title: '媒体'),
-  const Choice(title: '密码'),
-  const Choice(title: '记事'),
-  const Choice(title: '文件'),
+const List<TabChoice> tabItems = const <TabChoice>[
+  const TabChoice('卡片', SecretListType.CARD),
+  const TabChoice('证书', SecretListType.CERTIFICATE),
+  const TabChoice('媒体', SecretListType.MEDIA),
+  const TabChoice('密码', SecretListType.PASSWORD),
+  const TabChoice('记事', SecretListType.NOTE),
+  const TabChoice('文件', SecretListType.FILE),
 ];
 
 class _ItemListPageState extends State<ItemListPage> {
   void _onPressed() {}
 
-  void _onDropdownSelected(Choice choice) {}
+  void _onDropdownSelected(MenuChoice choice) {}
 
   TabBar _createTabBar() {
     return TabBar(
-        tabs: tabItems.map((Choice tabItem) {
-      return new Tab(text: tabItem.title);
+        tabs: tabItems.map((TabChoice tabItem) {
+      return new Tab(text: tabItem.option);
     }).toList());
+  }
+
+  Widget _createList(TabChoice choice) {
+    if (choice.value == SecretListType.CARD)
+      return ListView.builder(
+          itemCount: 5,
+          itemBuilder: (BuildContext context, int index) {
+            return CardListItem(title: "建设银行", subtitle: "9771");
+          });
+    return NotImplementedPage(title: choice.option);
   }
 
   TabBarView _createTabBarView() {
     return TabBarView(
-        children: tabItems.map((Choice tabItem) {
-      return new NotImplementedPage(title: tabItem.title);
+        children: tabItems.map((TabChoice tabItem) {
+      return _createList(tabItem);
     }).toList());
   }
 
@@ -69,22 +73,21 @@ class _ItemListPageState extends State<ItemListPage> {
             ),
             bottom: _createTabBar(),
             actions: <Widget>[
-              new IconButton(
-                  icon: Icon(FontIcon.backup), onPressed: _onPressed),
-              new PopupMenuButton<Choice>(
+              IconButton(icon: Icon(FontIcon.backup), onPressed: _onPressed),
+              PopupMenuButton<MenuChoice>(
                 onSelected: _onDropdownSelected,
                 itemBuilder: (BuildContext context) {
-                  return menuItems.map((Choice choice) {
-                    return new PopupMenuItem<Choice>(
+                  return menuItems.map((MenuChoice choice) {
+                    return PopupMenuItem<MenuChoice>(
                       value: choice,
                       child: ListTile(
                         leading: Icon(choice.icon),
-                        title: Text(choice.title),
+                        title: Text(choice.option),
                       ),
                     );
                   }).toList();
                 },
-              )
+              ),
             ],
           ),
           body: _createTabBarView(),

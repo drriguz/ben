@@ -10,7 +10,7 @@ class AppEntry extends StatelessWidget {
     return MaterialApp(
       title: 'ben',
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: Colors.red,
       ),
       home: HomePage(),
     );
