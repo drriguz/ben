@@ -1,8 +1,8 @@
-import '../modes/bank_card.dart';
-import '../modes/choice.dart';
-import '../widgets/card.dart';
+import '../mode/bank_card.dart';
+import '../mode/choice.dart';
+import '../widget/card.dart';
 import '../theme/icons.dart';
-import '../widgets/search_bar.dart';
+import '../widget/search_bar.dart';
 
 import 'package:flutter/material.dart';
 
