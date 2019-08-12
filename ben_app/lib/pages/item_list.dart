@@ -1,3 +1,4 @@
+import '../modes/bank_card.dart';
 import '../modes/choice.dart';
 import '../widgets/card.dart';
 import '../theme/icons.dart';
@@ -46,7 +47,7 @@ class _ItemListPageState extends State<ItemListPage> {
       return ListView.builder(
           itemCount: 5,
           itemBuilder: (BuildContext context, int index) {
-            return CardListItem(title: "建设银行", subtitle: "9771");
+            return CardListItem(BankCard(title: '中国工商银行', number: '6222005865412565805'));
           });
     return NotImplementedPage(title: choice.option);
   }
