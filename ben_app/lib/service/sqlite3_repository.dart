@@ -1,6 +1,5 @@
-import 'package:ben_app/entity/meta_data.dart';
+import 'package:ben_app/entity/tables.dart';
 
-import 'package:ben_app/entity/secret_data.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'repository.dart';
@@ -19,6 +18,7 @@ class Sqlite3Repository implements AbstractRepository {
     return await db.insert(
       metaTable,
       entity.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 

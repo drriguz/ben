@@ -1,5 +1,4 @@
-import '../entity/secret_data.dart';
-import '../entity/meta_data.dart';
+import '../entity/tables.dart';
 
 abstract class AbstractRepository {
   Future<List<MetaDataEntity>> getMetaDatas();

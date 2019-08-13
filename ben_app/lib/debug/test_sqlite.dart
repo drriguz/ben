@@ -1,14 +1,12 @@
+import 'dart:convert';
+
 import 'package:ben_app/service/repository_factory.dart';
 
-import '../entity/meta_data.dart';
-import '../entity/secret_data.dart';
+import '../entity/tables.dart';
 
-import '../service/sqlite3_repository.dart';
 import '../service/repository.dart';
 
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 
 class SecretEntity {
   final int id;
@@ -32,8 +30,10 @@ class DebugPage extends StatelessWidget {
   void test() async {
     AbstractRepository repository =
         await RepositoryFactory.createInstance("test.db");
+    await repository.createOrUpdateMetaData(
+        MetaDataEntity("key", utf8.encode("hello world!我是中文")));
     List<MetaDataEntity> metas = await repository.getMetaDatas();
-    print(metas);
+    print(metas[0].stringValue);
   }
 
   @override

@@ -1,39 +1,3 @@
-enum DataType {
-  BANK_CARD,
-  CERTIFICATE,
-  MEDIA,
-  PASSWORD,
-  NOTE,
-  FILE,
-}
-
-class SecretDataEntity {
-  String id;
-  DataType type;
-  List<int> content;
-  List<int> checksum;
-
-  SecretDataEntity({this.id, this.type, this.content, this.checksum});
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'type': type,
-      'content': content,
-      'checksum': checksum,
-    };
-  }
-
-  factory SecretDataEntity.from(Map<String, dynamic> values) {
-    return SecretDataEntity(
-      id: values['id'],
-      type: values['type'],
-      content: values['content'],
-      checksum: values['checksum'],
-    );
-  }
-}
-
 enum BankCardType {
   CREDIT,
   DEBIT,
