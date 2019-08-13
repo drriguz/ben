@@ -7,13 +7,31 @@ enum DataType {
   FILE,
 }
 
-class SecretData {
+class SecretDataEntity {
   String id;
   DataType type;
-  String value;
-  String checksum;
+  List<int> content;
+  List<int> checksum;
 
-  SecretData({this.id, this.type, this.value, this.checksum});
+  SecretDataEntity({this.id, this.type, this.content, this.checksum});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'type': type,
+      'content': content,
+      'checksum': checksum,
+    };
+  }
+
+  factory SecretDataEntity.from(Map<String, dynamic> values) {
+    return SecretDataEntity(
+      id: values['id'],
+      type: values['type'],
+      content: values['content'],
+      checksum: values['checksum'],
+    );
+  }
 }
 
 enum BankCardType {
