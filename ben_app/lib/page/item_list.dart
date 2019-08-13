@@ -47,8 +47,21 @@ class _ItemListPageState extends State<ItemListPage> {
       return ListView.builder(
           itemCount: 5,
           itemBuilder: (BuildContext context, int index) {
-            return CardListItem(BankCard(title: '中国工商银行', number: '6222005865412565805'));
+            return CardListItem(
+              key: ObjectKey(index),
+              model: BankCard(title: '中国工商银行', number: '6222005865412565805'),
+            );
           });
+    if (choice.value == SecretListType.CERTIFICATE) {
+      return ListView.builder(
+          itemCount: 5,
+          itemBuilder: (BuildContext context, int index) {
+            return CardListItem(
+              key: ObjectKey(index),
+              model: BankCard(title: '身份证', number: '422822199109111031'),
+            );
+          });
+    }
     return NotImplementedPage(title: choice.option);
   }
 
