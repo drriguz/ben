@@ -11,6 +11,7 @@ dependencies:
   sqflite: ^1.1.6
   cupertino_icons: ^0.1.2
   path: ^1.6.2
+  uuid: ^2.0.2
   encryptions:
     path: ./encryptions
 
@@ -22,7 +23,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/citic.png
+    - assets/
     - assets/config/init.sql
   fonts:
     - family: ali

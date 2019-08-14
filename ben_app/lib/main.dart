@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'config/injector.dart';
 import 'page/Home.dart';
+import 'page/splash.dart';
 
 final Injector injector = Injector();
 
@@ -15,7 +16,10 @@ class AppEntry extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: HomePage(),
+      home: SplashPage(),
+      routes: {
+        "/home": (BuildContext context) => new HomePage(),
+      },
     );
   }
 }

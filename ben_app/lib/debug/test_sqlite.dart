@@ -26,8 +26,6 @@ class SecretEntity {
 }
 
 class DebugPage extends StatelessWidget {
-  final AbstractRepository repository = injector.get<AbstractRepository>();
-
   DebugPage();
 
   void test() async {
