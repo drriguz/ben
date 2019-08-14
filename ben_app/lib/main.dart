@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'config/injector.dart';
 import 'page/Home.dart';
+
+final Injector injector = Injector();
 
 void main() => runApp(AppEntry());
 

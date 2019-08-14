@@ -4,6 +4,7 @@ import 'package:ben_app/service/repository_factory.dart';
 
 import '../entity/tables.dart';
 
+import '../main.dart';
 import '../service/repository.dart';
 
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class SecretEntity {
 }
 
 class DebugPage extends StatelessWidget {
+  final AbstractRepository repository = injector.get<AbstractRepository>();
+
   DebugPage();
 
   void test() async {

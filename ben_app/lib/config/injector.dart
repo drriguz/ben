@@ -43,7 +43,7 @@ class _ServiceProvider<T> {
 
 class Injector {
   final _providers = new Map<Type, _ServiceProvider<dynamic>>();
-
+  
   void registerSingleton<T>(T instance) {
     assert(!_providers.containsKey(T), "${T.toString()} already registered");
     _providers[T] = _ServiceProvider.singleton(instance);
