@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 enum BankCardType {
   CREDIT,
   DEBIT,
@@ -7,6 +9,33 @@ enum CertificateType {
   ID_CARD,
   PASSPORT,
   DRIVERS_LICENSE,
+}
+
+abstract class Decrypted {
+  final List<int> blob;
+  final String json;
+
+  Decrypted(this.blob) : json = utf8.decode(blob);
+
+  List<int> serialize();
+}
+
+abstract class Unique {
+  String id;
+}
+
+abstract class Serializable {
+  List<int> serialize();
+}
+
+class BankCardModel extends Unique {
+  BankCardType cardType;
+  String number;
+  String title;
+  String validThru;
+  String repaymentThru;
+  String ownerName;
+  String cvv2;
 }
 
 class Pictures {
