@@ -7,7 +7,7 @@ import 'page/splash.dart';
 
 void main() async{
   await InjectorHelper.registerClasses();
-  runApp(AppEntry());
+  //runApp(AppEntry());
 }
 
 class AppEntry extends StatelessWidget {
