@@ -1,6 +1,7 @@
+import '../config/app_injector_config.dart';
+import '../service/initialize_service.dart';
+import '../mode/meta_data.dart';
 import 'package:flutter/material.dart';
-
-import '../main.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -8,6 +9,13 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  final InitializeService initializeService =
+      InjectorHelper.get<InitializeService>();
+
+  Future<void> _init() async {
+    await initializeService.validateDataBase();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -28,7 +36,8 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 3000), () {
+    _init();
+    Future.delayed(Duration(milliseconds: 200), () {
       Navigator.of(context).pushNamed('/home');
     });
   }

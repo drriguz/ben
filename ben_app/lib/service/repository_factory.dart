@@ -5,8 +5,11 @@ import 'package:sqflite/sqflite.dart';
 import 'sqlite3_repository.dart';
 
 class RepositoryFactory {
-  static Future<Sqlite3Repository> createInstance(final String fileName) async {
-    final String dbPath = join(await getDatabasesPath(), fileName);
+  static const _fileName = "ben.dat";
+
+  static Future<Sqlite3Repository> createInstance() async {
+    final String dbPath = join(await getDatabasesPath(), _fileName);
+    print("Opening database:${dbPath}");
     final Future<Database> database = openDatabase(
       dbPath,
       onCreate: _initialize,

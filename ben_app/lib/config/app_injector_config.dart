@@ -1,10 +1,16 @@
+import '../service/repository_factory.dart';
+import '../service/repository.dart';
+import '../service/initialize_service.dart';
+
 import 'injector.dart';
 
-class AppInjector {
+class InjectorHelper {
   static final Injector _injector = new Injector();
 
-  static registerClasses() {
-
+  static void registerClasses() async {
+    _injector.registerSingleton<AbstractRepository>(
+        await RepositoryFactory.createInstance());
+    _injector.registerSingleton<InitializeService>(InitializeService());
   }
 
   static T get<T>() {

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import '../entity/tables.dart';
 
-class MetaData {
+class AppMetaData {
   final String version;
   final String cipher;
   final String createTime;
@@ -12,7 +12,7 @@ class MetaData {
   final List<int> hashSeed;
   final List<int> hash;
 
-  const MetaData(
+  const AppMetaData(
       {this.version,
       this.cipher,
       this.createTime,
@@ -22,12 +22,12 @@ class MetaData {
       this.hashSeed,
       this.hash});
 
-  static MetaData from(List<MetaDataEntity> list) {
+  static AppMetaData from(List<MetaDataEntity> list) {
     final Map<String, List<int>> values = {};
     list.forEach((e) {
       values[e.name] = e.value;
     });
-    return MetaData(
+    return AppMetaData(
         version: _getStringValue(values["version"]),
         cipher: _getStringValue(values["cipher"]),
         createTime: _getStringValue(values["createTime"]),

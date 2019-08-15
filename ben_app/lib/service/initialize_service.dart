@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-import 'package:uuid/uuid.dart';
+import '../config/app_injector_config.dart';
 import '../mode/meta_data.dart';
 import '../config/version.dart';
+import 'repository.dart';
+import 'package:uuid/uuid.dart';
 
 /**
  * Data is encrypted by PIN_KEY
@@ -21,8 +23,14 @@ enum Cipher {
 
 class InitializeService {
   final _uuid = new Uuid();
+  final AbstractRepository repository =
+      InjectorHelper.get<AbstractRepository>();
 
-  MetaData createMetaData() {
+  void validateDataBase() async {
+
+  }
+
+  AppMetaData createMetaData() {
     final now = DateTime.now().millisecondsSinceEpoch;
     final pinSeed = new List<int>(16);
     final masterSeed = new List<int>(16);
@@ -32,8 +40,8 @@ class InitializeService {
     _uuid.v4buffer(masterSeed);
     _uuid.v4buffer(hashSeed);
 
-    return MetaData(
-      version: Version.toString(),
+    return AppMetaData(
+      version: Version().fullVersion,
       cipher: Cipher.AES256_CBC_NOPADDING.toString(),
       createTime: now.toString(),
       lastUpdatedTime: now.toString(),

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'config/app_injector_config.dart';
 import 'config/injector.dart';
 import 'page/Home.dart';
 import 'page/splash.dart';
 
-final Injector injector = Injector();
-
-void main() => runApp(AppEntry());
+void main() async{
+  await InjectorHelper.registerClasses();
+  runApp(AppEntry());
+}
 
 class AppEntry extends StatelessWidget {
   @override

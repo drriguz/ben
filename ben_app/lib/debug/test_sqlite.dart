@@ -30,7 +30,7 @@ class DebugPage extends StatelessWidget {
 
   void test() async {
     AbstractRepository repository =
-        await RepositoryFactory.createInstance("test.db");
+        await RepositoryFactory.createInstance();
     await repository.createOrUpdateMetaData(
         MetaDataEntity("key", utf8.encode("hello world!我是中文")));
     List<MetaDataEntity> metas = await repository.getMetaDatas();
