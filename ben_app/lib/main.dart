@@ -10,6 +10,7 @@ import 'service/initialize_service.dart';
 void main() async {
   await InjectorHelper.registerClasses();
   InitializeService initService = InjectorHelper.get<InitializeService>();
+  await initService.validateDataBase();
   runApp(AppEntry(
     hasInitialized: false,
   ));

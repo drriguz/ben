@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../entity/tables.dart';
 import '../config/app_injector_config.dart';
 import '../mode/meta_data.dart';
 import '../config/version.dart';
@@ -27,7 +28,14 @@ class InitializeService {
       InjectorHelper.get<AbstractRepository>();
 
   void validateDataBase() async {
-
+    List<MetaDataEntity> metaList = await repository.getMetaDatas();
+    if (metaList.isEmpty) {
+      print("Meta data not exists, start creating...");
+      AppMetaData metaData = createMetaData();
+      await repository.createMetaData(metaData.toEntities());
+    } else {
+      AppMetaData metaData = AppMetaData.from(metaList);
+    }
   }
 
   AppMetaData createMetaData() {
@@ -48,6 +56,7 @@ class InitializeService {
       pinSeed: pinSeed,
       masterSeed: masterSeed,
       hashSeed: hashSeed,
+      hash: [],
     );
   }
 }

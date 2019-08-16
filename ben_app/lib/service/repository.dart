@@ -5,6 +5,8 @@ abstract class AbstractRepository {
 
   Future<void> createOrUpdateMetaData(final MetaDataEntity entity);
 
+  Future<void> createMetaData(final List<MetaDataEntity> metas);
+
   Future<void> deleteMetaData(final MetaDataEntity entity);
 
   Future<List<SecretDataEntity>> getSecrets();

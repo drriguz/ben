@@ -86,4 +86,12 @@ class Sqlite3Repository implements AbstractRepository {
     );
     return values.map((values) => MetaDataEntity.from(values)).toList();
   }
+
+  @override
+  Future<void> createMetaData(List<MetaDataEntity> metas) async {
+    final db = await _databaseInstance;
+    var batch = await db.batch();
+    metas.forEach((meta) => batch.insert(metaTable, meta.toMap()));
+    await batch.commit();
+  }
 }
