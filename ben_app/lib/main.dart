@@ -3,14 +3,23 @@ import 'package:flutter/material.dart';
 import 'config/app_injector_config.dart';
 import 'config/injector.dart';
 import 'page/Home.dart';
+import 'page/initialize.dart';
 import 'page/splash.dart';
+import 'service/initialize_service.dart';
 
-void main() async{
+void main() async {
   await InjectorHelper.registerClasses();
-  //runApp(AppEntry());
+  InitializeService initService = InjectorHelper.get<InitializeService>();
+  runApp(AppEntry(
+    hasInitialized: false,
+  ));
 }
 
 class AppEntry extends StatelessWidget {
+  final bool hasInitialized;
+
+  const AppEntry({Key key, this.hasInitialized}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,9 +27,10 @@ class AppEntry extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: SplashPage(),
+      initialRoute: "/",
       routes: {
-        "/home": (BuildContext context) => new HomePage(),
+        "/": (_) => hasInitialized ? new HomePage() : new InitializePage(),
+        "/home": (_) => new HomePage(),
       },
     );
   }
