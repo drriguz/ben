@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../mode/bank_card.dart';
+import '../model/bank_card.dart';
 
 abstract class AbstractListItem<T> extends StatelessWidget {
   final T model;
@@ -136,8 +136,8 @@ class CertificateListItem extends AbstractListItem<BankCard> {
       decoration: BoxDecoration(
         border: Border(
             left: BorderSide(
-              color: Colors.orange,
-            )),
+          color: Colors.orange,
+        )),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

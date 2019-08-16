@@ -1,6 +1,6 @@
-import '../service/repository_factory.dart';
-import '../service/repository.dart';
-import '../service/initialize_service.dart';
+import 'package:ben_app/persist/sqlite/repository_factory.dart';
+import '../persist/repository.dart';
+import '../logic/service/initialize_service.dart';
 
 import 'injector.dart';
 

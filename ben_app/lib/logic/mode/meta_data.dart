@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../entity/tables.dart';
+import '../../persist/tables.dart';
 
 class AppMetaData {
   final String version;

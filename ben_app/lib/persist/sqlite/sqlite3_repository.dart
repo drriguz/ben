@@ -1,8 +1,7 @@
-import 'package:ben_app/entity/tables.dart';
-
 import 'package:sqflite/sqflite.dart';
 
-import 'repository.dart';
+import '../repository.dart';
+import '../tables.dart';
 
 class Sqlite3Repository implements AbstractRepository {
   final Future<Database> _databaseInstance;

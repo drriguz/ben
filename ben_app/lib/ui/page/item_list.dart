@@ -1,5 +1,5 @@
-import '../mode/bank_card.dart';
-import '../mode/choice.dart';
+import '../model/bank_card.dart';
+import '../model/choice.dart';
 import '../widget/card.dart';
 import '../theme/icons.dart';
 import '../widget/search_bar.dart';

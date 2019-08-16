@@ -1,11 +1,10 @@
-import 'dart:convert';
-
-import '../entity/tables.dart';
-import '../config/app_injector_config.dart';
-import '../mode/meta_data.dart';
-import '../config/version.dart';
-import 'repository.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../persist/tables.dart';
+import '../../config/app_injector_config.dart';
+import '../mode/meta_data.dart';
+import '../../config/version.dart';
+import '../../persist/repository.dart';
 
 /**
  * Data is encrypted by PIN_KEY

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../debug/test_sqlite.dart';
 import 'item_list.dart';
 import 'not_implemented.dart';
 
@@ -16,7 +15,7 @@ class _HomePageState extends State<HomePage> {
     ItemListPage(),
     NotImplementedPage(title: 'Share'),
     NotImplementedPage(title: 'Settings'),
-    DebugPage(),
+    NotImplementedPage(title: 'sync'),
   ];
 
   void _onTabActivate(int index) {

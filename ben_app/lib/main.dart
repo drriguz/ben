@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'config/app_injector_config.dart';
-import 'config/injector.dart';
-import 'page/Home.dart';
-import 'page/initialize.dart';
-import 'page/splash.dart';
-import 'service/initialize_service.dart';
+import 'ui/page/Home.dart';
+import 'ui/page/initialize.dart';
+import 'logic/service/initialize_service.dart';
 
 void main() async {
   await InjectorHelper.registerClasses();

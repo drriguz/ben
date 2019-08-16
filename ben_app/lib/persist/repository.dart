@@ -1,4 +1,4 @@
-import '../entity/tables.dart';
+import 'tables.dart';
 
 abstract class AbstractRepository {
   Future<List<MetaDataEntity>> getMetaDatas();
