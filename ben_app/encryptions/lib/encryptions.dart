@@ -43,4 +43,20 @@ class Encryptions {
       "salt": Uint8List.fromList(utf8.encode(salt))
     });
   }
+
+  static Future<Uint8List> argon2iRaw(
+      Uint8List password, Uint8List salt) async {
+    return await _channel.invokeMethod("argon2i", {
+      "password": password,
+      "salt": salt,
+    });
+  }
+
+  static Future<Uint8List> argon2dRaw(
+      Uint8List password, Uint8List salt) async {
+    return await _channel.invokeMethod("argon2d", {
+      "password": password,
+      "salt": salt,
+    });
+  }
 }

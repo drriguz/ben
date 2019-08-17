@@ -5,6 +5,7 @@ import '../../config/app_injector_config.dart';
 import '../mode/meta_data.dart';
 import '../../config/version.dart';
 import '../../persist/repository.dart';
+import 'hash_validator.dart';
 
 /**
  * Data is encrypted by PIN_KEY
@@ -25,6 +26,8 @@ class InitializeService {
   final _uuid = new Uuid();
   final AbstractRepository repository =
       InjectorHelper.get<AbstractRepository>();
+
+  //final HashValidator hashValidator;
 
   void validateDataBase() async {
     List<MetaDataEntity> metaList = await repository.getMetaDatas();

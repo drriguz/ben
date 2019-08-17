@@ -38,7 +38,7 @@ class AppMetaData {
         hash: values["hash"]);
   }
 
-  List<MetaDataEntity> toEntities() {
+  List<MetaDataEntity> toEntities({bool withHash = false}) {
     return <MetaDataEntity>[
       MetaDataEntity("version", utf8.encode(version)),
       MetaDataEntity("cipher", utf8.encode(cipher)),
@@ -47,7 +47,7 @@ class AppMetaData {
       MetaDataEntity("pinSeed", pinSeed),
       MetaDataEntity("masterSeed", masterSeed),
       MetaDataEntity("hashSeed", hashSeed),
-      MetaDataEntity("hash", hash),
+      if (withHash) MetaDataEntity("hash", hash),
     ];
   }
 
