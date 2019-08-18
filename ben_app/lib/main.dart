@@ -4,6 +4,7 @@ import 'config/app_injector_config.dart';
 import 'ui/page/Home.dart';
 import 'ui/page/initialize.dart';
 import 'logic/service/initialize_service.dart';
+import 'ui/page/login.dart';
 
 void main() async {
   await InjectorHelper.registerClasses();
@@ -26,8 +27,9 @@ class AppEntry extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      initialRoute: "/",
+      initialRoute: "/login",
       routes: {
+        "/login": (_) => new LoginPage(),
         "/": (_) => hasInitialized ? new HomePage() : new InitializePage(),
         "/home": (_) => new HomePage(),
       },
