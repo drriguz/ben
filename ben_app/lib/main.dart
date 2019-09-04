@@ -11,7 +11,7 @@ void main() async {
   InitializeService initService = InjectorHelper.get<InitializeService>();
   await initService.validateDataBase();
   runApp(AppEntry(
-    hasInitialized: false,
+    hasInitialized: true,
   ));
 }
 
@@ -27,10 +27,9 @@ class AppEntry extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      initialRoute: "/login",
       routes: {
+        "/": (_) => hasInitialized ? new LoginPage() : new InitializePage(),
         "/login": (_) => new LoginPage(),
-        "/": (_) => hasInitialized ? new HomePage() : new InitializePage(),
         "/home": (_) => new HomePage(),
       },
     );

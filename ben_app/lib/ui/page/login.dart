@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
     _isUnlocking = true;
     print(password);
     await Future.delayed(Duration(milliseconds: 40));
-    Navigator.popAndPushNamed(context, "/home");
+    Navigator.pushReplacementNamed(context, "/home");
   }
 
   @override
