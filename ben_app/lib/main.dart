@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'config/app_injector_config.dart';
+import 'providers/provider_setup.dart';
 import 'ui/page/Home.dart';
 import 'ui/page/initialize.dart';
 import 'logic/service/initialize_service.dart';
@@ -22,16 +23,19 @@ class AppEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'ben',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
+    return MultiProvider(
+      providers: providers,
+      child: MaterialApp(
+        title: 'ben',
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
+        routes: {
+          "/": (_) => hasInitialized ? new LoginPage() : new InitializePage(),
+          "/login": (_) => new LoginPage(),
+          "/home": (_) => new HomePage(),
+        },
       ),
-      routes: {
-        "/": (_) => hasInitialized ? new LoginPage() : new InitializePage(),
-        "/login": (_) => new LoginPage(),
-        "/home": (_) => new HomePage(),
-      },
     );
   }
 }

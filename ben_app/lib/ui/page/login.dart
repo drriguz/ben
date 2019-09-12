@@ -1,3 +1,6 @@
+import 'package:ben_app/providers/view_models/login_model.dart';
+import 'package:provider/provider.dart';
+
 import '../theme/icons.dart';
 import 'package:flutter/material.dart';
 
@@ -7,30 +10,45 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool _isUnlocking = false;
-
   Widget _profileImage() {
-    return Image(
-      image: AssetImage("assets/profile.png"),
-      width: 150,
+    return Padding(
+      padding: const EdgeInsets.only(top: 200, bottom: 50.0),
+      child: Image(
+        image: AssetImage("assets/profile.png"),
+        width: 150,
+      ),
     );
   }
 
   Widget _input() {
+    final model = Provider.of<LoginViewModel>(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(50, 10.0, 50, 10),
-      child: TextField(
-        obscureText: true,
-        autofocus: true,
-        decoration: InputDecoration(
-          hintText: "请输入查询密码以解锁",
-          suffixIcon: Icon(
-            FontIcon.lock,
-            color: Colors.red,
-            size: 22.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextField(
+            obscureText: true,
+            autofocus: true,
+            decoration: InputDecoration(
+              hintText: "请输入主密码解锁",
+              suffixIcon: Icon(
+                FontIcon.lock,
+                color: Colors.red,
+                size: 22.0,
+              ),
+            ),
+            onSubmitted: this.onPasswordSubmitted,
           ),
-        ),
-        onSubmitted: this.onPasswordSubmitted,
+          if (model.errorMessage != null)
+            Padding(
+              padding: EdgeInsets.only(top: 15),
+              child: Text(
+                model.errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
+            )
+        ],
       ),
     );
   }
@@ -50,10 +68,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void onPasswordSubmitted(String password) async {
-    _isUnlocking = true;
-    print(password);
-    await Future.delayed(Duration(milliseconds: 40));
-    Navigator.pushReplacementNamed(context, "/home");
+    bool success = await Provider.of<LoginViewModel>(context, listen: false)
+        .login(password);
+    if (success) Navigator.pushReplacementNamed(context, "/home");
   }
 
   @override
@@ -63,13 +80,16 @@ class _LoginPageState extends State<LoginPage> {
         body: Row(
           children: <Widget>[
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   _profileImage(),
-                  if (_isUnlocking) _progressBar() else _input(),
+                  Consumer<LoginViewModel>(
+                    builder: (context, loginViewModel, child) =>
+                        loginViewModel.isBusy ? _progressBar() : _input(),
+                  ),
                 ],
               ),
             ),
