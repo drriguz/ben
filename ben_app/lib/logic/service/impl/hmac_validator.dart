@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 
-import '../../mode/meta_data.dart';
+import '../../model/meta_data.dart';
 import '../hash_validator.dart';
 
 class HmacValidator implements HashValidator {

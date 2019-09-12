@@ -2,7 +2,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../persist/tables.dart';
 import '../../config/app_injector_config.dart';
-import '../mode/meta_data.dart';
+import '../model/meta_data.dart';
 import '../../config/version.dart';
 import '../../persist/repository.dart';
 import 'hash_validator.dart';
@@ -55,7 +55,6 @@ class InitializeService {
       cipher: Cipher.AES256_CBC_NOPADDING.toString(),
       createTime: now.toString(),
       lastUpdatedTime: now.toString(),
-      pinSeed: pinSeed,
       masterSeed: masterSeed,
       hashSeed: hashSeed,
       hash: [],

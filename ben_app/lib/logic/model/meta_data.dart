@@ -7,7 +7,6 @@ class AppMetaData {
   final String cipher;
   final String createTime;
   final String lastUpdatedTime;
-  final List<int> pinSeed;
   final List<int> masterSeed;
   final List<int> hashSeed;
   final List<int> hash;
@@ -17,7 +16,6 @@ class AppMetaData {
       this.cipher,
       this.createTime,
       this.lastUpdatedTime,
-      this.pinSeed,
       this.masterSeed,
       this.hashSeed,
       this.hash});
@@ -32,7 +30,6 @@ class AppMetaData {
         cipher: _getStringValue(values["cipher"]),
         createTime: _getStringValue(values["createTime"]),
         lastUpdatedTime: _getStringValue(values["lastUpdatedTime"]),
-        pinSeed: values["pinSeed"],
         masterSeed: values["masterSeed"],
         hashSeed: values["hashSeed"],
         hash: values["hash"]);
@@ -44,7 +41,6 @@ class AppMetaData {
       MetaDataEntity("cipher", utf8.encode(cipher)),
       MetaDataEntity("createTime", utf8.encode(createTime)),
       MetaDataEntity("lastUpdatedTime", utf8.encode(lastUpdatedTime)),
-      MetaDataEntity("pinSeed", pinSeed),
       MetaDataEntity("masterSeed", masterSeed),
       MetaDataEntity("hashSeed", hashSeed),
       if (withHash) MetaDataEntity("hash", hash),
