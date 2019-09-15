@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:crypto/crypto.dart';
+
 class ProtectedValue {
   static final _random = Random.secure();
 
@@ -18,6 +20,8 @@ class ProtectedValue {
   }
 
   Uint8List get binaryValue => _xor(_mixed, _salt);
+
+  Uint8List get hash => sha256.convert(binaryValue).bytes as Uint8List;
 
   String getText() {
     return utf8.decode(binaryValue);

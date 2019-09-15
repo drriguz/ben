@@ -5,7 +5,6 @@ import '../../config/app_injector_config.dart';
 import '../model/meta_data.dart';
 import '../../config/version.dart';
 import '../../persist/repository.dart';
-import 'hash_validator.dart';
 
 /**
  * Data is encrypted by PIN_KEY

@@ -1,4 +1,4 @@
-import 'package:ben_app/logic/model/protected_value.dart';
+import 'package:ben_app/crypto/protected_value.dart';
 import 'package:test/test.dart';
 
 void main() {
