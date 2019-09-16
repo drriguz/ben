@@ -1,3 +1,4 @@
+import 'package:ben_app/service/init_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/provider_setup.dart';

@@ -1,10 +1,10 @@
 create table meta_data(
-  name TEXT not null primary key,
-  value BLOB not null
+  id int not null primary key,
+  content BLOB not null
 );
-create table secret_data(
+create table items(
   id TEXT not null primary key,
-  type TEXT not null,
+  type int not null,
   content BLOB not null,
   checksum BLOB not null
 );
