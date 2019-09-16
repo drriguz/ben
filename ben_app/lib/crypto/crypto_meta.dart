@@ -9,3 +9,15 @@ class KeyValues {
 
   Uint8List get checksum => null;
 }
+
+abstract class EncryptionMeta {
+  String getVersion();
+
+  String getMasterSeed();
+
+  String getHashSeed();
+}
+
+class AppHeaders extends KeyValues {
+  AppHeaders(Map<String, String> values) : super(values);
+}
