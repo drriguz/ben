@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'config/app_injector_config.dart';
 import 'providers/provider_setup.dart';
 import 'ui/page/Home.dart';
 import 'ui/page/initialize.dart';
-import 'logic/service/initialize_service.dart';
 import 'ui/page/login.dart';
 
 void main() async {
-  await InjectorHelper.registerClasses();
-  InitializeService initService = InjectorHelper.get<InitializeService>();
-  await initService.validateDataBase();
   runApp(AppEntry(
     hasInitialized: true,
   ));

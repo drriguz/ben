@@ -7,26 +7,6 @@
  */
 import 'dart:typed_data';
 
-enum HeaderType {
-  VERSION,
-  CIPHER_ID,
-  COMPRESSION_FLAGS,
-  MASTER_SEED,
-  TRANSFORM_SEED,
-  TRANSFORM_ROUNDS,
-  ENCRYPTION_IV,
-  KDF_PARAMETERS,
-}
-
-enum ItemType {
-  BANK_CARD,
-  CERTIFICATE,
-  MEDIA,
-  PASSWORD,
-  NOTE,
-  FILE,
-}
-
 abstract class Header {
   int _type;
   String _value;
