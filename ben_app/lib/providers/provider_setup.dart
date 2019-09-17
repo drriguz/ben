@@ -9,10 +9,10 @@ import 'view_models/login_model.dart';
 
 final List<SingleChildCloneableWidget> providers = [
   // _independentServices,
-  Provider.value(
+  FutureProvider.value(
       value: SqliteFactory.createInstance("data.db", "assets/config/init.sql")),
   // _dependentServices,
-  ProxyProvider<Future<Database>, HeaderRepository>(
+  ProxyProvider<Database, HeaderRepository>(
     builder: (context, database, headerRepository) =>
         SqliteHeaderRepository(database),
   ),

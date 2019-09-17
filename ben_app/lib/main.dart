@@ -7,6 +7,7 @@ import 'ui/page/initialize.dart';
 import 'ui/page/login.dart';
 
 void main() async {
+  // call InitService here
   runApp(AppEntry(
     hasInitialized: true,
   ));

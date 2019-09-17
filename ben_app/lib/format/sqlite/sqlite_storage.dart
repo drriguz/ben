@@ -6,19 +6,17 @@ import 'package:ben_app/format/storage.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class SqliteRepository<ID, T extends Entity<ID>> {
-  final Future<Database> _databaseInstance;
+  final Database db;
   final String _tableName;
   final String _idFieldName;
 
-  SqliteRepository(this._databaseInstance, this._tableName, this._idFieldName);
+  SqliteRepository(this.db, this._tableName, this._idFieldName);
 
   Future<void> insert(T entity) async {
-    final db = await _databaseInstance;
     return db.insert(_tableName, entity.toMap());
   }
 
   Future<void> delete(ID id) async {
-    final db = await _databaseInstance;
     return await db.delete(
       _tableName,
       where: this._idFieldName + "=?",
@@ -28,7 +26,6 @@ abstract class SqliteRepository<ID, T extends Entity<ID>> {
 
   Future<void> update(ID id, T entity) async {
     entity.id = id;
-    final db = await _databaseInstance;
     await db.update(
       _tableName,
       entity.toMap(),
@@ -38,7 +35,6 @@ abstract class SqliteRepository<ID, T extends Entity<ID>> {
   }
 
   Future<Map<String, dynamic>> _findById(ID id) async {
-    final db = await _databaseInstance;
     final List<Map<String, dynamic>> results =
         await db.query(_tableName, where: _queryById(), whereArgs: [id]);
     if (results.isEmpty) return null;
@@ -52,7 +48,7 @@ abstract class SqliteRepository<ID, T extends Entity<ID>> {
 
 class SqliteHeaderRepository extends SqliteRepository<int, HeaderEntity>
     implements HeaderRepository {
-  SqliteHeaderRepository(Future<Database> databaseInstance)
+  SqliteHeaderRepository(Database databaseInstance)
       : super(databaseInstance, "meta_data", "id");
 
   @override
@@ -68,14 +64,12 @@ class SqliteHeaderRepository extends SqliteRepository<int, HeaderEntity>
 
   @override
   Future<List<Header>> getHeaders() async {
-    final db = await _databaseInstance;
     final List<Map<String, dynamic>> results = await db.query(_tableName);
     return results.map((values) => HeaderEntity.from(values)).toList();
   }
 
   @override
   Future<void> saveHeaders(List<Header> headers) async {
-    final db = await _databaseInstance;
     final batch = db.batch();
     headers.forEach((header) =>
         batch.insert(_tableName, HeaderEntity.fromHeader(header).toMap()));
@@ -89,7 +83,7 @@ class SqliteHeaderRepository extends SqliteRepository<int, HeaderEntity>
 }
 
 class SqliteItemRepitory extends SqliteRepository implements ItemRepository {
-  SqliteItemRepitory(Future<Database> databaseInstance)
+  SqliteItemRepitory(Database databaseInstance)
       : super(databaseInstance, "items", "id");
 
   @override
@@ -110,14 +104,12 @@ class SqliteItemRepitory extends SqliteRepository implements ItemRepository {
 
   @override
   Future<List<Item>> getItems() async {
-    final db = await _databaseInstance;
     final List<Map<String, dynamic>> results = await db.query(_tableName);
     return results.map((values) => ItemEntity.from(values)).toList();
   }
 
   @override
   Future<List<Item>> getItemsByType(int type) async {
-    final db = await _databaseInstance;
     final List<Map<String, dynamic>> results = await db.query(
       _tableName,
       where: "type=?",
