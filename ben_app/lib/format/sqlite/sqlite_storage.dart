@@ -82,8 +82,8 @@ class SqliteHeaderRepository extends SqliteRepository<int, HeaderEntity>
   }
 }
 
-class SqliteItemRepitory extends SqliteRepository implements ItemRepository {
-  SqliteItemRepitory(Database databaseInstance)
+class SqliteItemRepository extends SqliteRepository implements ItemRepository {
+  SqliteItemRepository(Database databaseInstance)
       : super(databaseInstance, "items", "id");
 
   @override

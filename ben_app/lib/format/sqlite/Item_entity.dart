@@ -38,6 +38,7 @@ class ItemEntity extends Entity<String> implements Item {
   }
 
   factory ItemEntity.from(Map<String, dynamic> values) {
+    assert(values != null);
     return ItemEntity(
       id: values['id'],
       type: values['type'],

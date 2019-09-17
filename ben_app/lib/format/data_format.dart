@@ -7,16 +7,21 @@
  */
 import 'dart:typed_data';
 
-abstract class Header {
+class Header {
   int _type;
   String _value;
 
   int get type => _type;
 
   String get value => _value;
+
+  Header(int type, String value) {
+    _type = type;
+    _value = value;
+  }
 }
 
-abstract class Item {
+class Item {
   String _id;
   int _type;
   Uint8List _content;

@@ -6,19 +6,20 @@ import '../data_format.dart';
 import 'entity.dart';
 
 class HeaderEntity extends Entity<int> implements Header {
-  Uint8List _content;
+  String _content;
 
-  Uint8List get content => _content;
+  String get content => _content;
 
-  HeaderEntity({int id, Uint8List content})
+  HeaderEntity({int id, String content})
       : _content = content,
         super(id);
 
   HeaderEntity.fromHeader(Header header)
-      : _content = utf8.encode(header.value),
+      : _content = header.value,
         super(header.type);
 
   factory HeaderEntity.from(Map<String, dynamic> values) {
+    assert(values != null);
     return HeaderEntity(
       id: values['id'],
       content: values['content'],
@@ -37,5 +38,5 @@ class HeaderEntity extends Entity<int> implements Header {
   int get type => id;
 
   @override
-  String get value => utf8.decode(_content);
+  String get value => _content;
 }
