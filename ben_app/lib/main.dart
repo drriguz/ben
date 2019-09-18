@@ -15,7 +15,7 @@ void main() async {
       await SqliteFactory.createInstance("data.db", "assets/config/init.sql");
   final HeaderRepository headerRepository = SqliteHeaderRepository(database);
   final InitService initService = InitService(headerRepository);
-  await initService.checkHeader();
+  final bool hasInitialized = await initService.hasInitialized();
 
   final List<SingleChildCloneableWidget> providers = [
     // _independentServices,
@@ -33,7 +33,7 @@ void main() async {
 
   runApp(AppEntry(
     providers: providers,
-    hasInitialized: true,
+    hasInitialized: hasInitialized,
   ));
 }
 
@@ -43,6 +43,7 @@ class AppEntry extends StatelessWidget {
 
   const AppEntry({Key key, @required this.providers, this.hasInitialized})
       : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

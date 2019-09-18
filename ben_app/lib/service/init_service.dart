@@ -9,13 +9,9 @@ class InitService {
 
   InitService(this.headerRepository);
 
-  Future<void> checkHeader() async {
+  Future<bool> hasInitialized() async {
     final headers = await headerRepository.getHeaders();
-    if (headers.isEmpty) {
-      print('Not initialized yet');
-      await initializeDatabase();
-    }
-    print('hello');
+    return headers.isNotEmpty;
   }
 
   Future<void> initializeDatabase() async {
