@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'component/about.dart';
 
@@ -38,7 +39,7 @@ class _InitializePageState extends State<InitializePage>
     );
   }
 
-  static const tabNames = ["了解难知", "系统设置", "用户协议", "完成"];
+  static const tabNames = ["了解难知", "系统设置", "用户协议", "开始使用"];
 
   Widget _createTabBar() {
     return TabBar(
@@ -50,43 +51,63 @@ class _InitializePageState extends State<InitializePage>
     );
   }
 
-  Widget _createTabs() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 100.0, left: 20, right: 20),
-      child: Column(
+  Widget _createButtons() {
+    return Consumer<TabController>(
+      builder: (context, controller, child) => ButtonBar(
+        alignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Image(
-            image: AssetImage("assets/title.png"),
-          ),
-          _createTabBar(),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: TabBarView(
-                controller: _tabController,
-                children: <Widget>[
-                  AboutPage(),
-                  Text('2'),
-                  Text('3'),
-                  Text('4'),
-                ],
-              ),
+          if (controller.index != 0)
+            FlatButton(
+              key: Key("previousButton"),
+              onPressed: () => changeTab(-1),
+              child: Text("上一步"),
             ),
-          ),
-          ButtonBar(
-            alignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              FlatButton(
-                child: Text("上一步"),
-              ),
-              FlatButton(
-                child: Text("下一步"),
-              ),
-            ],
-          ),
+          if (controller.index != tabNames.length - 1)
+            FlatButton(
+              key: Key("nextButton"),
+              onPressed: () => changeTab(1),
+              child: Text("下一步"),
+            ),
         ],
       ),
     );
+  }
+
+  Widget _createTabs() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 100.0, left: 20, right: 20),
+      child: ChangeNotifierProvider<TabController>(
+        builder: (context) => _tabController,
+        child: Column(
+          children: <Widget>[
+            Image(
+              image: AssetImage("assets/title.png"),
+            ),
+            _createTabBar(),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: TabBarView(
+                  controller: _tabController,
+                  children: <Widget>[
+                    AboutPage(),
+                    Text('2'),
+                    Text('3'),
+                    Text('4'),
+                  ],
+                ),
+              ),
+            ),
+            _createButtons(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void changeTab(int movement) {
+    int index = _tabController.index + movement;
+    if (index >= 0 && index < tabNames.length) _tabController.animateTo(index);
   }
 
   @override
