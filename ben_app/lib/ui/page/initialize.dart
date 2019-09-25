@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'component/about.dart';
+import 'component/finish_setup.dart';
 import 'component/system_settings.dart';
+import 'component/user_agreement.dart';
 
 class InitializePage extends StatefulWidget {
   @override
@@ -93,8 +95,8 @@ class _InitializePageState extends State<InitializePage>
                   children: <Widget>[
                     AboutPage(),
                     SystemSettingsPage(),
-                    Text('3'),
-                    Text('4'),
+                    UserAgreementPage(),
+                    FinishSetupPage(),
                   ],
                 ),
               ),
