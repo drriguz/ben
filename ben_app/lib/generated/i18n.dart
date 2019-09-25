@@ -25,6 +25,7 @@ class S implements WidgetsLocalizations {
   String get about_description_2 => "Your passwords will be encrypted using AES-256, and then stored in a local file. Your password will be safe even if the file is exposed, only if someone knows the master password can decrypt it.";
   String get about_description_3 => "Although Okapia is the one you can trust, we still do not encourage you to rely too much on it, it's always the best to keep everything in mind, only use it when it's really necessary.";
   String get know_more_security_details => "Learn more about security details";
+  String get master_password_description => "Master password will be the only credential for you to manage other passwords, we use it to initialize storage but it will never be stored. Once you forget the password, this is no way to find it. So please trying to set a password which is strong enough and also easy for yourself to remember. ";
 }
 
 class $en extends S {
@@ -41,6 +42,8 @@ class $zh extends S {
   String get about_description_3 => "尽管您可以信赖难知，但是我们始终不鼓励您过度依赖它，最好的方式是将所有东西记忆在您的脑海中，除非有必要，不要使用它。";
   @override
   String get about_description_2 => "难知可以用来帮您管理密码，您的密码都将会以AES-256的方式加密后安全地保存在本地文件中，如果不知道主密码，即便文件丢失也不能被解密。";
+  @override
+  String get master_password_description => "主密码是您管理其他密码的唯一凭据，请设置一个足够安全并能够记住的密码。系统需要根据您的主密码来进行一些初始化操作，但系统不会存储您的主密码，一旦主密码丢失，将没有办法找回。";
   @override
   String get about_description_1 => "难知是一个密码管理软件，可以协助您安全地将所有的密码保存在同一个地方。";
   @override

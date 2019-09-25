@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'component/about.dart';
+import 'component/system_settings.dart';
 
 class InitializePage extends StatefulWidget {
   @override
@@ -91,7 +92,7 @@ class _InitializePageState extends State<InitializePage>
                   controller: _tabController,
                   children: <Widget>[
                     AboutPage(),
-                    Text('2'),
+                    SystemSettingsPage(),
                     Text('3'),
                     Text('4'),
                   ],
