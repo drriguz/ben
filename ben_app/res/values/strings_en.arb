@@ -1,0 +1,6 @@
+{
+  "about_description_1": "Okapia helps you to store all your password in one place.",
+  "about_description_2": "Your passwords will be encrypted using AES-256, and then stored in a local file. Your password will be safe even if the file is exposed, only if someone knows the master password can decrypt it.",
+  "about_description_3": "Although Okapia is the one you can trust, we still do not encourage you to rely too much on it, it's always the best to keep everything in mind, only use it when it's really necessary.",
+  "know_more_security_details": "Learn more about security details"
+}

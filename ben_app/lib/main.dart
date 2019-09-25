@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'format/sqlite/database_factory.dart';
 import 'format/sqlite/sqlite_storage.dart';
 import 'format/storage.dart';
+import 'generated/i18n.dart';
 import 'providers/view_models/login_model.dart';
 import 'ui/page/Home.dart';
 import 'ui/page/initialize.dart';
@@ -44,13 +45,17 @@ class AppEntry extends StatelessWidget {
   const AppEntry({Key key, @required this.providers, this.hasInitialized})
       : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
       child: MaterialApp(
         title: 'ben',
+        localizationsDelegates: const <
+            LocalizationsDelegate<WidgetsLocalizations>>[
+          S.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
