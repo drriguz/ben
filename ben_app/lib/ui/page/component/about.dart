@@ -1,3 +1,6 @@
+import 'package:ben_app/util/links.dart';
+import 'package:path/path.dart';
+
 import '../../../generated/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,19 +22,10 @@ class AboutPage extends StatelessWidget {
           Text(S.of(context).about_description_3),
           FlatButton(
             child: Text(S.of(context).know_more_security_details),
-            onPressed: () => _launchURL(),
+            onPressed: () => Links.launchURL("http://riguz.com"),
           )
         ],
       ),
     );
-  }
-
-  _launchURL() async {
-    const url = 'https://riguz.com';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }
