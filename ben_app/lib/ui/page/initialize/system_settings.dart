@@ -12,33 +12,42 @@ class SystemSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final initializeModel = Provider.of<InitializeViewModel>(context);
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           Text(S.of(context).master_password_description),
-          TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              hintText: "请设置一个主密码",
-            ),
-            onChanged: (password) =>
-                {initializeModel.masterPassword = ProtectedValue.of(password)},
+          Consumer<InitializeViewModel>(
+            builder: (context, viewModel, child) => TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: "请设置一个主密码",
+                ),
+                onChanged: (password) =>
+                    {viewModel.masterPassword = ProtectedValue.of(password)}),
           ),
-          TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              hintText: "请重新输入您的主密码",
-            ),
+          Consumer<InitializeViewModel>(
+            builder: (context, viewModel, child) => TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: "请重新输入您的主密码",
+                ),
+                onChanged: (password) => {
+                      viewModel.confirmedMasterPassword =
+                          ProtectedValue.of(password)
+                    }),
           ),
-          if (initializeModel.passwordErrorMessage != null)
-            Padding(
-              padding: EdgeInsets.only(top: 15),
-              child: Text(
-                "密码不正确",
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
+          Consumer<InitializeViewModel>(
+            builder: (context, viewModel, child) =>
+                viewModel.passwordErrorMessage == null
+                    ? Container()
+                    : Padding(
+                        padding: EdgeInsets.only(top: 15),
+                        child: Text(
+                          viewModel.passwordErrorMessage,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+          ),
           Padding(
             padding: const EdgeInsets.only(top: 15),
             child: Text("您可以开启指纹验证，这样仅需要在启动应用时输入一次主密码。当您重启应用之后，需要重新输入主密码。"),
@@ -47,8 +56,11 @@ class SystemSettingsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text("开启指纹解锁"),
-              Switch(
-                value: false,
+              Consumer<InitializeViewModel>(
+                builder: (context, viewModel, child) => Switch(
+                  value: viewModel.enableFingerprint,
+                  onChanged: (value) => viewModel.enableFingerprint = value,
+                ),
               ),
             ],
           ),

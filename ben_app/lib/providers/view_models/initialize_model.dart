@@ -42,8 +42,11 @@ class InitializeViewModel extends ChangeNotifier {
 
   set masterPassword(ProtectedValue value) {
     _masterPassword = value;
+    if(_masterPassword == null || _masterPassword.getText().length < 5)
+      _passwordErrorMessage = "密码长度不符合要求";
+    else
+      _passwordErrorMessage = null;
     notifyListeners();
-    print('hello');
   }
 
   set confirmedMasterPassword(ProtectedValue value) {
