@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class FinishSetupPage extends StatelessWidget {
+  final Widget buttons;
+
+  const FinishSetupPage({Key key, this.buttons}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -13,6 +17,7 @@ class FinishSetupPage extends StatelessWidget {
             child: Text("开始使用"),
             textColor: Colors.blue,
           ),
+          buttons,
         ],
       ),
     );

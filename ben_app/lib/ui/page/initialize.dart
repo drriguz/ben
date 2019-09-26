@@ -45,12 +45,14 @@ class _InitializePageState extends State<InitializePage>
   static const tabNames = ["了解难知", "系统设置", "用户协议", "开始使用"];
 
   Widget _createTabBar() {
-    return TabBar(
-      controller: _tabController,
-      isScrollable: true,
-      unselectedLabelColor: Colors.grey,
-      labelColor: Colors.red,
-      tabs: tabNames.map((tabName) => Tab(text: tabName)).toList(),
+    return IgnorePointer(
+      child: TabBar(
+        controller: _tabController,
+        isScrollable: true,
+        unselectedLabelColor: Colors.grey,
+        labelColor: Colors.red,
+        tabs: tabNames.map((tabName) => Tab(text: tabName)).toList(),
+      ),
     );
   }
 
@@ -98,7 +100,7 @@ class _InitializePageState extends State<InitializePage>
                     AboutPage(buttons: buttons),
                     SystemSettingsPage(buttons: buttons),
                     UserAgreementPage(buttons: buttons),
-                    FinishSetupPage(),
+                    FinishSetupPage(buttons: buttons),
                   ],
                 ),
               ),

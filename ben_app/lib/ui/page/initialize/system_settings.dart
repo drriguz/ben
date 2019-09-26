@@ -12,7 +12,6 @@ class SystemSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('redraw');
     final initializeModel = Provider.of<InitializeViewModel>(context);
     return SingleChildScrollView(
       child: Column(
