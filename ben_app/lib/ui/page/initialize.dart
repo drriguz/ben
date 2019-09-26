@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'component/about.dart';
-import 'component/finish_setup.dart';
-import 'component/system_settings.dart';
-import 'component/user_agreement.dart';
+import 'initialize/about.dart';
+import 'initialize/finish_setup.dart';
+import 'initialize/system_settings.dart';
+import 'initialize/user_agreement.dart';
 
 class InitializePage extends StatefulWidget {
   @override
@@ -77,8 +77,9 @@ class _InitializePageState extends State<InitializePage>
   }
 
   Widget _createTabs() {
+    Widget buttons = _createButtons();
     return Padding(
-      padding: const EdgeInsets.only(top: 100.0, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 50.0, left: 20, right: 20),
       child: ChangeNotifierProvider<TabController>(
         builder: (context) => _tabController,
         child: Column(
@@ -91,17 +92,17 @@ class _InitializePageState extends State<InitializePage>
               child: Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
                   controller: _tabController,
                   children: <Widget>[
-                    AboutPage(),
-                    SystemSettingsPage(),
-                    UserAgreementPage(),
+                    AboutPage(buttons: buttons),
+                    SystemSettingsPage(buttons: buttons),
+                    UserAgreementPage(buttons: buttons),
                     FinishSetupPage(),
                   ],
                 ),
               ),
             ),
-            _createButtons(),
           ],
         ),
       ),

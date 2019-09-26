@@ -1,4 +1,3 @@
-import 'package:ben_app/generated/i18n.dart';
 import 'package:flutter/material.dart';
 
 class FinishSetupPage extends StatelessWidget {

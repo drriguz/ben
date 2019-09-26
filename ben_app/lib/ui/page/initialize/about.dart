@@ -1,11 +1,12 @@
 import 'package:ben_app/util/links.dart';
-import 'package:path/path.dart';
-
-import '../../../generated/i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../../generated/i18n.dart';
 
 class AboutPage extends StatelessWidget {
+  final Widget buttons;
+
+  const AboutPage({Key key, @required this.buttons}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -23,7 +24,8 @@ class AboutPage extends StatelessWidget {
           FlatButton(
             child: Text(S.of(context).know_more_security_details),
             onPressed: () => Links.launchURL("http://riguz.com"),
-          )
+          ),
+          buttons,
         ],
       ),
     );

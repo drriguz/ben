@@ -4,11 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class UserAgreementPage extends StatelessWidget {
+  final Widget buttons;
+
+  const UserAgreementPage({Key key, this.buttons}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
+          Html(
+            data: S.of(context).user_agreement,
+            onLinkTap: (url) {
+              print(url);
+              Links.launchURL(url);
+            },
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -18,13 +29,7 @@ class UserAgreementPage extends StatelessWidget {
               ),
             ],
           ),
-          Html(
-            data: S.of(context).user_agreement,
-            onLinkTap: (url) {
-              print(url);
-              Links.launchURL(url);
-            },
-          ),
+          buttons,
         ],
       ),
     );

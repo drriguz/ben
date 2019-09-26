@@ -1,4 +1,7 @@
-import 'package:ben_app/service/init_service.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'providers/view_models/initialize_model.dart';
+import 'service/init_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -30,6 +33,9 @@ void main() async {
 
     // _states
     ChangeNotifierProvider(builder: (context) => LoginViewModel()),
+    ChangeNotifierProvider(
+      builder: (context) => InitializeViewModel(),
+    ),
   ];
 
   runApp(AppEntry(
@@ -51,9 +57,9 @@ class AppEntry extends StatelessWidget {
       providers: providers,
       child: MaterialApp(
         title: 'ben',
-        localizationsDelegates: const <
-            LocalizationsDelegate<WidgetsLocalizations>>[
+        localizationsDelegates: [
           S.delegate,
+          GlobalMaterialLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
