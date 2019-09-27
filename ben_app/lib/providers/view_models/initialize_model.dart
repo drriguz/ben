@@ -56,4 +56,9 @@ class InitializeViewModel extends ChangeNotifier {
     _confirmedMasterPassword = value;
     notifyListeners();
   }
+
+  void initialize() {
+    print("initializing...");
+    _initializeService.initializeDatabase(_masterPassword, _enableFingerprint);
+  }
 }

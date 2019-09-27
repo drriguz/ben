@@ -1,11 +1,11 @@
 import 'package:ben_app/crypto/crypto_meta.dart';
-import 'package:uuid/uuid.dart';
-import 'package:convert/convert.dart';
+import 'package:ben_app/crypto/protected_value.dart';
+import 'package:ben_app/util/random.dart';
+import 'package:device_info/device_info.dart';
 import '../format/storage.dart';
 
 class InitializeService {
   final HeaderRepository headerRepository;
-  final _uuid = new Uuid();
 
   InitializeService(this.headerRepository);
 
@@ -14,23 +14,25 @@ class InitializeService {
     return headers.isNotEmpty;
   }
 
-  Future<void> initializeDatabase() async {
+  Future<void> initializeDatabase(
+      ProtectedValue masterPassword, bool enableFingerPrint) async {
     MetaData metaData = MetaData(
       version: "0.1",
       cipherId: MetaData.AES,
       compressionFlags: MetaData.NO_COMPRESSION,
-      masterSeed: _generateUUID(),
-      transformSeed: _generateUUID(),
-      encryptionIv: _generateUUID(),
+      masterSeed: RandomStringUtil.generateUUID(),
+      transformSeed: RandomStringUtil.generateUUID(),
+      encryptionIv: RandomStringUtil.generateUUID(),
       kdfParameters: "",
       hashChecksum: "",
     );
-    await headerRepository.saveHeaders(metaData.headers);
-  }
 
-  String _generateUUID() {
-    final uuid = new List<int>(16);
-    _uuid.v4buffer(uuid);
-    return hex.encode(uuid);
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    print('Running on ${androidInfo.model}'); // e.g. "Moto G (4)"
+
+    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    print('Running on ${iosInfo.utsname.machine}'); //
+    await headerRepository.saveHeaders(metaData.headers);
   }
 }
