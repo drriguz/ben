@@ -1,3 +1,4 @@
+import 'package:ben_app/providers/view_models/login_model.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'providers/view_models/initialize_model.dart';
@@ -34,9 +35,9 @@ void main() async {
       builder: (context, repository, service) => InitializeService(repository),
     ),
     // _states
+    ChangeNotifierProvider<LoginViewModel>.value(value: LoginViewModel()),
     ChangeNotifierProxyProvider<InitializeService, InitializeViewModel>(
-      builder: (context, service, viewModel) => InitializeViewModel(service)
-    )
+        builder: (context, service, viewModel) => InitializeViewModel(service))
   ];
 
   runApp(AppEntry(

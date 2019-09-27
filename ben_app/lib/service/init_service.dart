@@ -1,7 +1,6 @@
 import 'package:ben_app/crypto/crypto_meta.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/util/random.dart';
-import 'package:device_info/device_info.dart';
 import '../format/storage.dart';
 
 class InitializeService {
@@ -23,16 +22,9 @@ class InitializeService {
       masterSeed: RandomStringUtil.generateUUID(),
       transformSeed: RandomStringUtil.generateUUID(),
       encryptionIv: RandomStringUtil.generateUUID(),
-      kdfParameters: "",
+      kdfParameters: "32/4/",
       hashChecksum: "",
     );
-
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    print('Running on ${androidInfo.model}'); // e.g. "Moto G (4)"
-
-    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    print('Running on ${iosInfo.utsname.machine}'); //
     await headerRepository.saveHeaders(metaData.headers);
   }
 }

@@ -21,12 +21,6 @@ class _InitializePageState extends State<InitializePage>
     _tabController = new TabController(vsync: this, length: 4);
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
   Widget _createBackground() {
     return Opacity(
       opacity: 0.8,

@@ -1,3 +1,5 @@
+import 'package:path/path.dart';
+
 import '../../crypto/protected_value.dart';
 import '../../service/init_service.dart';
 import 'package:flutter/foundation.dart';
@@ -57,8 +59,9 @@ class InitializeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void initialize() {
+  Future<void> initialize() async {
     print("initializing...");
-    _initializeService.initializeDatabase(_masterPassword, _enableFingerprint);
+    return _initializeService.initializeDatabase(
+        _masterPassword, _enableFingerprint);
   }
 }

@@ -1,6 +1,4 @@
 PODS:
-  - device_info (0.0.1):
-    - Flutter
   - encryptions (0.0.1):
     - Flutter
   - Flutter (1.0.0)
@@ -14,7 +12,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - device_info (from `.symlinks/plugins/device_info/ios`)
   - encryptions (from `.symlinks/plugins/encryptions/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -25,8 +22,6 @@ SPEC REPOS:
     - FMDB
 
 EXTERNAL SOURCES:
-  device_info:
-    :path: ".symlinks/plugins/device_info/ios"
   encryptions:
     :path: ".symlinks/plugins/encryptions/ios"
   Flutter:
@@ -37,7 +32,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
-  device_info: 3ebad48f726348f69abd802f3334a8d1ed795fbd
   encryptions: d3be9dd2675bdad96610176153ca45a77ab8fdfa
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a

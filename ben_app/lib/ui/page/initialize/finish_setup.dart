@@ -8,8 +8,8 @@ class FinishSetupPage extends StatelessWidget {
   const FinishSetupPage({Key key, this.buttons}) : super(key: key);
 
   Future<void> _onStartUsingPressed(BuildContext context) async {
-    return Provider.of<InitializeViewModel>(context, listen: false)
-        .initialize();
+    await Provider.of<InitializeViewModel>(context, listen: false).initialize();
+    Navigator.pushReplacementNamed(context, "/login");
   }
 
   @override

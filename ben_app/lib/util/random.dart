@@ -11,7 +11,7 @@ class RandomStringUtil {
   }
 
   static List<int> generateUUIDasBytes() {
-    return randomBytes(32);
+    return randomBytes(16);
   }
 
   static Uint8List randomBytes(int length) {
