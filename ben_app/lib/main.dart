@@ -9,7 +9,6 @@ import 'format/sqlite/database_factory.dart';
 import 'format/sqlite/sqlite_storage.dart';
 import 'format/storage.dart';
 import 'generated/i18n.dart';
-import 'providers/view_models/login_model.dart';
 import 'ui/page/Home.dart';
 import 'ui/page/initialize.dart';
 import 'ui/page/login.dart';
@@ -18,7 +17,7 @@ void main() async {
   final database =
       await SqliteFactory.createInstance("data.db", "assets/config/init.sql");
   final HeaderRepository headerRepository = SqliteHeaderRepository(database);
-  final InitService initService = InitService(headerRepository);
+  final InitializeService initService = InitializeService(headerRepository);
   final bool hasInitialized = await initService.hasInitialized();
 
   final List<SingleChildCloneableWidget> providers = [
@@ -31,11 +30,13 @@ void main() async {
           SqliteItemRepository(database),
     ),
 
-    // _states
-    ChangeNotifierProvider(builder: (context) => LoginViewModel()),
-    ChangeNotifierProvider(
-      builder: (context) => InitializeViewModel(),
+    ProxyProvider<HeaderRepository, InitializeService>(
+      builder: (context, repository, service) => InitializeService(repository),
     ),
+    // _states
+    ChangeNotifierProxyProvider<InitializeService, InitializeViewModel>(
+      builder: (context, service, viewModel) => InitializeViewModel(service)
+    )
   ];
 
   runApp(AppEntry(

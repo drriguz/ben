@@ -3,11 +3,11 @@ import 'package:uuid/uuid.dart';
 import 'package:convert/convert.dart';
 import '../format/storage.dart';
 
-class InitService {
+class InitializeService {
   final HeaderRepository headerRepository;
   final _uuid = new Uuid();
 
-  InitService(this.headerRepository);
+  InitializeService(this.headerRepository);
 
   Future<bool> hasInitialized() async {
     final headers = await headerRepository.getHeaders();

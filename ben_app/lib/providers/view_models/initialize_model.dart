@@ -1,15 +1,18 @@
-import 'package:ben_app/crypto/protected_value.dart';
+import '../../crypto/protected_value.dart';
+import '../../service/init_service.dart';
 import 'package:flutter/foundation.dart';
 
 class InitializeViewModel extends ChangeNotifier {
+  final InitializeService _initializeService;
   ProtectedValue _masterPassword;
   ProtectedValue _confirmedMasterPassword;
   String _passwordErrorMessage;
   bool _acceptUserAgreement;
   bool _enableFingerprint;
 
-  InitializeViewModel()
-      : _masterPassword = null,
+  InitializeViewModel(InitializeService service)
+      : _initializeService = service,
+        _masterPassword = null,
         _confirmedMasterPassword = null,
         _passwordErrorMessage = null,
         _acceptUserAgreement = false,
@@ -42,7 +45,7 @@ class InitializeViewModel extends ChangeNotifier {
 
   set masterPassword(ProtectedValue value) {
     _masterPassword = value;
-    if(_masterPassword == null || _masterPassword.getText().length < 5)
+    if (_masterPassword == null || _masterPassword.getText().length < 5)
       _passwordErrorMessage = "密码长度不符合要求";
     else
       _passwordErrorMessage = null;
