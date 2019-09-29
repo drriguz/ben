@@ -24,7 +24,7 @@ class InitializeService {
       Header(Headers.CIPHER_ID, Headers.AES),
       Header(Headers.COMPRESSION_FLAGS, Headers.NO_COMPRESSION),
       Header(Headers.MASTER_SEED, Hex.encode(credential.masterSeed)),
-      Header(Headers.TRANSFORM_SEED, Hex.encode(credential.masterSeed)),
+      Header(Headers.TRANSFORM_SEED, Hex.encode(credential.transformSeed)),
       Header(Headers.ENCRYPTION_IV, Hex.encode(credential.encryptionIv)),
       Header(Headers.KDF_PARAMETERS, ""),
     ];
@@ -48,6 +48,7 @@ class InitializeService {
 
   Uint8List getSourceBytes(List<Header> headers) {
     final List<int> bytes = [];
+    headers.sort((l, r) => l.type.compareTo(r.type));
     headers.forEach((header) => bytes.addAll(header.getSources()));
     return Uint8List.fromList(bytes);
   }

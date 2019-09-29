@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:path/path.dart';
 
 import '../../crypto/protected_value.dart';
@@ -12,13 +14,16 @@ class InitializeViewModel extends ChangeNotifier {
   bool _acceptUserAgreement;
   bool _enableFingerprint;
 
+  bool _isBusy;
+
   InitializeViewModel(InitializeService service)
       : _initializeService = service,
         _masterPassword = null,
         _confirmedMasterPassword = null,
         _passwordErrorMessage = null,
         _acceptUserAgreement = false,
-        _enableFingerprint = true;
+        _enableFingerprint = true,
+        _isBusy = false;
 
   ProtectedValue get confirmedMasterPassword => _confirmedMasterPassword;
 
@@ -29,6 +34,8 @@ class InitializeViewModel extends ChangeNotifier {
   bool get acceptUserAgreement => _acceptUserAgreement;
 
   bool get enableFingerprint => _enableFingerprint;
+
+  bool get isBusy => _isBusy;
 
   set enableFingerprint(bool value) {
     _enableFingerprint = value;
@@ -59,9 +66,15 @@ class InitializeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setBusy(bool busy) {
+    _isBusy = busy;
+    notifyListeners();
+  }
+
   Future<void> initialize() async {
-    print("initializing...");
-    return _initializeService.initializeDatabase(
+    setBusy(true);
+    await _initializeService.initializeDatabase(
         _masterPassword, _enableFingerprint);
+    setBusy(false);
   }
 }
