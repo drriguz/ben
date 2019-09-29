@@ -1,6 +1,10 @@
 import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 
+abstract class Hashable {
+  Uint8List getSources();
+}
+
 abstract class HashValidator {
   Uint8List computeChecksum(final Uint8List bytes);
 }

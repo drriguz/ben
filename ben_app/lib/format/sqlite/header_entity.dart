@@ -39,4 +39,9 @@ class HeaderEntity extends Entity<int> implements Header {
 
   @override
   String get value => _content;
+
+  @override
+  Uint8List getSources() {
+    return utf8.encode("$id:$content");
+  }
 }
