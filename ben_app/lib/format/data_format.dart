@@ -30,7 +30,7 @@ class Header with Hashable {
   }
 }
 
-abstract class Headers {
+class Headers {
   static const int CHECKSUM = 0;
   static const int VERSION = 1;
   static const int CIPHER_ID = 2;
@@ -45,7 +45,9 @@ abstract class Headers {
 
   final Map<int, Header> _headers;
 
-  Headers.from(List<Header> headers) : _headers = headers.asMap();
+  Headers.from(List<Header> headers) : _headers = Map() {
+    headers.forEach((h) => {_headers[h.type] = h});
+  }
 
   String getValue(int type) {
     return _headers[type]?.value;

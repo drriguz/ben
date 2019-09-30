@@ -1,7 +1,11 @@
+import 'package:ben_app/crypto/protected_value.dart';
+import 'package:ben_app/service/login_service.dart';
 import 'package:flutter/foundation.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  LoginViewModel()
+  final LoginService _loginService;
+
+  LoginViewModel(this._loginService)
       : _isBusy = false,
         _errorMessage = null;
 
@@ -22,10 +26,10 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> login(String masterPassword) async {
+  Future<bool> login(ProtectedValue masterPassword) async {
     setBusy(true);
-    bool valid = masterPassword == "123";
-    await Future.delayed(Duration(milliseconds: 500));
+    final bool valid =
+        await _loginService.validateMasterPassword(masterPassword);
     setBusy(false);
     setErrorMessage(valid ? null : "密码验证失败");
     return valid;

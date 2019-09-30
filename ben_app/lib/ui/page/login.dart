@@ -1,3 +1,4 @@
+import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/providers/view_models/login_model.dart';
 import 'package:provider/provider.dart';
 
@@ -69,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void onPasswordSubmitted(String password) async {
     bool success = await Provider.of<LoginViewModel>(context, listen: false)
-        .login(password);
+        .login(ProtectedValue.of(password));
     if (success) Navigator.pushReplacementNamed(context, "/home");
   }
 
