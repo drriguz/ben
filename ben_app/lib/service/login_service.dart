@@ -10,9 +10,9 @@ import 'package:encryptions/hex.dart';
 class PasswordIncorrectError extends Error {}
 
 class LoginService {
-  final HeaderRepository headerRepository;
+  HeaderRepository headerRepository;
 
-  LoginService(this.headerRepository);
+  LoginService();
 
   Future<PasswordCredential> checkUserCredential(
       ProtectedValue masterPassword) async {

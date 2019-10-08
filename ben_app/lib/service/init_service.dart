@@ -9,9 +9,9 @@ import 'package:encryptions/hex.dart';
 import '../format/storage.dart';
 
 class InitializeService {
-  final HeaderRepository headerRepository;
+  HeaderRepository headerRepository;
 
-  InitializeService(this.headerRepository);
+  InitializeService();
 
   Future<bool> hasInitialized() async {
     final headers = await headerRepository.getHeaders();

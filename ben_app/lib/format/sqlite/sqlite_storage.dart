@@ -6,11 +6,11 @@ import 'package:ben_app/format/storage.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class SqliteRepository<ID, T extends Entity<ID>> {
-  final Database db;
+  Database db;
   final String _tableName;
   final String _idFieldName;
 
-  SqliteRepository(this.db, this._tableName, this._idFieldName);
+  SqliteRepository(this._tableName, this._idFieldName);
 
   Future<void> insert(T entity) async {
     return db.insert(_tableName, entity.toMap());
@@ -48,8 +48,8 @@ abstract class SqliteRepository<ID, T extends Entity<ID>> {
 
 class SqliteHeaderRepository extends SqliteRepository<int, HeaderEntity>
     implements HeaderRepository {
-  SqliteHeaderRepository(Database databaseInstance)
-      : super(databaseInstance, "meta_data", "id");
+  SqliteHeaderRepository()
+      : super("meta_data", "id");
 
   @override
   Future<void> deleteHeader(int type) async {
@@ -83,8 +83,8 @@ class SqliteHeaderRepository extends SqliteRepository<int, HeaderEntity>
 }
 
 class SqliteItemRepository extends SqliteRepository implements ItemRepository {
-  SqliteItemRepository(Database databaseInstance)
-      : super(databaseInstance, "items", "id");
+  SqliteItemRepository()
+      : super("items", "id");
 
   @override
   Future<void> createItem(Item item) async {
