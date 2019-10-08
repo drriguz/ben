@@ -1,3 +1,4 @@
+import 'package:ben_app/format/storage.dart';
 import 'package:ben_app/providers/view_models/initialize_model.dart';
 import 'package:ben_app/service/init_service.dart';
 import 'package:flutter/material.dart';
@@ -89,11 +90,11 @@ class _InitializePageState extends State<InitializePage>
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: ChangeNotifierProxyProvider<InitializeService,
+                child: ChangeNotifierProxyProvider<HeaderRepository,
                     InitializeViewModel>(
                   initialBuilder: (_) => InitializeViewModel(),
-                  builder: (_, service, viewModel) =>
-                      viewModel..initializeService = service,
+                  builder: (_, repository, viewModel) => viewModel
+                    ..initializeService = InitializeService(repository),
                   child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),
                     controller: _tabController,

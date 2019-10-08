@@ -31,10 +31,6 @@ void main() async {
       builder: (context, database, itemRepository) =>
           SqliteItemRepository(database),
     ),
-
-    ProxyProvider<HeaderRepository, InitializeService>(
-      builder: (context, repository, service) => InitializeService(repository),
-    ),
     ProxyProvider<HeaderRepository, LoginService>(
       builder: (context, repository, service) => LoginService(repository),
     ),
