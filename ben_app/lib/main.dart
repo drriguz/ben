@@ -24,6 +24,7 @@ void main() async {
     // _independentServices,
     Provider.value(value: database),
     Provider.value(value: headerRepository),
+    Provider.value(value: initService),
     // _dependentServices,
     ProxyProvider<Database, SqliteItemRepository>(
       builder: (context, database, itemRepository) =>
@@ -36,22 +37,8 @@ void main() async {
             viewModel..loginService = LoginService(repository)),
   ];
 
-  runApp(AppEntry(
-    providers: providers,
-    hasInitialized: hasInitialized,
-  ));
-}
-
-class AppEntry extends StatelessWidget {
-  final bool hasInitialized;
-  final List<SingleChildCloneableWidget> providers;
-
-  const AppEntry({Key key, @required this.providers, this.hasInitialized})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
+  runApp(
+    MultiProvider(
       providers: providers,
       child: MaterialApp(
         title: 'ben',
@@ -69,6 +56,6 @@ class AppEntry extends StatelessWidget {
           "/home": (_) => new HomePage(),
         },
       ),
-    );
-  }
+    ),
+  );
 }
