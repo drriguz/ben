@@ -42,10 +42,6 @@ void main() async {
     ChangeNotifierProxyProvider<LoginService, LoginViewModel>(
         initialBuilder: (_) => LoginViewModel(),
         builder: (_, service, viewModel) => viewModel..loginService = service),
-    ChangeNotifierProxyProvider<InitializeService, InitializeViewModel>(
-        initialBuilder: (_) => InitializeViewModel(),
-        builder: (_, service, viewModel) =>
-            viewModel..initializeService = service)
   ];
 
   runApp(AppEntry(
