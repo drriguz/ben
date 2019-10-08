@@ -1,13 +1,10 @@
-import 'dart:io';
-
-import 'package:path/path.dart';
 
 import '../../crypto/protected_value.dart';
 import '../../service/init_service.dart';
 import 'package:flutter/foundation.dart';
 
 class InitializeViewModel extends ChangeNotifier {
-  final InitializeService _initializeService;
+  InitializeService initializeService;
   ProtectedValue _masterPassword;
   ProtectedValue _confirmedMasterPassword;
   String _passwordErrorMessage;
@@ -16,8 +13,8 @@ class InitializeViewModel extends ChangeNotifier {
 
   bool _isBusy;
 
-  InitializeViewModel(InitializeService service)
-      : _initializeService = service,
+  InitializeViewModel()
+      : initializeService = null,
         _masterPassword = null,
         _confirmedMasterPassword = null,
         _passwordErrorMessage = null,
@@ -73,7 +70,7 @@ class InitializeViewModel extends ChangeNotifier {
 
   Future<void> initialize() async {
     setBusy(true);
-    await _initializeService.initializeDatabase(
+    await initializeService.initializeDatabase(
         _masterPassword, _enableFingerprint);
     setBusy(false);
   }

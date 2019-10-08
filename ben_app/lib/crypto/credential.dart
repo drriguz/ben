@@ -20,9 +20,13 @@ class PasswordCredential implements Credential {
       this._transformSeed);
 
   @override
-  Future<Uint8List> getEncryptionKey() {
+  Future<Uint8List> getEncryptionKey() async {
+    Stopwatch stopwatch = new Stopwatch()..start();
     final Uint8List plainPasswordHash = sha256.convert(_password.hash).bytes;
-    return Encryptions.argon2dRaw(plainPasswordHash, _transformSeed);
+    Uint8List result =
+        await Encryptions.argon2dRaw(plainPasswordHash, _transformSeed);
+    print("Password hash generated in ${stopwatch.elapsed} seconds");
+    return result;
   }
 
   @override

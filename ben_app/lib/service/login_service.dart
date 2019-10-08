@@ -7,12 +7,15 @@ import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/storage.dart';
 import 'package:encryptions/hex.dart';
 
+class PasswordIncorrectError extends Error {}
+
 class LoginService {
   final HeaderRepository headerRepository;
 
   LoginService(this.headerRepository);
 
-  Future<bool> validateMasterPassword(ProtectedValue masterPassword) async {
+  Future<PasswordCredential> checkUserCredential(
+      ProtectedValue masterPassword) async {
     final List<Header> headers = await headerRepository.getHeaders();
     final Headers meta = Headers.from(await headerRepository.getHeaders());
     final PasswordCredential credential = PasswordCredential(
@@ -26,9 +29,10 @@ class LoginService {
     List<Header> checksumHeaders = List.from(headers);
     checksumHeaders.removeWhere((item) => item.type == Headers.CHECKSUM);
 
-    final String checksum =
-        Hex.encode(hashValidator.computeChecksum(getSourceBytes(checksumHeaders)));
-    return checksum == meta.checksum;
+    final String checksum = Hex.encode(
+        hashValidator.computeChecksum(getSourceBytes(checksumHeaders)));
+    if (checksum == meta.checksum) return credential;
+    throw PasswordIncorrectError();
   }
 
   Uint8List getSourceBytes(List<Header> headers) {
