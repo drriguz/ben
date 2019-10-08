@@ -90,11 +90,11 @@ class _InitializePageState extends State<InitializePage>
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: ChangeNotifierProxyProvider<HeaderRepository,
+                child: ChangeNotifierProxyProvider<InitializeService,
                     InitializeViewModel>(
                   initialBuilder: (_) => InitializeViewModel(),
-                  builder: (_, repository, viewModel) => viewModel
-                    ..initializeService = InitializeService(repository),
+                  builder: (_, service, viewModel) => viewModel
+                    ..initializeService = service,
                   child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),
                     controller: _tabController,
