@@ -1,30 +1,23 @@
 import 'package:ben_app/crypto/credential.dart';
 import 'package:ben_app/crypto/protected_value.dart';
+import 'package:ben_app/providers/view_models/responding_model.dart';
 import 'package:ben_app/service/login_service.dart';
 import 'package:flutter/foundation.dart';
 
-class LoginViewModel extends ChangeNotifier {
+class LoginViewModel extends RespondingModel {
   LoginService loginService;
   Credential _userCredential;
 
   LoginViewModel()
-      : _isBusy = false,
-        _errorMessage = null,
-        _userCredential = null;
+      : _errorMessage = null,
+        _userCredential = null,
+        super(State.IDLE);
 
-  bool _isBusy;
   String _errorMessage;
-
-  bool get isBusy => _isBusy;
 
   String get errorMessage => _errorMessage;
 
   Credential get userCredential => _userCredential;
-
-  void setBusy(bool busy) {
-    _isBusy = busy;
-    notifyListeners();
-  }
 
   void setErrorMessage(String errorMessage) {
     _errorMessage = errorMessage;
@@ -32,7 +25,7 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<bool> login(ProtectedValue masterPassword) async {
-    setBusy(true);
+    state = State.BUSY;
     bool success = false;
     try {
       final PasswordCredential credential =
@@ -43,8 +36,7 @@ class LoginViewModel extends ChangeNotifier {
     } catch (_) {
       setErrorMessage("密码验证失败");
     }
-
-    setBusy(false);
+    state = State.IDLE;
     return success;
   }
 }

@@ -1,17 +1,15 @@
+import 'package:ben_app/providers/view_models/responding_model.dart';
 
 import '../../crypto/protected_value.dart';
 import '../../service/init_service.dart';
-import 'package:flutter/foundation.dart';
 
-class InitializeViewModel extends ChangeNotifier {
+class InitializeViewModel extends RespondingModel {
   InitializeService initializeService;
   ProtectedValue _masterPassword;
   ProtectedValue _confirmedMasterPassword;
   String _passwordErrorMessage;
   bool _acceptUserAgreement;
   bool _enableFingerprint;
-
-  bool _isBusy;
 
   InitializeViewModel()
       : initializeService = null,
@@ -20,7 +18,7 @@ class InitializeViewModel extends ChangeNotifier {
         _passwordErrorMessage = null,
         _acceptUserAgreement = false,
         _enableFingerprint = true,
-        _isBusy = false;
+        super(State.IDLE);
 
   ProtectedValue get confirmedMasterPassword => _confirmedMasterPassword;
 
@@ -31,8 +29,6 @@ class InitializeViewModel extends ChangeNotifier {
   bool get acceptUserAgreement => _acceptUserAgreement;
 
   bool get enableFingerprint => _enableFingerprint;
-
-  bool get isBusy => _isBusy;
 
   set enableFingerprint(bool value) {
     _enableFingerprint = value;
@@ -63,15 +59,10 @@ class InitializeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setBusy(bool busy) {
-    _isBusy = busy;
-    notifyListeners();
-  }
-
   Future<void> initialize() async {
-    setBusy(true);
+    state = State.BUSY;
     await initializeService.initializeDatabase(
         _masterPassword, _enableFingerprint);
-    setBusy(false);
+    state = State.IDLE;
   }
 }
