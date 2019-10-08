@@ -1,8 +1,6 @@
 import 'package:ben_app/providers/view_models/login_model.dart';
 import 'package:ben_app/service/login_service.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-import 'providers/view_models/initialize_model.dart';
 import 'service/init_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,13 +29,11 @@ void main() async {
       builder: (context, database, itemRepository) =>
           SqliteItemRepository(database),
     ),
-    ProxyProvider<HeaderRepository, LoginService>(
-      builder: (context, repository, service) => LoginService(repository),
-    ),
     // _states
-    ChangeNotifierProxyProvider<LoginService, LoginViewModel>(
+    ChangeNotifierProxyProvider<HeaderRepository, LoginViewModel>(
         initialBuilder: (_) => LoginViewModel(),
-        builder: (_, service, viewModel) => viewModel..loginService = service),
+        builder: (_, repository, viewModel) =>
+            viewModel..loginService = LoginService(repository)),
   ];
 
   runApp(AppEntry(
