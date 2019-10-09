@@ -8,3 +8,8 @@ class FontIcon {
   static const backup = IconData(0xec64, fontFamily: 'ali');
   static const lock = IconData(0xe64f, fontFamily: 'ali');
 }
+
+class BankIcon {
+  static const citic = IconData(0xe666, fontFamily: 'banks');
+  static const cmb = IconData(0xe661, fontFamily: 'banks');
+}

@@ -1,9 +1,11 @@
 import 'package:ben_app/providers/view_models/item_list_model.dart';
+import 'package:ben_app/ui/model/certificate_card.dart';
+import 'package:ben_app/ui/widget/bank_card_item.dart';
+import 'package:ben_app/ui/widget/certificate_card_item.dart';
 import 'package:provider/provider.dart';
 
 import '../model/bank_card.dart';
 import '../model/choice.dart';
-import '../widget/card.dart';
 import '../theme/icons.dart';
 import '../widget/search_bar.dart';
 
@@ -33,16 +35,35 @@ const List<TabChoice> tabItems = const <TabChoice>[
   const TabChoice('文件', SecretListType.FILE),
 ];
 
-class _ItemListPageState extends State<ItemListPage> {
+class _ItemListPageState extends State<ItemListPage>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
   void _onPressed() {}
 
   void _onDropdownSelected(MenuChoice choice) {}
 
+  @override
+  void initState() {
+    super.initState();
+    _tabController = new TabController(vsync: this, length: tabItems.length);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   TabBar _createTabBar() {
     return TabBar(
-        tabs: tabItems.map((TabChoice tabItem) {
-      return new Tab(text: tabItem.option);
-    }).toList());
+      controller: _tabController,
+      tabs: tabItems.map(
+        (TabChoice tabItem) {
+          return new Tab(text: tabItem.option);
+        },
+      ).toList(),
+    );
   }
 
   Widget _createList(TabChoice choice) {
@@ -54,10 +75,13 @@ class _ItemListPageState extends State<ItemListPage> {
             : ListView.builder(
                 itemCount: viewModel.data.length,
                 itemBuilder: (_, int index) {
-                  return CardListItem(
+                  return BankCardItem(
                     key: ObjectKey(index),
                     model: BankCard(
-                        title: '中国工商银行', number: '6222005865412565805'),
+                        bank: 'ICBC',
+                        type: CardType.CREDIT,
+                        title: '中国工商银行',
+                        number: '6222005865412565805'),
                   );
                 }),
       );
@@ -66,9 +90,9 @@ class _ItemListPageState extends State<ItemListPage> {
       return ListView.builder(
           itemCount: 5,
           itemBuilder: (BuildContext context, int index) {
-            return CardListItem(
+            return CertificateCardItem(
               key: ObjectKey(index),
-              model: BankCard(title: '身份证', number: '422822199109111031'),
+              model: CertificateCard(title: '驾驶证', number: '422822199109111031'),
             );
           });
     }
@@ -77,44 +101,50 @@ class _ItemListPageState extends State<ItemListPage> {
 
   TabBarView _createTabBarView() {
     return TabBarView(
-        children: tabItems.map((TabChoice tabItem) {
-      return _createList(tabItem);
-    }).toList());
+      controller: _tabController,
+      children: tabItems.map(
+        (TabChoice tabItem) {
+          return _createList(tabItem);
+        },
+      ).toList(),
+    );
+  }
+
+  AppBar _createAppBar() {
+    return AppBar(
+      title: Stack(
+        children: <Widget>[
+          Center(
+            child: SearchBar(),
+          )
+        ],
+      ),
+      bottom: _createTabBar(),
+      actions: <Widget>[
+        IconButton(icon: Icon(FontIcon.backup), onPressed: _onPressed),
+        PopupMenuButton<MenuChoice>(
+          onSelected: _onDropdownSelected,
+          itemBuilder: (BuildContext context) {
+            return menuItems.map((MenuChoice choice) {
+              return PopupMenuItem<MenuChoice>(
+                value: choice,
+                child: ListTile(
+                  leading: Icon(choice.icon),
+                  title: Text(choice.option),
+                ),
+              );
+            }).toList();
+          },
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: tabItems.length,
-        child: Scaffold(
-          appBar: AppBar(
-            title: Stack(
-              children: <Widget>[
-                Center(
-                  child: SearchBar(),
-                )
-              ],
-            ),
-            bottom: _createTabBar(),
-            actions: <Widget>[
-              IconButton(icon: Icon(FontIcon.backup), onPressed: _onPressed),
-              PopupMenuButton<MenuChoice>(
-                onSelected: _onDropdownSelected,
-                itemBuilder: (BuildContext context) {
-                  return menuItems.map((MenuChoice choice) {
-                    return PopupMenuItem<MenuChoice>(
-                      value: choice,
-                      child: ListTile(
-                        leading: Icon(choice.icon),
-                        title: Text(choice.option),
-                      ),
-                    );
-                  }).toList();
-                },
-              ),
-            ],
-          ),
-          body: _createTabBarView(),
-        ));
+    return Scaffold(
+      appBar: _createAppBar(),
+      body: _createTabBarView(),
+    );
   }
 }
