@@ -34,6 +34,7 @@ class LoginViewModel extends RespondingModel {
       _userCredential = credential;
       success = true;
     } catch (_) {
+      _userCredential = null;
       setErrorMessage("密码验证失败");
     }
     state = State.IDLE;

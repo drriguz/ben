@@ -1,3 +1,6 @@
+import 'package:ben_app/providers/view_models/item_list_model.dart';
+import 'package:provider/provider.dart';
+
 import '../model/bank_card.dart';
 import '../model/choice.dart';
 import '../widget/card.dart';
@@ -43,15 +46,22 @@ class _ItemListPageState extends State<ItemListPage> {
   }
 
   Widget _createList(TabChoice choice) {
-    if (choice.value == SecretListType.CARD)
-      return ListView.builder(
-          itemCount: 5,
-          itemBuilder: (BuildContext context, int index) {
-            return CardListItem(
-              key: ObjectKey(index),
-              model: BankCard(title: '中国工商银行', number: '6222005865412565805'),
-            );
-          });
+    print("rendering...${choice.value}");
+    if (choice.value == SecretListType.CARD) {
+      return Consumer<ItemListViewModel>(
+        builder: (_, viewModel, child) => viewModel.isBusy
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                itemCount: viewModel.data.length,
+                itemBuilder: (_, int index) {
+                  return CardListItem(
+                    key: ObjectKey(index),
+                    model: BankCard(
+                        title: '中国工商银行', number: '6222005865412565805'),
+                  );
+                }),
+      );
+    }
     if (choice.value == SecretListType.CERTIFICATE) {
       return ListView.builder(
           itemCount: 5,
