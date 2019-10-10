@@ -92,7 +92,11 @@ class _ItemListPageState extends State<ItemListPage>
           itemBuilder: (BuildContext context, int index) {
             return CertificateCardItem(
               key: ObjectKey(index),
-              model: CertificateCard(title: '驾驶证', number: '422822199109111031'),
+              model: CertificateCard(
+                title: '李海峰',
+                type: CertificateCardType.ID,
+                number: '422822199109111031',
+              ),
             );
           });
     }

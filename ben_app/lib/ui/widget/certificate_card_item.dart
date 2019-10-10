@@ -1,63 +1,41 @@
 import 'package:ben_app/ui/model/bank_card.dart';
 import 'package:ben_app/ui/model/certificate_card.dart';
+import 'package:ben_app/util/strings.dart';
 import 'package:flutter/material.dart';
 
 import 'list_item.dart';
 
-class CertificateCardItem extends AbstractListItem<CertificateCard> {
+class CertificateCardItem extends GeneralIconItem<CertificateCard> {
   const CertificateCardItem({Key key, CertificateCard model})
-      : super(key: key, model: model, hasDescription: true);
+      : super(key: key, model: model);
 
   @override
-  Widget buildDescription() {
-    return Text(
-      '**** 8771',
-      style: TextStyle(
-        fontSize: 16,
-        color: Colors.grey,
-      ),
-    );
+  String getDescription() {
+    return Strings.masking(model.number);
   }
 
   @override
-  Widget buildIcon() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-      child: Image(
-        image: AssetImage('assets/citic.png'),
-        width: 32,
-        height: 32,
-      ),
-    );
+  ImageProvider getItemIcon() {
+    return AssetImage("assets/passport.png");
   }
 
   @override
-  Widget buildTitle() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-      decoration: BoxDecoration(
-        border: Border(
-            left: BorderSide(
-          color: Colors.orange,
-        )),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            model.title,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black,
-            ),
-          ),
-          Text('储蓄卡',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
-              )),
-        ],
-      ),
-    );
+  String getSubtitle() {
+    switch (model.type) {
+      case CertificateCardType.PASSPORT:
+        return "护照";
+      case CertificateCardType.ID:
+        return "身份证";
+      case CertificateCardType.DRIVER_LICENSE:
+        return "驾驶证";
+      case CertificateCardType.VEHICLE_LICENSE:
+        return "行驶证";
+    }
+    return "";
+  }
+
+  @override
+  String getTitle() {
+    return model.title;
   }
 }
