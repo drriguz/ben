@@ -2,23 +2,35 @@ import 'dart:typed_data';
 
 import 'package:ben_app/crypto/credential.dart';
 import 'package:ben_app/crypto/hmac_validator.dart';
+import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/util/random.dart';
 import 'package:encryptions/hex.dart';
+import 'package:flutter/foundation.dart';
 import '../format/storage.dart';
 
 class InitializeService {
   HeaderRepository headerRepository;
+  Kdf kdf;
 
-  InitializeService();
-
-  Future<bool> hasInitialized() async {
-    final headers = await headerRepository.getHeaders();
-    return headers.isNotEmpty;
+  Future<void> initialize(
+      ProtectedValue masterPassword, bool enableFingerPrint) async {
+    PasswordCredential credential = PasswordCredential(
+        masterPassword,
+        RandomStringUtil.generateUUIDasBytes(),
+        RandomStringUtil.generateUUIDasBytes(),
+        RandomStringUtil.generateUUIDasBytes());
+    final List<Header> headers = _createHeaderWithoutChecksum(credential);
+    final HashValidator hashValidator =
+        new HmacValidator(await credential.getHashKey(kdf));
+    final Uint8List checksum =
+        hashValidator.computeChecksum(_getSourceBytes(headers));
+    headers.add(Header(Headers.CHECKSUM, Hex.encode(checksum)));
+    await headerRepository.saveHeaders(headers);
   }
 
-  List<Header> initializeHeader(PasswordCredential credential) {
+  List<Header> _createHeaderWithoutChecksum(PasswordCredential credential) {
     return [
       Header(Headers.VERSION, "0.1"),
       Header(Headers.CIPHER_ID, Headers.AES),
@@ -30,23 +42,7 @@ class InitializeService {
     ];
   }
 
-  Future<void> initializeDatabase(
-      ProtectedValue masterPassword, bool enableFingerPrint) async {
-    PasswordCredential credential = PasswordCredential(
-        masterPassword,
-        RandomStringUtil.generateUUIDasBytes(),
-        RandomStringUtil.generateUUIDasBytes(),
-        RandomStringUtil.generateUUIDasBytes());
-    final List<Header> headers = initializeHeader(credential);
-    final HashValidator hashValidator =
-        new HmacValidator(await credential.getHashKey());
-    final Uint8List checksum =
-        hashValidator.computeChecksum(getSourceBytes(headers));
-    headers.add(Header(Headers.CHECKSUM, Hex.encode(checksum)));
-    await headerRepository.saveHeaders(headers);
-  }
-
-  Uint8List getSourceBytes(List<Header> headers) {
+  Uint8List _getSourceBytes(List<Header> headers) {
     final List<int> bytes = [];
     headers.sort((l, r) => l.type.compareTo(r.type));
     headers.forEach((header) => bytes.addAll(header.getSources()));

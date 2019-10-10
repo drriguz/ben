@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:ben_app/crypto/credential.dart';
 import 'package:ben_app/crypto/hmac_validator.dart';
+import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/storage.dart';
@@ -11,6 +12,7 @@ class PasswordIncorrectError extends Error {}
 
 class LoginService {
   HeaderRepository headerRepository;
+  Kdf kdf;
 
   LoginService();
 
@@ -25,7 +27,7 @@ class LoginService {
       Hex.decode(meta.transformSeed),
     );
     final HashValidator hashValidator =
-        new HmacValidator(await credential.getHashKey());
+        new HmacValidator(await credential.getHashKey(kdf));
     List<Header> checksumHeaders = List.from(headers);
     checksumHeaders.removeWhere((item) => item.type == Headers.CHECKSUM);
 

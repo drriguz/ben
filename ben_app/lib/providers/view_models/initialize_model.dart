@@ -61,7 +61,7 @@ class InitializeViewModel extends RespondingModel {
 
   Future<void> initialize() async {
     state = State.BUSY;
-    await initializeService.initializeDatabase(
+    await initializeService.initialize(
         _masterPassword, _enableFingerprint);
     state = State.IDLE;
   }

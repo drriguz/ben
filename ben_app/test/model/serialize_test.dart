@@ -11,6 +11,7 @@ final bankCard = BankCard(
 void main() {
   test('toJson', () {
     Uint8List jsonBytes = Serializer.toJson(bankCard);
+    print("serialize bankcard using json: size=${jsonBytes.length}");
     BankCard deserialized =
         Serializer.fromJson(jsonBytes, (_) => BankCard.fromMap(_));
     expect(deserialized, bankCard);
@@ -20,6 +21,8 @@ void main() {
 
   test('toMessagePack', () {
     Uint8List messagePackBytes = Serializer.toMessagePack(bankCard);
+    print(
+        "serialize bankcard using message pack: size=${messagePackBytes.length}");
     BankCard deserialized = Serializer.fromMessagePack(
         messagePackBytes, (_) => BankCard.fromMap(_));
     expect(deserialized, bankCard);

@@ -25,6 +25,7 @@ void main() async {
 
   final List<SingleChildCloneableWidget> providers = await createProviders();
 
+  print("starting app: initialized? $hasInitialized");
   startApp(hasInitialized, providers);
 }
 

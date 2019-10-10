@@ -4,10 +4,12 @@ import 'package:ben_app/crypto/protected_value.dart';
 import 'package:crypto/crypto.dart';
 import 'package:encryptions/encryptions.dart';
 
-abstract class Credential {
-  Future<Uint8List> getEncryptionKey();
+import 'kdf.dart';
 
-  Future<Uint8List> getHashKey();
+abstract class Credential {
+  Future<Uint8List> getEncryptionKey(final Kdf _kdf);
+
+  Future<Uint8List> getHashKey(final Kdf kdf);
 }
 
 class PasswordCredential implements Credential {
@@ -20,19 +22,18 @@ class PasswordCredential implements Credential {
       this._transformSeed);
 
   @override
-  Future<Uint8List> getEncryptionKey() async {
+  Future<Uint8List> getEncryptionKey(final Kdf kdf) async {
     Stopwatch stopwatch = new Stopwatch()..start();
     final Uint8List plainPasswordHash = sha256.convert(_password.hash).bytes;
-    Uint8List result =
-        await Encryptions.argon2dRaw(plainPasswordHash, _transformSeed);
+    Uint8List result = await kdf.derive(plainPasswordHash, _transformSeed);
     print("Password hash generated in ${stopwatch.elapsed} seconds");
     return result;
   }
 
   @override
-  Future<Uint8List> getHashKey() async {
+  Future<Uint8List> getHashKey(final Kdf kdf) async {
     final List<int> source = List.from(_masterSeed);
-    source.addAll(await getEncryptionKey());
+    source.addAll(await getEncryptionKey(kdf));
     source.add(0x01);
     return sha512.convert(source).bytes;
   }

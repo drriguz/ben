@@ -1,6 +1,6 @@
+import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/format/sqlite/database_factory.dart';
 import 'package:ben_app/format/sqlite/sqlite_storage.dart';
-import 'package:ben_app/format/storage.dart';
 import 'package:ben_app/providers/view_models/item_list_model.dart';
 import 'package:ben_app/providers/view_models/login_model.dart';
 import 'package:ben_app/service/init_service.dart';
@@ -35,13 +35,15 @@ Future<List<SingleChildCloneableWidget>> _createServices() async {
     ProxyProvider<SqliteHeaderRepository, InitializeService>(
       // todo: using constructor injection instead.
       initialBuilder: (_) => InitializeService(),
-      builder: (_, repository, service) =>
-          service..headerRepository = repository,
+      builder: (_, repository, service) => service
+        ..headerRepository = repository
+        ..kdf = Argon2Kdf(),
     ),
     ProxyProvider<SqliteHeaderRepository, LoginService>(
       initialBuilder: (_) => LoginService(),
-      builder: (_, repository, service) =>
-          service..headerRepository = repository,
+      builder: (_, repository, service) => service
+        ..headerRepository = repository
+        ..kdf = Argon2Kdf(),
     ),
     ProxyProvider<SqliteItemRepository, ItemListService>(
       initialBuilder: (_) => ItemListService(),
@@ -57,7 +59,8 @@ Future<List<SingleChildCloneableWidget>> _createGlobalViewModels() async {
       builder: (_, service, viewModel) => viewModel..loginService = service,
     ),
     ChangeNotifierProxyProvider<ItemListService, ItemListViewModel>(
-      initialBuilder: (_) => ItemListViewModel(Provider.of<ItemListService>(_, listen: false)),
+      initialBuilder: (_) =>
+          ItemListViewModel(Provider.of<ItemListService>(_, listen: false)),
       builder: (_, service, viewModel) => viewModel,
     ),
   ];
