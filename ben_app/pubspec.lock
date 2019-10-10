@@ -205,6 +205,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.1"
+  msgpack2:
+    dependency: "direct main"
+    description:
+      name: msgpack2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0+1"
   multi_server_socket:
     dependency: transitive
     description:

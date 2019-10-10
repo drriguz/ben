@@ -1,7 +1,7 @@
-abstract class Entity<ID> {
+import '../serialize.dart';
+
+abstract class Entity<ID> implements Serializable {
   ID id;
 
   Entity(this.id);
-
-  Map<String, dynamic> toMap();
 }
