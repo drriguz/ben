@@ -32,12 +32,12 @@ class LoginService {
     checksumHeaders.removeWhere((item) => item.type == Headers.CHECKSUM);
 
     final String checksum = Hex.encode(
-        hashValidator.computeChecksum(getSourceBytes(checksumHeaders)));
+        hashValidator.computeChecksum(_getSourceBytes(checksumHeaders)));
     if (checksum == meta.checksum) return credential;
     throw PasswordIncorrectError();
   }
 
-  Uint8List getSourceBytes(List<Header> headers) {
+  Uint8List _getSourceBytes(List<Header> headers) {
     final List<int> bytes = [];
     headers.sort((l, r) => l.type.compareTo(r.type));
     headers.forEach((header) => bytes.addAll(header.getSources()));

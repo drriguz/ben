@@ -27,6 +27,7 @@ void main() {
     await service.initialize(ProtectedValue.of("12345"), false);
 
     List<Header> saved = verify(repository.saveHeaders(captureAny)).captured.single;
+    // todo: add more assertion
     expect(saved.length, 8);
   });
 }
