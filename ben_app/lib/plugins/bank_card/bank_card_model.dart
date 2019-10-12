@@ -1,6 +1,3 @@
-import 'dart:typed_data';
-
-import 'package:ben_app/format/serialize.dart';
 import 'package:ben_app/format/serialize.dart';
 
 /**
@@ -11,17 +8,17 @@ enum CardType {
   CREDIT,
 }
 
-class BankCard implements Serializable {
+class BankCardModel implements Serializable {
   final String bank;
   final String title;
   final CardType type;
   final String number;
 
-  const BankCard({this.bank, this.title, this.type, this.number});
+  const BankCardModel({this.bank, this.title, this.type, this.number});
 
-  factory BankCard.fromMap(Map map) {
+  factory BankCardModel.fromMap(Map map) {
     assert(map != null);
-    return BankCard(
+    return BankCardModel(
       bank: map["bank"],
       title: map["title"],
       type: _parseType(map["type"]),
@@ -46,7 +43,7 @@ class BankCard implements Serializable {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BankCard &&
+      other is BankCardModel &&
           runtimeType == other.runtimeType &&
           bank == other.bank &&
           title == other.title &&

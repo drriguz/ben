@@ -1,12 +1,11 @@
-import 'package:ben_app/plugins/bank_card/bank_card.dart';
-import 'package:ben_app/plugins/certificate/certificate_card.dart';
+import 'package:ben_app/plugins/certificate/certificate_model.dart';
 import 'package:ben_app/util/strings.dart';
 import 'package:flutter/material.dart';
 
 import 'list_item.dart';
 
-class CertificateCardItem extends GeneralIconItem<CertificateCard> {
-  const CertificateCardItem({Key key, CertificateCard model})
+class CertificateCardItem extends GeneralIconItem<CertificateModel> {
+  const CertificateCardItem({Key key, CertificateModel model})
       : super(key: key, model: model);
 
   @override
@@ -22,13 +21,13 @@ class CertificateCardItem extends GeneralIconItem<CertificateCard> {
   @override
   String getSubtitle() {
     switch (model.type) {
-      case CertificateCardType.PASSPORT:
+      case CertificateType.PASSPORT:
         return "护照";
-      case CertificateCardType.ID:
+      case CertificateType.ID:
         return "身份证";
-      case CertificateCardType.DRIVER_LICENSE:
+      case CertificateType.DRIVER_LICENSE:
         return "驾驶证";
-      case CertificateCardType.VEHICLE_LICENSE:
+      case CertificateType.VEHICLE_LICENSE:
         return "行驶证";
     }
     return "";

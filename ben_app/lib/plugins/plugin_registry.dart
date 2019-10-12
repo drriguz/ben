@@ -5,9 +5,9 @@ import 'package:ben_app/plugins/certificate/certificate_plugin.dart';
 import 'option.dart';
 
 class PluginRegistry {
-  static const List<AbstractPlugin> supportedPlugins = [
-    const BankCardPlugin(1),
-    const CertificatePlugin(2),
+  static final List<AbstractPlugin> supportedPlugins = [
+    BankCardPlugin(1),
+    CertificatePlugin(2),
   ];
 
   static List<Option<int>> getTabNames() {

@@ -1,7 +1,7 @@
-import 'package:ben_app/plugins/bank_card/bank_card.dart';
+import 'package:ben_app/plugins/bank_card/bank_card_model.dart';
 import 'package:test/test.dart';
 
-final bankCard = BankCard(
+final bankCard = BankCardModel(
     bank: "ICBC", title: "中国工商银行", type: CardType.CREDIT, number: "1234567890");
 
 final map = {
@@ -17,6 +17,6 @@ void main() {
   });
 
   test('fromMap', () {
-    expect(BankCard.fromMap(map), bankCard);
+    expect(BankCardModel.fromMap(map), bankCard);
   });
 }

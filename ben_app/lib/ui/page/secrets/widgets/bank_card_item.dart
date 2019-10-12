@@ -1,11 +1,11 @@
-import 'package:ben_app/plugins/bank_card/bank_card.dart';
+import 'package:ben_app/plugins/bank_card/bank_card_model.dart';
 import 'package:ben_app/util/strings.dart';
 import 'package:flutter/material.dart';
 
 import 'list_item.dart';
 
-class BankCardItem extends GeneralIconItem<BankCard> {
-  const BankCardItem({Key key, BankCard model})
+class BankCardItem extends GeneralIconItem<BankCardModel> {
+  const BankCardItem({Key key, BankCardModel model})
       : super(key: key, model: model);
 
   @override

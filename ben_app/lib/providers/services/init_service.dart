@@ -8,7 +8,7 @@ import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/serialize.dart';
 import 'package:ben_app/format/sqlite/Item_entity.dart';
-import 'package:ben_app/plugins/bank_card/bank_card.dart';
+import 'package:ben_app/plugins/bank_card/bank_card_model.dart';
 import 'package:ben_app/util/random.dart';
 import 'package:encryptions/hex.dart';
 import 'package:flutter/foundation.dart';
@@ -56,7 +56,7 @@ class InitializeService {
   }
 
   Future<void> insertSampleData() async {
-    BankCard bankCard = BankCard(
+    BankCardModel bankCard = BankCardModel(
         bank: 'ICBC',
         title: '中国银行',
         number: '123821388908190',
