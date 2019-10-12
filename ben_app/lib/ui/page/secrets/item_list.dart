@@ -45,7 +45,7 @@ class _ItemListPageState extends State<ItemListPage>
   TabBar _createTabBar() {
     return TabBar(
       controller: _tabController,
-      tabs: tabNames.map((_) => Tab(text: _.value)).toList(),
+      tabs: tabNames.map((_) => Tab(text: _.displayName)).toList(),
     );
   }
 
@@ -58,7 +58,7 @@ class _ItemListPageState extends State<ItemListPage>
   TabBarView _createTabBarView() {
     return TabBarView(
       controller: _tabController,
-      children: tabNames.map((_) => _createList(_.option)).toList(),
+      children: tabNames.map((_) => _createList(_.displayName)).toList(),
     );
   }
 
@@ -82,7 +82,7 @@ class _ItemListPageState extends State<ItemListPage>
                 value: choice,
                 child: ListTile(
                   leading: Icon(choice.icon),
-                  title: Text(choice.option),
+                  title: Text(choice.displayName),
                 ),
               );
             }).toList();

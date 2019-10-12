@@ -6,13 +6,13 @@ import 'option.dart';
 
 class PluginRegistry {
   static const List<AbstractPlugin> supportedPlugins = [
-    const BankCardPlugin(),
-    const CertificatePlugin(),
+    const BankCardPlugin(1),
+    const CertificatePlugin(2),
   ];
 
-  static List<Option<String>> getTabNames() {
+  static List<Option<int>> getTabNames() {
     return supportedPlugins
-        .map((plugin) => Option<String>(plugin.id, plugin.tabTitle))
+        .map((plugin) => Option<int>(plugin.tabTitle, plugin.pluginId))
         .toList();
   }
 }

@@ -1,6 +1,6 @@
 class Option<T> {
-  const Option(this.option, this.value);
+  const Option(this.displayName, this.value);
 
-  final String option;
+  final String displayName;
   final T value;
 }

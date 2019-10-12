@@ -1,9 +1,8 @@
 import 'package:ben_app/format/serialize.dart';
 
 abstract class AbstractPlugin<T extends Serializable> {
-  String get id;
+  const AbstractPlugin(this.pluginId, this.tabTitle);
 
-  String get tabTitle;
-
-  const AbstractPlugin();
+  final int pluginId;
+  final String tabTitle;
 }
