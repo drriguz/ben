@@ -2,8 +2,8 @@ import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/ui/theme/styles.dart';
 import 'package:provider/provider.dart';
 
-import '../../../generated/i18n.dart';
-import '../../../providers/view_models/initialize_model.dart';
+import '../../../../generated/i18n.dart';
+import '../../../../providers/view_models/initialize_model.dart';
 import 'package:flutter/material.dart';
 
 class SystemSettingsPage extends StatelessWidget {

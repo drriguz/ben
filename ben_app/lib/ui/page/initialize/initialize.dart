@@ -4,10 +4,10 @@ import 'package:ben_app/providers/services/init_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'initialize/about.dart';
-import 'initialize/finish_setup.dart';
-import 'initialize/system_settings.dart';
-import 'initialize/user_agreement.dart';
+import 'widgets/about.dart';
+import 'widgets/finish_setup.dart';
+import 'widgets/system_settings.dart';
+import 'widgets/user_agreement.dart';
 
 class InitializePage extends StatefulWidget {
   @override

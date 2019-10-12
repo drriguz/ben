@@ -1,17 +1,17 @@
 import 'package:ben_app/providers/view_models/item_list_model.dart';
 import 'package:ben_app/plugins/certificate/certificate_card.dart';
-import 'package:ben_app/ui/widget/bank_card_item.dart';
-import 'package:ben_app/ui/widget/certificate_card_item.dart';
+import 'package:ben_app/ui/page/secrets/widgets/bank_card_item.dart';
+import 'package:ben_app/ui/page/secrets/widgets/certificate_card_item.dart';
 import 'package:provider/provider.dart';
 
-import '../../plugins/bank_card/bank_card.dart';
-import '../model/choice.dart';
-import '../theme/icons.dart';
-import '../widget/search_bar.dart';
+import '../../../plugins/bank_card/bank_card.dart';
+import '../../model/choice.dart';
+import '../../theme/icons.dart';
+import 'widgets/search_bar.dart';
 
 import 'package:flutter/material.dart';
 
-import 'not_implemented.dart';
+import '../not_implemented.dart';
 
 class ItemListPage extends StatefulWidget {
   @override
@@ -73,7 +73,7 @@ class _ItemListPageState extends State<ItemListPage>
         builder: (_, viewModel, child) => viewModel.isBusy
             ? Center(child: CircularProgressIndicator())
             : ListView.builder(
-                itemCount: viewModel.data.length,
+                itemCount: 5,
                 itemBuilder: (_, int index) {
                   return BankCardItem(
                     key: ObjectKey(index),

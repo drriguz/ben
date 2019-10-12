@@ -1,6 +1,6 @@
 import 'package:ben_app/util/links.dart';
 import 'package:flutter/material.dart';
-import '../../../generated/i18n.dart';
+import '../../../../generated/i18n.dart';
 
 class AboutPage extends StatelessWidget {
   final Widget buttons;

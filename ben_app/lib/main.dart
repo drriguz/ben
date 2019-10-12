@@ -7,7 +7,7 @@ import 'format/sqlite/database_factory.dart';
 import 'format/sqlite/sqlite_storage.dart';
 import 'generated/i18n.dart';
 import 'ui/page/Home.dart';
-import 'ui/page/initialize.dart';
+import 'ui/page/initialize/initialize.dart';
 import 'ui/page/login.dart';
 
 Future<bool> checkInitialized() async {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'item_list.dart';
+import 'secrets/item_list.dart';
 import 'not_implemented.dart';
 
 import '../theme/icons.dart';
