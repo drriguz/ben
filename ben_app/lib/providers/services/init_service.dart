@@ -8,7 +8,7 @@ import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/util/random.dart';
 import 'package:encryptions/hex.dart';
 import 'package:flutter/foundation.dart';
-import '../format/storage.dart';
+import '../../format/storage.dart';
 
 class InitializeService {
   HeaderRepository headerRepository;

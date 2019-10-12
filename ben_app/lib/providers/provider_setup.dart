@@ -3,9 +3,9 @@ import 'package:ben_app/format/sqlite/database_factory.dart';
 import 'package:ben_app/format/sqlite/sqlite_storage.dart';
 import 'package:ben_app/providers/view_models/item_list_model.dart';
 import 'package:ben_app/providers/view_models/login_model.dart';
-import 'package:ben_app/service/init_service.dart';
-import 'package:ben_app/service/item_list_service.dart';
-import 'package:ben_app/service/login_service.dart';
+import 'package:ben_app/providers/services/init_service.dart';
+import 'package:ben_app/providers/services/item_list_service.dart';
+import 'package:ben_app/providers/services/login_service.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 

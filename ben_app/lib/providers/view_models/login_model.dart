@@ -1,7 +1,7 @@
 import 'package:ben_app/crypto/credential.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/providers/view_models/responding_model.dart';
-import 'package:ben_app/service/login_service.dart';
+import 'package:ben_app/providers/services/login_service.dart';
 import 'package:flutter/foundation.dart';
 
 class LoginViewModel extends RespondingModel {

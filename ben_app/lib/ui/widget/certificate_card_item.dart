@@ -1,5 +1,5 @@
-import 'package:ben_app/ui/model/bank_card.dart';
-import 'package:ben_app/ui/model/certificate_card.dart';
+import 'package:ben_app/plugins/bank_card/bank_card.dart';
+import 'package:ben_app/plugins/certificate/certificate_card.dart';
 import 'package:ben_app/util/strings.dart';
 import 'package:flutter/material.dart';
 

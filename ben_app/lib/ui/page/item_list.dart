@@ -1,10 +1,10 @@
 import 'package:ben_app/providers/view_models/item_list_model.dart';
-import 'package:ben_app/ui/model/certificate_card.dart';
+import 'package:ben_app/plugins/certificate/certificate_card.dart';
 import 'package:ben_app/ui/widget/bank_card_item.dart';
 import 'package:ben_app/ui/widget/certificate_card_item.dart';
 import 'package:provider/provider.dart';
 
-import '../model/bank_card.dart';
+import '../../plugins/bank_card/bank_card.dart';
 import '../model/choice.dart';
 import '../theme/icons.dart';
 import '../widget/search_bar.dart';

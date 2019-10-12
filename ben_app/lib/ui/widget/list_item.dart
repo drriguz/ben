@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../model/bank_card.dart';
+import '../../plugins/bank_card/bank_card.dart';
 
 abstract class AbstractListItem<T> extends StatelessWidget {
   final T model;

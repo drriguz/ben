@@ -3,8 +3,8 @@ import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/storage.dart';
-import 'package:ben_app/service/init_service.dart';
-import 'package:ben_app/service/login_service.dart';
+import 'package:ben_app/providers/services/init_service.dart';
+import 'package:ben_app/providers/services/login_service.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 

@@ -1,6 +1,6 @@
 import 'package:ben_app/format/storage.dart';
 import 'package:ben_app/providers/view_models/initialize_model.dart';
-import 'package:ben_app/service/init_service.dart';
+import 'package:ben_app/providers/services/init_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'config/provider_setup.dart';
-import 'service/init_check_service.dart';
+import 'providers/provider_setup.dart';
+import 'providers/services/init_check_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'format/sqlite/database_factory.dart';

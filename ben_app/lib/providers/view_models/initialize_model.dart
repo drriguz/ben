@@ -1,7 +1,7 @@
 import 'package:ben_app/providers/view_models/responding_model.dart';
 
 import '../../crypto/protected_value.dart';
-import '../../service/init_service.dart';
+import '../services/init_service.dart';
 
 class InitializeViewModel extends RespondingModel {
   InitializeService initializeService;
