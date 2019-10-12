@@ -1,4 +1,6 @@
+import 'package:ben_app/plugins/option.dart';
 import 'package:ben_app/plugins/plugin_registry.dart';
+import 'package:ben_app/ui/page/secrets/widgets/secret_list.dart';
 
 import '../../model/choice.dart';
 import '../../theme/icons.dart';
@@ -6,7 +8,6 @@ import 'widgets/search_bar.dart';
 
 import 'package:flutter/material.dart';
 
-import '../not_implemented.dart';
 
 class ItemListPage extends StatefulWidget {
   @override
@@ -49,16 +50,16 @@ class _ItemListPageState extends State<ItemListPage>
     );
   }
 
-  Widget _createList(String choice) {
-    print("rendering...${choice}");
+  Widget _createList(Option<int> choice) {
+    print("rendering...${choice.displayName}");
 
-    return NotImplementedPage(title: choice);
+    return SecretListWidget();
   }
 
   TabBarView _createTabBarView() {
     return TabBarView(
       controller: _tabController,
-      children: tabNames.map((_) => _createList(_.displayName)).toList(),
+      children: tabNames.map((_) => _createList(_)).toList(),
     );
   }
 

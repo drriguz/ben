@@ -15,6 +15,9 @@ class ItemListViewModel extends RespondingModel {
 
   Future<void> fetch() async {
     state = State.BUSY;
+
+    await Future.delayed(Duration(seconds: 1)); // for testing
+    
     data = await _itemListService.fetch();
     state = State.IDLE;
   }
