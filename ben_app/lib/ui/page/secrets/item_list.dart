@@ -1,10 +1,5 @@
-import 'package:ben_app/providers/view_models/item_list_model.dart';
-import 'package:ben_app/plugins/certificate/certificate_card.dart';
-import 'package:ben_app/ui/page/secrets/widgets/bank_card_item.dart';
-import 'package:ben_app/ui/page/secrets/widgets/certificate_card_item.dart';
-import 'package:provider/provider.dart';
+import 'package:ben_app/plugins/plugin_registry.dart';
 
-import '../../../plugins/bank_card/bank_card.dart';
 import '../../model/choice.dart';
 import '../../theme/icons.dart';
 import 'widgets/search_bar.dart';
@@ -26,18 +21,10 @@ const List<MenuChoice> menuItems = const <MenuChoice>[
   const MenuChoice('检查更新', 'update', Icons.directions_walk),
 ];
 
-const List<TabChoice> tabItems = const <TabChoice>[
-  const TabChoice('卡片', SecretListType.CARD),
-  const TabChoice('证书', SecretListType.CERTIFICATE),
-  const TabChoice('媒体', SecretListType.MEDIA),
-  const TabChoice('密码', SecretListType.PASSWORD),
-  const TabChoice('记事', SecretListType.NOTE),
-  const TabChoice('文件', SecretListType.FILE),
-];
-
 class _ItemListPageState extends State<ItemListPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  static final tabNames = PluginRegistry.getTabNames();
 
   void _onPressed() {}
 
@@ -46,7 +33,7 @@ class _ItemListPageState extends State<ItemListPage>
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(vsync: this, length: tabItems.length);
+    _tabController = new TabController(vsync: this, length: tabNames.length);
   }
 
   @override
@@ -58,59 +45,20 @@ class _ItemListPageState extends State<ItemListPage>
   TabBar _createTabBar() {
     return TabBar(
       controller: _tabController,
-      tabs: tabItems.map(
-        (TabChoice tabItem) {
-          return new Tab(text: tabItem.option);
-        },
-      ).toList(),
+      tabs: tabNames.map((_) => Tab(text: _.value)).toList(),
     );
   }
 
-  Widget _createList(TabChoice choice) {
-    print("rendering...${choice.value}");
-    if (choice.value == SecretListType.CARD) {
-      return Consumer<ItemListViewModel>(
-        builder: (_, viewModel, child) => viewModel.isBusy
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                itemCount: 5,
-                itemBuilder: (_, int index) {
-                  return BankCardItem(
-                    key: ObjectKey(index),
-                    model: BankCard(
-                        bank: 'ICBC',
-                        type: CardType.CREDIT,
-                        title: '中国工商银行',
-                        number: '6222005865412565805'),
-                  );
-                }),
-      );
-    }
-    if (choice.value == SecretListType.CERTIFICATE) {
-      return ListView.builder(
-          itemCount: 5,
-          itemBuilder: (BuildContext context, int index) {
-            return CertificateCardItem(
-              key: ObjectKey(index),
-              model: CertificateCard(
-                title: '李海峰',
-                type: CertificateCardType.ID,
-                number: '422822199109111031',
-              ),
-            );
-          });
-    }
-    return NotImplementedPage(title: choice.option);
+  Widget _createList(String choice) {
+    print("rendering...${choice}");
+
+    return NotImplementedPage(title: choice);
   }
 
   TabBarView _createTabBarView() {
     return TabBarView(
       controller: _tabController,
-      children: tabItems.map(
-        (TabChoice tabItem) {
-          return _createList(tabItem);
-        },
-      ).toList(),
+      children: tabNames.map((_) => _createList(_.option)).toList(),
     );
   }
 
