@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'list_item.dart';
 
-class BankCardItem extends GeneralIconItem<BankCardModel> {
+class BankCardItem extends AbstractDataListItem<BankCardModel> {
   const BankCardItem({Key key, BankCardModel model})
       : super(key: key, model: model);
 

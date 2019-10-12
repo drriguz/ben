@@ -56,16 +56,18 @@ class InitializeService {
   }
 
   Future<void> insertSampleData() async {
-    BankCardModel bankCard = BankCardModel(
-        bank: 'ICBC',
-        title: '中国银行',
-        number: '123821388908190',
-        type: CardType.CREDIT);
-    Item sample = ItemEntity(
-        id: RandomStringUtil.generateUUID(),
-        type: 1,
-        content: Serializer.toMessagePack(bankCard),
-        checksum: utf8.encode('12345'));
-    return itemRepository.createItem(sample);
+    for (int i = 0; i < 50; i++) {
+      BankCardModel bankCard = BankCardModel(
+          bank: 'ICBC',
+          title: '中国银行',
+          number: "${100000 + i}",
+          type: CardType.CREDIT);
+      Item sample = ItemEntity(
+          id: RandomStringUtil.generateUUID(),
+          type: 1,
+          content: Serializer.toMessagePack(bankCard),
+          checksum: utf8.encode('12345'));
+      itemRepository.createItem(sample);
+    }
   }
 }

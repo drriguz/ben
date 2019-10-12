@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import 'bank_card_item.dart';
 import 'empty_list_tip.dart';
+import 'list_item_placeholder.dart';
 
 class SecretListWidget<M extends Serializable, T extends AbstractPlugin<M>>
     extends StatefulWidget {
@@ -64,7 +65,7 @@ class _SecretListWidgetState<M extends Serializable,
                   number: '6222005865412565805'),
             );
           default:
-            return Text("解密中...");
+            return ItemPlaceholder();
         }
       },
     );

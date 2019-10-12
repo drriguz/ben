@@ -1,51 +1,27 @@
 import 'package:flutter/material.dart';
 
-abstract class AbstractListItem<T> extends StatelessWidget {
-  final T model;
-  final bool hasDescription;
-
-  const AbstractListItem({Key key, this.model, this.hasDescription})
-      : super(key: key);
-
-  Widget buildIcon();
-
-  Widget buildTitle();
-
-  Widget buildDescription();
+abstract class AbstractListItem extends StatelessWidget {
+  Widget buildContent();
 
   @override
   Widget build(BuildContext context) {
     return Card(
       borderOnForeground: false,
       margin: const EdgeInsets.only(top: 5.0),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        child: Row(
-          children: <Widget>[
-            buildIcon(),
-            Expanded(
-              child: buildTitle(),
-              flex: 1,
-            ),
-            Expanded(
-              child: buildDescription(),
-              flex: 1,
-            ),
-            IconButton(
-              icon: const Icon(Icons.chevron_right),
-              color: Colors.deepOrange,
-              onPressed: () => {},
-            )
-          ],
+      child: ConstrainedBox(
+        constraints: new BoxConstraints(
+          minHeight: 70.0,
         ),
+        child: buildContent(),
       ),
     );
   }
 }
 
-abstract class GeneralIconItem<T> extends AbstractListItem<T> {
-  const GeneralIconItem({Key key, T model})
-      : super(key: key, model: model, hasDescription: true);
+abstract class AbstractDataListItem<T> extends StatelessWidget {
+  final T model;
+
+  const AbstractDataListItem({Key key, this.model}) : super(key: key);
 
   ImageProvider getItemIcon();
 
@@ -55,7 +31,6 @@ abstract class GeneralIconItem<T> extends AbstractListItem<T> {
 
   String getSubtitle();
 
-  @override
   Widget buildDescription() {
     return Text(
       getDescription(),
@@ -66,7 +41,6 @@ abstract class GeneralIconItem<T> extends AbstractListItem<T> {
     );
   }
 
-  @override
   Widget buildIcon() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
@@ -78,7 +52,6 @@ abstract class GeneralIconItem<T> extends AbstractListItem<T> {
     );
   }
 
-  @override
   Widget buildTitle() {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -106,6 +79,34 @@ abstract class GeneralIconItem<T> extends AbstractListItem<T> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      borderOnForeground: false,
+      margin: const EdgeInsets.only(top: 5.0),
+      child: ConstrainedBox(
+        constraints: new BoxConstraints(
+          minHeight: 70.0,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Row(
+            children: <Widget>[
+              buildIcon(),
+              Expanded(child: buildTitle(), flex: 1),
+              Expanded(child: buildDescription(), flex: 1),
+              IconButton(
+                icon: const Icon(Icons.chevron_right),
+                color: Colors.deepOrange,
+                onPressed: () => {},
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

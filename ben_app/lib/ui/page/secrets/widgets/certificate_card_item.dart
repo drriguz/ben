@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'list_item.dart';
 
-class CertificateCardItem extends GeneralIconItem<CertificateModel> {
+class CertificateCardItem extends AbstractDataListItem<CertificateModel> {
   const CertificateCardItem({Key key, CertificateModel model})
       : super(key: key, model: model);
 

@@ -7,6 +7,7 @@ class RandomStringUtil {
   static final _random = Random.secure();
 
   static String generateUUID() {
+    // fixme: use real uuid instead
     return hex.encode(generateUUIDasBytes());
   }
 
