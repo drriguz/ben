@@ -1,6 +1,14 @@
+import 'package:ben_app/providers/view_models/item_list_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class EmptyListTipWidget extends StatelessWidget {
+  final VoidCallback _onRefresh;
+
+  const EmptyListTipWidget({Key key, VoidCallback onRefresh})
+      : _onRefresh = onRefresh,
+        super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -13,6 +21,10 @@ class EmptyListTipWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
           child: Text("暂无数据"),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: FlatButton(child: Text("刷新"), onPressed: _onRefresh),
         ),
       ],
     );

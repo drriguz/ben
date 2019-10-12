@@ -17,6 +17,7 @@ class ItemListViewModel extends RespondingModel {
     await Future.delayed(Duration(seconds: 1)); // for testing
 
     data = await _itemListService.fetchByType(type);
+    print('fetched data of :$type size: ${data.length}');
     state = State.IDLE;
   }
 }

@@ -26,9 +26,15 @@ class _SecretListWidgetState extends State<SecretListWidget> {
 
   _SecretListWidgetState(this._itemType);
 
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => _onRefresh());
+  }
+
   Widget _buildList(List<Item> data) {
     return data.isEmpty
-        ? EmptyListTipWidget()
+        ? EmptyListTipWidget(onRefresh: _onRefresh)
         : _buildNoneEmptyListContent(data);
   }
 

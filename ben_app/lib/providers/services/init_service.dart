@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:ben_app/crypto/credential.dart';
@@ -5,6 +6,9 @@ import 'package:ben_app/crypto/hmac_validator.dart';
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/format/data_format.dart';
+import 'package:ben_app/format/serialize.dart';
+import 'package:ben_app/format/sqlite/Item_entity.dart';
+import 'package:ben_app/plugins/bank_card/bank_card.dart';
 import 'package:ben_app/util/random.dart';
 import 'package:encryptions/hex.dart';
 import 'package:flutter/foundation.dart';
@@ -12,6 +16,7 @@ import '../../format/storage.dart';
 
 class InitializeService {
   HeaderRepository headerRepository;
+  ItemRepository itemRepository;
   Kdf kdf;
 
   Future<void> initialize(
@@ -28,6 +33,7 @@ class InitializeService {
         hashValidator.computeChecksum(_getSourceBytes(headers));
     headers.add(Header(Headers.CHECKSUM, Hex.encode(checksum)));
     await headerRepository.saveHeaders(headers);
+    await insertSampleData();
   }
 
   List<Header> _createHeaderWithoutChecksum(PasswordCredential credential) {
@@ -47,5 +53,19 @@ class InitializeService {
     headers.sort((l, r) => l.type.compareTo(r.type));
     headers.forEach((header) => bytes.addAll(header.getSources()));
     return Uint8List.fromList(bytes);
+  }
+
+  Future<void> insertSampleData() async {
+    BankCard bankCard = BankCard(
+        bank: 'ICBC',
+        title: '中国银行',
+        number: '123821388908190',
+        type: CardType.CREDIT);
+    Item sample = ItemEntity(
+        id: RandomStringUtil.generateUUID(),
+        type: 1,
+        content: Serializer.toMessagePack(bankCard),
+        checksum: utf8.encode('12345'));
+    return itemRepository.createItem(sample);
   }
 }

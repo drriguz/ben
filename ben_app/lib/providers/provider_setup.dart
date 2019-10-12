@@ -32,11 +32,13 @@ Future<List<SingleChildCloneableWidget>> _createComponents() async {
 
 Future<List<SingleChildCloneableWidget>> _createServices() async {
   return [
-    ProxyProvider<SqliteHeaderRepository, InitializeService>(
+    ProxyProvider2<SqliteHeaderRepository, SqliteItemRepository,
+        InitializeService>(
       // todo: using constructor injection instead.
       initialBuilder: (_) => InitializeService(),
-      builder: (_, repository, service) => service
-        ..headerRepository = repository
+      builder: (_, headerRepository, itemRepository, service) => service
+        ..headerRepository = headerRepository
+        ..itemRepository = itemRepository
         ..kdf = Argon2Kdf(),
     ),
     ProxyProvider<SqliteHeaderRepository, LoginService>(
