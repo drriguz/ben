@@ -8,7 +8,6 @@ import 'widgets/search_bar.dart';
 
 import 'package:flutter/material.dart';
 
-
 class ItemListPage extends StatefulWidget {
   @override
   State<ItemListPage> createState() => _ItemListPageState();
@@ -53,7 +52,7 @@ class _ItemListPageState extends State<ItemListPage>
   Widget _createList(Option<int> choice) {
     print("rendering...${choice.displayName}");
 
-    return SecretListWidget();
+    return SecretListWidget(plugin: PluginRegistry.getPlugin(choice.value));
   }
 
   TabBarView _createTabBarView() {

@@ -15,4 +15,8 @@ class PluginRegistry {
         .map((plugin) => Option<int>(plugin.tabTitle, plugin.pluginId))
         .toList();
   }
+
+  static AbstractPlugin getPlugin(int id) {
+    return supportedPlugins.firstWhere((plugin) => plugin.pluginId == id);
+  }
 }
