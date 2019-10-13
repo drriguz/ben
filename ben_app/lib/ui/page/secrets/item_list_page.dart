@@ -1,6 +1,9 @@
 import 'package:ben_app/plugins/option.dart';
 import 'package:ben_app/plugins/plugin_registry.dart';
+import 'package:ben_app/providers/services/item_list_service.dart';
+import 'package:ben_app/providers/view_models/item_list_model.dart';
 import 'package:ben_app/ui/page/secrets/widgets/secret_list.dart';
+import 'package:provider/provider.dart';
 
 import '../../model/choice.dart';
 import '../../theme/icons.dart';
@@ -51,8 +54,12 @@ class _ItemListPageState extends State<ItemListPage>
 
   Widget _createList(Option<int> choice) {
     print("rendering...${choice.displayName}");
-
-    return SecretListWidget(plugin: PluginRegistry.getPlugin(choice.value));
+    return ChangeNotifierProxyProvider<ItemListService, ItemListViewModel>(
+      initialBuilder: (_) =>
+          ItemListViewModel(Provider.of<ItemListService>(_, listen: false)),
+      builder: (_, service, viewModel) => viewModel,
+      child: SecretListWidget(plugin: PluginRegistry.getPlugin(choice.value)),
+    );
   }
 
   TabBarView _createTabBarView() {

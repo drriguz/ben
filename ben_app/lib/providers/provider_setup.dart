@@ -1,7 +1,6 @@
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/format/sqlite/database_factory.dart';
 import 'package:ben_app/format/sqlite/sqlite_storage.dart';
-import 'package:ben_app/providers/view_models/item_list_model.dart';
 import 'package:ben_app/providers/view_models/login_model.dart';
 import 'package:ben_app/providers/services/init_service.dart';
 import 'package:ben_app/providers/services/item_list_service.dart';
@@ -59,11 +58,6 @@ Future<List<SingleChildCloneableWidget>> _createGlobalViewModels() async {
     ChangeNotifierProxyProvider<LoginService, LoginViewModel>(
       initialBuilder: (_) => LoginViewModel(),
       builder: (_, service, viewModel) => viewModel..loginService = service,
-    ),
-    ChangeNotifierProxyProvider<ItemListService, ItemListViewModel>(
-      initialBuilder: (_) =>
-          ItemListViewModel(Provider.of<ItemListService>(_, listen: false)),
-      builder: (_, service, viewModel) => viewModel,
     ),
   ];
 }

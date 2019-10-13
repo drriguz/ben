@@ -1,13 +1,10 @@
 import 'package:ben_app/format/data_format.dart';
-import 'package:ben_app/format/serialize.dart';
 import 'package:ben_app/plugins/abstract_plugin.dart';
-import 'package:ben_app/plugins/bank_card/bank_card_model.dart';
 import 'package:ben_app/providers/view_models/item_list_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'bank_card_item.dart';
 import 'empty_list_tip.dart';
 import 'list_item_placeholder.dart';
 
@@ -24,7 +21,7 @@ class SecretListWidget<M extends DataModel, T extends AbstractPlugin<M>>
 }
 
 class _SecretListWidgetState<M extends DataModel, T extends AbstractPlugin<M>>
-    extends State<SecretListWidget> {
+    extends State<SecretListWidget> with AutomaticKeepAliveClientMixin {
   final T _plugin;
 
   _SecretListWidgetState(this._plugin);
@@ -32,7 +29,11 @@ class _SecretListWidgetState<M extends DataModel, T extends AbstractPlugin<M>>
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => _onRefresh());
+    // here is a bug
+    // https://github.com/flutter/flutter/issues/27680
+    Future.microtask(() {
+      if (this.mounted) _onRefresh();
+    });
   }
 
   Widget _buildList(List<Item> data) {
@@ -45,7 +46,7 @@ class _SecretListWidgetState<M extends DataModel, T extends AbstractPlugin<M>>
     return ListView.builder(
         itemCount: data.length,
         itemBuilder: (_, int index) {
-          print("building...:$index");
+          print("building with data...:$index ${data[index].id}");
           return _createListItem(data[index]);
         });
   }
@@ -65,7 +66,6 @@ class _SecretListWidgetState<M extends DataModel, T extends AbstractPlugin<M>>
   }
 
   Future<void> _onRefresh() async {
-    print('refreshing...');
     Provider.of<ItemListViewModel>(context, listen: false)
         .fetch(_plugin.pluginId);
   }
@@ -80,4 +80,7 @@ class _SecretListWidgetState<M extends DataModel, T extends AbstractPlugin<M>>
                 onRefresh: _onRefresh,
               ));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
