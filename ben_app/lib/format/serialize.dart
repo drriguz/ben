@@ -28,4 +28,8 @@ abstract class Serializer {
       Uint8List bytes, T Function(Map data) factory) {
     return factory(deserialize(bytes));
   }
+
+  static Map decodeMessagePackToMap(Uint8List bytes) {
+    return deserialize(bytes);
+  }
 }

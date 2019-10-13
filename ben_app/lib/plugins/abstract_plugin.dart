@@ -19,7 +19,8 @@ abstract class AbstractPlugin<T extends DataModel> {
   final T Function(Map decoded) factory;
 
   Future<T> decode(Item item) async {
-    return Serializer.fromMessagePack<T>(item.content, factory);
+    final content = Serializer.decodeMessagePackToMap(item.content);
+    return factory({"id": item.id, ...content});
   }
 
   Widget build(final T data) {
