@@ -1,4 +1,5 @@
 import 'package:ben_app/format/serialize.dart';
+import 'package:ben_app/plugins/abstract_plugin.dart';
 
 enum CertificateType {
   ID,
@@ -7,16 +8,17 @@ enum CertificateType {
   PASSPORT,
 }
 
-class CertificateModel implements Serializable {
+class CertificateModel extends DataModel {
   final String title;
   final CertificateType type;
   final String number;
 
-  const CertificateModel({this.title, this.type, this.number});
+  CertificateModel({String id, this.title, this.type, this.number}) : super(id);
 
   factory CertificateModel.fromMap(Map map) {
     assert(map != null);
     return CertificateModel(
+      id: map["id"],
       title: map["title"],
       type: _parseType(map["type"]),
       number: map["number"],
@@ -31,6 +33,7 @@ class CertificateModel implements Serializable {
   @override
   Map<String, dynamic> toMap() {
     return {
+      "id": id,
       "title": title,
       "type": type.toString(),
       "number": number,

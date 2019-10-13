@@ -1,7 +1,14 @@
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/serialize.dart';
+import 'package:flutter/material.dart';
 
-abstract class AbstractPlugin<T extends Serializable> {
+abstract class DataModel implements Serializable {
+  final String id;
+
+  DataModel(this.id);
+}
+
+abstract class AbstractPlugin<T extends DataModel> {
   AbstractPlugin(this.pluginId, this.tabTitle, this.factory) {
     assert(pluginId != null);
     assert(factory != null);
@@ -12,7 +19,10 @@ abstract class AbstractPlugin<T extends Serializable> {
   final T Function(Map decoded) factory;
 
   Future<T> decode(Item item) async {
-    await Future.delayed(Duration(seconds: 1));
     return Serializer.fromMessagePack<T>(item.content, factory);
+  }
+
+  Widget build(final T data) {
+    return Container();
   }
 }

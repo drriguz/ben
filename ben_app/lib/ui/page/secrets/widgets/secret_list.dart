@@ -11,7 +11,7 @@ import 'bank_card_item.dart';
 import 'empty_list_tip.dart';
 import 'list_item_placeholder.dart';
 
-class SecretListWidget<M extends Serializable, T extends AbstractPlugin<M>>
+class SecretListWidget<M extends DataModel, T extends AbstractPlugin<M>>
     extends StatefulWidget {
   final T _plugin;
 
@@ -23,8 +23,8 @@ class SecretListWidget<M extends Serializable, T extends AbstractPlugin<M>>
   _SecretListWidgetState createState() => _SecretListWidgetState(_plugin);
 }
 
-class _SecretListWidgetState<M extends Serializable,
-    T extends AbstractPlugin<M>> extends State<SecretListWidget> {
+class _SecretListWidgetState<M extends DataModel, T extends AbstractPlugin<M>>
+    extends State<SecretListWidget> {
   final T _plugin;
 
   _SecretListWidgetState(this._plugin);
@@ -56,14 +56,7 @@ class _SecretListWidgetState<M extends Serializable,
       builder: (BuildContext _, AsyncSnapshot<M> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            return BankCardItem(
-              key: ObjectKey(data.id),
-              model: BankCardModel(
-                  bank: 'ICBC',
-                  type: CardType.CREDIT,
-                  title: '中国银行',
-                  number: '6222005865412565805'),
-            );
+            return _plugin.build(snapshot.data);
           default:
             return ItemPlaceholder();
         }
