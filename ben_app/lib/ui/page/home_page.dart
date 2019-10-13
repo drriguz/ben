@@ -63,10 +63,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         currentIndex: _currentPageIndex,
         onTap: _onTabActivate,
       ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Create item',
-        child: Icon(Icons.add),
-      ),
     );
   }
 }

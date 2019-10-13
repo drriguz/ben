@@ -1,3 +1,4 @@
+import 'package:ben_app/plugins/plugin_registry.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'providers/provider_setup.dart';
 import 'providers/services/init_check_service.dart';
@@ -43,12 +44,18 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        routes: {
-          "/": (_) => initialized ? new LoginPage() : new InitializePage(),
-          "/login": (_) => new LoginPage(),
-          "/home": (_) => new HomePage(),
-        },
+        routes: _createRoutes(initialized),
       ),
     ),
   );
+}
+
+Map<String, WidgetBuilder> _createRoutes(bool initialized) {
+  final Map<String, WidgetBuilder> routes = {
+    "/": (_) => initialized ? new LoginPage() : new InitializePage(),
+    "/login": (_) => new LoginPage(),
+    "/home": (_) => new HomePage(),
+  };
+  routes.addAll(PluginRegistry.routes());
+  return routes;
 }

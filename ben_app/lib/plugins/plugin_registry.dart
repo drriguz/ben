@@ -1,6 +1,8 @@
 import 'package:ben_app/plugins/abstract_plugin.dart';
 import 'package:ben_app/plugins/bank_card/bank_card_plugin.dart';
 import 'package:ben_app/plugins/certificate/certificate_plugin.dart';
+import 'package:ben_app/plugins/note/add_note_page.dart';
+import 'package:flutter/material.dart';
 
 import 'note/note_plugin.dart';
 import 'option.dart';
@@ -20,5 +22,11 @@ class PluginRegistry {
 
   static AbstractPlugin getPlugin(int id) {
     return supportedPlugins.firstWhere((plugin) => plugin.pluginId == id);
+  }
+
+  static Map<String, WidgetBuilder> routes() {
+    final Map<String, WidgetBuilder> routes = {};
+    supportedPlugins.forEach((plugin) => routes.addAll(plugin.routes()));
+    return routes;
   }
 }

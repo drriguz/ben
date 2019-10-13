@@ -104,6 +104,17 @@ class _ItemListPageState extends State<ItemListPage>
     return Scaffold(
       appBar: _createAppBar(),
       body: _createTabBarView(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _onAddPressed,
+        tooltip: 'Create item',
+        child: Icon(Icons.add),
+      ),
     );
+  }
+
+  void _onAddPressed() {
+    final selectedType = tabNames[_tabController.index];
+    final plugin = PluginRegistry.getPlugin(selectedType.value);
+    plugin.onCreatePressed(context);
   }
 }

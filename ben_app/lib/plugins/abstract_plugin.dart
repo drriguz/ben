@@ -26,4 +26,10 @@ abstract class AbstractPlugin<T extends DataModel> {
   Widget build(final T data) {
     return Container();
   }
+
+  Map<String, WidgetBuilder> routes() {
+    return {};
+  }
+
+  void onCreatePressed(BuildContext context) {}
 }
