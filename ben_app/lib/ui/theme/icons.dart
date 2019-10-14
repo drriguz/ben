@@ -7,9 +7,10 @@ class FontIcon {
   static const flag = IconData(0xec0f, fontFamily: 'ali');
   static const backup = IconData(0xec64, fontFamily: 'ali');
   static const lock = IconData(0xe64f, fontFamily: 'ali');
-}
 
-class BankIcon {
-  static const citic = IconData(0xe666, fontFamily: 'banks');
-  static const cmb = IconData(0xe661, fontFamily: 'banks');
+  static const handWrite = IconData(0xe648, fontFamily: 'ali');
+  static const markdown = IconData(0xe946, fontFamily: 'ali');
+  static const image = IconData(0xe61d, fontFamily: 'ali');
+  static const video = IconData(0xe6dc, fontFamily: 'ali');
+  static const audio = IconData(0xe759, fontFamily: 'ali');
 }

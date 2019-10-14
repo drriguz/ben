@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   Widget _profileImage() {
     return Padding(
-      padding: const EdgeInsets.only(top: 200, bottom: 50.0),
+      padding: const EdgeInsets.only(bottom: 50.0),
       child: Image(
         image: AssetImage("assets/profile.png"),
         width: 150,
@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
             Expanded(
               flex: 1,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   _profileImage(),
