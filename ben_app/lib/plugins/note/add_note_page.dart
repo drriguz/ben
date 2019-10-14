@@ -1,10 +1,20 @@
+import 'package:ben_app/providers/services/item_list_service.dart';
+import 'package:ben_app/providers/view_models/add_note_model.dart';
 import 'package:ben_app/ui/theme/icons.dart';
 import 'package:ben_app/ui/widgets/tool_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class AddNotePage extends StatelessWidget {
+class AddNotePage extends StatefulWidget {
   AddNotePage();
+
+  @override
+  _AddNotePageState createState() => _AddNotePageState();
+}
+
+class _AddNotePageState extends State<AddNotePage> {
+  TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +28,7 @@ class AddNotePage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextField(
+                controller: _textEditingController,
                 expands: true,
                 autofocus: false,
                 keyboardType: TextInputType.multiline,
@@ -82,10 +93,24 @@ class AddNotePage extends StatelessWidget {
             color: Colors.red,
           ),
         ),
-        FlatButton(
-          child: Text("保存"),
+        ChangeNotifierProxyProvider<ItemListService, AddNoteViewModel>(
+          builder: (_, service, viewModel) => AddNoteViewModel(service),
+          child: FlatButton(
+            onPressed: _onSave,
+            textColor: Colors.blue,
+            child: Text(
+              "保存",
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
         ),
       ],
     );
+  }
+
+  void _onSave() async {
+    await Provider.of<AddNoteViewModel>(context, listen: false)
+        .create(3, _textEditingController.text);
+    Navigator.of(context).pop();
   }
 }
