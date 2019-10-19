@@ -4,14 +4,16 @@ import 'package:ben_app/providers/services/item_list_service.dart';
 
 class ItemListViewModel extends RespondingModel {
   final ItemListService _itemListService;
+  final int type;
   List<Item> data;
 
-  ItemListViewModel(ItemListService service)
+  ItemListViewModel(ItemListService service, int type)
       : _itemListService = service,
         data = [],
+        type = type,
         super(State.IDLE);
 
-  Future<void> fetch(int type) async {
+  Future<void> fetch() async {
     state = State.BUSY;
 
     data = await _itemListService.fetchByType(type);

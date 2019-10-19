@@ -66,8 +66,7 @@ class _SecretListWidgetState<M extends DataModel, T extends AbstractPlugin<M>>
   }
 
   Future<void> _onRefresh() async {
-    Provider.of<ItemListViewModel>(context, listen: false)
-        .fetch(_plugin.pluginId);
+    Provider.of<ItemListViewModel>(context, listen: false).fetch();
   }
 
   @override

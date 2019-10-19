@@ -56,7 +56,7 @@ class _ItemListPageState extends State<ItemListPage>
     print("rendering...${choice.displayName}");
     return ChangeNotifierProxyProvider<ItemListService, ItemListViewModel>(
       initialBuilder: (_) =>
-          ItemListViewModel(Provider.of<ItemListService>(_, listen: false)),
+          ItemListViewModel(Provider.of<ItemListService>(_, listen: false), choice.value),
       builder: (_, service, viewModel) => viewModel,
       child: SecretListWidget(plugin: PluginRegistry.getPlugin(choice.value)),
     );
