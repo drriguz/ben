@@ -3,7 +3,7 @@ import 'package:ben_app/providers/view_models/responding_model.dart';
 import '../../crypto/protected_value.dart';
 import '../services/init_service.dart';
 
-class InitializeViewModel extends RespondingModel {
+class InitializeViewModel extends PageStatusNotifier {
   InitializeService initializeService;
   ProtectedValue _masterPassword;
   ProtectedValue _confirmedMasterPassword;

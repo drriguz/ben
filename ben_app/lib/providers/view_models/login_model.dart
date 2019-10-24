@@ -4,7 +4,7 @@ import 'package:ben_app/providers/view_models/responding_model.dart';
 import 'package:ben_app/providers/services/login_service.dart';
 import 'package:flutter/foundation.dart';
 
-class LoginViewModel extends RespondingModel {
+class LoginViewModel extends PageStatusNotifier {
   LoginService loginService;
   Credential _userCredential;
 

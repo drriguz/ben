@@ -25,7 +25,7 @@ class ItemListService {
     return itemRepository.getItemsByType(type);
   }
 
-  Future<void> create<T extends DataModel>(int type, T data) async {
+  Future<void> create<T extends Serializable>(int type, T data) async {
     final bytes = Serializer.toMessagePack(data);
     return itemRepository.createItem(ItemEntity(
       id: uuid.v4(),

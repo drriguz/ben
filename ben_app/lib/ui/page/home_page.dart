@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'secrets/item_list_page.dart';
 import 'not_implemented.dart';
 
 import '../theme/icons.dart';
+import 'tabbed_list/tab_config.dart';
+import 'tabbed_list/tabbed_list_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,7 +15,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   int _currentPageIndex = 0;
   static final List<Widget> _tabItems = <Widget>[
-    ItemListPage(),
+    MultiProvider(
+      providers:
+          supportedTabs.map((config) => config.viewModelProvider()).toList(),
+      child: TabbedListPage(),
+    ),
     NotImplementedPage(title: 'Share'),
     NotImplementedPage(title: 'Settings'),
     NotImplementedPage(title: 'sync'),

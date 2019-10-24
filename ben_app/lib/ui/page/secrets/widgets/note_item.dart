@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'list_item.dart';
 
 class NoteItem extends AbstractListItem {
-  final NoteModel data;
+  final NoteModel model;
 
-  NoteItem(this.data);
+  NoteItem({Key key, this.model});
 
   @override
   Widget buildContent() {
@@ -21,7 +21,7 @@ class NoteItem extends AbstractListItem {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              data.title,
+              model.title,
               style: TextStyle(fontSize: 16),
             ),
           ),

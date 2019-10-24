@@ -1,10 +1,13 @@
 import 'package:ben_app/providers/services/item_list_service.dart';
 import 'package:ben_app/providers/view_models/add_note_model.dart';
+import 'package:ben_app/providers/view_models/tabbed_list_model.dart';
 import 'package:ben_app/ui/theme/icons.dart';
 import 'package:ben_app/ui/widgets/tool_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'note_model.dart';
 
 class AddNotePage extends StatefulWidget {
   AddNotePage();
@@ -109,8 +112,7 @@ class _AddNotePageState extends State<AddNotePage> {
   }
 
   void _onSave() async {
-    await Provider.of<AddNoteViewModel>(context, listen: false)
-        .create(3, _textEditingController.text);
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(
+        NoteModel(title: "Hello world", content: _textEditingController.text));
   }
 }

@@ -30,6 +30,6 @@ class NotePlugin extends AbstractPlugin<NoteModel> {
 
   @override
   Widget build(final NoteModel data) {
-    return NoteItem(data);
+    return NoteItem(model: data);
   }
 }

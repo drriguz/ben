@@ -5,8 +5,8 @@ enum State {
   IDLE,
 }
 
-abstract class RespondingModel extends ChangeNotifier {
-  RespondingModel(this._state);
+abstract class PageStatusNotifier extends ChangeNotifier {
+  PageStatusNotifier(this._state);
 
   State _state;
 

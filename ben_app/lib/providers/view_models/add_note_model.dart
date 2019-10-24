@@ -2,7 +2,7 @@ import 'package:ben_app/plugins/note/note_model.dart';
 import 'package:ben_app/providers/view_models/responding_model.dart';
 import 'package:ben_app/providers/services/item_list_service.dart';
 
-class AddNoteViewModel extends RespondingModel {
+class AddNoteViewModel extends PageStatusNotifier {
   final ItemListService _itemListService;
 
   AddNoteViewModel(ItemListService service)

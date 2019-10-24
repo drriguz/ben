@@ -1,3 +1,4 @@
+import 'package:ben_app/plugins/note/add_note_page.dart';
 import 'package:ben_app/plugins/plugin_registry.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'providers/provider_setup.dart';
@@ -44,18 +45,13 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        routes: _createRoutes(initialized),
+        routes: {
+          "/": (_) => initialized ? new LoginPage() : new InitializePage(),
+          "/login": (_) => new LoginPage(),
+          "/home": (_) => new HomePage(),
+          "/note/add": (_) => new AddNotePage(),
+        },
       ),
     ),
   );
-}
-
-Map<String, WidgetBuilder> _createRoutes(bool initialized) {
-  final Map<String, WidgetBuilder> routes = {
-    "/": (_) => initialized ? new LoginPage() : new InitializePage(),
-    "/login": (_) => new LoginPage(),
-    "/home": (_) => new HomePage(),
-  };
-  routes.addAll(PluginRegistry.routes());
-  return routes;
 }
