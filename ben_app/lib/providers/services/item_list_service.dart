@@ -22,6 +22,7 @@ class ItemListService {
   }
 
   Future<List<Item>> fetchByType(int type) async {
+    await Future.delayed(Duration(seconds: 3));
     return itemRepository.getItemsByType(type);
   }
 

@@ -11,22 +11,26 @@ class EmptyListTipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Image(
-          width: 150,
-          image: AssetImage('assets/undraw_not_found_60pq.png'),
+    return SingleChildScrollView(
+      physics: AlwaysScrollableScrollPhysics(),
+      child: Container(
+        height: 500,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image(
+                width: 150,
+                image: AssetImage('assets/undraw_not_found_60pq.png'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text("暂无数据"),
+              ),
+            ],
+          ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: Text("暂无数据"),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: FlatButton(child: Text("刷新"), onPressed: _onRefresh),
-        ),
-      ],
+      ),
     );
   }
 }
