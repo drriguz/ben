@@ -1,4 +1,5 @@
 import 'package:ben_app/format/serialize.dart';
+import 'package:ben_app/ui/page/not_implemented.dart';
 import 'package:ben_app/ui/page/tabbed_list/tab_config.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,11 @@ class _TabbedListPageState extends State<TabbedListPage>
   TabBarView _createTabBarView() {
     return TabBarView(
       controller: _tabController,
-      children: supportedTabs.map((_) => _.tabContentProvider(_)).toList(),
+      children: <Widget>[
+        NotImplementedPage(),
+        NotImplementedPage(),
+        NotImplementedPage(),
+      ],
     );
   }
 

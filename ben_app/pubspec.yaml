@@ -19,12 +19,16 @@ dependencies:
   flutter_html: ^0.11.0
   msgpack2: ^2.0.0
   uuid: ^2.0.2
+  mobx: ^0.3.8+1
+  flutter_mobx: ^0.3.3+1
   encryptions:
     path: ./encryptions
 
 dev_dependencies:
   test: any
   mockito: ^4.1.1
+  mobx_codegen: ^0.3.9+1
+  build_runner:
   flutter_test:
     sdk: flutter
 

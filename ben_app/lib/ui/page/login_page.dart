@@ -1,16 +1,42 @@
 import 'package:ben_app/crypto/protected_value.dart';
-import 'package:ben_app/providers/view_models/login_model.dart';
-import 'package:provider/provider.dart';
+import 'package:ben_app/mobx/user_store.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../theme/icons.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
+class LoginPage extends StatelessWidget {
+  final UserStore _userStore;
 
-class _LoginPageState extends State<LoginPage> {
+  const LoginPage(this._userStore, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Row(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  _profileImage(),
+                  Observer(
+                    builder: (_) {
+                      return _userStore.isBusy
+                          ? _progressBar()
+                          : _input(context);
+                    },
+                  )
+                ],
+              ),
+            ),
+          ],
+        ));
+  }
+
   Widget _profileImage() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 50.0),
@@ -21,8 +47,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _input() {
-    final model = Provider.of<LoginViewModel>(context);
+  Widget _input(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(50, 10.0, 50, 10),
       child: Column(
@@ -39,16 +64,22 @@ class _LoginPageState extends State<LoginPage> {
                 size: 22.0,
               ),
             ),
-            onSubmitted: this.onPasswordSubmitted,
+            onSubmitted: (_) => this.onPasswordSubmitted(context, _),
           ),
-          if (model.errorMessage != null)
-            Padding(
-              padding: EdgeInsets.only(top: 15),
-              child: Text(
-                model.errorMessage,
-                style: TextStyle(color: Colors.red),
-              ),
-            )
+          Observer(
+            builder: (_) {
+              if (_userStore.hasError)
+                return Padding(
+                  padding: EdgeInsets.only(top: 15),
+                  child: Text(
+                    _userStore.errorMessage,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                );
+              else
+                return Container();
+            },
+          )
         ],
       ),
     );
@@ -68,33 +99,9 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 
-  void onPasswordSubmitted(String password) async {
-    bool success = await Provider.of<LoginViewModel>(context, listen: false)
-        .login(ProtectedValue.of(password));
+  void onPasswordSubmitted(BuildContext context, String password) async {
+    print('login with: ${password}');
+    bool success = await _userStore.login(ProtectedValue.of(password));
     if (success) Navigator.pushReplacementNamed(context, "/home");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: Row(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  _profileImage(),
-                  Consumer<LoginViewModel>(
-                    builder: (context, loginViewModel, child) =>
-                        loginViewModel.isBusy ? _progressBar() : _input(),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ));
   }
 }

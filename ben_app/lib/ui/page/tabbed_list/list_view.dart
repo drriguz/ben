@@ -1,5 +1,6 @@
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/serialize.dart';
+import 'package:ben_app/plugins/note/note_model.dart';
 import 'package:ben_app/providers/view_models/login_model.dart';
 import 'package:ben_app/providers/view_models/tabbed_list_model.dart';
 import 'package:ben_app/ui/page/secrets/widgets/empty_list_tip.dart';
@@ -8,7 +9,6 @@ import 'package:ben_app/ui/page/tabbed_list/tab_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class ItemListView<T extends AbstractTabbedListViewModel<T>,
     M extends Serializable> extends StatefulWidget {
@@ -19,6 +19,8 @@ class ItemListView<T extends AbstractTabbedListViewModel<T>,
   @override
   _ItemListViewState createState() => _ItemListViewState<T, M>(config);
 }
+
+class NoteListView extends ItemListView<NoteListViewModel, NoteModel> {}
 
 class _ItemListViewState<T extends AbstractTabbedListViewModel<T>,
     M extends Serializable> extends State<ItemListView> {

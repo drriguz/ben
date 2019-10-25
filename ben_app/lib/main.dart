@@ -1,6 +1,7 @@
 import 'package:ben_app/plugins/note/add_note_page.dart';
 import 'package:ben_app/plugins/plugin_registry.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'mobx/user_store.dart';
 import 'providers/provider_setup.dart';
 import 'providers/services/init_check_service.dart';
 import 'package:flutter/material.dart';
@@ -46,8 +47,14 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
           primarySwatch: Colors.red,
         ),
         routes: {
-          "/": (_) => initialized ? new LoginPage() : new InitializePage(),
-          "/login": (_) => new LoginPage(),
+          "/": (_) => initialized
+              ? Consumer<UserStore>(
+                  builder: (_, store, child) => LoginPage(store),
+                )
+              : new InitializePage(),
+          "/login": (_) => Consumer<UserStore>(
+                builder: (_, store, child) => LoginPage(store),
+              ),
           "/home": (_) => new HomePage(),
           "/note/add": (_) => new AddNotePage(),
         },

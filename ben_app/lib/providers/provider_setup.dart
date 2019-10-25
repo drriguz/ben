@@ -1,6 +1,7 @@
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/format/sqlite/database_factory.dart';
 import 'package:ben_app/format/sqlite/sqlite_storage.dart';
+import 'package:ben_app/mobx/user_store.dart';
 import 'package:ben_app/providers/view_models/login_model.dart';
 import 'package:ben_app/providers/services/init_service.dart';
 import 'package:ben_app/providers/services/item_list_service.dart';
@@ -16,7 +17,7 @@ Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
   ];
 }
 
-Future<List<SingleChildCloneableWidget>> _createComponents() async {
+List<SingleChildCloneableWidget> _createComponents() {
   return [
     ProxyProvider<Database, SqliteHeaderRepository>(
       initialBuilder: (_) => SqliteHeaderRepository(),
@@ -29,7 +30,7 @@ Future<List<SingleChildCloneableWidget>> _createComponents() async {
   ];
 }
 
-Future<List<SingleChildCloneableWidget>> _createServices() async {
+List<SingleChildCloneableWidget> _createServices() {
   return [
     ProxyProvider2<SqliteHeaderRepository, SqliteItemRepository,
         InitializeService>(
@@ -53,7 +54,7 @@ Future<List<SingleChildCloneableWidget>> _createServices() async {
   ];
 }
 
-Future<List<SingleChildCloneableWidget>> _createGlobalViewModels() async {
+List<SingleChildCloneableWidget> _createGlobalViewModels() {
   return [
     ChangeNotifierProxyProvider<LoginService, LoginViewModel>(
       initialBuilder: (_) => LoginViewModel(),
@@ -62,11 +63,20 @@ Future<List<SingleChildCloneableWidget>> _createGlobalViewModels() async {
   ];
 }
 
+List<SingleChildCloneableWidget> _createStores() {
+  return [
+    ProxyProvider<LoginService, UserStore>(
+      builder: (_, service, child) => UserStore(service),
+    ),
+  ];
+}
+
 Future<List<SingleChildCloneableWidget>> createProviders() async {
   return [
     ...await _createStandaloneProviders(),
-    ...await _createComponents(),
-    ...await _createServices(),
-    ...await _createGlobalViewModels(),
+    ..._createComponents(),
+    ..._createServices(),
+    ..._createGlobalViewModels(),
+    ..._createStores(),
   ];
 }
