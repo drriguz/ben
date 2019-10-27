@@ -27,6 +27,15 @@ abstract class _NotesStore extends PageStatusNotifier with Store {
     setIdle();
   }
 
+  @action
+  Future<void> save(NoteModel note) async {
+    setBusy();
+    await _itemListService.create(3, note);
+    _data.clear();
+    _data.addAll(await _itemListService.fetchByType(3));
+    setIdle();
+  }
+
   ObservableList<Item> get data => _data;
 
   @computed

@@ -19,13 +19,7 @@ class NotePlugin extends AbstractPlugin<NoteModel> {
 
   @override
   Map<String, WidgetBuilder> routes() {
-    return {
-      "/add/note": (_) =>
-          ChangeNotifierProxyProvider<ItemListService, AddNoteViewModel>(
-            builder: (_, service, viewModel) => AddNoteViewModel(service),
-            child: AddNotePage(),
-          )
-    };
+    return {};
   }
 
   @override

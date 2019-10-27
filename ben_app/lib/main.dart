@@ -1,3 +1,4 @@
+import 'package:ben_app/mobx/notes_store.dart';
 import 'package:ben_app/plugins/note/add_note_page.dart';
 import 'package:ben_app/plugins/plugin_registry.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -56,7 +57,9 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 builder: (_, store, child) => LoginPage(store),
               ),
           "/home": (_) => new HomePage(),
-          "/note/add": (_) => new AddNotePage(),
+          "/note/add": (_) => Consumer<NotesStore>(
+                builder: (_, store, child) => AddNotePage(store),
+              ),
         },
       ),
     ),

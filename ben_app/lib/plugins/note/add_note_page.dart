@@ -1,3 +1,4 @@
+import 'package:ben_app/mobx/notes_store.dart';
 import 'package:ben_app/providers/services/item_list_service.dart';
 import 'package:ben_app/providers/view_models/add_note_model.dart';
 import 'package:ben_app/providers/view_models/tabbed_list_model.dart';
@@ -5,19 +6,16 @@ import 'package:ben_app/ui/theme/icons.dart';
 import 'package:ben_app/ui/widgets/tool_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as prefix0;
 import 'package:provider/provider.dart';
 
 import 'note_model.dart';
 
-class AddNotePage extends StatefulWidget {
-  AddNotePage();
-
-  @override
-  _AddNotePageState createState() => _AddNotePageState();
-}
-
-class _AddNotePageState extends State<AddNotePage> {
+class AddNotePage extends StatelessWidget {
+  final NotesStore _notesStore;
   TextEditingController _textEditingController = TextEditingController();
+
+  AddNotePage(this._notesStore, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +41,7 @@ class _AddNotePageState extends State<AddNotePage> {
           Divider(),
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
-            child: _createToolbar(),
+            child: _createToolbar(context),
           ),
         ],
       ),
@@ -83,7 +81,7 @@ class _AddNotePageState extends State<AddNotePage> {
     );
   }
 
-  Widget _createToolbar() {
+  Widget _createToolbar(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
@@ -99,7 +97,7 @@ class _AddNotePageState extends State<AddNotePage> {
         ChangeNotifierProxyProvider<ItemListService, AddNoteViewModel>(
           builder: (_, service, viewModel) => AddNoteViewModel(service),
           child: FlatButton(
-            onPressed: _onSave,
+            onPressed: () => _onSave(context),
             textColor: Colors.blue,
             child: Text(
               "保存",
@@ -111,7 +109,9 @@ class _AddNotePageState extends State<AddNotePage> {
     );
   }
 
-  void _onSave() async {
+  void _onSave(BuildContext context) async {
+    _notesStore
+        .save(NoteModel(title: "hello", content: _textEditingController.text));
     Navigator.of(context).pop(
         NoteModel(title: "Hello world", content: _textEditingController.text));
   }
