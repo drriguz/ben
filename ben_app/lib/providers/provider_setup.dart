@@ -1,7 +1,7 @@
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/format/sqlite/database_factory.dart';
 import 'package:ben_app/format/sqlite/sqlite_storage.dart';
-import 'package:ben_app/mobx/notes_store.dart';
+import 'package:ben_app/mobx/item_list_store.dart';
 import 'package:ben_app/mobx/user_store.dart';
 import 'package:ben_app/providers/view_models/login_model.dart';
 import 'package:ben_app/providers/services/init_service.dart';
@@ -69,8 +69,14 @@ List<SingleChildCloneableWidget> _createStores() {
     ProxyProvider<LoginService, UserStore>(
       builder: (_, service, child) => UserStore(service),
     ),
-    ProxyProvider<ItemListService, NotesStore>(
-      builder: (_, service, child) => NotesStore(service),
+    ProxyProvider<ItemListService, NoteStore>(
+      builder: (_, service, child) => NoteStore(service),
+    ),
+    ProxyProvider<ItemListService, BankcardStore>(
+      builder: (_, service, child) => BankcardStore(service),
+    ),
+    ProxyProvider<ItemListService, CertificateStore>(
+      builder: (_, service, child) => CertificateStore(service),
     ),
   ];
 }

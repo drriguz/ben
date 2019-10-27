@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'notes_store.dart';
+part of 'item_list_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,14 +8,14 @@ part of 'notes_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$NotesStore on _NotesStore, Store {
+mixin _$ItemListStore on _ItemListStore, Store {
   Computed<int> _$totalCountComputed;
 
   @override
   int get totalCount =>
       (_$totalCountComputed ??= Computed<int>(() => super.totalCount)).value;
 
-  final _$_dataAtom = Atom(name: '_NotesStore._data');
+  final _$_dataAtom = Atom(name: '_ItemListStore._data');
 
   @override
   ObservableList<Item> get _data {
@@ -37,5 +37,12 @@ mixin _$NotesStore on _NotesStore, Store {
   @override
   Future<void> fetch() {
     return _$fetchAsyncAction.run(() => super.fetch());
+  }
+
+  final _$saveAsyncAction = AsyncAction('save');
+
+  @override
+  Future<void> save(NoteModel note) {
+    return _$saveAsyncAction.run(() => super.save(note));
   }
 }

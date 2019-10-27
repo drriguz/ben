@@ -1,5 +1,4 @@
-import 'package:ben_app/format/serialize.dart';
-import 'package:ben_app/mobx/notes_store.dart';
+import 'package:ben_app/mobx/item_list_store.dart';
 import 'package:ben_app/ui/page/not_implemented.dart';
 import 'package:ben_app/ui/page/tabbed_list/notes_tab.dart';
 import 'package:ben_app/ui/page/tabbed_list/tab_config.dart';
@@ -57,7 +56,7 @@ class _TabbedListPageState extends State<TabbedListPage>
     return TabBarView(
       controller: _tabController,
       children: <Widget>[
-        Consumer<NotesStore>(
+        Consumer<NoteStore>(
           builder: (_, store, child) => NotesListPage(store),
         ),
         NotImplementedPage(),
@@ -111,6 +110,5 @@ class _TabbedListPageState extends State<TabbedListPage>
 
   Future<void> _onAddPressed() async {
     dynamic data = await Navigator.of(context).pushNamed("/note/add");
-
   }
 }

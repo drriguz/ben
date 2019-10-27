@@ -1,21 +1,19 @@
-import 'package:ben_app/mobx/notes_store.dart';
+import 'package:ben_app/mobx/item_list_store.dart';
 import 'package:ben_app/providers/services/item_list_service.dart';
 import 'package:ben_app/providers/view_models/add_note_model.dart';
-import 'package:ben_app/providers/view_models/tabbed_list_model.dart';
 import 'package:ben_app/ui/theme/icons.dart';
 import 'package:ben_app/ui/widgets/tool_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart' as prefix0;
 import 'package:provider/provider.dart';
 
 import 'note_model.dart';
 
 class AddNotePage extends StatelessWidget {
-  final NotesStore _notesStore;
-  TextEditingController _textEditingController = TextEditingController();
+  final NoteStore _noteStore;
+  final TextEditingController _textEditingController = TextEditingController();
 
-  AddNotePage(this._notesStore, {Key key}) : super(key: key);
+  AddNotePage(this._noteStore, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +108,7 @@ class AddNotePage extends StatelessWidget {
   }
 
   void _onSave(BuildContext context) async {
-    _notesStore
+    _noteStore
         .save(NoteModel(title: "hello", content: _textEditingController.text));
     Navigator.of(context).pop(
         NoteModel(title: "Hello world", content: _textEditingController.text));
