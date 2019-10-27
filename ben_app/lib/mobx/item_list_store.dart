@@ -1,8 +1,7 @@
 import 'package:ben_app/format/data_format.dart';
-import 'package:ben_app/format/serialize.dart';
 import 'package:ben_app/mobx/page_status_notifier.dart';
-import 'package:ben_app/plugins/note/note_model.dart';
 import 'package:ben_app/providers/services/item_list_service.dart';
+import 'package:ben_app/ui/model/note_model.dart';
 import 'package:mobx/mobx.dart';
 
 part 'item_list_store.g.dart';

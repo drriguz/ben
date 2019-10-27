@@ -1,4 +1,3 @@
-import 'package:ben_app/providers/view_models/item_list_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

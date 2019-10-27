@@ -8,10 +8,9 @@ import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/serialize.dart';
 import 'package:ben_app/format/sqlite/Item_entity.dart';
-import 'package:ben_app/plugins/bank_card/bank_card_model.dart';
+import 'package:ben_app/ui/model/bank_card_model.dart';
 import 'package:ben_app/util/random.dart';
 import 'package:encryptions/hex.dart';
-import 'package:flutter/foundation.dart';
 import '../../format/storage.dart';
 
 class InitializeService {
@@ -65,7 +64,7 @@ class InitializeService {
       Item sample = ItemEntity(
           id: RandomStringUtil.generateUUID(),
           type: 1,
-          content: Serializer.toMessagePack(bankCard),
+          content: Serializer.toMessagePack<BankCardModel>(bankCard),
           checksum: utf8.encode('12345'));
       itemRepository.createItem(sample);
     }

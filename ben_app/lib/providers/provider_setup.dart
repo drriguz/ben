@@ -1,9 +1,9 @@
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/format/sqlite/database_factory.dart';
 import 'package:ben_app/format/sqlite/sqlite_storage.dart';
+import 'package:ben_app/mobx/initialize_store.dart';
 import 'package:ben_app/mobx/item_list_store.dart';
 import 'package:ben_app/mobx/user_store.dart';
-import 'package:ben_app/providers/view_models/login_model.dart';
 import 'package:ben_app/providers/services/init_service.dart';
 import 'package:ben_app/providers/services/item_list_service.dart';
 import 'package:ben_app/providers/services/login_service.dart';
@@ -55,17 +55,11 @@ List<SingleChildCloneableWidget> _createServices() {
   ];
 }
 
-List<SingleChildCloneableWidget> _createGlobalViewModels() {
-  return [
-    ChangeNotifierProxyProvider<LoginService, LoginViewModel>(
-      initialBuilder: (_) => LoginViewModel(),
-      builder: (_, service, viewModel) => viewModel..loginService = service,
-    ),
-  ];
-}
-
 List<SingleChildCloneableWidget> _createStores() {
   return [
+    ProxyProvider<InitializeService, InitializeStore>(
+      builder: (_, service, child) => InitializeStore(service),
+    ),
     ProxyProvider<LoginService, UserStore>(
       builder: (_, service, child) => UserStore(service),
     ),
@@ -86,7 +80,6 @@ Future<List<SingleChildCloneableWidget>> createProviders() async {
     ...await _createStandaloneProviders(),
     ..._createComponents(),
     ..._createServices(),
-    ..._createGlobalViewModels(),
     ..._createStores(),
   ];
 }

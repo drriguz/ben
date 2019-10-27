@@ -1,49 +1,40 @@
-import 'package:ben_app/crypto/protected_value.dart';
+import 'package:ben_app/mobx/initialize_store.dart';
 import 'package:ben_app/ui/theme/styles.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../generated/i18n.dart';
-import '../../../../providers/view_models/initialize_model.dart';
 import 'package:flutter/material.dart';
 
 class SystemSettingsPage extends StatelessWidget {
+  final InitializeStore _store;
   final Widget buttons;
 
-  const SystemSettingsPage({Key key, @required this.buttons}) : super(key: key);
+  const SystemSettingsPage(
+    this._store, {
+    Key key,
+    @required this.buttons,
+  }) : super(key: key);
 
   List<Widget> _buildPasswordInput() {
     return <Widget>[
-      Consumer<InitializeViewModel>(
-        builder: (context, viewModel, child) => TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              hintText: "请设置一个主密码",
-            ),
-            onChanged: (password) =>
-                {viewModel.masterPassword = ProtectedValue.of(password)}),
+      TextField(
+        obscureText: true,
+        decoration: InputDecoration(hintText: "请设置一个主密码"),
       ),
-      Consumer<InitializeViewModel>(
-        builder: (context, viewModel, child) => TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              hintText: "请重新输入您的主密码",
-            ),
-            onChanged: (password) => {
-                  viewModel.confirmedMasterPassword =
-                      ProtectedValue.of(password)
-                }),
+      TextField(
+        obscureText: true,
+        decoration: InputDecoration(hintText: "请重新输入您的主密码"),
       ),
-      Consumer<InitializeViewModel>(
-        builder: (context, viewModel, child) =>
-            viewModel.passwordErrorMessage == null
-                ? Container()
-                : Padding(
-                    padding: EdgeInsets.only(top: 15),
-                    child: Text(
-                      viewModel.passwordErrorMessage,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
+      Observer(
+        builder: (_) => _store.hasError
+            ? Container()
+            : Padding(
+                padding: EdgeInsets.only(top: 15),
+                child: Text(
+                  _store.passwordErrorMessage,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
       ),
     ];
   }
@@ -61,12 +52,7 @@ class SystemSettingsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(name),
-          Consumer<InitializeViewModel>(
-            builder: (context, viewModel, child) => Switch(
-              value: viewModel.enableFingerprint,
-              onChanged: (value) => viewModel.enableFingerprint = value,
-            ),
-          ),
+          Switch(value: true),
         ],
       ),
     ];

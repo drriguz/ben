@@ -1,13 +1,9 @@
 import 'package:ben_app/mobx/item_list_store.dart';
-import 'package:ben_app/providers/services/item_list_service.dart';
-import 'package:ben_app/providers/view_models/add_note_model.dart';
+import 'package:ben_app/ui/model/note_model.dart';
 import 'package:ben_app/ui/theme/icons.dart';
 import 'package:ben_app/ui/widgets/tool_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'note_model.dart';
 
 class AddNotePage extends StatelessWidget {
   final NoteStore _noteStore;
@@ -92,15 +88,12 @@ class AddNotePage extends StatelessWidget {
             color: Colors.red,
           ),
         ),
-        ChangeNotifierProxyProvider<ItemListService, AddNoteViewModel>(
-          builder: (_, service, viewModel) => AddNoteViewModel(service),
-          child: FlatButton(
-            onPressed: () => _onSave(context),
-            textColor: Colors.blue,
-            child: Text(
-              "保存",
-              style: TextStyle(fontSize: 16),
-            ),
+        FlatButton(
+          onPressed: () => _onSave(context),
+          textColor: Colors.blue,
+          child: Text(
+            "保存",
+            style: TextStyle(fontSize: 16),
           ),
         ),
       ],

@@ -1,4 +1,4 @@
-import 'package:ben_app/plugins/bank_card/bank_card_model.dart';
+import 'package:ben_app/ui/model/bank_card_model.dart';
 import 'package:test/test.dart';
 
 final bankCard = BankCardModel(

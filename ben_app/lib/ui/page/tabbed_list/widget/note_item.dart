@@ -1,6 +1,4 @@
-import 'package:ben_app/plugins/bank_card/bank_card_model.dart';
-import 'package:ben_app/plugins/note/note_model.dart';
-import 'package:ben_app/util/strings.dart';
+import 'package:ben_app/ui/model/note_model.dart';
 import 'package:flutter/material.dart';
 
 import 'list_item.dart';

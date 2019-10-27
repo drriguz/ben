@@ -1,4 +1,4 @@
-import '../../../theme/icons.dart';
+import '../../theme/icons.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {

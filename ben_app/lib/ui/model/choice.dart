@@ -1,5 +1,11 @@
-import 'package:ben_app/plugins/option.dart';
 import 'package:flutter/material.dart';
+
+class Option<T> {
+  const Option(this.displayName, this.value);
+
+  final String displayName;
+  final T value;
+}
 
 class MenuChoice extends Option<String> {
   final IconData icon;

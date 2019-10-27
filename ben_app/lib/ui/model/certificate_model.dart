@@ -1,5 +1,4 @@
 import 'package:ben_app/format/serialize.dart';
-import 'package:ben_app/plugins/abstract_plugin.dart';
 
 enum CertificateType {
   ID,
@@ -8,12 +7,13 @@ enum CertificateType {
   PASSPORT,
 }
 
-class CertificateModel extends DataModel {
+class CertificateModel extends Serializable {
+  final String id;
   final String title;
   final CertificateType type;
   final String number;
 
-  CertificateModel({String id, this.title, this.type, this.number}) : super(id);
+  CertificateModel({this.id, this.title, this.type, this.number});
 
   factory CertificateModel.fromMap(Map map) {
     assert(map != null);

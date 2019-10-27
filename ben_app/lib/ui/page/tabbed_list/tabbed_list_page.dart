@@ -1,14 +1,13 @@
 import 'package:ben_app/mobx/item_list_store.dart';
-import 'package:ben_app/ui/page/not_implemented.dart';
-import 'package:ben_app/ui/page/tabbed_list/notes_tab.dart';
-import 'package:ben_app/ui/page/tabbed_list/tab_config.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/choice.dart';
 import '../../theme/icons.dart';
-import '../secrets/widgets/search_bar.dart';
+import 'search_bar.dart';
 
 import 'package:flutter/material.dart';
+
+import 'tab_content_pages.dart';
 
 class TabbedListPage extends StatefulWidget {
   @override
@@ -26,8 +25,11 @@ const List<MenuChoice> menuItems = const <MenuChoice>[
 class _TabbedListPageState extends State<TabbedListPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-  final List<Tab> tabs =
-      supportedTabs.map((config) => Tab(text: config.tabTitle)).toList();
+  static const List<Tab> tabs = [
+    const Tab(text: "记事"),
+    const Tab(text: "卡片"),
+    const Tab(text: "证件"),
+  ];
 
   void _onPressed() {}
 
@@ -57,10 +59,14 @@ class _TabbedListPageState extends State<TabbedListPage>
       controller: _tabController,
       children: <Widget>[
         Consumer<NoteStore>(
-          builder: (_, store, child) => NotesListPage(store),
+          builder: (_, store, child) => NoteListPage(store),
         ),
-        NotImplementedPage(),
-        NotImplementedPage(),
+        Consumer<BankcardStore>(
+          builder: (_, store, child) => BankcardListPage(store),
+        ),
+        Consumer<CertificateStore>(
+          builder: (_, store, child) => CertificateListPage(store),
+        ),
       ],
     );
   }

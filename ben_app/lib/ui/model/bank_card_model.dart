@@ -1,5 +1,4 @@
 import 'package:ben_app/format/serialize.dart';
-import 'package:ben_app/plugins/abstract_plugin.dart';
 
 /**
  * Ref:https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?cardNo=6222005865412565805&cardBinCheck=true
@@ -9,14 +8,14 @@ enum CardType {
   CREDIT,
 }
 
-class BankCardModel extends DataModel {
+class BankCardModel extends Serializable {
+  final String id;
   final String bank;
   final String title;
   final CardType type;
   final String number;
 
-  BankCardModel({String id, this.bank, this.title, this.type, this.number})
-      : super(id);
+  BankCardModel({this.id, this.bank, this.title, this.type, this.number});
 
   factory BankCardModel.fromMap(Map map) {
     assert(map != null);
@@ -43,18 +42,4 @@ class BankCardModel extends DataModel {
       "number": number,
     };
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is BankCardModel &&
-          runtimeType == other.runtimeType &&
-          bank == other.bank &&
-          title == other.title &&
-          type == other.type &&
-          number == other.number;
-
-  @override
-  int get hashCode =>
-      bank.hashCode ^ title.hashCode ^ type.hashCode ^ number.hashCode;
 }

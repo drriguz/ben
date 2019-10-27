@@ -1,5 +1,4 @@
-import 'package:ben_app/plugins/note/add_note_page.dart';
-import 'package:ben_app/plugins/plugin_registry.dart';
+import 'package:ben_app/ui/page/tabbed_list/add_note_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'mobx/item_list_store.dart';
 import 'mobx/user_store.dart';

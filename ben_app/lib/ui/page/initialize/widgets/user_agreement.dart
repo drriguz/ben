@@ -1,5 +1,4 @@
 import 'package:ben_app/generated/i18n.dart';
-import 'package:ben_app/providers/view_models/initialize_model.dart';
 import 'package:ben_app/util/links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -26,12 +25,9 @@ class UserAgreementPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("同意用户协议"),
-              Consumer<InitializeViewModel>(
-                  builder: (context, viewModel, child) => Checkbox(
-                        value: viewModel.acceptUserAgreement,
-                        onChanged: (value) =>
-                            viewModel.acceptUserAgreement = value,
-                      )),
+              Checkbox(
+                value: true,
+              ),
             ],
           ),
           buttons,

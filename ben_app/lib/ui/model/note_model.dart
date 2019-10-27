@@ -1,10 +1,11 @@
-import 'package:ben_app/plugins/abstract_plugin.dart';
+import 'package:ben_app/format/serialize.dart';
 
-class NoteModel extends DataModel {
+class NoteModel extends Serializable {
+  final String id;
   final String title;
   final String content;
 
-  NoteModel({String id, this.title, this.content}) : super(id);
+  NoteModel({this.id, this.title, this.content});
 
   factory NoteModel.fromMap(Map map) {
     assert(map != null);
