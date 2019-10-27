@@ -110,9 +110,6 @@ class _TabbedListPageState extends State<TabbedListPage>
   }
 
   Future<void> _onAddPressed() async {
-    final config = supportedTabs[_tabController.index];
-    dynamic data = await Navigator.of(context).pushNamed(config.addPageRoute);
-
-    await config.getViewModel(context, true).persist(data as Serializable);
+    dynamic data = await Navigator.of(context).pushNamed("/note/add");
   }
 }

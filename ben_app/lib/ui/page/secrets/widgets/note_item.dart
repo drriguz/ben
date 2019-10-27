@@ -26,7 +26,7 @@ class NoteItem extends AbstractListItem {
             ),
           ),
           Text(
-            "2019年8月10日",
+            model.content,
             style: TextStyle(fontSize: 12),
           ),
         ],
