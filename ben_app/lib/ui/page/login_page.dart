@@ -1,5 +1,5 @@
+import 'package:ben_app/backend/mobx/user_store.dart';
 import 'package:ben_app/crypto/protected_value.dart';
-import 'package:ben_app/mobx/user_store.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../theme/icons.dart';

@@ -1,14 +1,15 @@
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/format/sqlite/database_factory.dart';
 import 'package:ben_app/format/sqlite/sqlite_storage.dart';
-import 'package:ben_app/mobx/initialize_store.dart';
-import 'package:ben_app/mobx/item_list_store.dart';
-import 'package:ben_app/mobx/user_store.dart';
-import 'package:ben_app/providers/services/init_service.dart';
-import 'package:ben_app/providers/services/item_list_service.dart';
-import 'package:ben_app/providers/services/login_service.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
+
+import 'mobx/initialize_store.dart';
+import 'mobx/item_list_store.dart';
+import 'mobx/user_store.dart';
+import 'services/init_service.dart';
+import 'services/item_list_service.dart';
+import 'services/login_service.dart';
 
 Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
   return [

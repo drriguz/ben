@@ -1,11 +1,11 @@
 import 'package:ben_app/ui/page/tabbed_list/add_note_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'mobx/item_list_store.dart';
-import 'mobx/user_store.dart';
-import 'providers/provider_setup.dart';
-import 'providers/services/init_check_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'backend/mobx/item_list_store.dart';
+import 'backend/mobx/user_store.dart';
+import 'backend/provider_setup.dart';
+import 'backend/services/init_check_service.dart';
 import 'format/sqlite/database_factory.dart';
 import 'format/sqlite/sqlite_storage.dart';
 import 'generated/i18n.dart';

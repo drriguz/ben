@@ -1,7 +1,8 @@
+import 'package:ben_app/backend/services/init_service.dart';
 import 'package:ben_app/crypto/protected_value.dart';
-import 'package:ben_app/mobx/page_status_notifier.dart';
-import 'package:ben_app/providers/services/init_service.dart';
 import 'package:mobx/mobx.dart';
+
+import 'page_status_notifier.dart';
 
 part 'initialize_store.g.dart';
 

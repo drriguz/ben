@@ -1,4 +1,4 @@
-import 'package:ben_app/mobx/item_list_store.dart';
+import 'package:ben_app/backend/mobx/item_list_store.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/choice.dart';
