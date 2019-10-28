@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/services/item_list_service.dart';
+import 'package:ben_app/backend/services/item_service.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/ui/model/note_model.dart';
 import 'package:mobx/mobx.dart';
@@ -10,19 +10,19 @@ part 'item_list_store.g.dart';
 class ItemListStore = _ItemListStore with _$ItemListStore;
 
 class BankcardStore extends ItemListStore {
-  BankcardStore(ItemListService itemListService) : super(itemListService, 1);
+  BankcardStore(ItemService itemListService) : super(itemListService, 1);
 }
 
 class CertificateStore extends ItemListStore {
-  CertificateStore(ItemListService itemListService) : super(itemListService, 2);
+  CertificateStore(ItemService itemListService) : super(itemListService, 2);
 }
 
 class NoteStore extends ItemListStore {
-  NoteStore(ItemListService itemListService) : super(itemListService, 3);
+  NoteStore(ItemService itemListService) : super(itemListService, 3);
 }
 
 abstract class _ItemListStore extends PageStatusNotifier with Store {
-  final ItemListService _itemListService;
+  final ItemService _itemListService;
   final int _itemType;
 
   @observable

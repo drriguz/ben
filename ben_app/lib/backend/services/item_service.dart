@@ -6,11 +6,11 @@ import 'package:ben_app/format/sqlite/Item_entity.dart';
 import 'package:ben_app/format/storage.dart';
 import 'package:uuid/uuid.dart';
 
-class ItemListService {
+class ItemService {
   ItemRepository itemRepository;
   final uuid = new Uuid();
 
-  ItemListService();
+  ItemService();
 
   Future<List<Item>> fetchByType(int type) async {
     await Future.delayed(Duration(seconds: 1));

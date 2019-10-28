@@ -8,7 +8,7 @@ import 'mobx/initialize_store.dart';
 import 'mobx/item_list_store.dart';
 import 'mobx/user_store.dart';
 import 'services/init_service.dart';
-import 'services/item_list_service.dart';
+import 'services/item_service.dart';
 import 'services/login_service.dart';
 
 Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
@@ -49,8 +49,8 @@ List<SingleChildCloneableWidget> _createServices() {
         ..headerRepository = repository
         ..kdf = Argon2Kdf(),
     ),
-    ProxyProvider<SqliteItemRepository, ItemListService>(
-      initialBuilder: (_) => ItemListService(),
+    ProxyProvider<SqliteItemRepository, ItemService>(
+      initialBuilder: (_) => ItemService(),
       builder: (_, repository, service) => service..itemRepository = repository,
     ),
   ];
@@ -64,13 +64,13 @@ List<SingleChildCloneableWidget> _createStores() {
     ProxyProvider<LoginService, UserStore>(
       builder: (_, service, child) => UserStore(service),
     ),
-    ProxyProvider<ItemListService, NoteStore>(
+    ProxyProvider<ItemService, NoteStore>(
       builder: (_, service, child) => NoteStore(service),
     ),
-    ProxyProvider<ItemListService, BankcardStore>(
+    ProxyProvider<ItemService, BankcardStore>(
       builder: (_, service, child) => BankcardStore(service),
     ),
-    ProxyProvider<ItemListService, CertificateStore>(
+    ProxyProvider<ItemService, CertificateStore>(
       builder: (_, service, child) => CertificateStore(service),
     ),
   ];
