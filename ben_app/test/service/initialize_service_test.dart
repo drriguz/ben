@@ -15,9 +15,7 @@ class MockKdf extends Mock implements Kdf {}
 void main() {
   final repository = new MockHeaderRepository();
   final kdf = new MockKdf();
-  final service = InitializeService()
-    ..headerRepository = repository
-    ..kdf = kdf;
+  final service = InitializeService(repository, null, kdf);
 
   test('initialize headers with checksum', () async {
     when(repository.saveHeaders(any)).thenAnswer((_) async => {});

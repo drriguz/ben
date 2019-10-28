@@ -14,9 +14,11 @@ import 'package:encryptions/hex.dart';
 import '../../format/storage.dart';
 
 class InitializeService {
-  HeaderRepository headerRepository;
-  ItemRepository itemRepository;
-  Kdf kdf;
+  final HeaderRepository _headerRepository;
+  final ItemRepository _itemRepository;
+  final Kdf _kdf;
+
+  InitializeService(this._headerRepository, this._itemRepository, this._kdf);
 
   Future<void> initialize(
       ProtectedValue masterPassword, bool enableFingerPrint) async {
@@ -27,11 +29,11 @@ class InitializeService {
         RandomStringUtil.generateUUIDasBytes());
     final List<Header> headers = _createHeaderWithoutChecksum(credential);
     final HashValidator hashValidator =
-        new HmacValidator(await credential.getHashKey(kdf));
+        new HmacValidator(await credential.getHashKey(_kdf));
     final Uint8List checksum =
         hashValidator.computeChecksum(_getSourceBytes(headers));
     headers.add(Header(Headers.CHECKSUM, Hex.encode(checksum)));
-    await headerRepository.saveHeaders(headers);
+    await _headerRepository.saveHeaders(headers);
     await insertSampleData();
   }
 
@@ -66,7 +68,7 @@ class InitializeService {
           type: 1,
           content: Serializer.toMessagePack<BankCardModel>(bankCard),
           checksum: utf8.encode('12345'));
-      itemRepository.createItem(sample);
+      _itemRepository.createItem(sample);
     }
   }
 }

@@ -11,15 +11,15 @@ import 'package:encryptions/hex.dart';
 class PasswordIncorrectError extends Error {}
 
 class LoginService {
-  HeaderRepository headerRepository;
-  Kdf kdf;
+  final HeaderRepository _headerRepository;
+  final Kdf _kdf;
 
-  LoginService();
+  LoginService(this._headerRepository, this._kdf);
 
   Future<PasswordCredential> checkUserCredential(
       ProtectedValue masterPassword) async {
-    final List<Header> headers = await headerRepository.getHeaders();
-    final Headers meta = Headers.from(await headerRepository.getHeaders());
+    final List<Header> headers = await _headerRepository.getHeaders();
+    final Headers meta = Headers.from(await _headerRepository.getHeaders());
     final PasswordCredential credential = PasswordCredential(
       masterPassword,
       Hex.decode(meta.masterSeed),
@@ -27,7 +27,7 @@ class LoginService {
       Hex.decode(meta.transformSeed),
     );
     final HashValidator hashValidator =
-        new HmacValidator(await credential.getHashKey(kdf));
+        new HmacValidator(await credential.getHashKey(_kdf));
     List<Header> checksumHeaders = List.from(headers);
     checksumHeaders.removeWhere((item) => item.type == Headers.CHECKSUM);
 

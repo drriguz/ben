@@ -14,13 +14,9 @@ class MockKdf extends Mock implements Kdf {}
 void main() async {
   final repository = new MockHeaderRepository();
   final kdf = new MockKdf();
-  final loginService = LoginService()
-    ..headerRepository = repository
-    ..kdf = kdf;
+  final loginService = LoginService(repository, kdf);
 
-  final initService = InitializeService()
-    ..headerRepository = repository
-    ..kdf = kdf;
+  final initService = InitializeService(repository, null, kdf);
 
   when(repository.saveHeaders(any)).thenAnswer((_) async => {});
   when(kdf.derive(any, any))

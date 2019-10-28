@@ -32,47 +32,36 @@ List<SingleChildCloneableWidget> _createComponents() {
   ];
 }
 
+final Kdf kdf = new Argon2Kdf();
+
 List<SingleChildCloneableWidget> _createServices() {
   return [
     ProxyProvider2<SqliteHeaderRepository, SqliteItemRepository,
         InitializeService>(
-      // todo: using constructor injection instead.
-      initialBuilder: (_) => InitializeService(),
-      builder: (_, headerRepository, itemRepository, service) => service
-        ..headerRepository = headerRepository
-        ..itemRepository = itemRepository
-        ..kdf = Argon2Kdf(),
+      builder: (_, headerRepository, itemRepository, service) =>
+          InitializeService(headerRepository, itemRepository, kdf),
     ),
     ProxyProvider<SqliteHeaderRepository, LoginService>(
-      initialBuilder: (_) => LoginService(),
-      builder: (_, repository, service) => service
-        ..headerRepository = repository
-        ..kdf = Argon2Kdf(),
+      builder: (_, repository, service) => LoginService(repository, kdf),
     ),
     ProxyProvider<SqliteItemRepository, ItemService>(
-      initialBuilder: (_) => ItemService(),
-      builder: (_, repository, service) => service..itemRepository = repository,
-    ),
+      builder: (_, repository, service) => ItemService(repository, kdf),
+    )
   ];
 }
 
 List<SingleChildCloneableWidget> _createStores() {
   return [
     ProxyProvider<InitializeService, InitializeStore>(
-      builder: (_, service, child) => InitializeStore(service),
-    ),
+        builder: (_, service, child) => InitializeStore(service)),
     ProxyProvider<LoginService, UserStore>(
-      builder: (_, service, child) => UserStore(service),
-    ),
+        builder: (_, service, child) => UserStore(service)),
     ProxyProvider<ItemService, NoteStore>(
-      builder: (_, service, child) => NoteStore(service),
-    ),
+        builder: (_, service, child) => NoteStore(service)),
     ProxyProvider<ItemService, BankcardStore>(
-      builder: (_, service, child) => BankcardStore(service),
-    ),
+        builder: (_, service, child) => BankcardStore(service)),
     ProxyProvider<ItemService, CertificateStore>(
-      builder: (_, service, child) => CertificateStore(service),
-    ),
+        builder: (_, service, child) => CertificateStore(service)),
   ];
 }
 
