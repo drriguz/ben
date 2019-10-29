@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:ben_app/backend/mobx/item_list_store.dart';
+import 'package:ben_app/backend/mobx/note_detail_store.dart';
 import 'package:ben_app/backend/mobx/user_store.dart';
 import 'package:ben_app/backend/services/item_service.dart';
 import 'package:ben_app/format/data_format.dart';
@@ -92,8 +93,12 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
 }
 
 class NoteListPage extends ItemListPage<NoteStore, NoteModel> {
-  NoteListPage(NoteStore store, UserStore userStore, ItemService itemService)
-      : super(store, userStore, itemService);
+  final NoteDetailStore _detailStore;
+
+  NoteListPage(NoteStore store, NoteDetailStore detailStore,
+      UserStore userStore, ItemService itemService)
+      : _detailStore = detailStore,
+        super(store, userStore, itemService);
 
   @override
   Future<NoteModel> _decode(Uint8List content) async {
@@ -103,7 +108,7 @@ class NoteListPage extends ItemListPage<NoteStore, NoteModel> {
 
   @override
   Widget _renderModel(NoteModel model) {
-    return NoteItem(model: model);
+    return NoteItem(_detailStore, model);
   }
 }
 

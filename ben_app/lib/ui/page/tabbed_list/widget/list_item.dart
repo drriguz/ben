@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 
 abstract class AbstractListItem extends StatelessWidget {
-  Widget buildContent();
+  Widget buildContent(BuildContext context);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      borderOnForeground: false,
-      margin: const EdgeInsets.only(top: 5.0),
-      child: ConstrainedBox(
-        constraints: new BoxConstraints(
-          minHeight: 70.0,
+    return GestureDetector(
+      onTap: () => onClick(context),
+      child: Card(
+        borderOnForeground: false,
+        margin: const EdgeInsets.only(top: 5.0),
+        child: ConstrainedBox(
+          constraints: new BoxConstraints(
+            minHeight: 70.0,
+          ),
+          child: buildContent(context),
         ),
-        child: buildContent(),
       ),
     );
   }
+
+  void onClick(BuildContext context);
+
+  AbstractListItem({Key key}) : super(key: key);
 }
 
 abstract class AbstractDataListItem<T> extends StatelessWidget {

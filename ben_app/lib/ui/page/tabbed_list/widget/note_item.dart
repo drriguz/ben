@@ -1,3 +1,4 @@
+import 'package:ben_app/backend/mobx/note_detail_store.dart';
 import 'package:ben_app/ui/model/note_model.dart';
 import 'package:flutter/material.dart';
 
@@ -5,11 +6,12 @@ import 'list_item.dart';
 
 class NoteItem extends AbstractListItem {
   final NoteModel model;
+  final NoteDetailStore _detailStore;
 
-  NoteItem({Key key, this.model});
+  NoteItem(this._detailStore, this.model, {Key key}) : super(key: key);
 
   @override
-  Widget buildContent() {
+  Widget buildContent(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: Column(
@@ -34,5 +36,11 @@ class NoteItem extends AbstractListItem {
         ],
       ),
     );
+  }
+
+  @override
+  void onClick(BuildContext context) {
+    _detailStore.setSelected(model);
+    Navigator.of(context).pushNamed("/note/detail");
   }
 }

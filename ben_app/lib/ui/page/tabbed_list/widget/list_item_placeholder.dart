@@ -4,7 +4,7 @@ import 'list_item.dart';
 
 class ItemPlaceholder extends AbstractListItem {
   @override
-  Widget buildContent() {
+  Widget buildContent(BuildContext context) {
     return Row(
       children: <Widget>[
         Padding(
@@ -14,5 +14,10 @@ class ItemPlaceholder extends AbstractListItem {
         Text("解密中...")
       ],
     );
+  }
+
+  @override
+  void onClick(BuildContext context) {
+    // do nothing
   }
 }

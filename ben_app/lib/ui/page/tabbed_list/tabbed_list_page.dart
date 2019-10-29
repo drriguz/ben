@@ -1,4 +1,5 @@
 import 'package:ben_app/backend/mobx/item_list_store.dart';
+import 'package:ben_app/backend/mobx/note_detail_store.dart';
 import 'package:ben_app/backend/mobx/user_store.dart';
 import 'package:ben_app/backend/services/item_service.dart';
 import 'package:provider/provider.dart';
@@ -60,9 +61,9 @@ class _TabbedListPageState extends State<TabbedListPage>
     return TabBarView(
       controller: _tabController,
       children: <Widget>[
-        Consumer3<NoteStore, UserStore, ItemService>(
-          builder: (_, store, userStore, itemService, child) =>
-              NoteListPage(store, userStore, itemService),
+        Consumer4<NoteStore, NoteDetailStore, UserStore, ItemService>(
+          builder: (_, store, detailStore, userStore, itemService, child) =>
+              NoteListPage(store, detailStore, userStore, itemService),
         ),
         Consumer3<BankcardStore, UserStore, ItemService>(
           builder: (_, store, userStore, itemService, child) =>
