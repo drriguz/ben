@@ -1,5 +1,6 @@
 import 'package:ben_app/backend/mobx/item_list_store.dart';
 import 'package:ben_app/backend/mobx/user_store.dart';
+import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/ui/model/note_model.dart';
 import 'package:ben_app/ui/theme/icons.dart';
 import 'package:ben_app/ui/widgets/tool_button.dart';
@@ -9,9 +10,11 @@ import 'package:flutter/material.dart';
 class AddNotePage extends StatelessWidget {
   final UserStore _userStore;
   final NoteStore _noteStore;
+  final NoteService _noteService;
   final TextEditingController _textEditingController = TextEditingController();
 
-  AddNotePage(this._noteStore, this._userStore, {Key key}) : super(key: key);
+  AddNotePage(this._noteStore, this._userStore, this._noteService, {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +106,8 @@ class AddNotePage extends StatelessWidget {
   }
 
   void _onSave(BuildContext context) async {
-    _noteStore.save(
-        NoteModel(title: "hello", content: _textEditingController.text),
+    _noteStore.save(_noteService.buildNote(_textEditingController.text),
         _userStore.userCredential);
-    Navigator.of(context).pop(
-        NoteModel(title: "Hello world", content: _textEditingController.text));
+    Navigator.of(context).pop();
   }
 }

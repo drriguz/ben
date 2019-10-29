@@ -1,3 +1,4 @@
+import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/format/sqlite/database_factory.dart';
 import 'package:ben_app/format/sqlite/sqlite_storage.dart';
@@ -46,7 +47,10 @@ List<SingleChildCloneableWidget> _createServices() {
     ),
     ProxyProvider<SqliteItemRepository, ItemService>(
       builder: (_, repository, service) => ItemService(repository, kdf),
-    )
+    ),
+    Provider<NoteService>(
+      builder: (_) => NoteService(),
+    ),
   ];
 }
 

@@ -1,3 +1,4 @@
+import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/ui/page/tabbed_list/add_note_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
@@ -56,9 +57,9 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 builder: (_, store, child) => LoginPage(store),
               ),
           "/home": (_) => new HomePage(),
-          "/note/add": (_) => Consumer2<NoteStore, UserStore>(
-                builder: (_, noteStore, userStore, child) =>
-                    AddNotePage(noteStore, userStore),
+          "/note/add": (_) => Consumer3<NoteStore, UserStore, NoteService>(
+                builder: (_, noteStore, userStore, noteService, child) =>
+                    AddNotePage(noteStore, userStore, noteService),
               ),
         },
       ),

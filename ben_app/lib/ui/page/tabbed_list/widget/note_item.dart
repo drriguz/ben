@@ -20,12 +20,16 @@ class NoteItem extends AbstractListItem {
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
               model.title,
-              style: TextStyle(fontSize: 16),
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             ),
           ),
           Text(
             model.content,
-            style: TextStyle(fontSize: 12),
+            overflow: TextOverflow.fade,
+            maxLines: 1,
+            softWrap: false,
+            style: TextStyle(fontSize: 14),
           ),
         ],
       ),
