@@ -19,6 +19,12 @@ class ProtectedValue {
     return ProtectedValue(_xor(valueBytes, salt), salt);
   }
 
+  factory ProtectedValue.ofBinary(Uint8List valueBytes) {
+    assert(valueBytes != null);
+    final Uint8List salt = _randomBytes(valueBytes.length);
+    return ProtectedValue(_xor(valueBytes, salt), salt);
+  }
+
   Uint8List get binaryValue => _xor(_mixed, _salt);
 
   Uint8List get hash => sha256.convert(binaryValue).bytes as Uint8List;

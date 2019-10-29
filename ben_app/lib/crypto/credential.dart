@@ -18,24 +18,36 @@ class PasswordCredential implements Credential {
   final Uint8List _encryptionIv;
   final Uint8List _transformSeed;
 
-  PasswordCredential(this._password, this._masterSeed, this._encryptionIv,
-      this._transformSeed);
+  ProtectedValue _encryptionKeyCache;
+  ProtectedValue _hashKeyCache;
+
+  PasswordCredential(
+      this._password, this._masterSeed, this._encryptionIv, this._transformSeed)
+      : _encryptionKeyCache = null,
+        _hashKeyCache = null;
 
   @override
   Future<Uint8List> getEncryptionKey(final Kdf kdf) async {
-    Stopwatch stopwatch = new Stopwatch()..start();
-    final Uint8List plainPasswordHash = sha256.convert(_password.hash).bytes;
-    Uint8List result = await kdf.derive(plainPasswordHash, _transformSeed);
-    print("Password hash generated in ${stopwatch.elapsed} seconds");
-    return result;
+    if (_encryptionKeyCache == null) {
+      Stopwatch stopwatch = new Stopwatch()..start();
+      final Uint8List plainPasswordHash = sha256.convert(_password.hash).bytes;
+      Uint8List result = await kdf.derive(plainPasswordHash, _transformSeed);
+      print("Password hash generated in ${stopwatch.elapsed} seconds");
+      _encryptionKeyCache = ProtectedValue.ofBinary(result);
+    }
+    return _encryptionKeyCache.binaryValue;
   }
 
   @override
   Future<Uint8List> getHashKey(final Kdf kdf) async {
-    final List<int> source = List.from(_masterSeed);
-    source.addAll(await getEncryptionKey(kdf));
-    source.add(0x01);
-    return sha512.convert(source).bytes;
+    if (_hashKeyCache == null) {
+      final List<int> source = List.from(_masterSeed);
+      source.addAll(await getEncryptionKey(kdf));
+      source.add(0x01);
+      final key = sha512.convert(source).bytes;
+      _hashKeyCache = ProtectedValue.ofBinary(key);
+    }
+    return _hashKeyCache.binaryValue;
   }
 
   ProtectedValue get password => _password;

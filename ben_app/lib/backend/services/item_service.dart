@@ -19,7 +19,6 @@ class ItemService {
   ItemService(this._itemRepository, this._kdf);
 
   Future<List<Item>> fetchByType(int type) async {
-    await Future.delayed(Duration(seconds: 1));
     return _itemRepository.getItemsByType(type);
   }
 
