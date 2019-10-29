@@ -1,6 +1,7 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:ben_app/crypto/credential.dart';
+import 'package:ben_app/crypto/hmac_validator.dart';
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/serialize.dart';
@@ -22,18 +23,31 @@ class ItemService {
     return _itemRepository.getItemsByType(type);
   }
 
-  Future<void> create<T extends Serializable>(int type, T data) async {
+
+  Future<void> create<T extends Serializable>(
+      int type, T data, PasswordCredential credential) async {
     final bytes = Serializer.toMessagePack(data);
+    final encrypted = await Encryptions.aesEncrypt(
+        await credential.getEncryptionKey(_kdf),
+        credential.encryptionIv,
+        bytes);
+    final hashValidator = new HmacValidator(await credential.getHashKey(_kdf));
+    final checksum = hashValidator.computeChecksum(bytes);
+
     return _itemRepository.createItem(ItemEntity(
       id: _uuid.v4(),
       type: type,
-      content: bytes,
-      checksum: utf8.encode("12345"), //fixme
+      content: encrypted,
+      checksum: checksum,
     ));
   }
 
-  Future<void> create1<T extends Serializable>(int type, T data, PasswordCredential credential) async{
-    final bytes = Serializer.toMessagePack(data);
-    // final encrypted = Encryptions.aesEncrypt(credential.getEncryptionKey(_kdf), credential., value)
+  Future<Uint8List> decrypt(
+      Uint8List source, PasswordCredential credential) async {
+    return Encryptions.aesDecrypt(
+      await credential.getEncryptionKey(_kdf),
+      credential.encryptionIv,
+      source,
+    );
   }
 }

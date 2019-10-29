@@ -1,9 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:ben_app/backend/mobx/item_list_store.dart';
+import 'package:ben_app/backend/mobx/user_store.dart';
+import 'package:ben_app/backend/services/item_service.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/serialize.dart';
 import 'package:ben_app/ui/model/bank_card_model.dart';
 import 'package:ben_app/ui/model/certificate_model.dart';
 import 'package:ben_app/ui/model/note_model.dart';
+import 'package:encryptions/hex.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -17,8 +22,11 @@ import 'widget/note_item.dart';
 abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
     extends StatelessWidget {
   final T _store;
+  final UserStore _userStore;
+  final ItemService _itemService;
 
-  const ItemListPage(this._store, {Key key}) : super(key: key);
+  const ItemListPage(this._store, this._userStore, this._itemService, {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +56,32 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
         });
   }
 
-  Future<M> _decode(Item data);
+  Future<M> _decode(Uint8List content);
+
+  Future<M> _decodeEncrypted(Item data) async {
+    try {
+      Uint8List bytes =
+          await _itemService.decrypt(data.content, _userStore.userCredential);
+      final result = await _decode(bytes);
+      return result;
+    } catch (err, stack) {
+      print("error: ${err} ${stack}");
+      throw err;
+    }
+  }
 
   Widget _renderModel(M model);
 
   Widget _createListItem(Item data) {
     return FutureBuilder<M>(
-      future: _decode(data),
+      future: _decodeEncrypted(data),
       builder: (BuildContext _, AsyncSnapshot<M> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
+            if (snapshot.hasError) {
+              print(snapshot.error);
+              return ItemPlaceholder();
+            }
             return _renderModel(snapshot.data);
           default:
             return ItemPlaceholder();
@@ -68,12 +92,13 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
 }
 
 class NoteListPage extends ItemListPage<NoteStore, NoteModel> {
-  NoteListPage(NoteStore store) : super(store);
+  NoteListPage(NoteStore store, UserStore userStore, ItemService itemService)
+      : super(store, userStore, itemService);
 
   @override
-  Future<NoteModel> _decode(Item data) async {
+  Future<NoteModel> _decode(Uint8List content) async {
     return Serializer.fromMessagePack<NoteModel>(
-        data.content, (_) => NoteModel.fromMap(_));
+        content, (_) => NoteModel.fromMap(_));
   }
 
   @override
@@ -83,12 +108,14 @@ class NoteListPage extends ItemListPage<NoteStore, NoteModel> {
 }
 
 class BankcardListPage extends ItemListPage<BankcardStore, BankCardModel> {
-  BankcardListPage(BankcardStore store) : super(store);
+  BankcardListPage(
+      BankcardStore store, UserStore userStore, ItemService itemService)
+      : super(store, userStore, itemService);
 
   @override
-  Future<BankCardModel> _decode(Item data) async {
+  Future<BankCardModel> _decode(Uint8List content) async {
     return Serializer.fromMessagePack<BankCardModel>(
-        data.content, (_) => BankCardModel.fromMap(_));
+        content, (_) => BankCardModel.fromMap(_));
   }
 
   @override
@@ -99,12 +126,14 @@ class BankcardListPage extends ItemListPage<BankcardStore, BankCardModel> {
 
 class CertificateListPage
     extends ItemListPage<CertificateStore, CertificateModel> {
-  CertificateListPage(CertificateStore store) : super(store);
+  CertificateListPage(
+      CertificateStore store, UserStore userStore, ItemService itemService)
+      : super(store, userStore, itemService);
 
   @override
-  Future<CertificateModel> _decode(Item data) async {
+  Future<CertificateModel> _decode(Uint8List content) async {
     return Serializer.fromMessagePack<CertificateModel>(
-        data.content, (_) => CertificateModel.fromMap(_));
+        content, (_) => CertificateModel.fromMap(_));
   }
 
   @override

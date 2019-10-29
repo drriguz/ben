@@ -1,4 +1,6 @@
 import 'package:ben_app/backend/mobx/item_list_store.dart';
+import 'package:ben_app/backend/mobx/user_store.dart';
+import 'package:ben_app/backend/services/item_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/choice.dart';
@@ -58,14 +60,17 @@ class _TabbedListPageState extends State<TabbedListPage>
     return TabBarView(
       controller: _tabController,
       children: <Widget>[
-        Consumer<NoteStore>(
-          builder: (_, store, child) => NoteListPage(store),
+        Consumer3<NoteStore, UserStore, ItemService>(
+          builder: (_, store, userStore, itemService, child) =>
+              NoteListPage(store, userStore, itemService),
         ),
-        Consumer<BankcardStore>(
-          builder: (_, store, child) => BankcardListPage(store),
+        Consumer3<BankcardStore, UserStore, ItemService>(
+          builder: (_, store, userStore, itemService, child) =>
+              BankcardListPage(store, userStore, itemService),
         ),
-        Consumer<CertificateStore>(
-          builder: (_, store, child) => CertificateListPage(store),
+        Consumer3<CertificateStore, UserStore, ItemService>(
+          builder: (_, store, userStore, itemService, child) =>
+              CertificateListPage(store, userStore, itemService),
         ),
       ],
     );
@@ -115,6 +120,6 @@ class _TabbedListPageState extends State<TabbedListPage>
   }
 
   Future<void> _onAddPressed() async {
-    dynamic data = await Navigator.of(context).pushNamed("/note/add");
+    return Navigator.of(context).pushNamed("/note/add");
   }
 }

@@ -1,4 +1,6 @@
+
 import 'package:ben_app/backend/services/item_service.dart';
+import 'package:ben_app/crypto/credential.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/ui/model/note_model.dart';
 import 'package:mobx/mobx.dart';
@@ -41,9 +43,9 @@ abstract class _ItemListStore extends PageStatusNotifier with Store {
   }
 
   @action
-  Future<void> save(NoteModel note) async {
+  Future<void> save(NoteModel note, PasswordCredential credential) async {
     setBusy();
-    await _itemListService.create(_itemType, note);
+    await _itemListService.create<NoteModel>(_itemType, note, credential);
     _data.clear();
     _data.addAll(await _itemListService.fetchByType(_itemType));
     setIdle();

@@ -42,7 +42,7 @@ mixin _$ItemListStore on _ItemListStore, Store {
   final _$saveAsyncAction = AsyncAction('save');
 
   @override
-  Future<void> save(NoteModel note) {
-    return _$saveAsyncAction.run(() => super.save(note));
+  Future<void> save(NoteModel note, PasswordCredential credential) {
+    return _$saveAsyncAction.run(() => super.save(note, credential));
   }
 }

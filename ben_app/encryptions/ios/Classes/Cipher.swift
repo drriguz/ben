@@ -43,7 +43,7 @@ struct AES {
                     CCCrypt(
                         option,                       // encrypt | decrypt
                         CCAlgorithm(kCCAlgorithmAES), // aes
-                        CCOptions(ccNoPadding),       // padding
+                        CCOptions(kCCOptionPKCS7Padding),       // padding
                         keyBytes,                     // key
                         key.count,                    // 128 | 256
                         ivBytes,                      // iv

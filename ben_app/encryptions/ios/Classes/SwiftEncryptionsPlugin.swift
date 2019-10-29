@@ -23,9 +23,6 @@ public class SwiftEncryptionsPlugin: NSObject, FlutterPlugin {
         return result;
     }
     
-    private func handleArgon2(){
-        
-    }
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let args = call.arguments as! [String: Any];
         switch call.method {
@@ -37,9 +34,10 @@ public class SwiftEncryptionsPlugin: NSObject, FlutterPlugin {
             do {
                 let cipher = try handleAes(key: key.data, iv: iv.data, value: value.data, method: call.method);
                 result(cipher);
-            } catch {
+            } catch let error {
+                print("error >>> \(error)");
                 result(nil);
-            };
+            }
             
             
         case "argon2i":

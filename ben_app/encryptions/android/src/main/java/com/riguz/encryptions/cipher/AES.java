@@ -28,7 +28,11 @@ public final class AES {
         Log.d("AES_ENCRYPT", "Iv=" + new String(Hex.encodeHex(initVector)));
         Log.d("AES_ENCRYPT", "Value=" + new String(Hex.encodeHex(value)));
         try {
-            final Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
+            /*
+                works fine with kCCOptionPKCS7Padding in swift
+                https://crypto.stackexchange.com/questions/9043/what-is-the-difference-between-pkcs5-padding-and-pkcs7-padding
+             */
+            final Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
 
             return cipher.doFinal(value);
@@ -48,7 +52,7 @@ public final class AES {
         Log.d("AES_DECRYPT", "Iv=" + new String(Hex.encodeHex(initVector)));
         Log.d("AES_DECRYPT", "Value=" + new String(Hex.encodeHex(value)));
         try {
-            final Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
+            final Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, keySpec, iv);
 
             return cipher.doFinal(value);

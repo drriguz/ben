@@ -56,8 +56,9 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 builder: (_, store, child) => LoginPage(store),
               ),
           "/home": (_) => new HomePage(),
-          "/note/add": (_) => Consumer<NoteStore>(
-                builder: (_, store, child) => AddNotePage(store),
+          "/note/add": (_) => Consumer2<NoteStore, UserStore>(
+                builder: (_, noteStore, userStore, child) =>
+                    AddNotePage(noteStore, userStore),
               ),
         },
       ),
