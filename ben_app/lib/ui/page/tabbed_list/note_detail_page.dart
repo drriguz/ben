@@ -19,8 +19,14 @@ class NoteDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("查看记事"),
       ),
-      body: Center(
-        child: Text(_store.noteModel.content),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          child: Text(
+            _store.noteModel.content,
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
       ),
     );
   }
