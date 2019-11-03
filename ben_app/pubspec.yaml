@@ -21,6 +21,7 @@ dependencies:
   uuid: ^2.0.2
   mobx: ^0.3.8+1
   flutter_mobx: ^0.3.3+1
+  flutter_masked_text: ^0.8.0
   encryptions:
     path: ./encryptions
 
