@@ -54,7 +54,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
               ? Consumer<UserStore>(
                   builder: (_, store, child) => LoginPage(store),
                 )
-              : new InitializePage(),
+              : InitializePage(),
           "/login": (_) => Consumer<UserStore>(
                 builder: (_, store, child) => LoginPage(store),
               ),

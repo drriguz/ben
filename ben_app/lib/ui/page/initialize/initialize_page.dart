@@ -1,3 +1,4 @@
+import 'package:ben_app/backend/mobx/initialize_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -92,9 +93,15 @@ class _InitializePageState extends State<InitializePage>
                   controller: _tabController,
                   children: <Widget>[
                     AboutPage(buttons: buttons),
-                    SystemSettingsPage(null, buttons: buttons),
+                    Consumer<InitializeStore>(
+                      builder: (_, store, child) =>
+                          SystemSettingsPage(store, buttons: buttons),
+                    ),
                     UserAgreementPage(buttons: buttons),
-                    FinishSetupPage(buttons: buttons),
+                    Consumer<InitializeStore>(
+                      builder: (_, store, child) =>
+                          FinishSetupPage(store, buttons: buttons),
+                    ),
                   ],
                 ),
               ),

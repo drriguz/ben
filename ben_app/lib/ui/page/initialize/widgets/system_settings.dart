@@ -1,4 +1,5 @@
 import 'package:ben_app/backend/mobx/initialize_store.dart';
+import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/ui/theme/styles.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -20,6 +21,8 @@ class SystemSettingsPage extends StatelessWidget {
       TextField(
         obscureText: true,
         decoration: InputDecoration(hintText: "请设置一个主密码"),
+        onChanged: (value) =>
+            _store.confirmMasterPassword(ProtectedValue.of(value), null),
       ),
       TextField(
         obscureText: true,
@@ -27,14 +30,14 @@ class SystemSettingsPage extends StatelessWidget {
       ),
       Observer(
         builder: (_) => _store.hasError
-            ? Container()
-            : Padding(
+            ? Padding(
                 padding: EdgeInsets.only(top: 15),
                 child: Text(
                   _store.passwordErrorMessage,
                   style: TextStyle(color: Colors.red),
                 ),
-              ),
+              )
+            : Container(),
       ),
     ];
   }

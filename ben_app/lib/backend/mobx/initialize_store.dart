@@ -50,6 +50,7 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
 
   @action
   Future<void> initialize() async {
+    assert(_masterPassword != null);
     setBusy();
     await _initializeService.initialize(_masterPassword, _enableFingerprint);
     setIdle();
