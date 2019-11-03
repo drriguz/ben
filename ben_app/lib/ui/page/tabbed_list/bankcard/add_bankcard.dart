@@ -18,12 +18,22 @@ class AddBankcardPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             FormInput.textInput("持卡人姓名", "请输入姓名"),
-            FormInput.textInput("卡号", "银行卡号"),
+            FormInput("卡号", _renderCardNumber()),
             FormInput.textInput("所属银行", "所属发卡行"),
             FormInput("有效期", _renderValidDate()),
             _renderCardImages(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _renderCardNumber() {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: "银行卡号",
+        suffixIcon: Icon(Icons.camera_alt),
+        border: InputBorder.none,
       ),
     );
   }
@@ -34,13 +44,19 @@ class AddBankcardPage extends StatelessWidget {
         Expanded(
           child: TextField(
             controller: _validFromController,
-            decoration: InputDecoration.collapsed(hintText: "起 月/年"),
+            decoration: InputDecoration(
+              hintText: "起 月/年",
+              border: InputBorder.none,
+            ),
           ),
         ),
         Expanded(
           child: TextField(
             controller: _validToController,
-            decoration: InputDecoration.collapsed(hintText: "止 月/年"),
+            decoration: InputDecoration(
+              hintText: "止 月/年",
+              border: InputBorder.none,
+            ),
           ),
         )
       ],
@@ -54,7 +70,7 @@ class AddBankcardPage extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(right: 5.0),
+              padding: const EdgeInsets.only(right: 15.0),
               child: Image(
                 image: AssetImage('assets/front.jpg'),
               ),
@@ -62,7 +78,7 @@ class AddBankcardPage extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 5.0),
+              padding: const EdgeInsets.only(left: 15.0),
               child: Image(
                 image: AssetImage('assets/back.jpg'),
               ),

@@ -9,7 +9,10 @@ class FormInput extends StatelessWidget {
   FormInput.textInput(this._label, String placeholder, {Key key})
       : _child = TextField(
           style: TextStyle(fontSize: 16),
-          decoration: InputDecoration.collapsed(hintText: placeholder),
+          decoration: InputDecoration(
+            hintText: placeholder,
+            border: InputBorder.none,
+          ),
         ),
         super(key: key);
 
@@ -18,7 +21,7 @@ class FormInput extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 5, bottom: 10),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
             width: 100,
