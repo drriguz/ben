@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   sqflite: ^1.1.6
   cupertino_icons: ^0.1.2
+  camera:
+  path_provider:
   path: ^1.6.2
   crypto: ^2.1.1+1
   provider: ^3.1.0

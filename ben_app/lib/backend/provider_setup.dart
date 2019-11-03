@@ -2,6 +2,7 @@ import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/format/sqlite/database_factory.dart';
 import 'package:ben_app/format/sqlite/sqlite_storage.dart';
+import 'package:camera/camera.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -15,9 +16,10 @@ import 'services/login_service.dart';
 
 Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
   return [
-    Provider.value(
+    Provider<Database>.value(
         value: await SqliteFactory.createInstance(
             "data.db", "assets/config/init.sql")),
+    Provider<List<CameraDescription>>.value(value: await availableCameras())
   ];
 }
 
