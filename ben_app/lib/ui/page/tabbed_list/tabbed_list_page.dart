@@ -25,14 +25,46 @@ const List<MenuChoice> menuItems = const <MenuChoice>[
   const MenuChoice('检查更新', 'update', Icons.directions_walk),
 ];
 
+class _TabConfig {
+  final String name;
+  final Widget tabContent;
+  final String addRoute;
+
+  _TabConfig(this.name, this.tabContent, this.addRoute);
+}
+
+final tabConfigs = [
+  _TabConfig(
+    "记事",
+    Consumer4<NoteStore, NoteDetailStore, UserStore, ItemService>(
+      builder: (_, store, detailStore, userStore, itemService, child) =>
+          NoteListPage(store, detailStore, userStore, itemService),
+    ),
+    "/note/add",
+  ),
+  _TabConfig(
+    "卡片",
+    Consumer3<BankcardStore, UserStore, ItemService>(
+      builder: (_, store, userStore, itemService, child) =>
+          BankcardListPage(store, userStore, itemService),
+    ),
+    "/bankcard/add",
+  ),
+  _TabConfig(
+    "证件",
+    Consumer3<CertificateStore, UserStore, ItemService>(
+      builder: (_, store, userStore, itemService, child) =>
+          CertificateListPage(store, userStore, itemService),
+    ),
+    "/certificate/add",
+  ),
+];
+
 class _TabbedListPageState extends State<TabbedListPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-  static const List<Tab> tabs = [
-    const Tab(text: "记事"),
-    const Tab(text: "卡片"),
-    const Tab(text: "证件"),
-  ];
+  final List<Tab> tabs =
+      tabConfigs.map((config) => Tab(text: config.name)).toList();
 
   void _onPressed() {}
 
@@ -60,20 +92,7 @@ class _TabbedListPageState extends State<TabbedListPage>
   TabBarView _createTabBarView() {
     return TabBarView(
       controller: _tabController,
-      children: <Widget>[
-        Consumer4<NoteStore, NoteDetailStore, UserStore, ItemService>(
-          builder: (_, store, detailStore, userStore, itemService, child) =>
-              NoteListPage(store, detailStore, userStore, itemService),
-        ),
-        Consumer3<BankcardStore, UserStore, ItemService>(
-          builder: (_, store, userStore, itemService, child) =>
-              BankcardListPage(store, userStore, itemService),
-        ),
-        Consumer3<CertificateStore, UserStore, ItemService>(
-          builder: (_, store, userStore, itemService, child) =>
-              CertificateListPage(store, userStore, itemService),
-        ),
-      ],
+      children: tabConfigs.map((config) => config.tabContent).toList(),
     );
   }
 
@@ -121,6 +140,7 @@ class _TabbedListPageState extends State<TabbedListPage>
   }
 
   Future<void> _onAddPressed() async {
-    return Navigator.of(context).pushNamed("/note/add");
+    final route = tabConfigs[_tabController.index].addRoute;
+    return Navigator.of(context).pushNamed(route);
   }
 }
