@@ -2,7 +2,7 @@ import 'package:ben_app/ui/model/bank_card_model.dart';
 import 'package:ben_app/util/strings.dart';
 import 'package:flutter/material.dart';
 
-import 'list_item.dart';
+import '../widget/list_item.dart';
 
 class BankCardItem extends AbstractDataListItem<BankCardModel> {
   const BankCardItem({Key key, BankCardModel model})

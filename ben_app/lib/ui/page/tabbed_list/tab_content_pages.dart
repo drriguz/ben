@@ -14,11 +14,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import 'widget/bank_card_item.dart';
-import 'widget/certificate_card_item.dart';
+import 'bankcard/bank_card_item.dart';
+import 'certificate/certificate_card_item.dart';
 import 'widget/empty_list_tip.dart';
 import 'widget/list_item_placeholder.dart';
-import 'widget/note_item.dart';
+import 'note/note_item.dart';
 
 abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
     extends StatelessWidget {

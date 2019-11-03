@@ -2,7 +2,7 @@ import 'package:ben_app/backend/mobx/note_detail_store.dart';
 import 'package:ben_app/ui/model/note_model.dart';
 import 'package:flutter/material.dart';
 
-import 'list_item.dart';
+import '../widget/list_item.dart';
 
 class NoteItem extends AbstractListItem {
   final NoteModel model;
