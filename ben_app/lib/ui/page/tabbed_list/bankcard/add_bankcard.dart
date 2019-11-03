@@ -18,7 +18,7 @@ class AddBankcardPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             FormInput.textInput("持卡人姓名", "请输入姓名"),
-            FormInput("卡号", _renderCardNumber()),
+            FormInput("卡号", _renderCardNumber(context)),
             FormInput.textInput("所属银行", "所属发卡行"),
             FormInput("有效期", _renderValidDate()),
             _renderCardImages(),
@@ -28,14 +28,21 @@ class AddBankcardPage extends StatelessWidget {
     );
   }
 
-  Widget _renderCardNumber() {
+  Widget _renderCardNumber(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
         hintText: "银行卡号",
-        suffixIcon: Icon(Icons.camera_alt),
+        suffixIcon: IconButton(
+          icon: Icon(Icons.camera_alt),
+          onPressed: () => onStartScan(context),
+        ),
         border: InputBorder.none,
       ),
     );
+  }
+
+  void onStartScan(BuildContext context) {
+    Navigator.of(context).pushNamed("/bankcard/scan");
   }
 
   Widget _renderValidDate() {

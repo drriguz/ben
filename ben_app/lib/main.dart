@@ -16,6 +16,7 @@ import 'generated/i18n.dart';
 import 'ui/page/home_page.dart';
 import 'ui/page/initialize/initialize_page.dart';
 import 'ui/page/login_page.dart';
+import 'ui/page/tabbed_list/bankcard/scan_card.dart';
 
 Future<bool> checkInitialized() async {
   final database =
@@ -68,6 +69,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 builder: (_, store, child) => NoteDetailPage(store),
               ),
           "/bankcard/add": (_) => AddBankcardPage(),
+          "/bankcard/scan": (_) => ScanPage(),
         },
       ),
     ),
