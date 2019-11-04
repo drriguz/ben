@@ -1,7 +1,10 @@
+import 'package:ben_app/ui/page/tabbed_list/bankcard/scan_card.dart';
 import 'package:ben_app/ui/widgets/form_input.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AddBankcardPage extends StatelessWidget {
   final _validFromController = MaskedTextController(mask: '00/00');
@@ -41,8 +44,23 @@ class AddBankcardPage extends StatelessWidget {
     );
   }
 
-  void onStartScan(BuildContext context) {
-    Navigator.of(context).pushNamed("/bankcard/scan");
+  Future<void> onStartScan(BuildContext context) async {
+    final cameras = await availableCameras();
+    if (cameras.isNotEmpty) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => ScanPage(
+                camera: cameras.first,
+              )));
+    } else {
+      Fluttertoast.showToast(
+          msg: "无法检测到摄像头",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIos: 3,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    }
   }
 
   Widget _renderValidDate() {
