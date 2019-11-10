@@ -22,14 +22,12 @@ class ItemService {
     return _itemRepository.getItemsByType(type);
   }
 
-
   Future<void> create<T extends Serializable>(
       int type, T data, PasswordCredential credential) async {
     final bytes = Serializer.toMessagePack(data);
-    final encrypted = await Encryptions.aesEncrypt(
-        await credential.getEncryptionKey(_kdf),
-        credential.encryptionIv,
-        bytes);
+    final AES aes = AES.ofCBC(await credential.getEncryptionKey(_kdf),
+        credential.encryptionIv, PaddingScheme.PKCS5Padding);
+    final encrypted = await aes.encrypt(bytes);
     final hashValidator = new HmacValidator(await credential.getHashKey(_kdf));
     final checksum = hashValidator.computeChecksum(bytes);
 
@@ -43,10 +41,8 @@ class ItemService {
 
   Future<Uint8List> decrypt(
       Uint8List source, PasswordCredential credential) async {
-    return Encryptions.aesDecrypt(
-      await credential.getEncryptionKey(_kdf),
-      credential.encryptionIv,
-      source,
-    );
+    final AES aes = AES.ofCBC(await credential.getEncryptionKey(_kdf),
+        credential.encryptionIv, PaddingScheme.PKCS5Padding);
+    return aes.decrypt(source);
   }
 }

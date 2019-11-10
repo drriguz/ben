@@ -9,7 +9,6 @@ import 'package:ben_app/format/serialize.dart';
 import 'package:ben_app/ui/model/bank_card_model.dart';
 import 'package:ben_app/ui/model/certificate_model.dart';
 import 'package:ben_app/ui/model/note_model.dart';
-import 'package:encryptions/hex.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

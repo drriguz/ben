@@ -10,7 +10,7 @@ import 'package:ben_app/format/serialize.dart';
 import 'package:ben_app/format/sqlite/Item_entity.dart';
 import 'package:ben_app/ui/model/bank_card_model.dart';
 import 'package:ben_app/util/random.dart';
-import 'package:encryptions/hex.dart';
+import 'package:convert/convert.dart';
 import '../../format/storage.dart';
 
 class InitializeService {
@@ -32,7 +32,7 @@ class InitializeService {
         new HmacValidator(await credential.getHashKey(_kdf));
     final Uint8List checksum =
         hashValidator.computeChecksum(_getSourceBytes(headers));
-    headers.add(Header(Headers.CHECKSUM, Hex.encode(checksum)));
+    headers.add(Header(Headers.CHECKSUM, hex.encode(checksum)));
     await _headerRepository.saveHeaders(headers);
     await insertSampleData();
   }
@@ -42,9 +42,9 @@ class InitializeService {
       Header(Headers.VERSION, "0.1"),
       Header(Headers.CIPHER_ID, Headers.AES),
       Header(Headers.COMPRESSION_FLAGS, Headers.NO_COMPRESSION),
-      Header(Headers.MASTER_SEED, Hex.encode(credential.masterSeed)),
-      Header(Headers.TRANSFORM_SEED, Hex.encode(credential.transformSeed)),
-      Header(Headers.ENCRYPTION_IV, Hex.encode(credential.encryptionIv)),
+      Header(Headers.MASTER_SEED, hex.encode(credential.masterSeed)),
+      Header(Headers.TRANSFORM_SEED, hex.encode(credential.transformSeed)),
+      Header(Headers.ENCRYPTION_IV, hex.encode(credential.encryptionIv)),
       Header(Headers.KDF_PARAMETERS, ""),
     ];
   }

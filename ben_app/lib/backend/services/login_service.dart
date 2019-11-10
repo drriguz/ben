@@ -6,7 +6,7 @@ import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/storage.dart';
-import 'package:encryptions/hex.dart';
+import 'package:convert/convert.dart';
 
 class PasswordIncorrectError extends Error {}
 
@@ -22,16 +22,16 @@ class LoginService {
     final Headers meta = Headers.from(await _headerRepository.getHeaders());
     final PasswordCredential credential = PasswordCredential(
       masterPassword,
-      Hex.decode(meta.masterSeed),
-      Hex.decode(meta.encryptionIv),
-      Hex.decode(meta.transformSeed),
+      hex.decode(meta.masterSeed),
+      hex.decode(meta.encryptionIv),
+      hex.decode(meta.transformSeed),
     );
     final HashValidator hashValidator =
         new HmacValidator(await credential.getHashKey(_kdf));
     List<Header> checksumHeaders = List.from(headers);
     checksumHeaders.removeWhere((item) => item.type == Headers.CHECKSUM);
 
-    final String checksum = Hex.encode(
+    final String checksum = hex.encode(
         hashValidator.computeChecksum(_getSourceBytes(checksumHeaders)));
     if (checksum == meta.checksum) return credential;
     throw PasswordIncorrectError();

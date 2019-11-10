@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:encryptions/encryptions.dart';
@@ -9,6 +10,7 @@ abstract class Kdf {
 class Argon2Kdf implements Kdf {
   @override
   Future<Uint8List> derive(Uint8List password, Uint8List salt) async {
-    return Encryptions.argon2dRaw(password, salt);
+    Argon2 argon2 = new Argon2();
+    return await argon2.argon2i(password, salt) as Uint8List;
   }
 }
