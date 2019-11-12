@@ -5,8 +5,16 @@ class ToolButton extends StatelessWidget {
   final VoidCallback onTap;
   final String label;
   final IconData icon;
+  final double iconSize;
+  final TextStyle labelStyle;
 
-  const ToolButton({Key key, @required this.onTap, this.label, this.icon})
+  const ToolButton(
+      {Key key,
+      @required this.onTap,
+      this.label,
+      this.icon,
+      this.iconSize = 24,
+      this.labelStyle = const TextStyle(fontSize: 12)})
       : super(key: key);
 
   @override
@@ -20,11 +28,11 @@ class ToolButton extends StatelessWidget {
           children: <Widget>[
             Icon(
               icon,
-              size: 24,
+              size: iconSize,
             ), // icon
             Text(
               label,
-              style: TextStyle(fontSize: 12),
+              style: labelStyle,
             ), // text
           ],
         ),

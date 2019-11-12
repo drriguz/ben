@@ -50,6 +50,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
         ],
         supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
+          //fontFamily: 'fzltxh',
           primarySwatch: Colors.red,
         ),
         routes: {
@@ -61,7 +62,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
           "/login": (_) => Consumer<UserStore>(
                 builder: (_, store, child) => LoginPage(store),
               ),
-          "/home": (_) => new HomePage(),
+          "/home": (_) => HomePage(),
           "/note/add": (_) => Consumer3<NoteStore, UserStore, NoteService>(
                 builder: (_, noteStore, userStore, noteService, child) =>
                     AddNotePage(noteStore, userStore, noteService),

@@ -1,3 +1,4 @@
+import 'package:ben_app/ui/page/tool_box.dart';
 import 'package:flutter/material.dart';
 import 'not_implemented.dart';
 
@@ -14,7 +15,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   static final List<Widget> _tabItems = <Widget>[
     TabbedListPage(),
     NotImplementedPage(title: 'Share'),
-    NotImplementedPage(title: 'Settings'),
+    ToolboxPage(),
     NotImplementedPage(title: 'sync'),
   ];
 
