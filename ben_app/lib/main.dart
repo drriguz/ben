@@ -51,7 +51,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
         supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
           //fontFamily: 'fzltxh',
-          primarySwatch: Colors.red,
+          primarySwatch: Colors.purple,
         ),
         routes: {
           "/": (_) => initialized

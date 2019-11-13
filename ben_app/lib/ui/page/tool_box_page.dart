@@ -26,7 +26,7 @@ class ToolboxPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Toolbox"),
+          title: Text("工具箱"),
         ),
         body: ListView.builder(
           itemCount: tools.length,

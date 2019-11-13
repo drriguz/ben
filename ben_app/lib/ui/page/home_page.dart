@@ -1,5 +1,6 @@
-import 'package:ben_app/ui/page/tool_box.dart';
+import 'package:ben_app/ui/page/tool_box_page.dart';
 import 'package:flutter/material.dart';
+import 'album_page.dart';
 import 'not_implemented.dart';
 
 import '../theme/icons.dart';
@@ -14,7 +15,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   int _currentPageIndex = 0;
   static final List<Widget> _tabItems = <Widget>[
     TabbedListPage(),
-    NotImplementedPage(title: 'Share'),
+    AlbumPage(),
     ToolboxPage(),
     NotImplementedPage(title: 'sync'),
   ];
@@ -53,7 +54,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(FontIcon.list), title: Text("私密")),
-          BottomNavigationBarItem(icon: Icon(FontIcon.flag), title: Text("地标")),
+          BottomNavigationBarItem(
+              icon: Icon(FontIcon.image), title: Text("相册")),
           BottomNavigationBarItem(
               icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
           BottomNavigationBarItem(
