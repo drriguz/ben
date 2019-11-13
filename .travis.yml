@@ -43,9 +43,8 @@ matrix:
         - ./flutter/bin/flutter packages get
         - ./flutter/bin/flutter precache
         - yes | ./flutter/bin/flutter doctor --android-licenses
-        - cd ben_app
       script:
-        - ./flutter/bin/flutter build apk --flavor dev
+        - cd ben_app && ../flutter/bin/flutter build apk --flavor dev
     - os: osx
       language: generic
       osx_image: xcode11
@@ -53,9 +52,8 @@ matrix:
         - git clone -b stable https://github.com/flutter/flutter.git
         - ./flutter/bin/flutter packages get
         - ./flutter/bin/flutter precache
-        - cd ben_app
       script:
-        - ./flutter/bin/flutter build ios --no-codesign  
+        - cd ben_app && ../flutter/bin/flutter build ios --no-codesign  
 cache:
   directories:
     - $HOME/.pub-cache
