@@ -1,5 +1,7 @@
 夯(bèn) 
 
+[![Build Status](https://travis-ci.com/soleverlee/ben.svg?branch=master)](https://travis-ci.com/soleverlee/ben)
+
 A simple local password manager app.
 
 Key features:
