@@ -27,7 +27,7 @@ class NoteItem extends AbstractListItem {
             ),
           ),
           Text(
-            model.content,
+            model.lastUpdatedTime?.toString() ?? "",
             overflow: TextOverflow.fade,
             maxLines: 1,
             softWrap: false,

@@ -106,7 +106,7 @@ class AddNotePage extends StatelessWidget {
   }
 
   void _onSave(BuildContext context) async {
-    _noteStore.save(_noteService.buildNote(_textEditingController.text),
+    _noteStore.save(_noteService.createNote(_textEditingController.text),
         _userStore.userCredential);
     Navigator.of(context).pop();
   }

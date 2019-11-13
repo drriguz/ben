@@ -1,11 +1,21 @@
 import 'package:ben_app/format/serialize.dart';
+import 'package:ben_app/ui/model/abstract_model.dart';
 
-class NoteModel extends Serializable {
-  final String id;
+class NoteModel extends AbstractModel implements Serializable {
   final String title;
   final String content;
 
-  NoteModel({this.id, this.title, this.content});
+  NoteModel(
+      {String id,
+      DateTime createdTime,
+      DateTime lastUpdatedTime,
+      this.title,
+      this.content})
+      : super(
+          id: id,
+          createdTime: createdTime,
+          lastUpdatedTime: lastUpdatedTime,
+        );
 
   factory NoteModel.fromMap(Map map) {
     assert(map != null);
@@ -13,6 +23,8 @@ class NoteModel extends Serializable {
       id: map["id"],
       title: map["title"],
       content: map["content"],
+      createdTime: map["createdTime"],
+      lastUpdatedTime: map["lastUpdatedTime"],
     );
   }
 
@@ -22,6 +34,8 @@ class NoteModel extends Serializable {
       "id": id,
       "title": title,
       "content": content,
+      "createdTime": createdTime,
+      "lastUpdatedTime": lastUpdatedTime,
     };
   }
 }
