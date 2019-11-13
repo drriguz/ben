@@ -1,0 +1,61 @@
+matrix:
+    include:
+    - os: linux
+      language: android
+      dist: trusty
+      jdk: oraclejdk8
+      sudo: true
+      android:
+        components:
+          - tools
+          - platform-tools
+          - build-tools-28.0.3
+          - android-28
+          - sys-img-armeabi-v7a-google_apis-25
+          - extra-android-m2repository
+          - extra-google-m2repository
+          - extra-google-android-support
+        licenses:
+          - android-sdk-preview-license-.+
+          - android-sdk-license-.+
+          - google-gdk-license-.+
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_install:
+        - yes | sdkmanager --update
+      install:
+        - echo y | sdkmanager "ndk-bundle" > /dev/null
+        - echo y | sdkmanager "cmake;3.6.4111459" > /dev/null
+        - echo y | sdkmanager "lldb;3.1" > /dev/null
+        - gem install fir-cli
+      before_script:
+        - wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
+        - unzip -qq gradle-3.5-bin.zip
+        - export GRADLE_HOME=$PWD/gradle-3.5
+        - export PATH=$GRADLE_HOME/bin:$PATH
+        - git clone -b stable https://github.com/flutter/flutter.git
+        - ./flutter/bin/flutter packages get
+        - ./flutter/bin/flutter precache
+        - yes | ./flutter/bin/flutter doctor --android-licenses
+		- cd ben_app
+      script:
+        - ./flutter/bin/flutter build apk --flavor dev
+    - os: osx
+      language: generic
+      osx_image: xcode11
+      before_script:
+        - git clone -b stable https://github.com/flutter/flutter.git
+        - ./flutter/bin/flutter packages get
+        - ./flutter/bin/flutter precache
+		- cd ben_app
+      script:
+        - ./flutter/bin/flutter build ios --no-codesign  
+cache:
+  directories:
+    - $HOME/.pub-cache
