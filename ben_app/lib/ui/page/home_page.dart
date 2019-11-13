@@ -55,11 +55,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(FontIcon.list), title: Text("私密")),
           BottomNavigationBarItem(
-              icon: Icon(FontIcon.image), title: Text("相册")),
+              icon: Icon(FontIcon.galley), title: Text("相册")),
           BottomNavigationBarItem(
               icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
           BottomNavigationBarItem(
-              icon: Icon(FontIcon.backup), title: Text("同步")),
+              icon: Icon(FontIcon.message), title: Text("私聊")),
         ],
         type: BottomNavigationBarType.fixed,
         // without this line tab icon won't display

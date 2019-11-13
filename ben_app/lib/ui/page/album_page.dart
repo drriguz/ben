@@ -18,8 +18,15 @@ class AlbumPage extends StatelessWidget {
           AlbumItem(name: "默认相册", imageCount: 100),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _onTakePhotoPressed,
+        tooltip: 'Take photo',
+        child: Icon(Icons.photo_camera),
+      ),
     );
   }
+
+  void _onTakePhotoPressed() {}
 }
 
 class AlbumItem extends StatelessWidget {
@@ -34,7 +41,7 @@ class AlbumItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/empty-image.png"),
+            image: AssetImage("assets/hlw.jpg"),
             fit: BoxFit.cover,
           ),
         ),
