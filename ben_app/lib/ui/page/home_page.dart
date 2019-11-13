@@ -16,8 +16,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   static final List<Widget> _tabItems = <Widget>[
     TabbedListPage(),
     AlbumPage(),
+    NotImplementedPage(title: 'talk'),
     ToolboxPage(),
-    NotImplementedPage(title: 'sync'),
   ];
 
   void _onTabActivate(int index) {
@@ -57,9 +57,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           BottomNavigationBarItem(
               icon: Icon(FontIcon.galley), title: Text("相册")),
           BottomNavigationBarItem(
-              icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
-          BottomNavigationBarItem(
               icon: Icon(FontIcon.message), title: Text("私聊")),
+          BottomNavigationBarItem(
+              icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
         ],
         type: BottomNavigationBarType.fixed,
         // without this line tab icon won't display
