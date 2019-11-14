@@ -1,7 +1,6 @@
 夯(bèn) 
 
 [![Build Status](https://travis-ci.com/soleverlee/ben.svg?branch=master)](https://travis-ci.com/soleverlee/ben)
-[![Pub](https://img.shields.io/pub/v/encryptions)](https://pub.dev/packages/encryptions)
 
 A simple local password/secret manager app.
 
