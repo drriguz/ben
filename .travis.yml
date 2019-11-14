@@ -40,20 +40,22 @@ matrix:
         - export GRADLE_HOME=$PWD/gradle-3.5
         - export PATH=$GRADLE_HOME/bin:$PATH
         - git clone -b stable https://github.com/flutter/flutter.git
-        - ./flutter/bin/flutter packages get
-        - ./flutter/bin/flutter precache
-        - yes | ./flutter/bin/flutter doctor --android-licenses
+        - cd ben_app
+        - ../flutter/bin/flutter packages get
+        - ../flutter/bin/flutter precache
+        - yes | ../flutter/bin/flutter doctor --android-licenses
       script:
-        - cd ben_app && ../flutter/bin/flutter build apk --flavor dev
+        - ../flutter/bin/flutter build apk --flavor dev
     - os: osx
       language: generic
       osx_image: xcode11
       before_script:
         - git clone -b stable https://github.com/flutter/flutter.git
-        - ./flutter/bin/flutter packages get
-        - ./flutter/bin/flutter precache
+        - cd ben_app
+        - ../flutter/bin/flutter packages get
+        - ../flutter/bin/flutter precache
       script:
-        - cd ben_app && ../flutter/bin/flutter build ios --no-codesign  
+        - ../flutter/bin/flutter build ios --no-codesign  
 cache:
   directories:
     - $HOME/.pub-cache
