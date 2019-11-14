@@ -45,18 +45,12 @@ class AlbumItem extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Stack(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Positioned(
-              bottom: 5,
-              left: 5,
-              child: Text("$name"),
-            ),
-            Positioned(
-              bottom: 25,
-              left: 5,
-              child: Text("$imageCount"),
-            )
+            Text("$name"),
+            Text("$imageCount"),
           ],
         ),
       ),
