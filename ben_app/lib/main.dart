@@ -30,6 +30,7 @@ Future<bool> checkInitialized() async {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final bool hasInitialized = await checkInitialized();
 
   final List<SingleChildCloneableWidget> providers = await createProviders();
