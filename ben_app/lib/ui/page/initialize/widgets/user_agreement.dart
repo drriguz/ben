@@ -2,12 +2,12 @@ import 'package:ben_app/generated/i18n.dart';
 import 'package:ben_app/util/links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:provider/provider.dart';
 
 class UserAgreementPage extends StatelessWidget {
-  final Widget buttons;
+  final Function onPrevious;
+  final Function onNext;
 
-  const UserAgreementPage({Key key, this.buttons}) : super(key: key);
+  const UserAgreementPage({Key key, @required this.onPrevious, @required this.onNext}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +25,24 @@ class UserAgreementPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("同意用户协议"),
-              Checkbox(
-                value: true,
-              ),
+              Checkbox(value: true),
             ],
           ),
-          buttons,
+          ButtonBar(
+            alignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              FlatButton(
+                key: Key("previousButton"),
+                onPressed: this.onPrevious,
+                child: Text("上一步"),
+              ),
+              FlatButton(
+                key: Key("nextButton"),
+                onPressed: this.onNext,
+                child: Text("下一步"),
+              )
+            ],
+          ),
         ],
       ),
     );

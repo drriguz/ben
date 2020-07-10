@@ -7,6 +7,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'backend/mobx/initialize_store.dart';
 import 'backend/mobx/item_list_store.dart';
 import 'backend/mobx/user_store.dart';
 import 'backend/provider_setup.dart';
@@ -20,10 +21,8 @@ import 'ui/page/login_page.dart';
 import 'ui/page/tabbed_list/bankcard/scan_card.dart';
 
 Future<bool> checkInitialized() async {
-  final database =
-      await SqliteFactory.createInstance("data.db", "assets/config/init.sql");
-  final InitializeCheckService checkService =
-      InitializeCheckService(SqliteHeaderRepository()..db = database);
+  final database = await SqliteFactory.createInstance("data.db", "assets/config/init.sql");
+  final InitializeCheckService checkService = InitializeCheckService(SqliteHeaderRepository()..db = database);
   final initialized = checkService.hasInitialized();
   await database.close();
   return initialized;
@@ -59,7 +58,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
               ? Consumer<UserStore>(
                   builder: (_, store, child) => LoginPage(store),
                 )
-              : InitializePage(),
+              : Consumer<InitializeStore>(builder: (_, store, child) => InitializePage(store)),
           "/login": (_) => Consumer<UserStore>(
                 builder: (_, store, child) => LoginPage(store),
               ),

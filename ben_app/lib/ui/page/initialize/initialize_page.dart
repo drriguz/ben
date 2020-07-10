@@ -8,13 +8,19 @@ import 'widgets/system_settings.dart';
 import 'widgets/user_agreement.dart';
 
 class InitializePage extends StatefulWidget {
+  final InitializeStore _store;
+
+  const InitializePage(this._store, {Key key}) : super(key: key);
+
   @override
-  _InitializePageState createState() => _InitializePageState();
+  _InitializePageState createState() => _InitializePageState(_store);
 }
 
-class _InitializePageState extends State<InitializePage>
-    with SingleTickerProviderStateMixin {
+class _InitializePageState extends State<InitializePage> with SingleTickerProviderStateMixin {
   TabController _tabController;
+  final InitializeStore _store;
+
+  _InitializePageState(this._store);
 
   @override
   void initState() {
@@ -51,34 +57,11 @@ class _InitializePageState extends State<InitializePage>
     );
   }
 
-  Widget _createButtons() {
-    return Consumer<TabController>(
-      builder: (context, controller, child) => ButtonBar(
-        alignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          if (controller.index != 0)
-            FlatButton(
-              key: Key("previousButton"),
-              onPressed: () => changeTab(-1),
-              child: Text("上一步"),
-            ),
-          if (controller.index != tabNames.length - 1)
-            FlatButton(
-              key: Key("nextButton"),
-              onPressed: () => changeTab(1),
-              child: Text("下一步"),
-            ),
-        ],
-      ),
-    );
-  }
-
   Widget _createTabs() {
-    Widget buttons = _createButtons();
     return Padding(
       padding: const EdgeInsets.only(top: 50.0, left: 20, right: 20),
       child: ChangeNotifierProvider<TabController>(
-        builder: (context) => _tabController,
+        create: (context) => _tabController,
         child: Column(
           children: <Widget>[
             Image(
@@ -92,16 +75,10 @@ class _InitializePageState extends State<InitializePage>
                   physics: NeverScrollableScrollPhysics(),
                   controller: _tabController,
                   children: <Widget>[
-                    AboutPage(buttons: buttons),
-                    Consumer<InitializeStore>(
-                      builder: (_, store, child) =>
-                          SystemSettingsPage(store, buttons: buttons),
-                    ),
-                    UserAgreementPage(buttons: buttons),
-                    Consumer<InitializeStore>(
-                      builder: (_, store, child) =>
-                          FinishSetupPage(store, buttons: buttons),
-                    ),
+                    AboutPage(onNext: this._onNextPage),
+                    SystemSettingsPage(_store, onNext: this._onNextPage, onPrevious: this._onPreviousPage),
+                    UserAgreementPage(onNext: this._onNextPage, onPrevious: this._onPreviousPage),
+                    FinishSetupPage(_store),
                   ],
                 ),
               ),
@@ -112,7 +89,15 @@ class _InitializePageState extends State<InitializePage>
     );
   }
 
-  void changeTab(int movement) {
+  void _onPreviousPage() {
+    _changeTab(-1);
+  }
+
+  void _onNextPage() {
+    _changeTab(1);
+  }
+
+  void _changeTab(int movement) {
     int index = _tabController.index + movement;
     if (index >= 0 && index < tabNames.length) _tabController.animateTo(index);
   }

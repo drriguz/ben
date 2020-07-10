@@ -16,9 +16,7 @@ import 'services/login_service.dart';
 
 Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
   return [
-    Provider<Database>.value(
-        value: await SqliteFactory.createInstance(
-            "data.db", "assets/config/init.sql")),
+    Provider<Database>.value(value: await SqliteFactory.createInstance("data.db", "assets/config/init.sql")),
     Provider<List<CameraDescription>>.value(value: await availableCameras())
   ];
 }
@@ -26,12 +24,12 @@ Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
 List<SingleChildCloneableWidget> _createComponents() {
   return [
     ProxyProvider<Database, SqliteHeaderRepository>(
-      initialBuilder: (_) => SqliteHeaderRepository(),
-      builder: (_, database, repository) => repository..db = database,
+      create: (_) => SqliteHeaderRepository(),
+      update: (_, database, repository) => repository..db = database,
     ),
     ProxyProvider<Database, SqliteItemRepository>(
-      initialBuilder: (_) => SqliteItemRepository(),
-      builder: (_, database, repository) => repository..db = database,
+      create: (_) => SqliteItemRepository(),
+      update: (_, database, repository) => repository..db = database,
     ),
   ];
 }
@@ -40,37 +38,31 @@ final Kdf kdf = new Argon2Kdf();
 
 List<SingleChildCloneableWidget> _createServices() {
   return [
-    ProxyProvider2<SqliteHeaderRepository, SqliteItemRepository,
-        InitializeService>(
-      builder: (_, headerRepository, itemRepository, service) =>
+    ProxyProvider2<SqliteHeaderRepository, SqliteItemRepository, InitializeService>(
+      update: (_, headerRepository, itemRepository, service) =>
           InitializeService(headerRepository, itemRepository, kdf),
     ),
     ProxyProvider<SqliteHeaderRepository, LoginService>(
-      builder: (_, repository, service) => LoginService(repository, kdf),
+      update: (_, repository, service) => LoginService(repository, kdf),
     ),
     ProxyProvider<SqliteItemRepository, ItemService>(
-      builder: (_, repository, service) => ItemService(repository, kdf),
+      update: (_, repository, service) => ItemService(repository, kdf),
     ),
     Provider<NoteService>(
-      builder: (_) => NoteService(),
+      create: (_) => NoteService(),
     ),
   ];
 }
 
 List<SingleChildCloneableWidget> _createStores() {
   return [
-    ProxyProvider<InitializeService, InitializeStore>(
-        builder: (_, service, child) => InitializeStore(service)),
-    ProxyProvider<LoginService, UserStore>(
-        builder: (_, service, child) => UserStore(service)),
-    ProxyProvider<ItemService, NoteStore>(
-        builder: (_, service, child) => NoteStore(service)),
-    ProxyProvider<ItemService, BankcardStore>(
-        builder: (_, service, child) => BankcardStore(service)),
-    ProxyProvider<ItemService, CertificateStore>(
-        builder: (_, service, child) => CertificateStore(service)),
+    ProxyProvider<InitializeService, InitializeStore>(update: (_, service, child) => InitializeStore(service)),
+    ProxyProvider<LoginService, UserStore>(update: (_, service, child) => UserStore(service)),
+    ProxyProvider<ItemService, NoteStore>(update: (_, service, child) => NoteStore(service)),
+    ProxyProvider<ItemService, BankcardStore>(update: (_, service, child) => BankcardStore(service)),
+    ProxyProvider<ItemService, CertificateStore>(update: (_, service, child) => CertificateStore(service)),
     Provider<NoteDetailStore>(
-      builder: (_) => NoteDetailStore(),
+      create: (_) => NoteDetailStore(),
     )
   ];
 }

@@ -8,25 +8,22 @@ import 'package:flutter/material.dart';
 
 class SystemSettingsPage extends StatelessWidget {
   final InitializeStore _store;
-  final Widget buttons;
+  final Function onPrevious;
+  final Function onNext;
 
-  const SystemSettingsPage(
-    this._store, {
-    Key key,
-    @required this.buttons,
-  }) : super(key: key);
+  const SystemSettingsPage(this._store, {Key key, @required this.onPrevious, @required this.onNext}) : super(key: key);
 
   List<Widget> _buildPasswordInput() {
     return <Widget>[
       TextField(
         obscureText: true,
         decoration: InputDecoration(hintText: "请设置一个主密码"),
-        onChanged: (value) =>
-            _store.confirmMasterPassword(ProtectedValue.of(value), null),
+        onChanged: (value) => _store.setMasterPassword(ProtectedValue.of(value)),
       ),
       TextField(
         obscureText: true,
         decoration: InputDecoration(hintText: "请重新输入您的主密码"),
+        onChanged: (value) => _store.confirmPassword(ProtectedValue.of(value)),
       ),
       Observer(
         builder: (_) => _store.hasError
@@ -79,7 +76,21 @@ class SystemSettingsPage extends StatelessWidget {
             "开启后，系统会尝试根据您的设备计算出（比默认更强的）达到要求的安全设置。如果不开启系统将会使用推荐的默认设置。",
             "自动检测加密设置",
           ),
-          buttons,
+          ButtonBar(
+            alignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              FlatButton(
+                key: Key("previousButton"),
+                onPressed: this.onPrevious,
+                child: Text("上一步"),
+              ),
+              FlatButton(
+                key: Key("nextButton"),
+                onPressed: this.onNext,
+                child: Text("下一步"),
+              )
+            ],
+          ),
         ],
       ),
     );

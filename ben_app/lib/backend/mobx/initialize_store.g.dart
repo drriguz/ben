@@ -32,6 +32,26 @@ mixin _$InitializeStore on _InitializeStore, Store {
     }, _$_masterPasswordAtom, name: '${_$_masterPasswordAtom.name}_set');
   }
 
+  final _$_confirmedMasterPasswordAtom =
+      Atom(name: '_InitializeStore._confirmedMasterPassword');
+
+  @override
+  ProtectedValue get _confirmedMasterPassword {
+    _$_confirmedMasterPasswordAtom.context
+        .enforceReadPolicy(_$_confirmedMasterPasswordAtom);
+    _$_confirmedMasterPasswordAtom.reportObserved();
+    return super._confirmedMasterPassword;
+  }
+
+  @override
+  set _confirmedMasterPassword(ProtectedValue value) {
+    _$_confirmedMasterPasswordAtom.context.conditionallyRunInAction(() {
+      super._confirmedMasterPassword = value;
+      _$_confirmedMasterPasswordAtom.reportChanged();
+    }, _$_confirmedMasterPasswordAtom,
+        name: '${_$_confirmedMasterPasswordAtom.name}_set');
+  }
+
   final _$_passwordErrorMessageAtom =
       Atom(name: '_InitializeStore._passwordErrorMessage');
 
@@ -102,11 +122,20 @@ mixin _$InitializeStore on _InitializeStore, Store {
       ActionController(name: '_InitializeStore');
 
   @override
-  void confirmMasterPassword(
-      ProtectedValue password, ProtectedValue confirmPassword) {
+  void setMasterPassword(ProtectedValue password) {
     final _$actionInfo = _$_InitializeStoreActionController.startAction();
     try {
-      return super.confirmMasterPassword(password, confirmPassword);
+      return super.setMasterPassword(password);
+    } finally {
+      _$_InitializeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void confirmPassword(ProtectedValue password) {
+    final _$actionInfo = _$_InitializeStoreActionController.startAction();
+    try {
+      return super.confirmPassword(password);
     } finally {
       _$_InitializeStoreActionController.endAction(_$actionInfo);
     }

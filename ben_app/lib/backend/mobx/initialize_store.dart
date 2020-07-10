@@ -15,6 +15,9 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
   ProtectedValue _masterPassword;
 
   @observable
+  ProtectedValue _confirmedMasterPassword;
+
+  @observable
   String _passwordErrorMessage;
 
   String get passwordErrorMessage => _passwordErrorMessage;
@@ -35,17 +38,29 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
         _enableFingerprint = true;
 
   @action
-  void confirmMasterPassword(
-      ProtectedValue password, ProtectedValue confirmPassword) {
+  void setMasterPassword(ProtectedValue password) {
     setBusy();
-    _masterPassword = null;
-    if (password == null || password.getText().length < 5) {
+    _masterPassword = password;
+    _validatePassword();
+    setIdle();
+  }
+
+  @action
+  void confirmPassword(ProtectedValue password) {
+    setBusy();
+    _confirmedMasterPassword = password;
+    _validatePassword();
+    setIdle();
+  }
+
+  void _validatePassword() {
+    if (_masterPassword == null || _masterPassword.getText().length < 6) {
       _passwordErrorMessage = "密码长度不符合要求";
+    } else if (_masterPassword != _confirmedMasterPassword) {
+      _passwordErrorMessage = "两次输入的密码不一致";
     } else {
-      _masterPassword = password;
       _passwordErrorMessage = null;
     }
-    setIdle();
   }
 
   @action
