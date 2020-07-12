@@ -1,5 +1,5 @@
 import 'package:ben_app/backend/mobx/note_detail_store.dart';
-import 'package:ben_app/ui/model/note_model.dart';
+import 'package:ben_app/format/record/note_record.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/list_item.dart';
@@ -31,7 +31,7 @@ class NoteItem extends AbstractListItem {
             overflow: TextOverflow.fade,
             maxLines: 1,
             softWrap: false,
-            style: TextStyle(fontSize: 14),
+            style: TextStyle(fontSize: 14, color: Colors.grey),
           ),
         ],
       ),

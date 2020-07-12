@@ -1,4 +1,4 @@
-import 'package:ben_app/ui/model/note_model.dart';
+import 'package:ben_app/format/record/note_record.dart';
 import 'package:uuid/uuid.dart';
 
 class NoteService {

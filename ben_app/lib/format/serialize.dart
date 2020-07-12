@@ -24,6 +24,10 @@ abstract class Serializer {
     return serialize(source.toMap());
   }
 
+  static Uint8List toMessagePackRaw(Map<String, dynamic> source) {
+    return serialize(source);
+  }
+
   static T fromMessagePack<T extends Serializable>(
       Uint8List bytes, T Function(Map data) factory) {
     return factory(deserialize(bytes));

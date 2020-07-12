@@ -45,26 +45,22 @@ final tabConfigs = [
   _TabConfig(
     "卡片",
     Consumer3<BankcardStore, UserStore, ItemService>(
-      builder: (_, store, userStore, itemService, child) =>
-          BankcardListPage(store, userStore, itemService),
+      builder: (_, store, userStore, itemService, child) => BankcardListPage(store, userStore, itemService),
     ),
     "/bankcard/add",
   ),
   _TabConfig(
     "证件",
     Consumer3<CertificateStore, UserStore, ItemService>(
-      builder: (_, store, userStore, itemService, child) =>
-          CertificateListPage(store, userStore, itemService),
+      builder: (_, store, userStore, itemService, child) => CertificateListPage(store, userStore, itemService),
     ),
     "/certificate/add",
   ),
 ];
 
-class _TabbedListPageState extends State<TabbedListPage>
-    with SingleTickerProviderStateMixin {
+class _TabbedListPageState extends State<TabbedListPage> with SingleTickerProviderStateMixin {
   TabController _tabController;
-  final List<Tab> tabs =
-      tabConfigs.map((config) => Tab(text: config.name)).toList();
+  final List<Tab> tabs = tabConfigs.map((config) => Tab(text: config.name)).toList();
 
   void _onPressed() {}
 

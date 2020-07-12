@@ -1,20 +1,15 @@
 import 'package:ben_app/format/serialize.dart';
-import 'package:ben_app/ui/model/abstract_model.dart';
+import 'package:ben_app/format/record/abstract_record.dart';
 
-class NoteModel extends AbstractModel implements Serializable {
+class NoteModel extends AbstractDataRecord implements Serializable {
   final String title;
   final String content;
 
-  NoteModel(
-      {String id,
-      DateTime createdTime,
-      DateTime lastUpdatedTime,
-      this.title,
-      this.content})
+  NoteModel({String id, DateTime createdTime, DateTime lastUpdatedTime, this.title, this.content})
       : super(
-          id: id,
-          createdTime: createdTime,
-          lastUpdatedTime: lastUpdatedTime,
+          id,
+          createdTime,
+          lastUpdatedTime,
         );
 
   factory NoteModel.fromMap(Map map) {
@@ -34,6 +29,20 @@ class NoteModel extends AbstractModel implements Serializable {
       "id": id,
       "title": title,
       "content": content,
+      "createdTime": createdTime,
+      "lastUpdatedTime": lastUpdatedTime,
+    };
+  }
+
+  @override
+  String toString() {
+    return toMap().toString();
+  }
+
+  @override
+  Map<String, dynamic> get meta {
+    return {
+      "title": title,
       "createdTime": createdTime,
       "lastUpdatedTime": lastUpdatedTime,
     };

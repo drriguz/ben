@@ -8,7 +8,7 @@ import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/serialize.dart';
 import 'package:ben_app/ui/model/bank_card_model.dart';
 import 'package:ben_app/ui/model/certificate_model.dart';
-import 'package:ben_app/ui/model/note_model.dart';
+import 'package:ben_app/format/record/note_record.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -30,6 +30,7 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
 
   @override
   Widget build(BuildContext context) {
+    _onRefresh();
     return Observer(
       builder: (_) {
         return _store.isBusy
@@ -62,7 +63,12 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
     try {
       Uint8List bytes =
           await _itemService.decrypt(data.content, _userStore.userCredential);
+      Uint8List meta =
+      await _itemService.decrypt(data.meta, _userStore.userCredential);
       final result = await _decode(bytes);
+      //print(result);
+
+      print(await _decode(meta));
       return result;
     } catch (err, stack) {
       print("error: ${err} ${stack}");

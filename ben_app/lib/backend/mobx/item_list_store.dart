@@ -1,8 +1,9 @@
-
 import 'package:ben_app/backend/services/item_service.dart';
 import 'package:ben_app/crypto/credential.dart';
 import 'package:ben_app/format/data_format.dart';
-import 'package:ben_app/ui/model/note_model.dart';
+import 'package:ben_app/format/record/note_record.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobx/mobx.dart';
 
 import 'page_status_notifier.dart';
@@ -30,13 +31,12 @@ abstract class _ItemListStore extends PageStatusNotifier with Store {
   @observable
   ObservableList<Item> _data = ObservableList<Item>();
 
-  _ItemListStore(this._itemListService, this._itemType) {
-    fetch();
-  }
+  _ItemListStore(this._itemListService, this._itemType) {}
 
   @action
   Future<void> fetch() async {
     setBusy();
+    print('fetch data ${_itemType}...');
     _data.clear();
     _data.addAll(await _itemListService.fetchByType(_itemType));
     setIdle();
@@ -45,10 +45,10 @@ abstract class _ItemListStore extends PageStatusNotifier with Store {
   @action
   Future<void> save(NoteModel note, PasswordCredential credential) async {
     setBusy();
-    await _itemListService.create<NoteModel>(_itemType, note, credential);
-    _data.clear();
-    _data.addAll(await _itemListService.fetchByType(_itemType));
-    setIdle();
+    return _itemListService.create<NoteModel>(_itemType, note, credential).then((value) async {
+      _data.clear();
+      _data.addAll(await _itemListService.fetchByType(_itemType));
+    }).whenComplete(() => setIdle());
   }
 
   ObservableList<Item> get data => _data;

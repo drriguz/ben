@@ -34,7 +34,6 @@ class InitializeService {
         hashValidator.computeChecksum(_getSourceBytes(headers));
     headers.add(Header(Headers.CHECKSUM, hex.encode(checksum)));
     await _headerRepository.saveHeaders(headers);
-    await insertSampleData();
   }
 
   List<Header> _createHeaderWithoutChecksum(PasswordCredential credential) {
@@ -54,21 +53,5 @@ class InitializeService {
     headers.sort((l, r) => l.type.compareTo(r.type));
     headers.forEach((header) => bytes.addAll(header.getSources()));
     return Uint8List.fromList(bytes);
-  }
-
-  Future<void> insertSampleData() async {
-    for (int i = 0; i < 50; i++) {
-      BankCardModel bankCard = BankCardModel(
-          bank: 'ICBC',
-          title: '中国银行',
-          number: "${100000 + i}",
-          type: CardType.CREDIT);
-      Item sample = ItemEntity(
-          id: RandomStringUtil.generateUUID(),
-          type: 1,
-          content: Serializer.toMessagePack<BankCardModel>(bankCard),
-          checksum: utf8.encode('12345'));
-      _itemRepository.createItem(sample);
-    }
   }
 }

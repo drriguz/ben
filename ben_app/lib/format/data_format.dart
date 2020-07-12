@@ -73,6 +73,7 @@ class Headers {
 class Item {
   String _id;
   int _type;
+  Uint8List _meta;
   Uint8List _content;
   Uint8List _checksum;
 
@@ -81,6 +82,8 @@ class Item {
   int get type => _type;
 
   Uint8List get content => _content;
+
+  Uint8List get meta => _meta;
 
   Uint8List get checksum => _checksum;
 }

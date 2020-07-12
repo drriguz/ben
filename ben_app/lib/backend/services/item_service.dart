@@ -7,6 +7,7 @@ import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/serialize.dart';
 import 'package:ben_app/format/sqlite/Item_entity.dart';
 import 'package:ben_app/format/storage.dart';
+import 'package:ben_app/format/record/abstract_record.dart';
 import 'package:encryptions/encryptions.dart';
 import 'package:uuid/uuid.dart';
 
@@ -22,27 +23,28 @@ class ItemService {
     return _itemRepository.getItemsByType(type);
   }
 
-  Future<void> create<T extends Serializable>(
-      int type, T data, PasswordCredential credential) async {
-    final bytes = Serializer.toMessagePack(data);
-    final AES aes = AES.ofCBC(await credential.getEncryptionKey(_kdf),
-        credential.encryptionIv, PaddingScheme.PKCS5Padding);
-    final encrypted = await aes.encrypt(bytes);
+  Future<void> create<T extends AbstractDataRecord>(int type, T data, PasswordCredential credential) async {
+    final contentBytes = Serializer.toMessagePack(data);
+    final metaBytes = Serializer.toMessagePackRaw(data.meta);
+    final AES aes =
+        AES.ofCBC(await credential.getEncryptionKey(_kdf), credential.encryptionIv, PaddingScheme.PKCS5Padding);
+    final contentEncrypted = await aes.encrypt(contentBytes);
+    final metaEncrypted = await aes.encrypt(metaBytes);
     final hashValidator = new HmacValidator(await credential.getHashKey(_kdf));
-    final checksum = hashValidator.computeChecksum(bytes);
+    final checksum = hashValidator.computeChecksum(contentBytes);
 
     return _itemRepository.createItem(ItemEntity(
       id: _uuid.v4(),
       type: type,
-      content: encrypted,
+      meta: metaEncrypted,
+      content: contentEncrypted,
       checksum: checksum,
     ));
   }
 
-  Future<Uint8List> decrypt(
-      Uint8List source, PasswordCredential credential) async {
-    final AES aes = AES.ofCBC(await credential.getEncryptionKey(_kdf),
-        credential.encryptionIv, PaddingScheme.PKCS5Padding);
+  Future<Uint8List> decrypt(Uint8List source, PasswordCredential credential) async {
+    final AES aes =
+        AES.ofCBC(await credential.getEncryptionKey(_kdf), credential.encryptionIv, PaddingScheme.PKCS5Padding);
     return aes.decrypt(source);
   }
 }
