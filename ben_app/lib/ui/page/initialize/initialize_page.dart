@@ -83,7 +83,7 @@ class _InitializePageState extends State<InitializePage> with SingleTickerProvid
                   children: <Widget>[
                     AboutPage(onNext: this._onNextPage),
                     SystemSettingsPage(_store, onNext: this._onNextPage, onPrevious: this._onPreviousPage),
-                    UserAgreementPage(onNext: this._onNextPage, onPrevious: this._onPreviousPage),
+                    UserAgreementPage(_store, onNext: this._onNextPage, onPrevious: this._onPreviousPage),
                     FinishSetupPage(_store),
                   ],
                 ),

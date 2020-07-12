@@ -47,6 +47,25 @@ mixin _$InitializeStore on _InitializeStore, Store {
         name: '${_$autoDetectEncryptOptionsAtom.name}_set');
   }
 
+  final _$agreeUserAgreementAtom =
+      Atom(name: '_InitializeStore.agreeUserAgreement');
+
+  @override
+  bool get agreeUserAgreement {
+    _$agreeUserAgreementAtom.context
+        .enforceReadPolicy(_$agreeUserAgreementAtom);
+    _$agreeUserAgreementAtom.reportObserved();
+    return super.agreeUserAgreement;
+  }
+
+  @override
+  set agreeUserAgreement(bool value) {
+    _$agreeUserAgreementAtom.context.conditionallyRunInAction(() {
+      super.agreeUserAgreement = value;
+      _$agreeUserAgreementAtom.reportChanged();
+    }, _$agreeUserAgreementAtom, name: '${_$agreeUserAgreementAtom.name}_set');
+  }
+
   final _$errorMessageAtom = Atom(name: '_InitializeStore.errorMessage');
 
   @override
@@ -129,6 +148,16 @@ mixin _$InitializeStore on _InitializeStore, Store {
     final _$actionInfo = _$_InitializeStoreActionController.startAction();
     try {
       return super.setAutoDetectEncryptOptions(enabled);
+    } finally {
+      _$_InitializeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setAgreeUserAgreement(bool agree) {
+    final _$actionInfo = _$_InitializeStoreActionController.startAction();
+    try {
+      return super.setAgreeUserAgreement(agree);
     } finally {
       _$_InitializeStoreActionController.endAction(_$actionInfo);
     }

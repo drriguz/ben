@@ -1,13 +1,16 @@
+import 'package:ben_app/backend/mobx/initialize_store.dart';
 import 'package:ben_app/generated/l10n.dart';
 import 'package:ben_app/util/links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class UserAgreementPage extends StatelessWidget {
+  final InitializeStore _store;
   final Function onPrevious;
   final Function onNext;
 
-  const UserAgreementPage({Key key, @required this.onPrevious, @required this.onNext}) : super(key: key);
+  const UserAgreementPage(this._store, {Key key, @required this.onPrevious, @required this.onNext}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class UserAgreementPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Html(
-            data: S.of(context).user_agreement,
+            data: S.of(context).user_agreement_detail,
             onLinkTap: (url) {
               print(url);
               Links.launchURL(url);
@@ -24,8 +27,13 @@ class UserAgreementPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("同意用户协议"),
-              Checkbox(value: true),
+              Text(S.of(context).agree),
+              Observer(
+                builder: (_) => Checkbox(
+                  value: _store.agreeUserAgreement,
+                  onChanged: (value) => _store.setAgreeUserAgreement(value),
+                ),
+              ),
             ],
           ),
           ButtonBar(
@@ -34,12 +42,14 @@ class UserAgreementPage extends StatelessWidget {
               FlatButton(
                 key: Key("previousButton"),
                 onPressed: this.onPrevious,
-                child: Text("上一步"),
+                child: Text(S.of(context).previous),
               ),
-              FlatButton(
-                key: Key("nextButton"),
-                onPressed: this.onNext,
-                child: Text("下一步"),
+              Observer(
+                builder: (_) => FlatButton(
+                  key: Key("nextButton"),
+                  onPressed: _store.agreeUserAgreement ? this.onNext : null,
+                  child: Text(S.of(context).next),
+                ),
               )
             ],
           ),

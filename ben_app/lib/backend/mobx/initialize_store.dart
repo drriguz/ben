@@ -23,6 +23,9 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
   bool autoDetectEncryptOptions;
 
   @observable
+  bool agreeUserAgreement;
+
+  @observable
   String errorMessage;
 
   @observable
@@ -34,6 +37,7 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
         errorMessage = null,
         enableFingerPrint = false,
         autoDetectEncryptOptions = false,
+        agreeUserAgreement = false,
         isSettingsCompleted = false;
 
   @action
@@ -62,6 +66,11 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
     autoDetectEncryptOptions = enabled;
   }
 
+  @action
+  void setAgreeUserAgreement(bool agree) {
+    agreeUserAgreement = agree;
+  }
+
   void _validatePassword() {
     if (_masterPassword == null || _masterPassword.getText().length < 6) {
       errorMessage = S.current.password_too_short;
@@ -79,8 +88,9 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
   @action
   Future<void> initialize() async {
     assert(_masterPassword != null);
+    assert(agreeUserAgreement);
     setBusy();
-    await _initializeService.initialize(_masterPassword, false);
+    await _initializeService.initialize(_masterPassword, enableFingerPrint);
     setIdle();
   }
 }
