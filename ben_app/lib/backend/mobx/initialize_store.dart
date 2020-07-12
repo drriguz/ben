@@ -11,31 +11,29 @@ class InitializeStore = _InitializeStore with _$InitializeStore;
 abstract class _InitializeStore extends PageStatusNotifier with Store {
   final InitializeService _initializeService;
 
-  @observable
   ProtectedValue _masterPassword;
 
-  @observable
   ProtectedValue _confirmedMasterPassword;
 
   @observable
-  String _passwordErrorMessage;
-
-  String get passwordErrorMessage => _passwordErrorMessage;
-
-  @computed
-  bool get hasError => _passwordErrorMessage != null;
+  bool enableFingerPrint;
 
   @observable
-  bool _acceptUserAgreement;
+  bool autoDetectEncryptOptions;
 
   @observable
-  bool _enableFingerprint;
+  String errorMessage;
+
+  @observable
+  bool isSettingsCompleted;
 
   _InitializeStore(this._initializeService)
       : _masterPassword = null,
-        _passwordErrorMessage = null,
-        _acceptUserAgreement = false,
-        _enableFingerprint = true;
+        _confirmedMasterPassword = null,
+        errorMessage = null,
+        enableFingerPrint = false,
+        autoDetectEncryptOptions = false,
+        isSettingsCompleted = false;
 
   @action
   void setMasterPassword(ProtectedValue password) {
@@ -53,13 +51,26 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
     setIdle();
   }
 
+  @action
+  void setEnableFingerPrint(bool enabled) {
+    enableFingerPrint = enabled;
+  }
+
+  @action
+  void setAutoDetectEncryptOptions(bool enabled) {
+    autoDetectEncryptOptions = enabled;
+  }
+
   void _validatePassword() {
     if (_masterPassword == null || _masterPassword.getText().length < 6) {
-      _passwordErrorMessage = "密码长度不符合要求";
+      errorMessage = "密码长度不符合要求";
+      isSettingsCompleted = false;
     } else if (_masterPassword != _confirmedMasterPassword) {
-      _passwordErrorMessage = "两次输入的密码不一致";
+      errorMessage = "两次输入的密码不一致";
+      isSettingsCompleted = false;
     } else {
-      _passwordErrorMessage = null;
+      errorMessage = null;
+      isSettingsCompleted = true;
     }
   }
 
@@ -67,7 +78,7 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
   Future<void> initialize() async {
     assert(_masterPassword != null);
     setBusy();
-    await _initializeService.initialize(_masterPassword, _enableFingerprint);
+    await _initializeService.initialize(_masterPassword, false);
     setIdle();
   }
 }

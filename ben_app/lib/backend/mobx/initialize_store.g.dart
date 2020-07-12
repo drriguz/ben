@@ -9,106 +9,79 @@ part of 'initialize_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$InitializeStore on _InitializeStore, Store {
-  Computed<bool> _$hasErrorComputed;
+  final _$enableFingerPrintAtom =
+      Atom(name: '_InitializeStore.enableFingerPrint');
 
   @override
-  bool get hasError =>
-      (_$hasErrorComputed ??= Computed<bool>(() => super.hasError)).value;
-
-  final _$_masterPasswordAtom = Atom(name: '_InitializeStore._masterPassword');
-
-  @override
-  ProtectedValue get _masterPassword {
-    _$_masterPasswordAtom.context.enforceReadPolicy(_$_masterPasswordAtom);
-    _$_masterPasswordAtom.reportObserved();
-    return super._masterPassword;
+  bool get enableFingerPrint {
+    _$enableFingerPrintAtom.context.enforceReadPolicy(_$enableFingerPrintAtom);
+    _$enableFingerPrintAtom.reportObserved();
+    return super.enableFingerPrint;
   }
 
   @override
-  set _masterPassword(ProtectedValue value) {
-    _$_masterPasswordAtom.context.conditionallyRunInAction(() {
-      super._masterPassword = value;
-      _$_masterPasswordAtom.reportChanged();
-    }, _$_masterPasswordAtom, name: '${_$_masterPasswordAtom.name}_set');
+  set enableFingerPrint(bool value) {
+    _$enableFingerPrintAtom.context.conditionallyRunInAction(() {
+      super.enableFingerPrint = value;
+      _$enableFingerPrintAtom.reportChanged();
+    }, _$enableFingerPrintAtom, name: '${_$enableFingerPrintAtom.name}_set');
   }
 
-  final _$_confirmedMasterPasswordAtom =
-      Atom(name: '_InitializeStore._confirmedMasterPassword');
+  final _$autoDetectEncryptOptionsAtom =
+      Atom(name: '_InitializeStore.autoDetectEncryptOptions');
 
   @override
-  ProtectedValue get _confirmedMasterPassword {
-    _$_confirmedMasterPasswordAtom.context
-        .enforceReadPolicy(_$_confirmedMasterPasswordAtom);
-    _$_confirmedMasterPasswordAtom.reportObserved();
-    return super._confirmedMasterPassword;
-  }
-
-  @override
-  set _confirmedMasterPassword(ProtectedValue value) {
-    _$_confirmedMasterPasswordAtom.context.conditionallyRunInAction(() {
-      super._confirmedMasterPassword = value;
-      _$_confirmedMasterPasswordAtom.reportChanged();
-    }, _$_confirmedMasterPasswordAtom,
-        name: '${_$_confirmedMasterPasswordAtom.name}_set');
-  }
-
-  final _$_passwordErrorMessageAtom =
-      Atom(name: '_InitializeStore._passwordErrorMessage');
-
-  @override
-  String get _passwordErrorMessage {
-    _$_passwordErrorMessageAtom.context
-        .enforceReadPolicy(_$_passwordErrorMessageAtom);
-    _$_passwordErrorMessageAtom.reportObserved();
-    return super._passwordErrorMessage;
+  bool get autoDetectEncryptOptions {
+    _$autoDetectEncryptOptionsAtom.context
+        .enforceReadPolicy(_$autoDetectEncryptOptionsAtom);
+    _$autoDetectEncryptOptionsAtom.reportObserved();
+    return super.autoDetectEncryptOptions;
   }
 
   @override
-  set _passwordErrorMessage(String value) {
-    _$_passwordErrorMessageAtom.context.conditionallyRunInAction(() {
-      super._passwordErrorMessage = value;
-      _$_passwordErrorMessageAtom.reportChanged();
-    }, _$_passwordErrorMessageAtom,
-        name: '${_$_passwordErrorMessageAtom.name}_set');
+  set autoDetectEncryptOptions(bool value) {
+    _$autoDetectEncryptOptionsAtom.context.conditionallyRunInAction(() {
+      super.autoDetectEncryptOptions = value;
+      _$autoDetectEncryptOptionsAtom.reportChanged();
+    }, _$autoDetectEncryptOptionsAtom,
+        name: '${_$autoDetectEncryptOptionsAtom.name}_set');
   }
 
-  final _$_acceptUserAgreementAtom =
-      Atom(name: '_InitializeStore._acceptUserAgreement');
+  final _$errorMessageAtom = Atom(name: '_InitializeStore.errorMessage');
 
   @override
-  bool get _acceptUserAgreement {
-    _$_acceptUserAgreementAtom.context
-        .enforceReadPolicy(_$_acceptUserAgreementAtom);
-    _$_acceptUserAgreementAtom.reportObserved();
-    return super._acceptUserAgreement;
-  }
-
-  @override
-  set _acceptUserAgreement(bool value) {
-    _$_acceptUserAgreementAtom.context.conditionallyRunInAction(() {
-      super._acceptUserAgreement = value;
-      _$_acceptUserAgreementAtom.reportChanged();
-    }, _$_acceptUserAgreementAtom,
-        name: '${_$_acceptUserAgreementAtom.name}_set');
-  }
-
-  final _$_enableFingerprintAtom =
-      Atom(name: '_InitializeStore._enableFingerprint');
-
-  @override
-  bool get _enableFingerprint {
-    _$_enableFingerprintAtom.context
-        .enforceReadPolicy(_$_enableFingerprintAtom);
-    _$_enableFingerprintAtom.reportObserved();
-    return super._enableFingerprint;
+  String get errorMessage {
+    _$errorMessageAtom.context.enforceReadPolicy(_$errorMessageAtom);
+    _$errorMessageAtom.reportObserved();
+    return super.errorMessage;
   }
 
   @override
-  set _enableFingerprint(bool value) {
-    _$_enableFingerprintAtom.context.conditionallyRunInAction(() {
-      super._enableFingerprint = value;
-      _$_enableFingerprintAtom.reportChanged();
-    }, _$_enableFingerprintAtom, name: '${_$_enableFingerprintAtom.name}_set');
+  set errorMessage(String value) {
+    _$errorMessageAtom.context.conditionallyRunInAction(() {
+      super.errorMessage = value;
+      _$errorMessageAtom.reportChanged();
+    }, _$errorMessageAtom, name: '${_$errorMessageAtom.name}_set');
+  }
+
+  final _$isSettingsCompletedAtom =
+      Atom(name: '_InitializeStore.isSettingsCompleted');
+
+  @override
+  bool get isSettingsCompleted {
+    _$isSettingsCompletedAtom.context
+        .enforceReadPolicy(_$isSettingsCompletedAtom);
+    _$isSettingsCompletedAtom.reportObserved();
+    return super.isSettingsCompleted;
+  }
+
+  @override
+  set isSettingsCompleted(bool value) {
+    _$isSettingsCompletedAtom.context.conditionallyRunInAction(() {
+      super.isSettingsCompleted = value;
+      _$isSettingsCompletedAtom.reportChanged();
+    }, _$isSettingsCompletedAtom,
+        name: '${_$isSettingsCompletedAtom.name}_set');
   }
 
   final _$initializeAsyncAction = AsyncAction('initialize');
@@ -136,6 +109,26 @@ mixin _$InitializeStore on _InitializeStore, Store {
     final _$actionInfo = _$_InitializeStoreActionController.startAction();
     try {
       return super.confirmPassword(password);
+    } finally {
+      _$_InitializeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setEnableFingerPrint(bool enabled) {
+    final _$actionInfo = _$_InitializeStoreActionController.startAction();
+    try {
+      return super.setEnableFingerPrint(enabled);
+    } finally {
+      _$_InitializeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setAutoDetectEncryptOptions(bool enabled) {
+    final _$actionInfo = _$_InitializeStoreActionController.startAction();
+    try {
+      return super.setAutoDetectEncryptOptions(enabled);
     } finally {
       _$_InitializeStoreActionController.endAction(_$actionInfo);
     }
