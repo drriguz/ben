@@ -2,14 +2,13 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:ben_app/backend/mobx/item_list_store.dart';
-import 'package:ben_app/backend/mobx/note_detail_store.dart';
 import 'package:ben_app/backend/mobx/user_store.dart';
 import 'package:ben_app/backend/services/item_service.dart';
 import 'package:ben_app/format/data_format.dart';
-import 'package:ben_app/format/serialize.dart';
+import 'package:ben_app/format/model/note_model.dart';
+import 'package:ben_app/format/serializer.dart';
 import 'package:ben_app/ui/model/bank_card_model.dart';
 import 'package:ben_app/ui/model/certificate_model.dart';
-import 'package:ben_app/format/record/note_record.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -57,7 +56,7 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable> ext
 
   Future<M> _decode(Uint8List meta);
 
-  Future<M> _decodeEncrypted(Item entity) async {
+  Future<M> _decodeEncrypted(RawRecord entity) async {
     try {
       Uint8List meta = await _itemService.decrypt(entity.meta, _userStore.userCredential);
       print('decrypted meta:${utf8.decode(meta)}');
@@ -71,7 +70,7 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable> ext
 
   Widget _renderModel(M model);
 
-  Widget _createListItem(Item data) {
+  Widget _createListItem(RawRecord data) {
     return FutureBuilder<M>(
       future: _decodeEncrypted(data),
       builder: (BuildContext _, AsyncSnapshot<M> snapshot) {
@@ -90,21 +89,17 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable> ext
   }
 }
 
-class NoteListPage extends ItemListPage<NoteStore, NoteModel> {
-  final NoteDetailStore _detailStore;
-
-  NoteListPage(NoteStore store, NoteDetailStore detailStore, UserStore userStore, ItemService itemService)
-      : _detailStore = detailStore,
-        super(store, userStore, itemService);
+class NoteListPage extends ItemListPage<NoteStore, NoteMetaModel> {
+  NoteListPage(NoteStore store, UserStore userStore, ItemService itemService) : super(store, userStore, itemService);
 
   @override
-  Future<NoteModel> _decode(Uint8List meta) async {
-    return Serializer.fromJson<NoteModel>(meta, (_) => NoteModel.fromJson(_));
+  Future<NoteMetaModel> _decode(Uint8List meta) async {
+    return Serializer.fromJson<NoteMetaModel>(meta, (_) => NoteMetaModel.fromJson(_));
   }
 
   @override
-  Widget _renderModel(NoteModel model) {
-    return NoteItem(_detailStore, model);
+  Widget _renderModel(NoteMetaModel model) {
+    return NoteItem(model);
   }
 }
 

@@ -1,4 +1,4 @@
-import '../serialize.dart';
+import '../serializer.dart';
 
 abstract class Entity<ID> implements Serializable {
   ID id;

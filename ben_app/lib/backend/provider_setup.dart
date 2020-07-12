@@ -8,7 +8,6 @@ import 'package:sqflite/sqflite.dart';
 
 import 'mobx/initialize_store.dart';
 import 'mobx/item_list_store.dart';
-import 'mobx/note_detail_store.dart';
 import 'mobx/user_store.dart';
 import 'services/init_service.dart';
 import 'services/item_service.dart';
@@ -61,9 +60,6 @@ List<SingleChildCloneableWidget> _createStores() {
     ProxyProvider<ItemService, NoteStore>(update: (_, service, child) => NoteStore(service)),
     ProxyProvider<ItemService, BankcardStore>(update: (_, service, child) => BankcardStore(service)),
     ProxyProvider<ItemService, CertificateStore>(update: (_, service, child) => CertificateStore(service)),
-    Provider<NoteDetailStore>(
-      create: (_) => NoteDetailStore(),
-    )
   ];
 }
 

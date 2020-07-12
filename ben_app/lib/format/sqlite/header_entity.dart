@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import '../data_format.dart';
-
 import 'entity.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'header_entity.g.dart';
+
+@JsonSerializable()
 class HeaderEntity extends Entity<int> implements Header {
   String _content;
 
@@ -18,21 +20,10 @@ class HeaderEntity extends Entity<int> implements Header {
       : _content = header.value,
         super(header.type);
 
-  factory HeaderEntity.from(Map<String, dynamic> values) {
-    assert(values != null);
-    return HeaderEntity(
-      id: values['id'],
-      content: values['content'],
-    );
-  }
+  factory HeaderEntity.from(Map<String, dynamic> json) => _$HeaderEntityFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'content': _content,
-    };
-  }
+  Map<String, dynamic> toJson() => _$HeaderEntityToJson(this);
 
   @override
   int get type => id;

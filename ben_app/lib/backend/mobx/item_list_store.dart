@@ -1,9 +1,8 @@
 import 'package:ben_app/backend/services/item_service.dart';
 import 'package:ben_app/crypto/credential.dart';
 import 'package:ben_app/format/data_format.dart';
-import 'package:ben_app/format/record/note_record.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ben_app/format/model/abstract_model.dart';
+import 'package:ben_app/format/model/note_model.dart';
 import 'package:mobx/mobx.dart';
 
 import 'page_status_notifier.dart';
@@ -24,12 +23,12 @@ class NoteStore extends ItemListStore {
   NoteStore(ItemService itemListService) : super(itemListService, 3);
 }
 
-abstract class _ItemListStore extends PageStatusNotifier with Store {
+abstract class _ItemListStore<T extends AbstractMetaModel> extends PageStatusNotifier with Store {
   final ItemService _itemListService;
   final int _itemType;
 
   @observable
-  ObservableList<PreviewAble> _data = ObservableList<PreviewAble>();
+  ObservableList<RawBriefRecord> _data = ObservableList<RawBriefRecord>();
 
   _ItemListStore(this._itemListService, this._itemType) {}
 
@@ -45,13 +44,13 @@ abstract class _ItemListStore extends PageStatusNotifier with Store {
   @action
   Future<void> save(NoteModel note, PasswordCredential credential) async {
     setBusy();
-    return _itemListService.create<NoteModel>(_itemType, note, credential).then((value) async {
+    return _itemListService.create(_itemType, note, credential).then((value) async {
       _data.clear();
       _data.addAll(await _itemListService.fetchByType(_itemType));
     }).whenComplete(() => setIdle());
   }
 
-  ObservableList<PreviewAble> get data => _data;
+  ObservableList<RawBriefRecord> get data => _data;
 
   @computed
   int get totalCount => _data.length;

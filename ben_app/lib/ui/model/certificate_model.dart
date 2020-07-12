@@ -1,4 +1,4 @@
-import 'package:ben_app/format/serialize.dart';
+import 'package:ben_app/format/serializer.dart';
 
 enum CertificateType {
   ID,

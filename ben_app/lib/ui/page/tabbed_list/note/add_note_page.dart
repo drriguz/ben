@@ -1,7 +1,6 @@
 import 'package:ben_app/backend/mobx/item_list_store.dart';
 import 'package:ben_app/backend/mobx/user_store.dart';
 import 'package:ben_app/backend/services/note_service.dart';
-import 'package:ben_app/format/record/note_record.dart';
 import 'package:ben_app/ui/theme/icons.dart';
 import 'package:ben_app/ui/widgets/tool_button.dart';
 import 'package:ben_app/util/toast.dart';

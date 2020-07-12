@@ -13,15 +13,15 @@ abstract class HeaderRepository {
 }
 
 abstract class ItemRepository {
-  Future<List<Item>> getItems();
+  Future<List<RawBriefRecord>> getItems();
 
-  Future<List<PreviewAble>> getItemsByType(int type);
+  Future<List<RawBriefRecord>> getItemsByType(int type);
 
-  Future<Item> getById(String id);
+  Future<RawRecord> getById(String id);
 
-  Future<void> createItem(Item item);
+  Future<void> createItem(RawRecord item);
 
-  Future<void> updateItem(String id, Item item);
+  Future<void> updateItem(String id, RawRecord item);
 
   Future<void> deleteItem(String id);
 }

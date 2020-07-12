@@ -87,7 +87,7 @@ class SqliteItemRepository extends SqliteRepository implements ItemRepository {
       : super("items", "id");
 
   @override
-  Future<void> createItem(Item item) async {
+  Future<void> createItem(RawRecord item) async {
     return insert(ItemEntity.fromItem(item));
   }
 
@@ -97,19 +97,19 @@ class SqliteItemRepository extends SqliteRepository implements ItemRepository {
   }
 
   @override
-  Future<Item> getById(String id) async {
+  Future<RawRecord> getById(String id) async {
     final item = await _findById(id);
     return item ?? ItemEntity.from(item);
   }
 
   @override
-  Future<List<Item>> getItems() async {
+  Future<List<RawRecord>> getItems() async {
     final List<Map<String, dynamic>> results = await db.query(_tableName);
     return results.map((values) => ItemEntity.from(values)).toList();
   }
 
   @override
-  Future<List<PreviewAble>> getItemsByType(int type) async {
+  Future<List<RawBriefRecord>> getItemsByType(int type) async {
     final List<Map<String, dynamic>> results = await db.query(
       _tableName,
       columns: ["id", "type", "meta", "checksum"],
@@ -120,7 +120,7 @@ class SqliteItemRepository extends SqliteRepository implements ItemRepository {
   }
 
   @override
-  Future<void> updateItem(String id, Item item) async {
+  Future<void> updateItem(String id, RawRecord item) async {
     return update(id, ItemEntity.fromItem(item));
   }
 }

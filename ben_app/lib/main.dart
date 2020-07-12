@@ -1,4 +1,3 @@
-import 'package:ben_app/backend/mobx/note_detail_store.dart';
 import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/ui/page/tabbed_list/bankcard/add_bankcard.dart';
 import 'package:ben_app/ui/page/tabbed_list/note/add_note_page.dart';
@@ -67,9 +66,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 builder: (_, noteStore, userStore, noteService, child) =>
                     AddNotePage(noteStore, userStore, noteService),
               ),
-          "/note/detail": (_) => Consumer<NoteDetailStore>(
-                builder: (_, store, child) => NoteDetailPage(store),
-              ),
+          "/note/detail": (_) => NoteDetailPage(),
           "/bankcard/add": (_) => AddBankcardPage(),
           "/bankcard/scan": (_) => Consumer<List<CameraDescription>>(
                 builder: (_, cameras, child) => ScanPage(

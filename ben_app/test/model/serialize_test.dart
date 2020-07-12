@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:ben_app/format/serialize.dart';
+import 'package:ben_app/format/serializer.dart';
 import 'package:ben_app/ui/model/bank_card_model.dart';
 import 'package:test/test.dart';
 

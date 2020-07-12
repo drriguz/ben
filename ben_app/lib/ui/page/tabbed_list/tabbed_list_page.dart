@@ -1,5 +1,4 @@
 import 'package:ben_app/backend/mobx/item_list_store.dart';
-import 'package:ben_app/backend/mobx/note_detail_store.dart';
 import 'package:ben_app/backend/mobx/user_store.dart';
 import 'package:ben_app/backend/services/item_service.dart';
 import 'package:provider/provider.dart';
@@ -36,9 +35,8 @@ class _TabConfig {
 final tabConfigs = [
   _TabConfig(
     "记事",
-    Consumer4<NoteStore, NoteDetailStore, UserStore, ItemService>(
-      builder: (_, store, detailStore, userStore, itemService, child) =>
-          NoteListPage(store, detailStore, userStore, itemService),
+    Consumer3<NoteStore, UserStore, ItemService>(
+      builder: (_, store, userStore, itemService, child) => NoteListPage(store, userStore, itemService),
     ),
     "/note/add",
   ),

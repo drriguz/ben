@@ -1,4 +1,4 @@
-import 'package:ben_app/format/record/note_record.dart';
+import 'package:ben_app/format/model/note_model.dart';
 import 'package:uuid/uuid.dart';
 
 class NoteService {
@@ -11,11 +11,10 @@ class NoteService {
     final title = lines.length > 0 ? lines[0] : "(无内容)";
     final currentTime = DateTime.now();
     return NoteModel(
-      id: _uuid.v4(),
-      createdTime: currentTime,
-      lastUpdatedTime: currentTime,
-      title: title,
-      content: content,
+      title,
+      content,
+      currentTime,
+      currentTime,
     );
   }
 }

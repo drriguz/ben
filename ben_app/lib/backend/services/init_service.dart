@@ -6,7 +6,7 @@ import 'package:ben_app/crypto/hmac_validator.dart';
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/format/data_format.dart';
-import 'package:ben_app/format/serialize.dart';
+import 'package:ben_app/format/serializer.dart';
 import 'package:ben_app/format/sqlite/Item_entity.dart';
 import 'package:ben_app/ui/model/bank_card_model.dart';
 import 'package:ben_app/util/random.dart';

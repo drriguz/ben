@@ -8,7 +8,7 @@ part of 'item_list_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ItemListStore on _ItemListStore, Store {
+mixin _$ItemListStore<T extends AbstractMetaModel> on _ItemListStore<T>, Store {
   Computed<int> _$totalCountComputed;
 
   @override
@@ -18,14 +18,14 @@ mixin _$ItemListStore on _ItemListStore, Store {
   final _$_dataAtom = Atom(name: '_ItemListStore._data');
 
   @override
-  ObservableList<PreviewAble> get _data {
+  ObservableList<RawBriefRecord> get _data {
     _$_dataAtom.context.enforceReadPolicy(_$_dataAtom);
     _$_dataAtom.reportObserved();
     return super._data;
   }
 
   @override
-  set _data(ObservableList<PreviewAble> value) {
+  set _data(ObservableList<RawBriefRecord> value) {
     _$_dataAtom.context.conditionallyRunInAction(() {
       super._data = value;
       _$_dataAtom.reportChanged();

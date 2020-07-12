@@ -4,7 +4,7 @@ import '../../format/data_format.dart';
 
 import 'entity.dart';
 
-class ItemEntity extends Entity<String> implements Item {
+class ItemEntity extends Entity<String> implements RawRecord {
   int _type;
   Uint8List _meta;
   Uint8List _content;
@@ -29,7 +29,7 @@ class ItemEntity extends Entity<String> implements Item {
         _checksum = checksum,
         super(id);
 
-  ItemEntity.fromItem(Item item)
+  ItemEntity.fromItem(RawRecord item)
       : _type = item.type,
         _meta = item.meta,
         _content = item.content,
