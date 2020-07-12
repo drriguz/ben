@@ -1,3 +1,5 @@
+import 'package:ben_app/crypto/protected_value.dart';
+import 'package:ben_app/generated/l10n.dart';
 import 'package:ben_app/ui/theme/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,9 +51,11 @@ class SwitchOption extends SettingOption {
 typedef bool ErrorPredict();
 typedef String ErrorMessageProvider();
 
+typedef void OnPasswordChanged(ProtectedValue value);
+
 class PasswordSetting extends SettingOption {
-  final Function _onChangePassword;
-  final Function _onConfirmPassword;
+  final OnPasswordChanged _onChangePassword;
+  final OnPasswordChanged _onConfirmPassword;
   final ErrorPredict _errorPredict;
   final ErrorMessageProvider _errorMessageProvider;
 
@@ -64,13 +68,13 @@ class PasswordSetting extends SettingOption {
     return <Widget>[
       TextField(
         obscureText: true,
-        decoration: InputDecoration(hintText: "请设置密码"),
-        onChanged: _onChangePassword,
+        decoration: InputDecoration(hintText: S.current.please_input_password),
+        onChanged: (plain) => _onChangePassword(ProtectedValue.of(plain)),
       ),
       TextField(
         obscureText: true,
-        decoration: InputDecoration(hintText: "请重新输入您的密码"),
-        onChanged: _onConfirmPassword,
+        decoration: InputDecoration(hintText: S.current.please_input_password_again),
+        onChanged: (plain) => _onConfirmPassword(ProtectedValue.of(plain)),
       ),
       Observer(
         builder: (_) => _errorPredict.call()

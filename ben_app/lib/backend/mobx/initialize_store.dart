@@ -1,5 +1,6 @@
 import 'package:ben_app/backend/services/init_service.dart';
 import 'package:ben_app/crypto/protected_value.dart';
+import 'package:ben_app/generated/l10n.dart';
 import 'package:mobx/mobx.dart';
 
 import 'page_status_notifier.dart';
@@ -63,15 +64,16 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
 
   void _validatePassword() {
     if (_masterPassword == null || _masterPassword.getText().length < 6) {
-      errorMessage = "密码长度不符合要求";
+      errorMessage = S.current.password_too_short;
       isSettingsCompleted = false;
     } else if (_masterPassword != _confirmedMasterPassword) {
-      errorMessage = "两次输入的密码不一致";
+      errorMessage = S.current.password_does_not_match;
       isSettingsCompleted = false;
     } else {
       errorMessage = null;
       isSettingsCompleted = true;
     }
+    print(errorMessage);
   }
 
   @action
