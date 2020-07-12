@@ -1,4 +1,5 @@
 import 'package:ben_app/backend/mobx/initialize_store.dart';
+import 'package:ben_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +44,12 @@ class _InitializePageState extends State<InitializePage> with SingleTickerProvid
     );
   }
 
-  static const tabNames = ["了解难知", "系统设置", "用户协议", "开始使用"];
+  static final tabNames = [
+    S.current.about_okapia,
+    S.current.system_settings,
+    S.current.user_agreement,
+    S.current.get_started,
+  ];
 
   Widget _createTabBar() {
     return IgnorePointer(

@@ -1,6 +1,6 @@
+import 'package:ben_app/generated/l10n.dart';
 import 'package:ben_app/util/links.dart';
 import 'package:flutter/material.dart';
-import '../../../../generated/i18n.dart';
 
 class AboutPage extends StatelessWidget {
   final Function onNext;
@@ -27,7 +27,7 @@ class AboutPage extends StatelessWidget {
               FlatButton(
                 key: Key("nextButton"),
                 onPressed: this.onNext,
-                child: Text("下一步"),
+                child: Text(S.of(context).next),
               )
             ],
           ),

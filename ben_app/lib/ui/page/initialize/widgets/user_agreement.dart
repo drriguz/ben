@@ -1,4 +1,4 @@
-import 'package:ben_app/generated/i18n.dart';
+import 'package:ben_app/generated/l10n.dart';
 import 'package:ben_app/util/links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';

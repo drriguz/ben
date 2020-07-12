@@ -14,7 +14,7 @@ import 'backend/provider_setup.dart';
 import 'backend/services/init_check_service.dart';
 import 'format/sqlite/database_factory.dart';
 import 'format/sqlite/sqlite_storage.dart';
-import 'generated/i18n.dart';
+import 'generated/l10n.dart';
 import 'ui/page/home_page.dart';
 import 'ui/page/initialize/initialize_page.dart';
 import 'ui/page/login_page.dart';
