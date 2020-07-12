@@ -1,6 +1,4 @@
 import 'package:ben_app/backend/mobx/initialize_store.dart';
-import 'package:ben_app/crypto/protected_value.dart';
-import 'package:ben_app/ui/theme/styles.dart';
 import 'package:ben_app/ui/widgets/setting_option.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -14,42 +12,18 @@ class SystemSettingsPage extends StatelessWidget {
 
   const SystemSettingsPage(this._store, {Key key, @required this.onPrevious, @required this.onNext}) : super(key: key);
 
-  List<Widget> _buildPasswordInput() {
-    return <Widget>[
-      TextField(
-        obscureText: true,
-        decoration: InputDecoration(hintText: "请设置一个主密码"),
-        onChanged: (value) => _store.setMasterPassword(ProtectedValue.of(value)),
-      ),
-      TextField(
-        obscureText: true,
-        decoration: InputDecoration(hintText: "请重新输入您的主密码"),
-        onChanged: (value) => _store.confirmPassword(ProtectedValue.of(value)),
-      ),
-      Observer(
-        builder: (_) => _store.errorMessage != null
-            ? Padding(
-                padding: EdgeInsets.only(top: 15),
-                child: Text(
-                  _store.errorMessage,
-                  style: TextStyle(color: Colors.red),
-                ),
-              )
-            : Container(),
-      ),
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Text(
+          PasswordSetting(
             S.of(context).master_password_description,
-            style: Styles.descriptionStyle,
+            (value) => _store.setMasterPassword(value),
+            (value) => _store.confirmPassword(value),
+            () => _store.errorMessage != null,
+            () => _store.errorMessage,
           ),
-          ..._buildPasswordInput(),
           SwitchOption(
             "开启指纹解锁",
             "您可以开启指纹验证，这样仅需要在启动应用时输入一次主密码。当您重启应用之后，需要重新输入主密码。",
