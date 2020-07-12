@@ -13,7 +13,7 @@ abstract class SqliteRepository<ID, T extends Entity<ID>> {
   SqliteRepository(this._tableName, this._idFieldName);
 
   Future<void> insert(T entity) async {
-    return db.insert(_tableName, entity.toMap());
+    return db.insert(_tableName, entity.toJson());
   }
 
   Future<void> delete(ID id) async {
@@ -28,7 +28,7 @@ abstract class SqliteRepository<ID, T extends Entity<ID>> {
     entity.id = id;
     await db.update(
       _tableName,
-      entity.toMap(),
+      entity.toJson(),
       where: _queryById(),
       whereArgs: [id],
     );
@@ -72,7 +72,7 @@ class SqliteHeaderRepository extends SqliteRepository<int, HeaderEntity>
   Future<void> saveHeaders(List<Header> headers) async {
     final batch = db.batch();
     headers.forEach((header) =>
-        batch.insert(_tableName, HeaderEntity.fromHeader(header).toMap()));
+        batch.insert(_tableName, HeaderEntity.fromHeader(header).toJson()));
     await batch.commit();
   }
 
@@ -109,9 +109,10 @@ class SqliteItemRepository extends SqliteRepository implements ItemRepository {
   }
 
   @override
-  Future<List<Item>> getItemsByType(int type) async {
+  Future<List<PreviewAble>> getItemsByType(int type) async {
     final List<Map<String, dynamic>> results = await db.query(
       _tableName,
+      columns: ["id", "type", "meta", "checksum"],
       where: "type=?",
       whereArgs: [type],
     );

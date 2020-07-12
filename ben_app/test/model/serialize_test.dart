@@ -20,10 +20,10 @@ void main() {
   });
 
   test('toMessagePack', () {
-    Uint8List messagePackBytes = Serializer.toMessagePack(bankCard);
+    Uint8List messagePackBytes = Serializer.toJson(bankCard);
     print(
         "serialize bankcard using message pack: size=${messagePackBytes.length}");
-    BankCardModel deserialized = Serializer.fromMessagePack(
+    BankCardModel deserialized = Serializer.fromJson(
         messagePackBytes, (_) => BankCardModel.fromMap(_));
     expect(deserialized, bankCard);
   });

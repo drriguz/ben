@@ -18,14 +18,14 @@ mixin _$ItemListStore on _ItemListStore, Store {
   final _$_dataAtom = Atom(name: '_ItemListStore._data');
 
   @override
-  ObservableList<Item> get _data {
+  ObservableList<PreviewAble> get _data {
     _$_dataAtom.context.enforceReadPolicy(_$_dataAtom);
     _$_dataAtom.reportObserved();
     return super._data;
   }
 
   @override
-  set _data(ObservableList<Item> value) {
+  set _data(ObservableList<PreviewAble> value) {
     _$_dataAtom.context.conditionallyRunInAction(() {
       super._data = value;
       _$_dataAtom.reportChanged();

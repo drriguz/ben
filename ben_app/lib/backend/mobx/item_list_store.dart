@@ -29,7 +29,7 @@ abstract class _ItemListStore extends PageStatusNotifier with Store {
   final int _itemType;
 
   @observable
-  ObservableList<Item> _data = ObservableList<Item>();
+  ObservableList<PreviewAble> _data = ObservableList<PreviewAble>();
 
   _ItemListStore(this._itemListService, this._itemType) {}
 
@@ -51,7 +51,7 @@ abstract class _ItemListStore extends PageStatusNotifier with Store {
     }).whenComplete(() => setIdle());
   }
 
-  ObservableList<Item> get data => _data;
+  ObservableList<PreviewAble> get data => _data;
 
   @computed
   int get totalCount => _data.length;

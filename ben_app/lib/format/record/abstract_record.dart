@@ -1,6 +1,6 @@
 import 'package:ben_app/format/serialize.dart';
 
-abstract class AbstractDataRecord extends Serializable {
+abstract class AbstractDataRecord implements Serializable {
   final String id;
   final DateTime createdTime;
   final DateTime lastUpdatedTime;

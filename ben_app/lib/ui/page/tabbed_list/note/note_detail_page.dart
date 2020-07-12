@@ -1,10 +1,5 @@
-import 'package:ben_app/backend/mobx/item_list_store.dart';
 import 'package:ben_app/backend/mobx/note_detail_store.dart';
-import 'package:ben_app/backend/mobx/user_store.dart';
-import 'package:ben_app/backend/services/note_service.dart';
-import 'package:ben_app/format/record/note_record.dart';
-import 'package:ben_app/ui/theme/icons.dart';
-import 'package:ben_app/ui/widgets/tool_button.dart';
+import 'package:ben_app/format/record/abstract_record.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +10,10 @@ class NoteDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AbstractDataRecord argument = ModalRoute.of(context).settings.arguments;
+    print("------${argument}");
+    print(argument.id);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("查看记事"),

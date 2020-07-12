@@ -70,20 +70,16 @@ class Headers {
   String get kdfParameters => getValue(KDF_PARAMETERS);
 }
 
-class Item {
-  String _id;
-  int _type;
-  Uint8List _meta;
-  Uint8List _content;
-  Uint8List _checksum;
+abstract class PreviewAble {
+  String get id;
 
-  String get id => _id;
+  int get type;
 
-  int get type => _type;
+  Uint8List get meta;
 
-  Uint8List get content => _content;
+  Uint8List get checksum;
+}
 
-  Uint8List get meta => _meta;
-
-  Uint8List get checksum => _checksum;
+abstract class Item extends PreviewAble {
+  Uint8List get content;
 }

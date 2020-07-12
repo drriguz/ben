@@ -13,7 +13,7 @@ final map = {
 
 void main() {
   test('toMap', () {
-    expect(bankCard.toMap(), map);
+    expect(bankCard.toJson(), map);
   });
 
   test('fromMap', () {

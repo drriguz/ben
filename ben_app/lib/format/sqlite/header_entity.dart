@@ -27,7 +27,7 @@ class HeaderEntity extends Entity<int> implements Header {
   }
 
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'content': _content,

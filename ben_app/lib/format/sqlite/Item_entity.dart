@@ -37,7 +37,7 @@ class ItemEntity extends Entity<String> implements Item {
         super(item.id);
 
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'type': _type,

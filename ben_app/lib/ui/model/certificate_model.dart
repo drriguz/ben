@@ -31,7 +31,7 @@ class CertificateModel extends Serializable {
   }
 
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "title": title,

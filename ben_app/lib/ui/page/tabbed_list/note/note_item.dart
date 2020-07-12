@@ -1,11 +1,12 @@
 import 'package:ben_app/backend/mobx/note_detail_store.dart';
+import 'package:ben_app/format/record/abstract_record.dart';
 import 'package:ben_app/format/record/note_record.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/list_item.dart';
 
 class NoteItem extends AbstractListItem {
-  final NoteModel model;
+  final AbstractDataRecord model;
   final NoteDetailStore _detailStore;
 
   NoteItem(this._detailStore, this.model, {Key key}) : super(key: key);
@@ -21,7 +22,7 @@ class NoteItem extends AbstractListItem {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              model.title,
+              model.meta["title"],
               overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             ),
@@ -41,6 +42,6 @@ class NoteItem extends AbstractListItem {
   @override
   void onClick(BuildContext context) {
     _detailStore.setSelected(model);
-    Navigator.of(context).pushNamed("/note/detail");
+    Navigator.of(context).pushNamed("/note/detail", arguments: model);
   }
 }

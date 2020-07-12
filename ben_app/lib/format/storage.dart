@@ -15,7 +15,7 @@ abstract class HeaderRepository {
 abstract class ItemRepository {
   Future<List<Item>> getItems();
 
-  Future<List<Item>> getItemsByType(int type);
+  Future<List<PreviewAble>> getItemsByType(int type);
 
   Future<Item> getById(String id);
 

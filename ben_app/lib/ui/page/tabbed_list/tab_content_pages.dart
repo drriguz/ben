@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:ben_app/backend/mobx/item_list_store.dart';
@@ -19,14 +20,12 @@ import 'widget/empty_list_tip.dart';
 import 'widget/list_item_placeholder.dart';
 import 'note/note_item.dart';
 
-abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
-    extends StatelessWidget {
+abstract class ItemListPage<T extends ItemListStore, M extends Serializable> extends StatelessWidget {
   final T _store;
   final UserStore _userStore;
   final ItemService _itemService;
 
-  const ItemListPage(this._store, this._userStore, this._itemService, {Key key})
-      : super(key: key);
+  const ItemListPage(this._store, this._userStore, this._itemService, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +47,7 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
   }
 
   Widget _createList() {
-    if (_store.totalCount == 0)
-      return EmptyListTipWidget(onRefresh: _onRefresh);
+    if (_store.totalCount == 0) return EmptyListTipWidget(onRefresh: _onRefresh);
     return ListView.builder(
         itemCount: _store.totalCount,
         itemBuilder: (_, int index) {
@@ -57,18 +55,13 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
         });
   }
 
-  Future<M> _decode(Uint8List content);
+  Future<M> _decode(Uint8List meta);
 
-  Future<M> _decodeEncrypted(Item data) async {
+  Future<M> _decodeEncrypted(Item entity) async {
     try {
-      Uint8List bytes =
-          await _itemService.decrypt(data.content, _userStore.userCredential);
-      Uint8List meta =
-      await _itemService.decrypt(data.meta, _userStore.userCredential);
-      final result = await _decode(bytes);
-      //print(result);
-
-      print(await _decode(meta));
+      Uint8List meta = await _itemService.decrypt(entity.meta, _userStore.userCredential);
+      print('decrypted meta:${utf8.decode(meta)}');
+      final result = await _decode(meta);
       return result;
     } catch (err, stack) {
       print("error: ${err} ${stack}");
@@ -100,15 +93,13 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable>
 class NoteListPage extends ItemListPage<NoteStore, NoteModel> {
   final NoteDetailStore _detailStore;
 
-  NoteListPage(NoteStore store, NoteDetailStore detailStore,
-      UserStore userStore, ItemService itemService)
+  NoteListPage(NoteStore store, NoteDetailStore detailStore, UserStore userStore, ItemService itemService)
       : _detailStore = detailStore,
         super(store, userStore, itemService);
 
   @override
-  Future<NoteModel> _decode(Uint8List content) async {
-    return Serializer.fromMessagePack<NoteModel>(
-        content, (_) => NoteModel.fromMap(_));
+  Future<NoteModel> _decode(Uint8List meta) async {
+    return Serializer.fromJson<NoteModel>(meta, (_) => NoteModel.fromJson(_));
   }
 
   @override
@@ -118,14 +109,12 @@ class NoteListPage extends ItemListPage<NoteStore, NoteModel> {
 }
 
 class BankcardListPage extends ItemListPage<BankcardStore, BankCardModel> {
-  BankcardListPage(
-      BankcardStore store, UserStore userStore, ItemService itemService)
+  BankcardListPage(BankcardStore store, UserStore userStore, ItemService itemService)
       : super(store, userStore, itemService);
 
   @override
   Future<BankCardModel> _decode(Uint8List content) async {
-    return Serializer.fromMessagePack<BankCardModel>(
-        content, (_) => BankCardModel.fromMap(_));
+    return Serializer.fromJson<BankCardModel>(content, (_) => BankCardModel.fromMap(_));
   }
 
   @override
@@ -134,16 +123,13 @@ class BankcardListPage extends ItemListPage<BankcardStore, BankCardModel> {
   }
 }
 
-class CertificateListPage
-    extends ItemListPage<CertificateStore, CertificateModel> {
-  CertificateListPage(
-      CertificateStore store, UserStore userStore, ItemService itemService)
+class CertificateListPage extends ItemListPage<CertificateStore, CertificateModel> {
+  CertificateListPage(CertificateStore store, UserStore userStore, ItemService itemService)
       : super(store, userStore, itemService);
 
   @override
   Future<CertificateModel> _decode(Uint8List content) async {
-    return Serializer.fromMessagePack<CertificateModel>(
-        content, (_) => CertificateModel.fromMap(_));
+    return Serializer.fromJson<CertificateModel>(content, (_) => CertificateModel.fromMap(_));
   }
 
   @override

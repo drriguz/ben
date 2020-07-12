@@ -19,13 +19,13 @@ class ItemService {
 
   ItemService(this._itemRepository, this._kdf);
 
-  Future<List<Item>> fetchByType(int type) async {
+  Future<List<PreviewAble>> fetchByType(int type) async {
     return _itemRepository.getItemsByType(type);
   }
 
   Future<void> create<T extends AbstractDataRecord>(int type, T data, PasswordCredential credential) async {
-    final contentBytes = Serializer.toMessagePack(data);
-    final metaBytes = Serializer.toMessagePackRaw(data.meta);
+    final contentBytes = Serializer.toJson(data);
+    final metaBytes = Serializer.toJsonRaw(data.meta);
     final AES aes =
         AES.ofCBC(await credential.getEncryptionKey(_kdf), credential.encryptionIv, PaddingScheme.PKCS5Padding);
     final contentEncrypted = await aes.encrypt(contentBytes);
