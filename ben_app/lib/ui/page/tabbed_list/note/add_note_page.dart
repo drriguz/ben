@@ -106,6 +106,12 @@ class AddNotePage extends StatelessWidget {
   }
 
   void _onSave(BuildContext context) async {
+    final String content = _textEditingController.text;
+    if (content == null || content.trim().isEmpty) {
+      Toasts.showError("内容不能为空", null);
+      return;
+    }
+
     _noteStore
         .save(_noteService.createNote(_textEditingController.text), _userStore.userCredential)
         .then((_) => Navigator.of(context).pop())

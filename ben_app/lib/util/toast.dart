@@ -4,8 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 class Toasts {
   static showError(String message, dynamic e) async {
     print(e);
+    String errorMsg = e == null ? message : message + " " + e.runtimeType.toString();
     Fluttertoast.showToast(
-        msg: message + " " + e.runtimeType.toString(),
+        msg: errorMsg,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 2,
