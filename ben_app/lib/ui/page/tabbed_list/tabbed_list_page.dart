@@ -41,14 +41,14 @@ final tabConfigs = [
     "/note/add",
   ),
   _TabConfig(
-    "卡片",
+    "密码",
     Consumer3<NoteStore, UserStore, ItemService>(
       builder: (_, store, userStore, itemService, child) => NoteListPage(store, userStore, itemService),
     ),
     "/bankcard/add",
   ),
   _TabConfig(
-    "证件",
+    "卡包",
     Consumer3<NoteStore, UserStore, ItemService>(
       builder: (_, store, userStore, itemService, child) => NoteListPage(store, userStore, itemService),
     ),
@@ -92,15 +92,10 @@ class _TabbedListPageState extends State<TabbedListPage> with SingleTickerProvid
 
   AppBar _createAppBar() {
     return AppBar(
-      title: Stack(
-        children: <Widget>[
-          Center(
-            child: SearchBar(),
-          )
-        ],
-      ),
+      title: Text("Okapia™"),
       bottom: _createTabBar(),
       actions: <Widget>[
+        IconButton(icon: Icon(FontIcon.search), onPressed: _onPressed),
         IconButton(icon: Icon(FontIcon.backup), onPressed: _onPressed),
         PopupMenuButton<MenuChoice>(
           onSelected: _onDropdownSelected,

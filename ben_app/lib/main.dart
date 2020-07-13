@@ -9,10 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'backend/mobx/initialize_store.dart';
 import 'backend/mobx/item_list_store.dart';
-import 'backend/mobx/note_detail_store.dart';
 import 'backend/mobx/user_store.dart';
 import 'backend/provider_setup.dart';
 import 'backend/services/init_check_service.dart';
+import 'format/model/list_item_model.dart';
+import 'format/model/note_model.dart';
 import 'format/sqlite/database_factory.dart';
 import 'format/sqlite/sqlite_storage.dart';
 import 'generated/l10n.dart';
@@ -54,6 +55,26 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
           //fontFamily: 'fzltxh',
           primarySwatch: Colors.purple,
         ),
+        onGenerateRoute: (settings) {
+          print('on generate route:${settings}');
+          switch (settings.name) {
+            case "/note/detail":
+              {
+                ListItemModel<NoteMetaModel> argument = settings.arguments;
+                return MaterialPageRoute(
+                  builder: (context) {
+                    return Consumer3<NoteStore, UserStore, ItemService>(
+                      builder: (_, noteStore, userStore, itemService, child) =>
+                          NoteDetailPage(argument.id, noteStore, userStore, itemService),
+                    );
+                  },
+                );
+              }
+            default:
+              break;
+          }
+          return null;
+        },
         routes: {
           "/": (_) => initialized
               ? Consumer<UserStore>(
@@ -67,9 +88,6 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
           "/note/add": (_) => Consumer3<NoteStore, UserStore, NoteService>(
                 builder: (_, noteStore, userStore, noteService, child) =>
                     AddNotePage(noteStore, userStore, noteService),
-              ),
-          "/note/detail": (_) => Consumer3<NoteDetailStore, UserStore, ItemService>(
-                builder: (_, store, userStore, itemService, child) => NoteDetailPage(store, userStore, itemService),
               ),
           "/bankcard/add": (_) => AddBankcardPage(),
           "/bankcard/scan": (_) => Consumer<List<CameraDescription>>(

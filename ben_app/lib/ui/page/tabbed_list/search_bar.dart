@@ -5,7 +5,7 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.fromLTRB(0, 10.0, 30, 10),
+        margin: const EdgeInsets.fromLTRB(0, 1.0, 30, 1),
         child: TextField(
           style: TextStyle(color: Colors.white, fontSize: 20.0),
           decoration: InputDecoration(
@@ -22,11 +22,11 @@ class SearchBar extends StatelessWidget {
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white30),
-              borderRadius: BorderRadius.circular(40.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             border: InputBorder.none,
             contentPadding:
-                EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+                EdgeInsets.symmetric(vertical: 0.0, horizontal: 1.0),
           ),
         ));
   }

@@ -38,7 +38,7 @@ class NoteItem extends AbstractListItem {
   }
 
   @override
-  void onClick(BuildContext context) {
+  void onClick(BuildContext context) async{
     Navigator.of(context).pushNamed("/note/detail", arguments: model);
   }
 }
