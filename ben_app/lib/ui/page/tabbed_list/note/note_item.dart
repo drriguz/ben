@@ -1,10 +1,11 @@
+import 'package:ben_app/format/model/list_item_model.dart';
 import 'package:ben_app/format/model/note_model.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/list_item.dart';
 
 class NoteItem extends AbstractListItem {
-  final NoteMetaModel model;
+  final ListItemModel<NoteMetaModel> model;
 
   NoteItem(this.model, {Key key}) : super(key: key);
 
@@ -19,13 +20,13 @@ class NoteItem extends AbstractListItem {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              model.title,
+              model.meta.title,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             ),
           ),
           Text(
-            model.lastUpdatedTime?.toString() ?? "",
+            model.meta.lastUpdatedTime?.toString() ?? "",
             overflow: TextOverflow.fade,
             maxLines: 1,
             softWrap: false,

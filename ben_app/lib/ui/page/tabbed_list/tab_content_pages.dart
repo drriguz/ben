@@ -5,6 +5,8 @@ import 'package:ben_app/backend/mobx/item_list_store.dart';
 import 'package:ben_app/backend/mobx/user_store.dart';
 import 'package:ben_app/backend/services/item_service.dart';
 import 'package:ben_app/format/data_format.dart';
+import 'package:ben_app/format/model/abstract_model.dart';
+import 'package:ben_app/format/model/list_item_model.dart';
 import 'package:ben_app/format/model/note_model.dart';
 import 'package:ben_app/format/serializer.dart';
 import 'package:ben_app/ui/model/bank_card_model.dart';
@@ -19,7 +21,7 @@ import 'widget/empty_list_tip.dart';
 import 'widget/list_item_placeholder.dart';
 import 'note/note_item.dart';
 
-abstract class ItemListPage<T extends ItemListStore, M extends Serializable> extends StatelessWidget {
+abstract class ItemListPage<T extends ItemListStore, M extends AbstractMetaModel> extends StatelessWidget {
   final T _store;
   final UserStore _userStore;
   final ItemService _itemService;
@@ -68,7 +70,7 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable> ext
     }
   }
 
-  Widget _renderModel(M model);
+  Widget _renderModel(ListItemModel<M> model);
 
   Widget _createListItem(RawRecord data) {
     return FutureBuilder<M>(
@@ -80,7 +82,7 @@ abstract class ItemListPage<T extends ItemListStore, M extends Serializable> ext
               print(snapshot.error);
               return ItemPlaceholder();
             }
-            return _renderModel(snapshot.data);
+            return _renderModel(new ListItemModel(data.id, snapshot.data));
           default:
             return ItemPlaceholder();
         }
@@ -98,37 +100,37 @@ class NoteListPage extends ItemListPage<NoteStore, NoteMetaModel> {
   }
 
   @override
-  Widget _renderModel(NoteMetaModel model) {
+  Widget _renderModel(ListItemModel<NoteMetaModel> model) {
     return NoteItem(model);
   }
 }
 
-class BankcardListPage extends ItemListPage<BankcardStore, BankCardModel> {
-  BankcardListPage(BankcardStore store, UserStore userStore, ItemService itemService)
-      : super(store, userStore, itemService);
-
-  @override
-  Future<BankCardModel> _decode(Uint8List content) async {
-    return Serializer.fromJson<BankCardModel>(content, (_) => BankCardModel.fromMap(_));
-  }
-
-  @override
-  Widget _renderModel(BankCardModel model) {
-    return BankCardItem(model: model);
-  }
-}
-
-class CertificateListPage extends ItemListPage<CertificateStore, CertificateModel> {
-  CertificateListPage(CertificateStore store, UserStore userStore, ItemService itemService)
-      : super(store, userStore, itemService);
-
-  @override
-  Future<CertificateModel> _decode(Uint8List content) async {
-    return Serializer.fromJson<CertificateModel>(content, (_) => CertificateModel.fromMap(_));
-  }
-
-  @override
-  Widget _renderModel(CertificateModel model) {
-    return CertificateCardItem(model: model);
-  }
-}
+//class BankcardListPage extends ItemListPage<BankcardStore, BankCardModel> {
+//  BankcardListPage(BankcardStore store, UserStore userStore, ItemService itemService)
+//      : super(store, userStore, itemService);
+//
+//  @override
+//  Future<BankCardModel> _decode(Uint8List content) async {
+//    return Serializer.fromJson<BankCardModel>(content, (_) => BankCardModel.fromMap(_));
+//  }
+//
+//  @override
+//  Widget _renderModel(ListItemModel<BankCardModel> model) {
+//    return BankCardItem(model: model);
+//  }
+//}
+//
+//class CertificateListPage extends ItemListPage<CertificateStore, CertificateModel> {
+//  CertificateListPage(CertificateStore store, UserStore userStore, ItemService itemService)
+//      : super(store, userStore, itemService);
+//
+//  @override
+//  Future<CertificateModel> _decode(Uint8List content) async {
+//    return Serializer.fromJson<CertificateModel>(content, (_) => CertificateModel.fromMap(_));
+//  }
+//
+//  @override
+//  Widget _renderModel(CertificateModel model) {
+//    return CertificateCardItem(model: model);
+//  }
+//}

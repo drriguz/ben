@@ -23,6 +23,10 @@ class ItemService {
     return _itemRepository.getItemsByType(type);
   }
 
+  Future<RawRecord> fetchById(String id) async {
+    return _itemRepository.getById(id);
+  }
+
   Future<void> create(int type, AbstractContentModel data, PasswordCredential credential) async {
     final contentBytes = Serializer.toJson(data);
     final metaBytes = Serializer.toJson(data.createMeta());

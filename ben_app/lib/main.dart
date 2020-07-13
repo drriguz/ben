@@ -1,3 +1,4 @@
+import 'package:ben_app/backend/services/item_service.dart';
 import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/ui/page/tabbed_list/bankcard/add_bankcard.dart';
 import 'package:ben_app/ui/page/tabbed_list/note/add_note_page.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'backend/mobx/initialize_store.dart';
 import 'backend/mobx/item_list_store.dart';
+import 'backend/mobx/note_detail_store.dart';
 import 'backend/mobx/user_store.dart';
 import 'backend/provider_setup.dart';
 import 'backend/services/init_check_service.dart';
@@ -66,7 +68,9 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 builder: (_, noteStore, userStore, noteService, child) =>
                     AddNotePage(noteStore, userStore, noteService),
               ),
-          "/note/detail": (_) => NoteDetailPage(),
+          "/note/detail": (_) => Consumer3<NoteDetailStore, UserStore, ItemService>(
+                builder: (_, store, userStore, itemService, child) => NoteDetailPage(store, userStore, itemService),
+              ),
           "/bankcard/add": (_) => AddBankcardPage(),
           "/bankcard/scan": (_) => Consumer<List<CameraDescription>>(
                 builder: (_, cameras, child) => ScanPage(

@@ -42,15 +42,15 @@ final tabConfigs = [
   ),
   _TabConfig(
     "卡片",
-    Consumer3<BankcardStore, UserStore, ItemService>(
-      builder: (_, store, userStore, itemService, child) => BankcardListPage(store, userStore, itemService),
+    Consumer3<NoteStore, UserStore, ItemService>(
+      builder: (_, store, userStore, itemService, child) => NoteListPage(store, userStore, itemService),
     ),
     "/bankcard/add",
   ),
   _TabConfig(
     "证件",
-    Consumer3<CertificateStore, UserStore, ItemService>(
-      builder: (_, store, userStore, itemService, child) => CertificateListPage(store, userStore, itemService),
+    Consumer3<NoteStore, UserStore, ItemService>(
+      builder: (_, store, userStore, itemService, child) => NoteListPage(store, userStore, itemService),
     ),
     "/certificate/add",
   ),

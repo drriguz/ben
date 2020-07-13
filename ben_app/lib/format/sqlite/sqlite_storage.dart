@@ -99,7 +99,7 @@ class SqliteItemRepository extends SqliteRepository implements ItemRepository {
   @override
   Future<RawRecord> getById(String id) async {
     final item = await _findById(id);
-    return item ?? ItemEntity.from(item);
+    return item == null ? null : ItemEntity.from(item);
   }
 
   @override
