@@ -1,5 +1,4 @@
 import 'package:ben_app/backend/stores/item_list_store.dart';
-import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/ui/theme/icons.dart';
 import 'package:ben_app/ui/widgets/tool_button.dart';
 import 'package:ben_app/ui/utils/toast.dart';
@@ -8,12 +7,11 @@ import 'package:flutter/material.dart';
 
 class EditNotePage extends StatelessWidget {
   final NoteStore _noteStore;
-  final NoteService _noteService;
   final TextEditingController _textEditingController = TextEditingController();
 
   final String _id;
 
-  EditNotePage(this._noteStore, this._noteService, this._id, {Key key}) : super(key: key);
+  EditNotePage(this._noteStore, this._id, {Key key}) : super(key: key);
 
   bool _isCreating() {
     return _id == null;
@@ -116,7 +114,7 @@ class EditNotePage extends StatelessWidget {
     }
 
     _noteStore
-        .save(_noteService.createNote(_textEditingController.text))
+        .create(_textEditingController.text)
         .then((_) => Navigator.of(context).pop())
         .catchError((e) => Toasts.showError("保存失败，请重试", e));
   }

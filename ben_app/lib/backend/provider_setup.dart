@@ -1,4 +1,5 @@
 import 'package:ben_app/backend/services/note_service.dart';
+import 'package:ben_app/backend/stores/item_detail_store.dart';
 import 'package:camera/camera.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -57,8 +58,10 @@ List<SingleChildCloneableWidget> _createStores() {
   return [
     ProxyProvider<InitializeService, InitializeStore>(update: (_, service, child) => InitializeStore(service)),
     ProxyProvider<LoginService, UserStore>(update: (_, service, child) => UserStore(service)),
-    ProxyProvider2<UserStore, ItemService, NoteStore>(
-        update: (_, userStore, service, child) => NoteStore(userStore, service)),
+    ProxyProvider3<UserStore, ItemService, NoteService, NoteStore>(
+        update: (_, userStore, itemService, noteService, child) => NoteStore(userStore, itemService, noteService)),
+    ProxyProvider3<UserStore, NoteStore, ItemService, NoteDetailStore>(
+        update: (_, userStore, noteStore, itemService, child) => NoteDetailStore(userStore, itemService, noteStore)),
     ProxyProvider2<UserStore, ItemService, BankcardStore>(
         update: (_, userStore, service, child) => BankcardStore(userStore, service)),
     ProxyProvider2<UserStore, ItemService, CertificateStore>(

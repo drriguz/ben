@@ -1,5 +1,6 @@
 import 'package:ben_app/backend/common/services/item_service.dart';
 import 'package:ben_app/backend/services/note_service.dart';
+import 'package:ben_app/backend/stores/item_detail_store.dart';
 import 'package:ben_app/ui/screens/tabbed_list/bankcard/add_bankcard.dart';
 import 'package:ben_app/ui/screens/tabbed_list/note/edit_note_page.dart';
 import 'package:ben_app/ui/screens/tabbed_list/note/note_detail_page.dart';
@@ -63,9 +64,8 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 ListItemModel<NoteMeta> argument = settings.arguments;
                 return MaterialPageRoute(
                   builder: (context) {
-                    return Consumer3<NoteStore, UserStore, ItemService>(
-                      builder: (_, noteStore, userStore, itemService, child) =>
-                          NoteDetailPage(argument.id, noteStore, userStore, itemService),
+                    return Consumer<NoteDetailStore>(
+                      builder: (_, store, child) => NoteDetailPage(argument.id, store),
                     );
                   },
                 );
@@ -76,8 +76,8 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 String id = settings.arguments;
                 return MaterialPageRoute(
                   builder: (context) {
-                    return Consumer2<NoteStore, NoteService>(
-                      builder: (_, noteStore, noteService, child) => EditNotePage(noteStore, noteService, id),
+                    return Consumer<NoteStore>(
+                      builder: (_, noteStore, child) => EditNotePage(noteStore, id),
                     );
                   },
                 );

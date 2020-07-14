@@ -1,4 +1,5 @@
 import 'package:ben_app/backend/common/format/data/note_model.dart';
+import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/backend/stores/user_store.dart';
 
 import '../common/services/item_service.dart';
@@ -21,8 +22,13 @@ class CertificateStore extends ItemListStore {
 }
 
 class NoteStore extends ItemListStore<NoteData> {
-  NoteStore(UserStore userStore, ItemService itemService) : super(userStore, itemService, 3);
+  final NoteService _noteService;
 
+  NoteStore(UserStore userStore, ItemService itemService, this._noteService) : super(userStore, itemService, 3);
+
+  Future<void> create(String content) {
+    return persist(_noteService.createNote(content));
+  }
 }
 
 abstract class _ItemListStore<T extends StructuredContent> extends PageStatusNotifier with Store {
@@ -44,14 +50,19 @@ abstract class _ItemListStore<T extends StructuredContent> extends PageStatusNot
     setIdle();
   }
 
-
   @action
-  Future<void> save(T item) async {
+  Future<void> persist(T item) async {
     setBusy();
     return _itemService.create(_itemType, item, _userStore.userCredential).then((value) async {
       _data.clear();
       _data.addAll(await _itemService.fetchByType(_itemType));
     }).whenComplete(() => setIdle());
+  }
+
+  @action
+  Future<void> delete(String id) async {
+    setBusy();
+    return _itemService.delete(id).whenComplete(() => fetch()).whenComplete(() => setIdle());
   }
 
   ObservableList<RawBriefRecord> get data => _data;

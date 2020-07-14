@@ -1,11 +1,8 @@
-import 'package:ben_app/backend/stores/item_list_store.dart';
-import 'package:ben_app/backend/stores/user_store.dart';
-import 'package:ben_app/backend/common/services/item_service.dart';
-import 'package:ben_app/backend/common/format/data/note_model.dart';
-import 'package:ben_app/backend/common/format/serializer.dart';
+import 'package:ben_app/backend/stores/item_detail_store.dart';
 import 'package:ben_app/ui/model/choice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 const List<MenuChoice> menuItems = const <MenuChoice>[
   const MenuChoice('编辑', 'edit', Icons.edit),
@@ -14,15 +11,14 @@ const List<MenuChoice> menuItems = const <MenuChoice>[
 
 class NoteDetailPage extends StatelessWidget {
   final String _id;
-  final NoteStore _noteStore;
-  final UserStore _userStore;
-  final ItemService _itemService;
+  final NoteDetailStore _detailStore;
 
-  NoteDetailPage(this._id, this._noteStore, this._userStore, this._itemService, {Key key}) : super(key: key);
+  NoteDetailPage(this._id, this._detailStore, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     print('build...');
+    _detailStore.fetch(_id);
     return Scaffold(
       appBar: AppBar(
         title: Text("查看记事"),
@@ -52,21 +48,9 @@ class NoteDetailPage extends StatelessWidget {
   }
 
   Widget _createBody() {
-    return FutureBuilder<List<String>>(
-      future: _fetchAndDecodeEncrypted(),
-      builder: (BuildContext _, AsyncSnapshot<List<String>> snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.done:
-            if (snapshot.hasError) {
-              print(snapshot.error);
-              return _inProgress();
-            }
-            return _displayNoteDetail(snapshot.data);
-          default:
-            return _inProgress();
-        }
-      },
-    );
+    return Observer(
+        builder: (_) =>
+            _detailStore.isBusy ? _inProgress() : _displayNoteDetail(_detailStore.item.content.split("\n")));
   }
 
   Widget _displayNoteDetail(List<String> contents) {
@@ -81,13 +65,6 @@ class NoteDetailPage extends StatelessWidget {
     );
   }
 
-  Future<List<String>> _fetchAndDecodeEncrypted() async {
-    return _itemService
-        .fetchAndDecryptContent(_id, _userStore.userCredential)
-        .then((value) => Serializer.fromJson<NoteData>(value, (_) => NoteData.fromJson(_)))
-        .then((value) => value.content.split("\n"));
-  }
-
   Future<void> _onDropdownSelected(BuildContext context, MenuChoice choice) {
     switch (choice.value) {
       case "edit":
@@ -96,10 +73,7 @@ class NoteDetailPage extends StatelessWidget {
         }
       case "delete":
         {
-          return _itemService
-              .delete(_id)
-              .whenComplete(() => Navigator.of(context).pop())
-              .whenComplete(() => _noteStore.fetch());
+          return _detailStore.delete(_id).whenComplete(() => Navigator.of(context).pop());
         }
       default:
         break;

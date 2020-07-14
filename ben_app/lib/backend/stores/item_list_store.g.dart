@@ -39,10 +39,17 @@ mixin _$ItemListStore<T extends StructuredContent> on _ItemListStore<T>, Store {
     return _$fetchAsyncAction.run(() => super.fetch());
   }
 
-  final _$saveAsyncAction = AsyncAction('save');
+  final _$persistAsyncAction = AsyncAction('persist');
 
   @override
-  Future<void> save(T item) {
-    return _$saveAsyncAction.run(() => super.save(item));
+  Future<void> persist(T item) {
+    return _$persistAsyncAction.run(() => super.persist(item));
+  }
+
+  final _$deleteAsyncAction = AsyncAction('delete');
+
+  @override
+  Future<void> delete(String id) {
+    return _$deleteAsyncAction.run(() => super.delete(id));
   }
 }
