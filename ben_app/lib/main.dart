@@ -1,7 +1,7 @@
 import 'package:ben_app/backend/services/item_service.dart';
 import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/ui/page/tabbed_list/bankcard/add_bankcard.dart';
-import 'package:ben_app/ui/page/tabbed_list/note/add_note_page.dart';
+import 'package:ben_app/ui/page/tabbed_list/note/edit_note_page.dart';
 import 'package:ben_app/ui/page/tabbed_list/note/note_detail_page.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -87,7 +87,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
           "/home": (_) => HomePage(),
           "/note/add": (_) => Consumer3<NoteStore, UserStore, NoteService>(
                 builder: (_, noteStore, userStore, noteService, child) =>
-                    AddNotePage(noteStore, userStore, noteService),
+                    EditNotePage(noteStore, userStore, noteService),
               ),
           "/bankcard/add": (_) => AddBankcardPage(),
           "/bankcard/scan": (_) => Consumer<List<CameraDescription>>(

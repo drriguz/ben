@@ -52,9 +52,9 @@ class NoteDetailPage extends StatelessWidget {
   }
 
   Widget _createBody() {
-    return FutureBuilder<NoteModel>(
+    return FutureBuilder<List<String>>(
       future: _fetchAndDecodeEncrypted(),
-      builder: (BuildContext _, AsyncSnapshot<NoteModel> snapshot) {
+      builder: (BuildContext _, AsyncSnapshot<List<String>> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
             if (snapshot.hasError) {
@@ -69,23 +69,24 @@ class NoteDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _displayNoteDetail(NoteModel note) {
+  Widget _displayNoteDetail(List<String> contents) {
+    final textStyle = TextStyle(fontSize: 16);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        child: Text(
-          note.content,
-          style: TextStyle(fontSize: 16),
-        ),
-      ),
+      child: ListView.builder(
+          itemCount: contents.length,
+          itemBuilder: (_, int index) {
+            return Text(contents[index], style: textStyle);
+          }),
     );
   }
 
-  Future<NoteModel> _fetchAndDecodeEncrypted() async {
+  Future<List<String>> _fetchAndDecodeEncrypted() async {
     return _itemService
         .fetchById(_id)
         .then((entity) => _itemService.decrypt(entity.content, _userStore.userCredential))
-        .then((value) => Serializer.fromJson<NoteModel>(value, (_) => NoteModel.fromJson(_)));
+        .then((value) => Serializer.fromJson<NoteModel>(value, (_) => NoteModel.fromJson(_)))
+        .then((value) => value.content.split("\n"));
   }
 
   void _onDropdownSelected(BuildContext context, MenuChoice choice) {

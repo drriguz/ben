@@ -7,13 +7,13 @@ import 'package:ben_app/util/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AddNotePage extends StatelessWidget {
+class EditNotePage extends StatelessWidget {
   final UserStore _userStore;
   final NoteStore _noteStore;
   final NoteService _noteService;
   final TextEditingController _textEditingController = TextEditingController();
 
-  AddNotePage(this._noteStore, this._userStore, this._noteService, {Key key}) : super(key: key);
+  EditNotePage(this._noteStore, this._userStore, this._noteService, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
