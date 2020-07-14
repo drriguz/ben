@@ -57,9 +57,12 @@ List<SingleChildCloneableWidget> _createStores() {
   return [
     ProxyProvider<InitializeService, InitializeStore>(update: (_, service, child) => InitializeStore(service)),
     ProxyProvider<LoginService, UserStore>(update: (_, service, child) => UserStore(service)),
-    ProxyProvider<ItemService, NoteStore>(update: (_, service, child) => NoteStore(service)),
-    ProxyProvider<ItemService, BankcardStore>(update: (_, service, child) => BankcardStore(service)),
-    ProxyProvider<ItemService, CertificateStore>(update: (_, service, child) => CertificateStore(service)),
+    ProxyProvider2<UserStore, ItemService, NoteStore>(
+        update: (_, userStore, service, child) => NoteStore(userStore, service)),
+    ProxyProvider2<UserStore, ItemService, BankcardStore>(
+        update: (_, userStore, service, child) => BankcardStore(userStore, service)),
+    ProxyProvider2<UserStore, ItemService, CertificateStore>(
+        update: (_, userStore, service, child) => CertificateStore(userStore, service)),
   ];
 }
 

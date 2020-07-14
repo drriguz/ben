@@ -8,7 +8,7 @@ part of 'item_list_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ItemListStore on _ItemListStore, Store {
+mixin _$ItemListStore<T extends StructuredContent> on _ItemListStore<T>, Store {
   Computed<int> _$totalCountComputed;
 
   @override
@@ -42,7 +42,7 @@ mixin _$ItemListStore on _ItemListStore, Store {
   final _$saveAsyncAction = AsyncAction('save');
 
   @override
-  Future<void> save(AbstractContentModel item, PasswordCredential credential) {
-    return _$saveAsyncAction.run(() => super.save(item, credential));
+  Future<void> save(T item) {
+    return _$saveAsyncAction.run(() => super.save(item));
   }
 }

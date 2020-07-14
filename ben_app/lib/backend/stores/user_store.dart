@@ -12,7 +12,6 @@ class UserStore = _UserStore with _$UserStore;
 abstract class _UserStore extends PageStatusNotifier with Store {
   final LoginService _loginService;
 
-  @observable
   PasswordCredential _userCredential;
 
   PasswordCredential get userCredential => _userCredential;

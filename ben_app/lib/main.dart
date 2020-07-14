@@ -12,8 +12,8 @@ import 'backend/stores/item_list_store.dart';
 import 'backend/stores/user_store.dart';
 import 'backend/provider_setup.dart';
 import 'backend/common/services/init_check_service.dart';
-import 'backend/common/format/model/list_item_model.dart';
-import 'backend/common/format/model/note_model.dart';
+import 'backend/common/format/data/list_item_model.dart';
+import 'backend/common/format/data/note_model.dart';
 import 'backend/common/format/sqlite/database_factory.dart';
 import 'backend/common/format/sqlite/sqlite_storage.dart';
 import 'generated/l10n.dart';
@@ -60,7 +60,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
           switch (settings.name) {
             case "/note/detail":
               {
-                ListItemModel<NoteMetaModel> argument = settings.arguments;
+                ListItemModel<NoteMeta> argument = settings.arguments;
                 return MaterialPageRoute(
                   builder: (context) {
                     return Consumer3<NoteStore, UserStore, ItemService>(
@@ -76,9 +76,8 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 String id = settings.arguments;
                 return MaterialPageRoute(
                   builder: (context) {
-                    return Consumer3<NoteStore, UserStore, NoteService>(
-                      builder: (_, noteStore, userStore, noteService, child) =>
-                          EditNotePage(noteStore, userStore, noteService, id),
+                    return Consumer2<NoteStore, NoteService>(
+                      builder: (_, noteStore, noteService, child) => EditNotePage(noteStore, noteService, id),
                     );
                   },
                 );

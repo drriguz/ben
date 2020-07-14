@@ -6,8 +6,8 @@ part of 'note_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NoteMetaModel _$NoteMetaModelFromJson(Map<String, dynamic> json) {
-  return NoteMetaModel(
+NoteMeta _$NoteMetaFromJson(Map<String, dynamic> json) {
+  return NoteMeta(
     json['title'] as String,
     json['createdTime'] == null
         ? null
@@ -18,15 +18,14 @@ NoteMetaModel _$NoteMetaModelFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$NoteMetaModelToJson(NoteMetaModel instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$NoteMetaToJson(NoteMeta instance) => <String, dynamic>{
       'createdTime': instance.createdTime?.toIso8601String(),
       'lastUpdatedTime': instance.lastUpdatedTime?.toIso8601String(),
       'title': instance.title,
     };
 
-NoteModel _$NoteModelFromJson(Map<String, dynamic> json) {
-  return NoteModel(
+NoteData _$NoteDataFromJson(Map<String, dynamic> json) {
+  return NoteData(
     json['title'] as String,
     json['content'] as String,
     json['createdTime'] == null
@@ -38,7 +37,7 @@ NoteModel _$NoteModelFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
+Map<String, dynamic> _$NoteDataToJson(NoteData instance) => <String, dynamic>{
       'createdTime': instance.createdTime?.toIso8601String(),
       'lastUpdatedTime': instance.lastUpdatedTime?.toIso8601String(),
       'title': instance.title,

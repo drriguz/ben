@@ -15,23 +15,6 @@ mixin _$UserStore on _UserStore, Store {
   bool get hasError =>
       (_$hasErrorComputed ??= Computed<bool>(() => super.hasError)).value;
 
-  final _$_userCredentialAtom = Atom(name: '_UserStore._userCredential');
-
-  @override
-  PasswordCredential get _userCredential {
-    _$_userCredentialAtom.context.enforceReadPolicy(_$_userCredentialAtom);
-    _$_userCredentialAtom.reportObserved();
-    return super._userCredential;
-  }
-
-  @override
-  set _userCredential(PasswordCredential value) {
-    _$_userCredentialAtom.context.conditionallyRunInAction(() {
-      super._userCredential = value;
-      _$_userCredentialAtom.reportChanged();
-    }, _$_userCredentialAtom, name: '${_$_userCredentialAtom.name}_set');
-  }
-
   final _$_errorMessageAtom = Atom(name: '_UserStore._errorMessage');
 
   @override

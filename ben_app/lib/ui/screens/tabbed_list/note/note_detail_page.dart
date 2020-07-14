@@ -1,7 +1,7 @@
 import 'package:ben_app/backend/stores/item_list_store.dart';
 import 'package:ben_app/backend/stores/user_store.dart';
 import 'package:ben_app/backend/common/services/item_service.dart';
-import 'package:ben_app/backend/common/format/model/note_model.dart';
+import 'package:ben_app/backend/common/format/data/note_model.dart';
 import 'package:ben_app/backend/common/format/serializer.dart';
 import 'package:ben_app/ui/model/choice.dart';
 import 'package:flutter/cupertino.dart';
@@ -84,7 +84,7 @@ class NoteDetailPage extends StatelessWidget {
   Future<List<String>> _fetchAndDecodeEncrypted() async {
     return _itemService
         .fetchAndDecryptContent(_id, _userStore.userCredential)
-        .then((value) => Serializer.fromJson<NoteModel>(value, (_) => NoteModel.fromJson(_)))
+        .then((value) => Serializer.fromJson<NoteData>(value, (_) => NoteData.fromJson(_)))
         .then((value) => value.content.split("\n"));
   }
 

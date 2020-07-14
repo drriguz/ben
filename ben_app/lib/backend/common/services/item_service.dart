@@ -6,7 +6,7 @@ import '../crypto/credential.dart';
 import '../crypto/hmac_validator.dart';
 import '../crypto/kdf.dart';
 import '../format/data_format.dart';
-import '../format/model/abstract_model.dart';
+import '../format/data/abstract_data_model.dart';
 import '../format/serializer.dart';
 import '../format/sqlite/Item_entity.dart';
 import '../format/storage.dart';
@@ -31,7 +31,7 @@ class ItemService {
     return _itemRepository.deleteItem(id);
   }
 
-  Future<void> create(int type, AbstractContentModel data, PasswordCredential credential) async {
+  Future<void> create(int type, StructuredContent data, PasswordCredential credential) async {
     final contentBytes = Serializer.toJson(data);
     final metaBytes = Serializer.toJson(data.createMeta());
     final AES aes =

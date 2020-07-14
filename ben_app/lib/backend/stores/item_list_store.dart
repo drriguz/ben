@@ -1,51 +1,56 @@
+import 'package:ben_app/backend/common/format/data/note_model.dart';
+import 'package:ben_app/backend/stores/user_store.dart';
+
 import '../common/services/item_service.dart';
-import '../common/crypto/credential.dart';
 import '../common/format/data_format.dart';
-import '../common/format/model/abstract_model.dart';
+import '../common/format/data/abstract_data_model.dart';
 import 'package:mobx/mobx.dart';
 
 import 'page_status_notifier.dart';
 
 part 'item_list_store.g.dart';
 
-class ItemListStore = _ItemListStore with _$ItemListStore;
+class ItemListStore<T extends StructuredContent> = _ItemListStore<T> with _$ItemListStore<T>;
 
 class BankcardStore extends ItemListStore {
-  BankcardStore(ItemService itemListService) : super(itemListService, 1);
+  BankcardStore(UserStore userStore, ItemService itemService) : super(userStore, itemService, 1);
 }
 
 class CertificateStore extends ItemListStore {
-  CertificateStore(ItemService itemListService) : super(itemListService, 2);
+  CertificateStore(UserStore userStore, ItemService itemService) : super(userStore, itemService, 2);
 }
 
-class NoteStore extends ItemListStore {
-  NoteStore(ItemService itemListService) : super(itemListService, 3);
+class NoteStore extends ItemListStore<NoteData> {
+  NoteStore(UserStore userStore, ItemService itemService) : super(userStore, itemService, 3);
+
 }
 
-abstract class _ItemListStore extends PageStatusNotifier with Store {
-  final ItemService _itemListService;
+abstract class _ItemListStore<T extends StructuredContent> extends PageStatusNotifier with Store {
+  final UserStore _userStore;
+  final ItemService _itemService;
   final int _itemType;
 
   @observable
   ObservableList<RawBriefRecord> _data = ObservableList<RawBriefRecord>();
 
-  _ItemListStore(this._itemListService, this._itemType) {}
+  _ItemListStore(this._userStore, this._itemService, this._itemType) {}
 
   @action
   Future<void> fetch() async {
     setBusy();
     print('fetch data ${_itemType}...');
     _data.clear();
-    _data.addAll(await _itemListService.fetchByType(_itemType));
+    _data.addAll(await _itemService.fetchByType(_itemType));
     setIdle();
   }
 
+
   @action
-  Future<void> save(AbstractContentModel item, PasswordCredential credential) async {
+  Future<void> save(T item) async {
     setBusy();
-    return _itemListService.create(_itemType, item, credential).then((value) async {
+    return _itemService.create(_itemType, item, _userStore.userCredential).then((value) async {
       _data.clear();
-      _data.addAll(await _itemListService.fetchByType(_itemType));
+      _data.addAll(await _itemService.fetchByType(_itemType));
     }).whenComplete(() => setIdle());
   }
 
