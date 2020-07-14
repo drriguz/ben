@@ -2,7 +2,6 @@ import '../common/services/item_service.dart';
 import '../common/crypto/credential.dart';
 import '../common/format/data_format.dart';
 import '../common/format/model/abstract_model.dart';
-import '../common/format/model/note_model.dart';
 import 'package:mobx/mobx.dart';
 
 import 'page_status_notifier.dart';
@@ -23,7 +22,7 @@ class NoteStore extends ItemListStore {
   NoteStore(ItemService itemListService) : super(itemListService, 3);
 }
 
-abstract class _ItemListStore<T extends AbstractMetaModel> extends PageStatusNotifier with Store {
+abstract class _ItemListStore extends PageStatusNotifier with Store {
   final ItemService _itemListService;
   final int _itemType;
 
@@ -42,9 +41,9 @@ abstract class _ItemListStore<T extends AbstractMetaModel> extends PageStatusNot
   }
 
   @action
-  Future<void> save(NoteModel note, PasswordCredential credential) async {
+  Future<void> save(AbstractContentModel item, PasswordCredential credential) async {
     setBusy();
-    return _itemListService.create(_itemType, note, credential).then((value) async {
+    return _itemListService.create(_itemType, item, credential).then((value) async {
       _data.clear();
       _data.addAll(await _itemListService.fetchByType(_itemType));
     }).whenComplete(() => setIdle());
