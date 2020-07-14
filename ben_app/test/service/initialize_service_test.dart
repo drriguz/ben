@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:ben_app/backend/shared/init_service.dart';
-import 'package:ben_app/crypto/kdf.dart';
-import 'package:ben_app/crypto/protected_value.dart';
-import 'package:ben_app/format/data_format.dart';
-import 'package:ben_app/format/storage.dart';
+import 'package:ben_app/backend/common/services/init_service.dart';
+import 'package:ben_app/backend/common/crypto/kdf.dart';
+import 'package:ben_app/backend/common/crypto/protected_value.dart';
+import 'package:ben_app/backend/common/format/data_format.dart';
+import 'package:ben_app/backend/common/format/storage.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 

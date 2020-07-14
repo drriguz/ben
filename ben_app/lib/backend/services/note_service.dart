@@ -1,4 +1,4 @@
-import 'package:ben_app/format/model/note_model.dart';
+import '../common/format/model/note_model.dart';
 
 class NoteService {
   NoteModel createNote(String content) {

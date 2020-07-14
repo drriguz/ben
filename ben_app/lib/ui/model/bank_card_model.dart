@@ -1,4 +1,4 @@
-import 'package:ben_app/format/serializer.dart';
+import 'package:ben_app/backend/common/format/serializer.dart';
 
 /**
  * Ref:https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?cardNo=6222005865412565805&cardBinCheck=true

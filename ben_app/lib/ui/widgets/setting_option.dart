@@ -1,4 +1,4 @@
-import 'package:ben_app/crypto/protected_value.dart';
+import 'package:ben_app/backend/common/crypto/protected_value.dart';
 import 'package:ben_app/generated/l10n.dart';
 import 'package:ben_app/ui/theme/styles.dart';
 import 'package:flutter/cupertino.dart';
