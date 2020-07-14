@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../../model/choice.dart';
 import '../../theme/icons.dart';
-import 'search_bar.dart';
 
 import 'package:flutter/material.dart';
 
