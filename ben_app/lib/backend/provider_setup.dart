@@ -6,12 +6,12 @@ import 'package:camera/camera.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'mobx/initialize_store.dart';
-import 'mobx/item_list_store.dart';
-import 'mobx/user_store.dart';
-import 'services/init_service.dart';
-import 'services/item_service.dart';
-import 'services/login_service.dart';
+import 'store/initialize_store.dart';
+import 'store/item_list_store.dart';
+import 'store/user_store.dart';
+import 'shared/init_service.dart';
+import 'shared/item_service.dart';
+import 'shared/login_service.dart';
 
 Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
   return [

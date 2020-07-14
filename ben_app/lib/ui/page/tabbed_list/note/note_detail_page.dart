@@ -1,6 +1,6 @@
-import 'package:ben_app/backend/mobx/item_list_store.dart';
-import 'package:ben_app/backend/mobx/user_store.dart';
-import 'package:ben_app/backend/services/item_service.dart';
+import 'package:ben_app/backend/store/item_list_store.dart';
+import 'package:ben_app/backend/store/user_store.dart';
+import 'package:ben_app/backend/shared/item_service.dart';
 import 'package:ben_app/format/model/note_model.dart';
 import 'package:ben_app/format/serializer.dart';
 import 'package:ben_app/ui/model/choice.dart';

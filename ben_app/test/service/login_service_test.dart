@@ -1,5 +1,5 @@
-import 'package:ben_app/backend/services/init_service.dart';
-import 'package:ben_app/backend/services/login_service.dart';
+import 'package:ben_app/backend/shared/init_service.dart';
+import 'package:ben_app/backend/shared/login_service.dart';
 import 'package:ben_app/crypto/kdf.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:ben_app/format/data_format.dart';

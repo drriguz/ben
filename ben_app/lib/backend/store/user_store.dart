@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/services/login_service.dart';
+import 'package:ben_app/backend/shared/login_service.dart';
 import 'package:ben_app/crypto/credential.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:mobx/mobx.dart';

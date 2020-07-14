@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/mobx/user_store.dart';
+import 'package:ben_app/backend/store/user_store.dart';
 import 'package:ben_app/crypto/protected_value.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 

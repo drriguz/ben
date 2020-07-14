@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/services/item_service.dart';
+import 'package:ben_app/backend/shared/item_service.dart';
 import 'package:ben_app/crypto/credential.dart';
 import 'package:ben_app/format/data_format.dart';
 import 'package:ben_app/format/model/abstract_model.dart';
