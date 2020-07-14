@@ -54,6 +54,9 @@ List<SingleChildCloneableWidget> _createServices() {
   ];
 }
 
+/*
+  to read: https://mobx.netlify.app/guides/stores
+ */
 List<SingleChildCloneableWidget> _createStores() {
   return [
     ProxyProvider<InitializeService, InitializeStore>(update: (_, service, child) => InitializeStore(service)),

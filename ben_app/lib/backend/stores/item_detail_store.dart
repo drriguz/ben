@@ -42,7 +42,9 @@ abstract class _ItemDetailStore<T extends StructuredContent> extends PageStatusN
 class NoteDetailStore extends ItemDetailStore<NoteData> {
   final NoteStore _noteStore;
 
-  NoteDetailStore(UserStore userStore, ItemService itemService, this._noteStore) : super(userStore, itemService);
+  NoteDetailStore(UserStore userStore, ItemService itemService, this._noteStore) : super(userStore, itemService) {
+    print("creating note detail store...");
+  }
 
   @override
   NoteData convert(Uint8List content) {

@@ -1,3 +1,4 @@
+import 'package:ben_app/backend/common/services/init_service.dart';
 import 'package:ben_app/backend/stores/initialize_store.dart';
 import 'package:ben_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -9,23 +10,22 @@ import 'widgets/system_settings.dart';
 import 'widgets/user_agreement.dart';
 
 class InitializePage extends StatefulWidget {
-  final InitializeStore _store;
-
-  const InitializePage(this._store, {Key key}) : super(key: key);
+  const InitializePage({Key key}) : super(key: key);
 
   @override
-  _InitializePageState createState() => _InitializePageState(_store);
+  _InitializePageState createState() => _InitializePageState();
 }
 
 class _InitializePageState extends State<InitializePage> with SingleTickerProviderStateMixin {
   TabController _tabController;
-  final InitializeStore _store;
+  InitializeStore _store;
 
-  _InitializePageState(this._store);
+  _InitializePageState();
 
   @override
   void initState() {
     super.initState();
+    _store = new InitializeStore(Provider.of<InitializeService>(context, listen: false));
     _tabController = new TabController(vsync: this, length: 4);
   }
 
