@@ -13,14 +13,19 @@ class EditNotePage extends StatelessWidget {
   final NoteService _noteService;
   final TextEditingController _textEditingController = TextEditingController();
 
-  EditNotePage(this._noteStore, this._userStore, this._noteService, {Key key}) : super(key: key);
+  final String _id;
+
+  EditNotePage(this._noteStore, this._userStore, this._noteService, this._id, {Key key}) : super(key: key);
+
+  bool _isCreating() {
+    return _id == null;
+  }
 
   @override
   Widget build(BuildContext context) {
-    print('build ...');
     return Scaffold(
       appBar: AppBar(
-        title: Text("创建新记事"),
+        title: Text(_isCreating() ? "创建新记事" : "编辑记事"),
       ),
       body: Column(
         children: <Widget>[

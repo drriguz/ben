@@ -56,4 +56,16 @@ class ItemService {
         AES.ofCBC(await credential.getEncryptionKey(_kdf), credential.encryptionIv, PaddingScheme.PKCS5Padding);
     return aes.decrypt(source);
   }
+
+  Future<Uint8List> fetchAndDecryptMeta(String id, PasswordCredential credential) async {
+    final RawRecord record = await fetchById(id);
+    if (record == null) throw ArgumentError("Item not found with id = $id");
+    return decrypt(record.meta, credential);
+  }
+
+  Future<Uint8List> fetchAndDecryptContent(String id, PasswordCredential credential) async {
+    final RawRecord record = await fetchById(id);
+    if (record == null) throw ArgumentError("Item not found with id = $id");
+    return decrypt(record.content, credential);
+  }
 }

@@ -70,6 +70,19 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                   },
                 );
               }
+            case "/note/edit":
+            case "/note/add":
+              {
+                String id = settings.arguments;
+                return MaterialPageRoute(
+                  builder: (context) {
+                    return Consumer3<NoteStore, UserStore, NoteService>(
+                      builder: (_, noteStore, userStore, noteService, child) =>
+                          EditNotePage(noteStore, userStore, noteService, id),
+                    );
+                  },
+                );
+              }
             default:
               break;
           }
@@ -85,10 +98,6 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 builder: (_, store, child) => LoginPage(store),
               ),
           "/home": (_) => HomePage(),
-          "/note/add": (_) => Consumer3<NoteStore, UserStore, NoteService>(
-                builder: (_, noteStore, userStore, noteService, child) =>
-                    EditNotePage(noteStore, userStore, noteService),
-              ),
           "/bankcard/add": (_) => AddBankcardPage(),
           "/bankcard/scan": (_) => Consumer<List<CameraDescription>>(
                 builder: (_, cameras, child) => ScanPage(

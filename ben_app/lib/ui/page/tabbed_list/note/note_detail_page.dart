@@ -83,22 +83,23 @@ class NoteDetailPage extends StatelessWidget {
 
   Future<List<String>> _fetchAndDecodeEncrypted() async {
     return _itemService
-        .fetchById(_id)
-        .then((entity) => _itemService.decrypt(entity.content, _userStore.userCredential))
+        .fetchAndDecryptContent(_id, _userStore.userCredential)
         .then((value) => Serializer.fromJson<NoteModel>(value, (_) => NoteModel.fromJson(_)))
         .then((value) => value.content.split("\n"));
   }
 
-  void _onDropdownSelected(BuildContext context, MenuChoice choice) {
+  Future<void> _onDropdownSelected(BuildContext context, MenuChoice choice) {
     switch (choice.value) {
       case "edit":
+        {
+          return Navigator.of(context).pushReplacementNamed("/note/edit", arguments: _id);
+        }
       case "delete":
         {
-          _itemService
+          return _itemService
               .delete(_id)
               .whenComplete(() => Navigator.of(context).pop())
               .whenComplete(() => _noteStore.fetch());
-          return;
         }
       default:
         break;
