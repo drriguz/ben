@@ -2,6 +2,7 @@ import 'package:ben_app/ui/screens/album/album_detail_page.dart';
 import 'package:ben_app/ui/screens/album/edit_album_page.dart';
 import 'package:ben_app/ui/screens/tabbed_list/note/edit_note_page.dart';
 import 'package:ben_app/ui/screens/tabbed_list/note/note_detail_page.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,7 @@ import 'backend/common/format/data/note_model.dart';
 import 'backend/common/format/sqlite/database_factory.dart';
 import 'backend/common/format/sqlite/sqlite_storage.dart';
 import 'generated/l10n.dart';
+import 'ui/screens/camera/take_photo_page.dart';
 import 'ui/screens/home_page.dart';
 import 'ui/screens/initialize/initialize_page.dart';
 import 'ui/screens/login_page.dart';
@@ -90,6 +92,9 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 builder: (_, store, child) => LoginPage(store),
               ),
           "/home": (_) => HomePage(),
+          "/camera/take": (_) => Consumer<List<CameraDescription>>(
+                builder: (_, cameras, child) => TakePictureScreen(cameras: cameras),
+              ),
         },
       ),
     ),

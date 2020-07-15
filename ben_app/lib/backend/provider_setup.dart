@@ -18,7 +18,7 @@ import 'common/format/sqlite/sqlite_storage.dart';
 Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
   return [
     Provider<Database>.value(value: await SqliteFactory.createInstance("data.db", "assets/config/init.sql")),
-    Provider<List<CameraDescription>>.value(value: await availableCameras())
+    Provider<List<CameraDescription>>.value(value: await availableCameras()),
   ];
 }
 

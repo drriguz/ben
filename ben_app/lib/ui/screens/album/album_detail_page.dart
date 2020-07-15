@@ -103,17 +103,6 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
   }
 
   Future<void> _takePhoto() async {
-    final cameras = await availableCameras();
-    if (cameras.isEmpty) {
-      Toasts.showError("无法检测到摄像头", null);
-      return;
-    }
-    final firstCamera = cameras.first;
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TakePictureScreen(camera: firstCamera),
-      ),
-    );
+    Navigator.of(context).pushNamed("/camera/take");
   }
 }
