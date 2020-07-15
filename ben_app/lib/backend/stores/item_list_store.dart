@@ -26,11 +26,11 @@ class NoteStore extends ItemListStore<NoteMeta, NoteData> {
 
   NoteStore(UserStore userStore, ItemService itemService, this._noteService)
       : super(
-          userStore,
-          itemService,
-          TYPE_NOTE,
-          (meta) => Serializer.fromJson<NoteMeta>(meta, (_) => NoteMeta.fromJson(_)),
-        ) {
+    userStore,
+    itemService,
+    TYPE_NOTE,
+        (meta) => Serializer.fromJson<NoteMeta>(meta, (_) => NoteMeta.fromJson(_)),
+  ) {
     print("create not store");
   }
 
@@ -44,11 +44,11 @@ class AlbumStore extends ItemListStore<AlbumMeta, AlbumData> {
 
   AlbumStore(UserStore userStore, ItemService itemService, this._albumService)
       : super(
-          userStore,
-          itemService,
-          TYPE_ALBUM,
-          (meta) => Serializer.fromJson<AlbumMeta>(meta, (_) => AlbumMeta.fromJson(_)),
-        );
+    userStore,
+    itemService,
+    TYPE_ALBUM,
+        (meta) => Serializer.fromJson<AlbumMeta>(meta, (_) => AlbumMeta.fromJson(_)),
+  );
 
   Future<void> createOrUpdate(String id, String name) {
     return createOrUpdateRawRecord(id, _albumService.createAlbum(name));

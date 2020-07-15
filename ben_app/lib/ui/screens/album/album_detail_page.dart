@@ -3,7 +3,10 @@ import 'package:ben_app/backend/stores/item_detail_store.dart';
 import 'package:ben_app/backend/stores/item_list_store.dart';
 import 'package:ben_app/backend/stores/user_store.dart';
 import 'package:ben_app/ui/model/choice.dart';
+import 'package:ben_app/ui/screens/camera/take_photo_page.dart';
+import 'package:ben_app/ui/utils/toast.dart';
 import 'package:ben_app/ui/widgets/loading.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -60,6 +63,11 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
         ],
       ),
       body: _createBody(imageStore),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _takePhoto,
+        tooltip: 'Create album',
+        child: Icon(Icons.camera_alt),
+      ),
     );
   }
 
@@ -71,7 +79,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.0),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1.0),
         itemCount: 1,
         itemBuilder: (context, index) => AlbumItem("1", "text", 1),
       ),
@@ -92,5 +100,20 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
       default:
         break;
     }
+  }
+
+  Future<void> _takePhoto() async {
+    final cameras = await availableCameras();
+    if (cameras.isEmpty) {
+      Toasts.showError("无法检测到摄像头", null);
+      return;
+    }
+    final firstCamera = cameras.first;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TakePictureScreen(camera: firstCamera),
+      ),
+    );
   }
 }
