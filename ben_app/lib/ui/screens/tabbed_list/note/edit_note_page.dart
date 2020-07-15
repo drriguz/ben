@@ -22,7 +22,7 @@ class EditNotePage extends StatefulWidget {
 
 class _EditNotePageState extends State<EditNotePage> {
   final String _id;
-  final TextEditingController _textEditingController = TextEditingController();
+  TextEditingController _textEditingController;
 
   NoteDetailStore _detailStore;
 
@@ -35,11 +35,18 @@ class _EditNotePageState extends State<EditNotePage> {
   @override
   void initState() {
     super.initState();
+    _textEditingController = TextEditingController();
     _detailStore = new NoteDetailStore(
       Provider.of<UserStore>(context, listen: false),
       Provider.of<ItemService>(context, listen: false),
       Provider.of<NoteStore>(context, listen: false),
     );
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
   }
 
   @override
