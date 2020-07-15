@@ -13,28 +13,24 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Row(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  _profileImage(),
-                  Observer(
-                    builder: (_) {
-                      return _userStore.isBusy
-                          ? _progressBar()
-                          : _input(context);
-                    },
-                  )
-                ],
-              ),
-            ),
-          ],
-        ));
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              _profileImage(),
+              Observer(
+                builder: (_) {
+                  return _userStore.isBusy ? _progressBar() : _input(context);
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _profileImage() {
