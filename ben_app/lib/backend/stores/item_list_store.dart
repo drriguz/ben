@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:ben_app/backend/common/format/data/album_model.dart';
+import 'package:ben_app/backend/common/format/data/image_model.dart';
 import 'package:ben_app/backend/common/format/data/list_item_model.dart';
 import 'package:ben_app/backend/common/format/data/note_model.dart';
 import 'package:ben_app/backend/common/format/data_format.dart';
@@ -52,6 +53,18 @@ class AlbumStore extends ItemListStore<AlbumMeta, AlbumData> {
   Future<void> createOrUpdate(String id, String name) {
     return createOrUpdateRawRecord(id, _albumService.createAlbum(name));
   }
+}
+
+class ImageStore extends ItemListStore<ImageMeta, ImageData> {
+  final AlbumService _albumService;
+
+  ImageStore(UserStore userStore, ItemService itemService, this._albumService)
+      : super(
+          userStore,
+          itemService,
+          TYPE_IMAGE,
+          (meta) => Serializer.fromJson<ImageMeta>(meta, (_) => ImageMeta.fromJson(_)),
+        );
 }
 
 typedef Decoder<M extends StructuredMeta> = M Function(Uint8List content);

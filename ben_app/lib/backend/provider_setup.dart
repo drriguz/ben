@@ -69,6 +69,8 @@ List<SingleChildCloneableWidget> _createStores() {
         update: (_, userStore, itemService, noteService, child) => NoteStore(userStore, itemService, noteService)),
     ProxyProvider3<UserStore, ItemService, AlbumService, AlbumStore>(
         update: (_, userStore, itemService, albumService, child) => AlbumStore(userStore, itemService, albumService)),
+    ProxyProvider3<UserStore, ItemService, AlbumService, ImageStore>(
+        update: (_, userStore, itemService, albumService, child) => ImageStore(userStore, itemService, albumService)),
   ];
 }
 

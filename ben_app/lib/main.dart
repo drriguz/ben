@@ -1,3 +1,4 @@
+import 'package:ben_app/ui/screens/album/album_detail_page.dart';
 import 'package:ben_app/ui/screens/album/edit_album_page.dart';
 import 'package:ben_app/ui/screens/tabbed_list/note/edit_note_page.dart';
 import 'package:ben_app/ui/screens/tabbed_list/note/note_detail_page.dart';
@@ -68,6 +69,11 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
               {
                 String id = settings.arguments;
                 return MaterialPageRoute(builder: (context) => EditAlbumPage(id));
+              }
+            case "/album/detail":
+              {
+                String id = settings.arguments;
+                return MaterialPageRoute(builder: (context) => AlbumDetailPage(id));
               }
             default:
               break;
