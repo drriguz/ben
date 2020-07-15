@@ -1,40 +1,20 @@
 import 'package:flutter/material.dart';
 
-class FormInput extends StatelessWidget {
-  final String _label;
-  final Widget _child;
+import 'setting_option.dart';
 
-  const FormInput(this._label, this._child, {Key key}) : super(key: key);
+class FormInput extends SettingOption {
+  final String _placeholder;
+  final TextEditingController _controller;
 
-  FormInput.textInput(this._label, String placeholder, {Key key})
-      : _child = TextField(
-          style: TextStyle(fontSize: 16),
-          decoration: InputDecoration(
-            hintText: placeholder,
-            border: InputBorder.none,
-          ),
-        ),
-        super(key: key);
+  const FormInput(String description, this._placeholder, this._controller, {Key key}) : super(description, key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 5, bottom: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            width: 100,
-            child: Text(
-              _label,
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-          Expanded(
-            child: _child,
-          )
-        ],
-      ),
-    );
+  List<Widget> getFormFields() {
+    return <Widget>[
+      TextField(
+        controller: _controller,
+        decoration: InputDecoration(hintText: _placeholder),
+      )
+    ];
   }
 }

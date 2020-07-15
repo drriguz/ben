@@ -1,3 +1,4 @@
+import 'package:ben_app/backend/services/album_service.dart';
 import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/backend/stores/item_detail_store.dart';
 import 'package:camera/camera.dart';
@@ -51,6 +52,9 @@ List<SingleChildCloneableWidget> _createServices() {
     Provider<NoteService>(
       create: (_) => NoteService(),
     ),
+    Provider<AlbumService>(
+      create: (_) => AlbumService(),
+    ),
   ];
 }
 
@@ -63,6 +67,8 @@ List<SingleChildCloneableWidget> _createStores() {
     // todo: should we not make this notestore global?
     ProxyProvider3<UserStore, ItemService, NoteService, NoteStore>(
         update: (_, userStore, itemService, noteService, child) => NoteStore(userStore, itemService, noteService)),
+    ProxyProvider3<UserStore, ItemService, AlbumService, AlbumStore>(
+        update: (_, userStore, itemService, albumService, child) => AlbumStore(userStore, itemService, albumService)),
   ];
 }
 

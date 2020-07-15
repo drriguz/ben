@@ -1,3 +1,4 @@
+import 'package:ben_app/ui/screens/album/edit_album_page.dart';
 import 'package:ben_app/ui/screens/tabbed_list/note/edit_note_page.dart';
 import 'package:ben_app/ui/screens/tabbed_list/note/note_detail_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -54,21 +55,19 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
             case "/note/detail":
               {
                 ListItemModel<NoteMeta> argument = settings.arguments;
-                return MaterialPageRoute(
-                  builder: (context) {
-                    return NoteDetailPage(argument.id);
-                  },
-                );
+                return MaterialPageRoute(builder: (context) => NoteDetailPage(argument.id));
               }
             case "/note/edit":
             case "/note/add":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(
-                  builder: (context) {
-                    return EditNotePage(id);
-                  },
-                );
+                return MaterialPageRoute(builder: (context) => EditNotePage(id));
+              }
+            case "/album/edit":
+            case "/album/add":
+              {
+                String id = settings.arguments;
+                return MaterialPageRoute(builder: (context) => EditAlbumPage(id));
               }
             default:
               break;

@@ -19,14 +19,12 @@ class AlbumPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _onTakePhotoPressed,
+        onPressed: () => Navigator.of(context).pushNamed("/album/add"),
         tooltip: 'Take photo',
-        child: Icon(Icons.photo_camera),
+        child: Icon(Icons.add),
       ),
     );
   }
-
-  void _onTakePhotoPressed() {}
 }
 
 class AlbumItem extends StatelessWidget {

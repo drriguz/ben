@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
+import 'package:ben_app/backend/common/format/data/album_model.dart';
 import 'package:ben_app/backend/common/format/data/list_item_model.dart';
 import 'package:ben_app/backend/common/format/data/note_model.dart';
 import 'package:ben_app/backend/common/format/data_format.dart';
 import 'package:ben_app/backend/common/format/serializer.dart';
+import 'package:ben_app/backend/services/album_service.dart';
 import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/backend/stores/user_store.dart';
 
@@ -33,6 +35,24 @@ class NoteStore extends ItemListStore<NoteMeta, NoteData> {
 
   Future<void> createOrUpdate(String id, String content) {
     return createOrUpdateRawRecord(id, _noteService.createNote(content));
+  }
+}
+
+class AlbumStore extends ItemListStore<AlbumMeta, AlbumData> {
+  final AlbumService _albumService;
+
+  AlbumStore(UserStore userStore, ItemService itemService, this._albumService)
+      : super(
+          userStore,
+          itemService,
+          TYPE_ALBUM,
+          (meta) => Serializer.fromJson<AlbumMeta>(meta, (_) => AlbumMeta.fromJson(_)),
+        ) {
+    print("create not store");
+  }
+
+  Future<void> createOrUpdate(String id, String name) {
+    return createOrUpdateRawRecord(id, _albumService.createAlbum(name));
   }
 }
 
