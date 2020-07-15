@@ -4,8 +4,10 @@ import 'package:ben_app/backend/stores/item_list_store.dart';
 import 'package:ben_app/backend/stores/user_store.dart';
 import 'package:ben_app/ui/widgets/form_input.dart';
 import 'package:ben_app/ui/utils/toast.dart';
+import 'package:ben_app/ui/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class EditAlbumPage extends StatefulWidget {
@@ -21,7 +23,7 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
   final String _id;
   TextEditingController _textEditingController;
 
-  NoteDetailStore _detailStore;
+  AlbumDetailStore _detailStore;
 
   _EditAlbumPageState(this._id);
 
@@ -33,10 +35,10 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
   void initState() {
     super.initState();
     _textEditingController = TextEditingController();
-    _detailStore = new NoteDetailStore(
+    _detailStore = new AlbumDetailStore(
       Provider.of<UserStore>(context, listen: false),
       Provider.of<ItemService>(context, listen: false),
-      Provider.of<NoteStore>(context, listen: false),
+      Provider.of<AlbumStore>(context, listen: false),
     );
   }
 
@@ -53,22 +55,29 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
       appBar: AppBar(
         title: Text(_isCreating() ? "创建相册" : "编辑相册"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
-        child: Column(
-          children: <Widget>[
-            FormInput(
-              "创建一个相册用来归类您的照片，相册名称可以随意填写。系统将自动生成唯一的ID来进行区分，即使您创建了相同名称的相册也不会混淆",
-              "相册名称",
-              _textEditingController,
-            ),
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: _createToolbar(context),
-            ),
-          ],
-        ),
+      body: Observer(
+        builder: (_) => _detailStore.isBusy ? Loading() : _createEditor(),
+      ),
+    );
+  }
+
+  Widget _createEditor() {
+    _textEditingController.text = _detailStore.item?.title;
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
+      child: Column(
+        children: <Widget>[
+          FormInput(
+            "创建一个相册用来归类您的照片，相册名称可以随意填写。系统将自动生成唯一的ID来进行区分，即使您创建了相同名称的相册也不会混淆",
+            "相册名称",
+            _textEditingController,
+          ),
+          Divider(),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: _createToolbar(context),
+          ),
+        ],
       ),
     );
   }

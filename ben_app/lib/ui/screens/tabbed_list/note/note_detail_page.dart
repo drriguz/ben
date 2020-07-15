@@ -90,7 +90,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
         }
       case "delete":
         {
-          return _detailStore.delete(widget._id).whenComplete(() => Navigator.of(context).pop());
+          return Provider.of<NoteStore>(context, listen: false).delete(widget._id).whenComplete(() => Navigator.of(context).pop());
         }
       default:
         break;

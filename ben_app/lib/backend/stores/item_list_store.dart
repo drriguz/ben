@@ -64,7 +64,9 @@ class ImageStore extends ItemListStore<ImageMeta, ImageData> {
           itemService,
           TYPE_IMAGE,
           (meta) => Serializer.fromJson<ImageMeta>(meta, (_) => ImageMeta.fromJson(_)),
-        );
+        ) {
+    print('create store');
+  }
 }
 
 typedef Decoder<M extends StructuredMeta> = M Function(Uint8List content);

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:ben_app/backend/common/format/data/abstract_data_model.dart';
+import 'package:ben_app/backend/common/format/data/album_model.dart';
 import 'package:ben_app/backend/common/format/data/note_model.dart';
 import 'package:ben_app/backend/common/format/serializer.dart';
 import 'package:ben_app/backend/common/services/item_service.dart';
@@ -55,9 +56,20 @@ class NoteDetailStore extends ItemDetailStore<NoteData> {
   Future<void> refreshList() {
     return _noteStore.fetch();
   }
+}
 
-  @action
-  Future<void> delete(String id) {
-    return _noteStore.delete(id).whenComplete(() => refreshList());
+class AlbumDetailStore extends ItemDetailStore<AlbumData> {
+  final AlbumStore _albumStore;
+
+  AlbumDetailStore(UserStore userStore, ItemService itemService, this._albumStore) : super(userStore, itemService);
+
+  @override
+  AlbumData convert(Uint8List content) {
+    return Serializer.fromJson<AlbumData>(content, (_) => AlbumData.fromJson(_));
+  }
+
+  @override
+  Future<void> refreshList() {
+    return _albumStore.fetch();
   }
 }

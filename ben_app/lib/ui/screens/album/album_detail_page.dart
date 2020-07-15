@@ -22,10 +22,14 @@ class AlbumDetailPage extends StatefulWidget {
   AlbumDetailPage(this._id, {Key key}) : super(key: key);
 
   @override
-  _AlbumDetailPageState createState() => _AlbumDetailPageState();
+  _AlbumDetailPageState createState() => _AlbumDetailPageState(_id);
 }
 
 class _AlbumDetailPageState extends State<AlbumDetailPage> {
+  final String _id;
+
+  _AlbumDetailPageState(this._id);
+
   @override
   void initState() {
     super.initState();
@@ -75,7 +79,16 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
   }
 
   Future<void> _onDropdownSelected(BuildContext context, MenuChoice choice) {
+    AlbumStore albumStore = Provider.of<AlbumStore>(context);
     switch (choice.value) {
+      case "edit":
+        {
+          return Navigator.of(context).pushReplacementNamed("/album/edit", arguments: _id);
+        }
+      case "delete":
+        {
+          return albumStore.delete(_id).whenComplete(() => Navigator.of(context).pop());
+        }
       default:
         break;
     }
