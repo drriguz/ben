@@ -31,7 +31,7 @@ class ItemService {
     return _itemRepository.deleteItem(id);
   }
 
-  Future<void> create(int type, StructuredContent data, PasswordCredential credential) async {
+  Future<void> createOrUpdate(int type, String id, StructuredContent data, PasswordCredential credential) async {
     final contentBytes = Serializer.toJson(data);
     final metaBytes = Serializer.toJson(data.createMeta());
     final AES aes =
@@ -41,13 +41,14 @@ class ItemService {
     final hashValidator = new HmacValidator(await credential.getHashKey(_kdf));
     final checksum = hashValidator.computeChecksum(contentBytes);
 
-    return _itemRepository.createItem(ItemEntity(
-      id: _uuid.v4(),
+    final item = ItemEntity(
+      id: id ?? _uuid.v4(),
       type: type,
       meta: metaEncrypted,
       content: contentEncrypted,
       checksum: checksum,
-    ));
+    );
+    return id == null ? _itemRepository.createItem(item) : _itemRepository.updateItem(id, item);
   }
 
   Future<Uint8List> decrypt(Uint8List source, PasswordCredential credential) async {

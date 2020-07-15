@@ -3,6 +3,7 @@ import 'package:ben_app/backend/stores/item_detail_store.dart';
 import 'package:ben_app/backend/stores/item_list_store.dart';
 import 'package:ben_app/backend/stores/user_store.dart';
 import 'package:ben_app/ui/model/choice.dart';
+import 'package:ben_app/ui/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -28,8 +29,11 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   @override
   void initState() {
     super.initState();
-    _detailStore = new NoteDetailStore(Provider.of<UserStore>(context, listen: false),
-        Provider.of<ItemService>(context, listen: false), Provider.of<NoteStore>(context, listen: false));
+    _detailStore = new NoteDetailStore(
+      Provider.of<UserStore>(context, listen: false),
+      Provider.of<ItemService>(context, listen: false),
+      Provider.of<NoteStore>(context, listen: false),
+    );
   }
 
   @override
@@ -60,14 +64,10 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
     );
   }
 
-  Widget _inProgress() {
-    return Center(child: CircularProgressIndicator());
-  }
-
   Widget _createBody() {
     return Observer(
         builder: (_) =>
-            _detailStore.isBusy ? _inProgress() : _displayNoteDetail(_detailStore.item.content.split("\n")));
+            _detailStore.isBusy ? Loading() : _displayNoteDetail(_detailStore.item.content.split("\n")));
   }
 
   Widget _displayNoteDetail(List<String> contents) {

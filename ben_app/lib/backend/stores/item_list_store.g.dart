@@ -40,11 +40,13 @@ mixin _$ItemListStore<M extends StructuredMeta, C extends StructuredContent>
     return _$fetchAsyncAction.run(() => super.fetch());
   }
 
-  final _$persistContentAsyncAction = AsyncAction('persistContent');
+  final _$createOrUpdateRawRecordAsyncAction =
+      AsyncAction('createOrUpdateRawRecord');
 
   @override
-  Future<void> persistContent(C item) {
-    return _$persistContentAsyncAction.run(() => super.persistContent(item));
+  Future<void> createOrUpdateRawRecord(String id, C item) {
+    return _$createOrUpdateRawRecordAsyncAction
+        .run(() => super.createOrUpdateRawRecord(id, item));
   }
 
   final _$deleteAsyncAction = AsyncAction('delete');

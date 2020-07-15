@@ -27,12 +27,12 @@ class NoteStore extends ItemListStore<NoteMeta, NoteData> {
           itemService,
           3,
           (meta) => Serializer.fromJson<NoteMeta>(meta, (_) => NoteMeta.fromJson(_)),
-        ){
+        ) {
     print("create not store");
   }
 
-  Future<void> create(String content) {
-    return persistContent(_noteService.createNote(content));
+  Future<void> createOrUpdate(String id, String content) {
+    return createOrUpdateRawRecord(id, _noteService.createNote(content));
   }
 }
 
@@ -67,10 +67,10 @@ abstract class _ItemListStore<M extends StructuredMeta, C extends StructuredCont
   }
 
   @action
-  Future<void> persistContent(C item) async {
+  Future<void> createOrUpdateRawRecord(String id, C item) async {
     setBusy();
     return _itemService
-        .create(_itemType, item, _userStore.userCredential)
+        .createOrUpdate(_itemType, id, item, _userStore.userCredential)
         .whenComplete(() => fetch())
         .whenComplete(() => setIdle());
   }

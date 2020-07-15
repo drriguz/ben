@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-import 'widgets/empty_list_tip.dart';
-import 'note/note_item.dart';
+import '../widgets/empty_list_tip.dart';
+import 'note_item.dart';
 
 class NoteListPage extends StatefulWidget {
   @override

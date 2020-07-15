@@ -9,7 +9,7 @@ import '../../theme/icons.dart';
 
 import 'package:flutter/material.dart';
 
-import 'tab_content_pages.dart';
+import 'note/note_list_page.dart';
 
 class TabbedListPage extends StatefulWidget {
   @override
