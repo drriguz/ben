@@ -35,11 +35,14 @@ void main() async {
   startApp(hasInitialized, providers);
 }
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
   runApp(
     MultiProvider(
       providers: providers,
       child: MaterialApp(
+        navigatorObservers: [routeObserver],
         title: 'ben',
         localizationsDelegates: [
           S.delegate,

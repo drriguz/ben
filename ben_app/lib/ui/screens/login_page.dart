@@ -2,18 +2,49 @@ import 'package:ben_app/backend/stores/user_store.dart';
 import 'package:ben_app/backend/common/crypto/protected_value.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../main.dart';
 import '../theme/icons.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   final UserStore _userStore;
 
   const LoginPage(this._userStore, {Key key}) : super(key: key);
 
   @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> with RouteAware {
+  FocusNode _inputFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _inputFocusNode = new FocusNode();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    _inputFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didPush() {
+    _inputFocusNode.requestFocus();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
@@ -24,7 +55,7 @@ class LoginPage extends StatelessWidget {
               _profileImage(),
               Observer(
                 builder: (_) {
-                  return _userStore.isBusy ? _progressBar() : _input(context);
+                  return widget._userStore.isBusy ? _progressBar() : _input(context);
                 },
               )
             ],
@@ -51,6 +82,7 @@ class LoginPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextField(
+            focusNode: _inputFocusNode,
             obscureText: true,
             autofocus: false,
             decoration: InputDecoration(
@@ -65,11 +97,11 @@ class LoginPage extends StatelessWidget {
           ),
           Observer(
             builder: (_) {
-              if (_userStore.hasError)
+              if (widget._userStore.hasError)
                 return Padding(
                   padding: EdgeInsets.only(top: 15),
                   child: Text(
-                    _userStore.errorMessage,
+                    widget._userStore.errorMessage,
                     style: TextStyle(color: Colors.red),
                   ),
                 );
@@ -99,7 +131,7 @@ class LoginPage extends StatelessWidget {
   void onPasswordSubmitted(BuildContext context, String password) async {
     print('login with: ${password}');
     FocusScope.of(context).unfocus();
-    bool success = await _userStore.login(ProtectedValue.of(password));
+    bool success = await widget._userStore.login(ProtectedValue.of(password));
     if (success) Navigator.pushReplacementNamed(context, "/home");
   }
 }
