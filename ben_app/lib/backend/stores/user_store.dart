@@ -16,6 +16,8 @@ abstract class _UserStore extends PageStatusNotifier with Store {
 
   PasswordCredential get userCredential => _userCredential;
 
+  bool isPausedToTakePhoto = false;
+
   @observable
   String _errorMessage;
 
@@ -34,8 +36,7 @@ abstract class _UserStore extends PageStatusNotifier with Store {
     setBusy();
     bool success = false;
     try {
-      final PasswordCredential credential =
-          await _loginService.checkUserCredential(masterPassword);
+      final PasswordCredential credential = await _loginService.checkUserCredential(masterPassword);
       _errorMessage = null;
       _userCredential = credential;
       success = true;
@@ -45,5 +46,9 @@ abstract class _UserStore extends PageStatusNotifier with Store {
     }
     setIdle();
     return success;
+  }
+
+  Future<void> logout() async {
+    _userCredential = null;
   }
 }

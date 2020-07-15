@@ -1,11 +1,8 @@
 import 'package:ben_app/backend/services/album_service.dart';
 import 'package:ben_app/backend/services/note_service.dart';
-import 'package:ben_app/backend/stores/item_detail_store.dart';
-import 'package:camera/camera.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'stores/initialize_store.dart';
 import 'stores/item_list_store.dart';
 import 'stores/user_store.dart';
 import 'common/services/init_service.dart';
@@ -18,7 +15,6 @@ import 'common/format/sqlite/sqlite_storage.dart';
 Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
   return [
     Provider<Database>.value(value: await SqliteFactory.createInstance("data.db", "assets/config/init.sql")),
-    Provider<List<CameraDescription>>.value(value: await availableCameras()),
   ];
 }
 
@@ -69,8 +65,6 @@ List<SingleChildCloneableWidget> _createStores() {
         update: (_, userStore, itemService, noteService, child) => NoteStore(userStore, itemService, noteService)),
     ProxyProvider3<UserStore, ItemService, AlbumService, AlbumStore>(
         update: (_, userStore, itemService, albumService, child) => AlbumStore(userStore, itemService, albumService)),
-    ProxyProvider3<UserStore, ItemService, AlbumService, ImageStore>(
-        update: (_, userStore, itemService, albumService, child) => ImageStore(userStore, itemService, albumService)),
   ];
 }
 

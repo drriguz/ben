@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ben_app/backend/common/format/data/album_model.dart';
@@ -26,11 +27,11 @@ class NoteStore extends ItemListStore<NoteMeta, NoteData> {
 
   NoteStore(UserStore userStore, ItemService itemService, this._noteService)
       : super(
-    userStore,
-    itemService,
-    TYPE_NOTE,
-        (meta) => Serializer.fromJson<NoteMeta>(meta, (_) => NoteMeta.fromJson(_)),
-  ) {
+          userStore,
+          itemService,
+          TYPE_NOTE,
+          (meta) => Serializer.fromJson<NoteMeta>(meta, (_) => NoteMeta.fromJson(_)),
+        ) {
     print("create not store");
   }
 
@@ -44,28 +45,14 @@ class AlbumStore extends ItemListStore<AlbumMeta, AlbumData> {
 
   AlbumStore(UserStore userStore, ItemService itemService, this._albumService)
       : super(
-    userStore,
-    itemService,
-    TYPE_ALBUM,
-        (meta) => Serializer.fromJson<AlbumMeta>(meta, (_) => AlbumMeta.fromJson(_)),
-  );
+          userStore,
+          itemService,
+          TYPE_ALBUM,
+          (meta) => Serializer.fromJson<AlbumMeta>(meta, (_) => AlbumMeta.fromJson(_)),
+        );
 
   Future<void> createOrUpdate(String id, String name) {
     return createOrUpdateRawRecord(id, _albumService.createAlbum(name));
-  }
-}
-
-class ImageStore extends ItemListStore<ImageMeta, ImageData> {
-  final AlbumService _albumService;
-
-  ImageStore(UserStore userStore, ItemService itemService, this._albumService)
-      : super(
-          userStore,
-          itemService,
-          TYPE_IMAGE,
-          (meta) => Serializer.fromJson<ImageMeta>(meta, (_) => ImageMeta.fromJson(_)),
-        ) {
-    print('create store');
   }
 }
 

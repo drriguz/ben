@@ -13,6 +13,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
@@ -51,7 +52,7 @@ class LoginPage extends StatelessWidget {
         children: <Widget>[
           TextField(
             obscureText: true,
-            autofocus: true,
+            autofocus: false,
             decoration: InputDecoration(
               hintText: "请输入主密码解锁",
               suffixIcon: Icon(
@@ -97,6 +98,7 @@ class LoginPage extends StatelessWidget {
 
   void onPasswordSubmitted(BuildContext context, String password) async {
     print('login with: ${password}');
+    FocusScope.of(context).unfocus();
     bool success = await _userStore.login(ProtectedValue.of(password));
     if (success) Navigator.pushReplacementNamed(context, "/home");
   }

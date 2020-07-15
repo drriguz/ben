@@ -1,18 +1,18 @@
 import 'package:ben_app/backend/common/services/item_service.dart';
-import 'package:ben_app/backend/stores/item_detail_store.dart';
+import 'package:ben_app/backend/services/album_service.dart';
+import 'package:ben_app/backend/stores/image_store.dart';
 import 'package:ben_app/backend/stores/item_list_store.dart';
 import 'package:ben_app/backend/stores/user_store.dart';
 import 'package:ben_app/ui/model/choice.dart';
-import 'package:ben_app/ui/screens/camera/take_photo_page.dart';
-import 'package:ben_app/ui/utils/toast.dart';
 import 'package:ben_app/ui/widgets/loading.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import 'album_item.dart';
+import 'image_item.dart';
 
 const List<MenuChoice> menuItems = const <MenuChoice>[
   const MenuChoice('编辑', 'edit', Icons.edit),
@@ -33,15 +33,23 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
 
   _AlbumDetailPageState(this._id);
 
+  final ImagePicker _picker = ImagePicker();
+  ImageStore _imageStore;
+
   @override
   void initState() {
     super.initState();
+    _imageStore = ImageStore(
+      Provider.of<UserStore>(context, listen: false),
+      Provider.of<ItemService>(context, listen: false),
+      _id,
+      Provider.of<AlbumService>(context, listen: false),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    ImageStore imageStore = Provider.of<ImageStore>(context);
-    imageStore.fetch();
+    _imageStore.fetch();
     return Scaffold(
       appBar: AppBar(
         title: Text("查看相册"),
@@ -62,7 +70,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
           ),
         ],
       ),
-      body: _createBody(imageStore),
+      body: Observer(builder: (_) => _imageStore.isBusy ? Loading() : _displayAlbumImages(_imageStore)),
       floatingActionButton: FloatingActionButton(
         onPressed: _takePhoto,
         tooltip: 'Create album',
@@ -71,17 +79,17 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     );
   }
 
-  Widget _createBody(ImageStore imageStore) {
-    return Observer(builder: (_) => imageStore.isBusy ? Loading() : _displayAlbumImages());
-  }
-
-  Widget _displayAlbumImages() {
+  Widget _displayAlbumImages(ImageStore imageStore) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1.0),
-        itemCount: 1,
-        itemBuilder: (context, index) => AlbumItem("1", "text", 1),
+        itemCount: imageStore.data.length,
+        itemBuilder: (context, index) => ImageItem(
+          imageStore.data[index].id,
+          imageStore.data[index].meta.title,
+          imageStore.data[index].meta.thumb,
+        ),
       ),
     );
   }
@@ -103,6 +111,11 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
   }
 
   Future<void> _takePhoto() async {
-    Navigator.of(context).pushNamed("/camera/take");
+    UserStore _userStore = Provider.of<UserStore>(context);
+    _userStore.isPausedToTakePhoto = true;
+    _picker
+        .getImage(source: ImageSource.gallery)
+        .then((value) => _imageStore.create(value))
+        .whenComplete(() => _userStore.isPausedToTakePhoto = false);
   }
 }

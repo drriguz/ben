@@ -1,5 +1,7 @@
+import 'package:ben_app/backend/stores/user_store.dart';
 import 'package:ben_app/ui/screens/tool_box_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'album_page.dart';
 import 'not_implemented.dart';
 
@@ -41,7 +43,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
-      Navigator.pushReplacementNamed(context, "/login");
+      UserStore _userStore = Provider.of<UserStore>(context);
+      if (!_userStore.isPausedToTakePhoto) {
+        _userStore.logout();
+        Navigator.pushReplacementNamed(context, "/login");
+      }
     }
   }
 
@@ -54,12 +60,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(FontIcon.list), title: Text("私密")),
-          BottomNavigationBarItem(
-              icon: Icon(FontIcon.galley), title: Text("相册")),
-          BottomNavigationBarItem(
-              icon: Icon(FontIcon.message), title: Text("私聊")),
-          BottomNavigationBarItem(
-              icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
+          BottomNavigationBarItem(icon: Icon(FontIcon.galley), title: Text("相册")),
+          BottomNavigationBarItem(icon: Icon(FontIcon.message), title: Text("私聊")),
+          BottomNavigationBarItem(icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
         ],
         type: BottomNavigationBarType.fixed,
         // without this line tab icon won't display
