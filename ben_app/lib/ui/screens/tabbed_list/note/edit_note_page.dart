@@ -1,20 +1,33 @@
+import 'package:ben_app/backend/common/services/item_service.dart';
+import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/backend/stores/item_list_store.dart';
+import 'package:ben_app/backend/stores/user_store.dart';
 import 'package:ben_app/ui/theme/icons.dart';
 import 'package:ben_app/ui/widgets/tool_button.dart';
 import 'package:ben_app/ui/utils/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class EditNotePage extends StatelessWidget {
-  final NoteStore _noteStore;
-  final TextEditingController _textEditingController = TextEditingController();
-
+class EditNotePage extends StatefulWidget {
   final String _id;
 
-  EditNotePage(this._noteStore, this._id, {Key key}) : super(key: key);
+  EditNotePage(this._id, {Key key}) : super(key: key);
+
+  @override
+  _EditNotePageState createState() => _EditNotePageState();
+}
+
+class _EditNotePageState extends State<EditNotePage> {
+  final TextEditingController _textEditingController = TextEditingController();
 
   bool _isCreating() {
-    return _id == null;
+    return widget._id == null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -106,14 +119,15 @@ class EditNotePage extends StatelessWidget {
     );
   }
 
-  void _onSave(BuildContext context) async {
+  Future<void> _onSave(BuildContext context) async {
     final String content = _textEditingController.text;
     if (content == null || content.trim().isEmpty) {
       Toasts.showError("内容不能为空", null);
       return;
     }
 
-    _noteStore
+    NoteStore noteStore = Provider.of<NoteStore>(context);
+    return noteStore
         .create(_textEditingController.text)
         .then((_) => Navigator.of(context).pop())
         .catchError((e) => Toasts.showError("保存失败，请重试", e));

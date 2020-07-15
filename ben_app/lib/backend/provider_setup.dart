@@ -59,16 +59,10 @@ List<SingleChildCloneableWidget> _createServices() {
  */
 List<SingleChildCloneableWidget> _createStores() {
   return [
-    ProxyProvider<InitializeService, InitializeStore>(update: (_, service, child) => InitializeStore(service)),
     ProxyProvider<LoginService, UserStore>(update: (_, service, child) => UserStore(service)),
+    // todo: should we not make this notestore global?
     ProxyProvider3<UserStore, ItemService, NoteService, NoteStore>(
         update: (_, userStore, itemService, noteService, child) => NoteStore(userStore, itemService, noteService)),
-    ProxyProvider3<UserStore, NoteStore, ItemService, NoteDetailStore>(
-        update: (_, userStore, noteStore, itemService, child) => NoteDetailStore(userStore, itemService, noteStore)),
-    ProxyProvider2<UserStore, ItemService, BankcardStore>(
-        update: (_, userStore, service, child) => BankcardStore(userStore, service)),
-    ProxyProvider2<UserStore, ItemService, CertificateStore>(
-        update: (_, userStore, service, child) => CertificateStore(userStore, service)),
   ];
 }
 

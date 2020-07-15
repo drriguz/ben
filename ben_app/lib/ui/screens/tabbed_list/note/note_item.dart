@@ -1,6 +1,8 @@
 import 'package:ben_app/backend/common/format/data/list_item_model.dart';
 import 'package:ben_app/backend/common/format/data/note_model.dart';
+import 'package:ben_app/backend/stores/item_list_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/list_item.dart';
 
@@ -39,6 +41,8 @@ class NoteItem extends AbstractListItem {
 
   @override
   void onClick(BuildContext context) async{
+    NoteStore store = Provider.of<NoteStore>(context, listen: false);
+    print('got store:$store');
     Navigator.of(context).pushNamed("/note/detail", arguments: model);
   }
 }

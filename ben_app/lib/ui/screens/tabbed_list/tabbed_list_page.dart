@@ -1,3 +1,4 @@
+import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/backend/stores/item_list_store.dart';
 import 'package:ben_app/backend/stores/user_store.dart';
 import 'package:ben_app/backend/common/services/item_service.dart';
@@ -34,24 +35,8 @@ class _TabConfig {
 final tabConfigs = [
   _TabConfig(
     "记事",
-    Consumer3<NoteStore, UserStore, ItemService>(
-      builder: (_, store, userStore, itemService, child) => NoteListPage(store, userStore, itemService),
-    ),
+    NoteListPage(),
     "/note/add",
-  ),
-  _TabConfig(
-    "密码",
-    Consumer3<NoteStore, UserStore, ItemService>(
-      builder: (_, store, userStore, itemService, child) => NoteListPage(store, userStore, itemService),
-    ),
-    "/bankcard/add",
-  ),
-  _TabConfig(
-    "卡包",
-    Consumer3<NoteStore, UserStore, ItemService>(
-      builder: (_, store, userStore, itemService, child) => NoteListPage(store, userStore, itemService),
-    ),
-    "/certificate/add",
   ),
 ];
 

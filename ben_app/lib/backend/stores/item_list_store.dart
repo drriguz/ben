@@ -1,9 +1,13 @@
+import 'dart:typed_data';
+
+import 'package:ben_app/backend/common/format/data/list_item_model.dart';
 import 'package:ben_app/backend/common/format/data/note_model.dart';
+import 'package:ben_app/backend/common/format/data_format.dart';
+import 'package:ben_app/backend/common/format/serializer.dart';
 import 'package:ben_app/backend/services/note_service.dart';
 import 'package:ben_app/backend/stores/user_store.dart';
 
 import '../common/services/item_service.dart';
-import '../common/format/data_format.dart';
 import '../common/format/data/abstract_data_model.dart';
 import 'package:mobx/mobx.dart';
 
@@ -11,52 +15,64 @@ import 'page_status_notifier.dart';
 
 part 'item_list_store.g.dart';
 
-class ItemListStore<T extends StructuredContent> = _ItemListStore<T> with _$ItemListStore<T>;
+class ItemListStore<M extends StructuredMeta, C extends StructuredContent> = _ItemListStore<M, C>
+    with _$ItemListStore<M, C>;
 
-class BankcardStore extends ItemListStore {
-  BankcardStore(UserStore userStore, ItemService itemService) : super(userStore, itemService, 1);
-}
-
-class CertificateStore extends ItemListStore {
-  CertificateStore(UserStore userStore, ItemService itemService) : super(userStore, itemService, 2);
-}
-
-class NoteStore extends ItemListStore<NoteData> {
+class NoteStore extends ItemListStore<NoteMeta, NoteData> {
   final NoteService _noteService;
 
-  NoteStore(UserStore userStore, ItemService itemService, this._noteService) : super(userStore, itemService, 3);
+  NoteStore(UserStore userStore, ItemService itemService, this._noteService)
+      : super(
+          userStore,
+          itemService,
+          3,
+          (meta) => Serializer.fromJson<NoteMeta>(meta, (_) => NoteMeta.fromJson(_)),
+        ){
+    print("create not store");
+  }
 
   Future<void> create(String content) {
-    return persist(_noteService.createNote(content));
+    return persistContent(_noteService.createNote(content));
   }
 }
 
-abstract class _ItemListStore<T extends StructuredContent> extends PageStatusNotifier with Store {
+typedef Decoder<M extends StructuredMeta> = M Function(Uint8List content);
+
+abstract class _ItemListStore<M extends StructuredMeta, C extends StructuredContent> extends PageStatusNotifier
+    with Store {
   final UserStore _userStore;
   final ItemService _itemService;
   final int _itemType;
+  final Decoder<M> _metaDecoder;
 
   @observable
-  ObservableList<RawBriefRecord> _data = ObservableList<RawBriefRecord>();
+  ObservableList<ListItemModel<M>> _data = ObservableList<ListItemModel<M>>();
 
-  _ItemListStore(this._userStore, this._itemService, this._itemType) {}
+  _ItemListStore(this._userStore, this._itemService, this._itemType, this._metaDecoder) {}
 
   @action
   Future<void> fetch() async {
     setBusy();
     print('fetch data ${_itemType}...');
     _data.clear();
-    _data.addAll(await _itemService.fetchByType(_itemType));
+    final List<RawBriefRecord> rawRecords = await _itemService.fetchByType(_itemType);
+    _data.addAll(await Future.wait(rawRecords.map((e) => _decodeMeta(e))));
     setIdle();
   }
 
+  Future<ListItemModel<M>> _decodeMeta(RawBriefRecord record) {
+    return _itemService
+        .decrypt(record.meta, _userStore.userCredential)
+        .then((value) => ListItemModel(record.id, _metaDecoder.call(value)));
+  }
+
   @action
-  Future<void> persist(T item) async {
+  Future<void> persistContent(C item) async {
     setBusy();
-    return _itemService.create(_itemType, item, _userStore.userCredential).then((value) async {
-      _data.clear();
-      _data.addAll(await _itemService.fetchByType(_itemType));
-    }).whenComplete(() => setIdle());
+    return _itemService
+        .create(_itemType, item, _userStore.userCredential)
+        .whenComplete(() => fetch())
+        .whenComplete(() => setIdle());
   }
 
   @action
@@ -65,7 +81,7 @@ abstract class _ItemListStore<T extends StructuredContent> extends PageStatusNot
     return _itemService.delete(id).whenComplete(() => fetch()).whenComplete(() => setIdle());
   }
 
-  ObservableList<RawBriefRecord> get data => _data;
+  ObservableList<ListItemModel<M>> get data => _data;
 
   @computed
   int get totalCount => _data.length;

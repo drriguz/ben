@@ -56,7 +56,8 @@ class NoteDetailStore extends ItemDetailStore<NoteData> {
     return _noteStore.fetch();
   }
 
+  @action
   Future<void> delete(String id) {
-    return _noteStore.delete(id);
+    return _noteStore.delete(id).whenComplete(() => refreshList());
   }
 }
