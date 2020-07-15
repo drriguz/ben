@@ -47,9 +47,7 @@ class AlbumStore extends ItemListStore<AlbumMeta, AlbumData> {
           itemService,
           TYPE_ALBUM,
           (meta) => Serializer.fromJson<AlbumMeta>(meta, (_) => AlbumMeta.fromJson(_)),
-        ) {
-    print("create not store");
-  }
+        );
 
   Future<void> createOrUpdate(String id, String name) {
     return createOrUpdateRawRecord(id, _albumService.createAlbum(name));

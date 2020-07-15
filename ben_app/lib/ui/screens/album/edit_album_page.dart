@@ -2,15 +2,10 @@ import 'package:ben_app/backend/common/services/item_service.dart';
 import 'package:ben_app/backend/stores/item_detail_store.dart';
 import 'package:ben_app/backend/stores/item_list_store.dart';
 import 'package:ben_app/backend/stores/user_store.dart';
-import 'package:ben_app/ui/theme/icons.dart';
 import 'package:ben_app/ui/widgets/form_input.dart';
-import 'package:ben_app/ui/widgets/loading.dart';
-import 'package:ben_app/ui/widgets/setting_option.dart';
-import 'package:ben_app/ui/widgets/tool_button.dart';
 import 'package:ben_app/ui/utils/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class EditAlbumPage extends StatefulWidget {
@@ -67,12 +62,6 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
               "相册名称",
               _textEditingController,
             ),
-            SwitchOption(
-                "启动独立密码",
-                "",
-                (_) => Switch(
-                      value: true,
-                    )),
             Divider(),
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
