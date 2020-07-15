@@ -10,7 +10,6 @@ import 'dart:typed_data';
 
 import 'package:ben_app/backend/common/crypto/hmac_validator.dart';
 
-
 /// Header {
 ///     int type,        (Plain)
 ///     BLOB value,      (Plain)
@@ -23,7 +22,6 @@ import 'package:ben_app/backend/common/crypto/hmac_validator.dart';
 ///     bytes content,   (encrypted) { title, content, images, ...} (some fields could be duplicated with meta_
 ///     bytes checksum = hmac(id + type + meta + content)
 /// }
-
 
 class Header with Hashable {
   int _type;
@@ -84,6 +82,13 @@ class Headers {
 
   String get kdfParameters => getValue(KDF_PARAMETERS);
 }
+
+const int TYPE_PASSWORD = 1;
+const int TYPE_CERTIFICATE = 2;
+const int TYPE_NOTE = 3;
+const int TYPE_ALBUM = 10;
+const int TYPE_IMAGE = 11;
+const int TYPE_FILE = 100;
 
 abstract class RawBriefRecord {
   String get id;

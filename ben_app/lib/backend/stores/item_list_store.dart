@@ -25,7 +25,7 @@ class NoteStore extends ItemListStore<NoteMeta, NoteData> {
       : super(
           userStore,
           itemService,
-          3,
+          TYPE_NOTE,
           (meta) => Serializer.fromJson<NoteMeta>(meta, (_) => NoteMeta.fromJson(_)),
         ) {
     print("create not store");
