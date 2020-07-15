@@ -29,10 +29,7 @@ class AlbumPage extends StatelessWidget {
 
   Widget _createAlbumList(AlbumStore albumStore) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, //每行三列
-          childAspectRatio: 1.0 //显示区域宽高相等
-          ),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.0),
       itemCount: albumStore.data.length,
       itemBuilder: (context, index) => AlbumItem(name: albumStore.data[index].meta.title, imageCount: 1),
     );

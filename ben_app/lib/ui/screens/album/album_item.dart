@@ -26,8 +26,7 @@ class AlbumItem extends StatelessWidget {
             height: 350.0,
             decoration: BoxDecoration(
                 color: Colors.white,
-                gradient:
-                    LinearGradient(begin: FractionalOffset.topCenter, end: FractionalOffset.bottomCenter, colors: [
+                gradient: LinearGradient(begin: FractionalOffset.topRight, end: FractionalOffset.bottomCenter, colors: [
                   Colors.grey.withOpacity(0.0),
                   Colors.black,
                 ], stops: [
