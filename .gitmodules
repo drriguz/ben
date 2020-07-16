@@ -1,0 +1,3 @@
+[submodule "ben_app/encryptions"]
+	path = ben_app/encryptions
+	url = https://github.com/drriguz/encryptions.git
