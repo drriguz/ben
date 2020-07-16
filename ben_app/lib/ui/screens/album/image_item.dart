@@ -24,7 +24,6 @@ class ImageItem extends StatelessWidget {
   }
 
   Widget _createCover() {
-    print("thumb: $_thumb");
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(

@@ -52,10 +52,9 @@ class ItemService {
   }
 
   Future<Uint8List> decrypt(Uint8List source, PasswordCredential credential) async {
-    print('aes decrypt begin...');
     final AES aes =
         AES.ofCBC(await credential.getEncryptionKey(_kdf), credential.encryptionIv, PaddingScheme.PKCS5Padding);
-    return aes.decryptIsolated(source);
+    return aes.decrypt(source);
   }
 
   Future<Uint8List> fetchAndDecryptMeta(String id, PasswordCredential credential) async {
