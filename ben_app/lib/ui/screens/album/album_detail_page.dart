@@ -113,9 +113,8 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
   Future<void> _takePhoto() async {
     UserStore _userStore = Provider.of<UserStore>(context);
     _userStore.isPausedToTakePhoto = true;
-    _picker
-        .getImage(source: ImageSource.gallery)
-        .then((value) => _imageStore.create(value))
-        .whenComplete(() => _userStore.isPausedToTakePhoto = false);
+    final image = await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
+    if (image == null) return;
+    return _imageStore.create(image).whenComplete(() => _userStore.isPausedToTakePhoto = false);
   }
 }

@@ -11,6 +11,6 @@ class Argon2Kdf implements Kdf {
   @override
   Future<Uint8List> derive(Uint8List password, Uint8List salt) async {
     Argon2 argon2 = new Argon2();
-    return await argon2.argon2i(password, salt) as Uint8List;
+    return argon2.argon2i(password, salt);
   }
 }

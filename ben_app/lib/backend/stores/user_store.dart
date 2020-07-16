@@ -41,6 +41,7 @@ abstract class _UserStore extends PageStatusNotifier with Store {
       _userCredential = credential;
       success = true;
     } catch (_) {
+      print(_);
       _userCredential = null;
       _errorMessage = "密码验证失败";
     }
