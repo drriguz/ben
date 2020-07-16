@@ -1,3 +1,5 @@
+import 'package:ben_app/backend/common/format/data/image_model.dart';
+import 'package:ben_app/backend/common/format/data/list_item_model.dart';
 import 'package:ben_app/backend/common/services/item_service.dart';
 import 'package:ben_app/backend/services/album_service.dart';
 import 'package:ben_app/backend/stores/image_store.dart';
@@ -90,13 +92,19 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, childAspectRatio: 1.0),
         itemCount: imageStore.data.length,
-        itemBuilder: (context, index) => ImageItem(
-          imageStore.data[index].id,
-          imageStore.data[index].meta.title,
-          imageStore.data[index].meta.thumb,
-        ),
+        itemBuilder: (context, index) => _createImage(imageStore.data[index]),
       ),
     );
+  }
+
+  Widget _createImage(ListItemModel<ImageMeta> item) {
+    return item.isLoading
+        ? LoadingImageItem(item.id)
+        : ImageItem(
+            item.id,
+            item.meta.title,
+            item.meta.thumb,
+          );
   }
 
   Future<void> _onDropdownSelected(BuildContext context, MenuChoice choice) {
@@ -120,13 +128,13 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
 
   Future<void> _takePhoto() async {
     UserStore userStore = Provider.of<UserStore>(context);
-    AlbumStore albumStore = Provider.of<AlbumStore>(context);
     userStore.isPausedToTakePhoto = true;
-    final image =
-        await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
-    if (image == null) return;
-    return _imageStore
-        .create(image)
+    final image = await _picker
+        .getImage(source: ImageSource.camera)
+        .catchError((err) => null)
         .whenComplete(() => userStore.isPausedToTakePhoto = false);
+    if (image == null) return;
+    print('Start to save image...');
+    return _imageStore.create(image);
   }
 }

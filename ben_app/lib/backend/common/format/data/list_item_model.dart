@@ -5,4 +5,6 @@ class ListItemModel<T extends StructuredMeta> {
   final T meta;
 
   ListItemModel(this.id, this.meta);
+
+  bool get isLoading => meta == null;
 }

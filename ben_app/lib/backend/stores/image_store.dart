@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:ben_app/backend/common/format/data/image_model.dart';
+import 'package:ben_app/backend/common/format/data/list_item_model.dart';
 import 'package:ben_app/backend/common/format/data_format.dart';
 import 'package:ben_app/backend/common/format/serializer.dart';
 import 'package:ben_app/backend/common/services/item_service.dart';
@@ -32,9 +33,18 @@ class ImageStore extends ItemListStore<ImageMeta, ImageData> {
 
   @action
   Future<void> create(PickedFile picked) async {
-
-    return _albumService
-        .createImage(_albumId, File(picked.path))
-        .then((value) => createOrUpdateRawRecord(null, value));
+    final String id = _albumService.newId();
+    final placeholder = ListItemModel(id, null);
+    data.add(placeholder);
+    ImageData image =
+        await _albumService.createImage(_albumId, File(picked.path));
+    print('image generated...');
+    return itemService
+        .createOrUpdate(itemType, id, image, userStore.userCredential)
+        .then((rawRecord) async {
+      print('replacing...');
+      data.remove(placeholder);
+      data.add(await decodeMeta(rawRecord));
+    });
   }
 }

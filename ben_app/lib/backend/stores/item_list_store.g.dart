@@ -16,21 +16,21 @@ mixin _$ItemListStore<M extends StructuredMeta, C extends StructuredContent>
   int get totalCount =>
       (_$totalCountComputed ??= Computed<int>(() => super.totalCount)).value;
 
-  final _$_dataAtom = Atom(name: '_ItemListStore._data');
+  final _$dataAtom = Atom(name: '_ItemListStore.data');
 
   @override
-  ObservableList<ListItemModel<M>> get _data {
-    _$_dataAtom.context.enforceReadPolicy(_$_dataAtom);
-    _$_dataAtom.reportObserved();
-    return super._data;
+  ObservableList<ListItemModel<M>> get data {
+    _$dataAtom.context.enforceReadPolicy(_$dataAtom);
+    _$dataAtom.reportObserved();
+    return super.data;
   }
 
   @override
-  set _data(ObservableList<ListItemModel<M>> value) {
-    _$_dataAtom.context.conditionallyRunInAction(() {
-      super._data = value;
-      _$_dataAtom.reportChanged();
-    }, _$_dataAtom, name: '${_$_dataAtom.name}_set');
+  set data(ObservableList<ListItemModel<M>> value) {
+    _$dataAtom.context.conditionallyRunInAction(() {
+      super.data = value;
+      _$dataAtom.reportChanged();
+    }, _$dataAtom, name: '${_$dataAtom.name}_set');
   }
 
   final _$fetchAsyncAction = AsyncAction('fetch');

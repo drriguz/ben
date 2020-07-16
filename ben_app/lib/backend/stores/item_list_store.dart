@@ -63,54 +63,52 @@ typedef Decoder<M extends StructuredMeta> = M Function(Uint8List content);
 
 abstract class _ItemListStore<M extends StructuredMeta,
     C extends StructuredContent> extends PageStatusNotifier with Store {
-  final UserStore _userStore;
-  final ItemService _itemService;
-  final int _itemType;
-  final Decoder<M> _metaDecoder;
+  final UserStore userStore;
+  final ItemService itemService;
+  final int itemType;
+  final Decoder<M> metaDecoder;
 
   @observable
-  ObservableList<ListItemModel<M>> _data = ObservableList<ListItemModel<M>>();
+  ObservableList<ListItemModel<M>> data = ObservableList<ListItemModel<M>>();
 
   _ItemListStore(
-      this._userStore, this._itemService, this._itemType, this._metaDecoder) {}
+      this.userStore, this.itemService, this.itemType, this.metaDecoder) {}
 
   @action
   Future<void> fetch() async {
     setBusy();
-    print('fetch data ${_itemType}...');
-    _data.clear();
+    print('fetch data ${itemType}...');
+    data.clear();
     final List<RawBriefRecord> rawRecords =
-        await _itemService.fetchByType(_itemType);
-    _data.addAll(await Future.wait(rawRecords.map((e) => _decodeMeta(e))));
+        await itemService.fetchByType(itemType);
+    data.addAll(await Future.wait(rawRecords.map((e) => decodeMeta(e))));
     setIdle();
   }
 
-  Future<ListItemModel<M>> _decodeMeta(RawBriefRecord record) {
-    return _itemService
-        .decrypt(record.meta, _userStore.userCredential)
-        .then((value) => ListItemModel(record.id, _metaDecoder.call(value)));
+  Future<ListItemModel<M>> decodeMeta(RawBriefRecord record) {
+    return itemService
+        .decrypt(record.meta, userStore.userCredential)
+        .then((value) => ListItemModel(record.id, metaDecoder.call(value)));
   }
 
   @action
   Future<void> createOrUpdateRawRecord(String id, C item) async {
     setBusy();
-    return _itemService
-        .createOrUpdate(_itemType, id, item, _userStore.userCredential)
-        .then((rawRecord) async => data.add(await _decodeMeta(rawRecord)))
+    return itemService
+        .createOrUpdate(itemType, id, item, userStore.userCredential)
+        .then((rawRecord) async => data.add(await decodeMeta(rawRecord)))
         .whenComplete(() => setIdle());
   }
 
   @action
   Future<void> delete(String id) async {
     setBusy();
-    return _itemService
+    return itemService
         .delete(id)
         .whenComplete(() => fetch())
         .whenComplete(() => setIdle());
   }
 
-  ObservableList<ListItemModel<M>> get data => _data;
-
   @computed
-  int get totalCount => _data.length;
+  int get totalCount => data.length;
 }

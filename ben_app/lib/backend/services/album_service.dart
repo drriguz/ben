@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:ben_app/backend/common/format/data/album_model.dart';
 import 'package:ben_app/backend/common/format/data/image_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:image/image.dart';
 import 'package:uuid/uuid.dart';
 
@@ -22,15 +23,24 @@ class AlbumService {
     );
   }
 
+  String newId() {
+    return _uuid.v4();
+  }
+
+  static Image generateThumbnail(Image raw) {
+    return copyResize(raw, width: 100);
+  }
+
   Future<ImageData> createImage(String albumId, File file) async {
-    final Image image = decodeImage(file.readAsBytesSync());
-    await file.delete();
-    final Image thumbnail = copyResize(image, width: 100);
+    final List<int> bytes =
+        await file.readAsBytes().whenComplete(() => file.delete());
+    final Image image = await compute(decodeImage, bytes);
+    final Image thumbnail = await compute(generateThumbnail, image);
     final currentTime = DateTime.now();
     return ImageData(
       "image",
-      base64.encode(encodeJpg(thumbnail)),
-      base64.encode(encodeJpg(image)),
+      base64.encode(await compute(encodeJpg, thumbnail)),
+      base64.encode(await compute(encodeJpg, image)),
       currentTime,
       currentTime,
     );
