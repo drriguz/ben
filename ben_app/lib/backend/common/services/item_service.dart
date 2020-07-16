@@ -31,12 +31,13 @@ class ItemService {
     return _itemRepository.deleteItem(id);
   }
 
-  Future<void> createOrUpdate(int type, String id, StructuredContent data, PasswordCredential credential) async {
+  Future<RawRecord> createOrUpdate(int type, String id, StructuredContent data,
+      PasswordCredential credential) async {
     final contentBytes = Serializer.toJson(data);
     final metaBytes = Serializer.toJson(data.createMeta());
-    final AES aes =
-        AES.ofCBC(await credential.getEncryptionKey(_kdf), credential.encryptionIv, PaddingScheme.PKCS5Padding);
-    final contentEncrypted = await aes.encryptIsolated(contentBytes);
+    final AES aes = AES.ofCBC(await credential.getEncryptionKey(_kdf),
+        credential.encryptionIv, PaddingScheme.PKCS5Padding);
+    final contentEncrypted = await aes.encrypt(contentBytes);
     final metaEncrypted = await aes.encrypt(metaBytes);
     final hashValidator = new HmacValidator(await credential.getHashKey(_kdf));
     final checksum = hashValidator.computeChecksum(contentBytes);
@@ -48,22 +49,29 @@ class ItemService {
       content: contentEncrypted,
       checksum: checksum,
     );
-    return id == null ? _itemRepository.createItem(item) : _itemRepository.updateItem(id, item);
+    if (id == null)
+      await _itemRepository.createItem(item);
+    else
+      await _itemRepository.updateItem(id, item);
+    return item;
   }
 
-  Future<Uint8List> decrypt(Uint8List source, PasswordCredential credential) async {
-    final AES aes =
-        AES.ofCBC(await credential.getEncryptionKey(_kdf), credential.encryptionIv, PaddingScheme.PKCS5Padding);
+  Future<Uint8List> decrypt(
+      Uint8List source, PasswordCredential credential) async {
+    final AES aes = AES.ofCBC(await credential.getEncryptionKey(_kdf),
+        credential.encryptionIv, PaddingScheme.PKCS5Padding);
     return aes.decrypt(source);
   }
 
-  Future<Uint8List> fetchAndDecryptMeta(String id, PasswordCredential credential) async {
+  Future<Uint8List> fetchAndDecryptMeta(
+      String id, PasswordCredential credential) async {
     final RawRecord record = await fetchById(id);
     if (record == null) throw ArgumentError("Item not found with id = $id");
     return decrypt(record.meta, credential);
   }
 
-  Future<Uint8List> fetchAndDecryptContent(String id, PasswordCredential credential) async {
+  Future<Uint8List> fetchAndDecryptContent(
+      String id, PasswordCredential credential) async {
     final RawRecord record = await fetchById(id);
     if (record == null) throw ArgumentError("Item not found with id = $id");
     return decrypt(record.content, credential);

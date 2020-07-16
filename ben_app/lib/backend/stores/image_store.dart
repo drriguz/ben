@@ -15,20 +15,26 @@ import 'user_store.dart';
 
 class ImageStore extends ItemListStore<ImageMeta, ImageData> {
   final String _albumId;
+  final AlbumStore _albumStore;
   final AlbumService _albumService;
 
-  ImageStore(UserStore userStore, ItemService itemService, this._albumId, this._albumService)
+  ImageStore(UserStore userStore, this._albumStore, ItemService itemService,
+      this._albumId, this._albumService)
       : super(
           userStore,
           itemService,
           TYPE_IMAGE,
-          (meta) => Serializer.fromJson<ImageMeta>(meta, (_) => ImageMeta.fromJson(_)),
+          (meta) => Serializer.fromJson<ImageMeta>(
+              meta, (_) => ImageMeta.fromJson(_)),
         ) {
     print('create store');
   }
 
   @action
   Future<void> create(PickedFile picked) async {
-    return _albumService.createImage(_albumId, File(picked.path)).then((value) => createOrUpdateRawRecord(null, value));
+
+    return _albumService
+        .createImage(_albumId, File(picked.path))
+        .then((value) => createOrUpdateRawRecord(null, value));
   }
 }

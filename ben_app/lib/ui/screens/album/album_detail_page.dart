@@ -41,6 +41,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     super.initState();
     _imageStore = ImageStore(
       Provider.of<UserStore>(context, listen: false),
+      Provider.of<AlbumStore>(context, listen: false),
       Provider.of<ItemService>(context, listen: false),
       _id,
       Provider.of<AlbumService>(context, listen: false),
@@ -70,7 +71,10 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
           ),
         ],
       ),
-      body: Observer(builder: (_) => _imageStore.isBusy ? Loading() : _displayAlbumImages(_imageStore)),
+      body: Observer(
+          builder: (_) => _imageStore.isBusy
+              ? Loading()
+              : _displayAlbumImages(_imageStore)),
       floatingActionButton: FloatingActionButton(
         onPressed: _takePhoto,
         tooltip: 'Create album',
@@ -83,7 +87,8 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1.0),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, childAspectRatio: 1.0),
         itemCount: imageStore.data.length,
         itemBuilder: (context, index) => ImageItem(
           imageStore.data[index].id,
@@ -99,11 +104,14 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     switch (choice.value) {
       case "edit":
         {
-          return Navigator.of(context).pushReplacementNamed("/album/edit", arguments: _id);
+          return Navigator.of(context)
+              .pushReplacementNamed("/album/edit", arguments: _id);
         }
       case "delete":
         {
-          return albumStore.delete(_id).whenComplete(() => Navigator.of(context).pop());
+          return albumStore
+              .delete(_id)
+              .whenComplete(() => Navigator.of(context).pop());
         }
       default:
         break;
@@ -111,10 +119,14 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
   }
 
   Future<void> _takePhoto() async {
-    UserStore _userStore = Provider.of<UserStore>(context);
-    _userStore.isPausedToTakePhoto = true;
-    final image = await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
+    UserStore userStore = Provider.of<UserStore>(context);
+    AlbumStore albumStore = Provider.of<AlbumStore>(context);
+    userStore.isPausedToTakePhoto = true;
+    final image =
+        await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
     if (image == null) return;
-    return _imageStore.create(image).whenComplete(() => _userStore.isPausedToTakePhoto = false);
+    return _imageStore
+        .create(image)
+        .whenComplete(() => userStore.isPausedToTakePhoto = false);
   }
 }

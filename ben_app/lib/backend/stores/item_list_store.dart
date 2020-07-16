@@ -19,7 +19,8 @@ import 'page_status_notifier.dart';
 
 part 'item_list_store.g.dart';
 
-class ItemListStore<M extends StructuredMeta, C extends StructuredContent> = _ItemListStore<M, C>
+class ItemListStore<M extends StructuredMeta,
+        C extends StructuredContent> = _ItemListStore<M, C>
     with _$ItemListStore<M, C>;
 
 class NoteStore extends ItemListStore<NoteMeta, NoteData> {
@@ -30,7 +31,8 @@ class NoteStore extends ItemListStore<NoteMeta, NoteData> {
           userStore,
           itemService,
           TYPE_NOTE,
-          (meta) => Serializer.fromJson<NoteMeta>(meta, (_) => NoteMeta.fromJson(_)),
+          (meta) =>
+              Serializer.fromJson<NoteMeta>(meta, (_) => NoteMeta.fromJson(_)),
         ) {
     print("create not store");
   }
@@ -48,7 +50,8 @@ class AlbumStore extends ItemListStore<AlbumMeta, AlbumData> {
           userStore,
           itemService,
           TYPE_ALBUM,
-          (meta) => Serializer.fromJson<AlbumMeta>(meta, (_) => AlbumMeta.fromJson(_)),
+          (meta) => Serializer.fromJson<AlbumMeta>(
+              meta, (_) => AlbumMeta.fromJson(_)),
         );
 
   Future<void> createOrUpdate(String id, String name) {
@@ -58,8 +61,8 @@ class AlbumStore extends ItemListStore<AlbumMeta, AlbumData> {
 
 typedef Decoder<M extends StructuredMeta> = M Function(Uint8List content);
 
-abstract class _ItemListStore<M extends StructuredMeta, C extends StructuredContent> extends PageStatusNotifier
-    with Store {
+abstract class _ItemListStore<M extends StructuredMeta,
+    C extends StructuredContent> extends PageStatusNotifier with Store {
   final UserStore _userStore;
   final ItemService _itemService;
   final int _itemType;
@@ -68,14 +71,16 @@ abstract class _ItemListStore<M extends StructuredMeta, C extends StructuredCont
   @observable
   ObservableList<ListItemModel<M>> _data = ObservableList<ListItemModel<M>>();
 
-  _ItemListStore(this._userStore, this._itemService, this._itemType, this._metaDecoder) {}
+  _ItemListStore(
+      this._userStore, this._itemService, this._itemType, this._metaDecoder) {}
 
   @action
   Future<void> fetch() async {
     setBusy();
     print('fetch data ${_itemType}...');
     _data.clear();
-    final List<RawBriefRecord> rawRecords = await _itemService.fetchByType(_itemType);
+    final List<RawBriefRecord> rawRecords =
+        await _itemService.fetchByType(_itemType);
     _data.addAll(await Future.wait(rawRecords.map((e) => _decodeMeta(e))));
     setIdle();
   }
@@ -91,14 +96,17 @@ abstract class _ItemListStore<M extends StructuredMeta, C extends StructuredCont
     setBusy();
     return _itemService
         .createOrUpdate(_itemType, id, item, _userStore.userCredential)
-        .whenComplete(() => fetch())
+        .then((rawRecord) async => data.add(await _decodeMeta(rawRecord)))
         .whenComplete(() => setIdle());
   }
 
   @action
   Future<void> delete(String id) async {
     setBusy();
-    return _itemService.delete(id).whenComplete(() => fetch()).whenComplete(() => setIdle());
+    return _itemService
+        .delete(id)
+        .whenComplete(() => fetch())
+        .whenComplete(() => setIdle());
   }
 
   ObservableList<ListItemModel<M>> get data => _data;
