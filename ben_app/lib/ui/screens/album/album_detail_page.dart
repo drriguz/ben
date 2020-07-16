@@ -45,11 +45,11 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
       _id,
       Provider.of<AlbumService>(context, listen: false),
     );
+    _imageStore.fetch();
   }
 
   @override
   Widget build(BuildContext context) {
-    _imageStore.fetch();
     return Scaffold(
       appBar: AppBar(
         title: Text("查看相册"),

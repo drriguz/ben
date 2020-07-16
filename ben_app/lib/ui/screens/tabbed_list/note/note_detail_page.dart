@@ -34,12 +34,11 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
       Provider.of<ItemService>(context, listen: false),
       Provider.of<NoteStore>(context, listen: false),
     );
+    _detailStore.fetch(widget._id);
   }
 
   @override
   Widget build(BuildContext context) {
-    print('build...');
-    _detailStore.fetch(widget._id);
     return Scaffold(
       appBar: AppBar(
         title: Text("查看记事"),
@@ -66,8 +65,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
   Widget _createBody() {
     return Observer(
-        builder: (_) =>
-            _detailStore.isBusy ? Loading() : _displayNoteDetail(_detailStore.item.content.split("\n")));
+        builder: (_) => _detailStore.isBusy ? Loading() : _displayNoteDetail(_detailStore.item.content.split("\n")));
   }
 
   Widget _displayNoteDetail(List<String> contents) {
@@ -90,7 +88,9 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
         }
       case "delete":
         {
-          return Provider.of<NoteStore>(context, listen: false).delete(widget._id).whenComplete(() => Navigator.of(context).pop());
+          return Provider.of<NoteStore>(context, listen: false)
+              .delete(widget._id)
+              .whenComplete(() => Navigator.of(context).pop());
         }
       default:
         break;

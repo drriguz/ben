@@ -41,6 +41,7 @@ class _EditNotePageState extends State<EditNotePage> {
       Provider.of<ItemService>(context, listen: false),
       Provider.of<NoteStore>(context, listen: false),
     );
+    if (_id != null) _detailStore.fetch(_id);
   }
 
   @override
@@ -51,7 +52,6 @@ class _EditNotePageState extends State<EditNotePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_id != null) _detailStore.fetch(_id);
     return Scaffold(
       appBar: AppBar(
         title: Text(_isCreating() ? "创建新记事" : "编辑记事"),

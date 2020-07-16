@@ -6,11 +6,22 @@ import 'package:provider/provider.dart';
 
 import 'album/album_item.dart';
 
-class AlbumPage extends StatelessWidget {
+class AlbumPage extends StatefulWidget {
+  @override
+  _AlbumPageState createState() => _AlbumPageState();
+}
+
+class _AlbumPageState extends State<AlbumPage> {
+  @override
+  void initState() {
+    super.initState();
+    AlbumStore albumStore = Provider.of<AlbumStore>(context, listen: false);
+    albumStore.fetch();
+  }
+
   @override
   Widget build(BuildContext context) {
     AlbumStore albumStore = Provider.of<AlbumStore>(context);
-    albumStore.fetch();
 
     return Scaffold(
       appBar: AppBar(

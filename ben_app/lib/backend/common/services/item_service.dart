@@ -36,7 +36,7 @@ class ItemService {
     final metaBytes = Serializer.toJson(data.createMeta());
     final AES aes =
         AES.ofCBC(await credential.getEncryptionKey(_kdf), credential.encryptionIv, PaddingScheme.PKCS5Padding);
-    final contentEncrypted = await aes.encrypt(contentBytes);
+    final contentEncrypted = await aes.encryptIsolated(contentBytes);
     final metaEncrypted = await aes.encrypt(metaBytes);
     final hashValidator = new HmacValidator(await credential.getHashKey(_kdf));
     final checksum = hashValidator.computeChecksum(contentBytes);
@@ -55,7 +55,7 @@ class ItemService {
     print('aes decrypt begin...');
     final AES aes =
         AES.ofCBC(await credential.getEncryptionKey(_kdf), credential.encryptionIv, PaddingScheme.PKCS5Padding);
-    return aes.decrypt(source);
+    return aes.decryptIsolated(source);
   }
 
   Future<Uint8List> fetchAndDecryptMeta(String id, PasswordCredential credential) async {

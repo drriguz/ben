@@ -40,6 +40,7 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
       Provider.of<ItemService>(context, listen: false),
       Provider.of<AlbumStore>(context, listen: false),
     );
+    if (_id != null) _detailStore.fetch(_id);
   }
 
   @override
@@ -50,7 +51,6 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_id != null) _detailStore.fetch(_id);
     return Scaffold(
       appBar: AppBar(
         title: Text(_isCreating() ? "创建相册" : "编辑相册"),

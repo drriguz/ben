@@ -17,8 +17,8 @@ class NoteListPage extends StatefulWidget {
 class _NoteListPageState extends State {
   @override
   Widget build(BuildContext context) {
+    print('build...');
     final NoteStore store = Provider.of<NoteStore>(context);
-    store.fetch();
     return Observer(
       builder: (_) {
         return store.isBusy
@@ -37,5 +37,12 @@ class _NoteListPageState extends State {
       itemCount: store.totalCount,
       itemBuilder: (_, int index) => NoteItem(store.data[index]),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final NoteStore store = Provider.of<NoteStore>(context, listen: false);
+    store.fetch();
   }
 }
