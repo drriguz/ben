@@ -40,13 +40,18 @@ mixin _$ItemListStore<M extends StructuredMeta, C extends StructuredContent>
     return _$fetchAsyncAction.run(() => super.fetch());
   }
 
-  final _$createOrUpdateRawRecordAsyncAction =
-      AsyncAction('createOrUpdateRawRecord');
+  final _$updateAsyncAction = AsyncAction('update');
 
   @override
-  Future<void> createOrUpdateRawRecord(String id, C item) {
-    return _$createOrUpdateRawRecordAsyncAction
-        .run(() => super.createOrUpdateRawRecord(id, item));
+  Future<void> update(String id, C item) {
+    return _$updateAsyncAction.run(() => super.update(id, item));
+  }
+
+  final _$createAsyncAction = AsyncAction('create');
+
+  @override
+  Future<void> create(C item) {
+    return _$createAsyncAction.run(() => super.create(item));
   }
 
   final _$deleteAsyncAction = AsyncAction('delete');

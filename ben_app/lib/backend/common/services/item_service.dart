@@ -31,8 +31,8 @@ class ItemService {
     return _itemRepository.deleteItem(id);
   }
 
-  Future<RawRecord> createOrUpdate(int type, String id, StructuredContent data,
-      PasswordCredential credential) async {
+  Future<RawRecord> _createOrUpdate(int type, String id, StructuredContent data,
+      PasswordCredential credential, bool forceCreate) async {
     final contentBytes = Serializer.toJson(data);
     final metaBytes = Serializer.toJson(data.createMeta());
     final AES aes = AES.ofCBC(await credential.getEncryptionKey(_kdf),
@@ -49,11 +49,22 @@ class ItemService {
       content: contentEncrypted,
       checksum: checksum,
     );
-    if (id == null)
+    if (id == null || forceCreate)
       await _itemRepository.createItem(item);
     else
       await _itemRepository.updateItem(id, item);
     return item;
+  }
+
+  Future<RawRecord> create(int type, String id, StructuredContent data,
+      PasswordCredential credential) async {
+    return _createOrUpdate(type, id, data, credential, true);
+  }
+
+  Future<RawRecord> update(int type, String id, StructuredContent data,
+      PasswordCredential credential) async {
+    assert(id != null);
+    return _createOrUpdate(type, id, data, credential, false);
   }
 
   Future<Uint8List> decrypt(

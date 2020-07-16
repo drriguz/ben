@@ -38,7 +38,8 @@ class NoteStore extends ItemListStore<NoteMeta, NoteData> {
   }
 
   Future<void> createOrUpdate(String id, String content) {
-    return createOrUpdateRawRecord(id, _noteService.createNote(content));
+    final data = _noteService.createNote(content);
+    return id == null ? create(data) : update(id, data);
   }
 }
 
@@ -55,7 +56,8 @@ class AlbumStore extends ItemListStore<AlbumMeta, AlbumData> {
         );
 
   Future<void> createOrUpdate(String id, String name) {
-    return createOrUpdateRawRecord(id, _albumService.createAlbum(name));
+    final data = _albumService.createAlbum(name);
+    return id == null ? create(data) : update(id, data);
   }
 }
 
@@ -92,10 +94,28 @@ abstract class _ItemListStore<M extends StructuredMeta,
   }
 
   @action
-  Future<void> createOrUpdateRawRecord(String id, C item) async {
+  Future<void> update(String id, C item) async {
+    setBusy();
+    print("id=$id");
+    String id1 = data[0].id;
+    String id2 = data[1].id;
+    print("id1=$id1");
+    print("id2=$id2");
+    return itemService
+        .update(itemType, id, item, userStore.userCredential)
+        .then((rawRecord) async {
+      final index = data.indexWhere((element) => element.id == id);
+      assert(index != -1);
+      final newRecord = await decodeMeta(rawRecord);
+      data[index] = newRecord;
+    }).whenComplete(() => setIdle());
+  }
+
+  @action
+  Future<void> create(C item) async {
     setBusy();
     return itemService
-        .createOrUpdate(itemType, id, item, userStore.userCredential)
+        .create(itemType, null, item, userStore.userCredential)
         .then((rawRecord) async => data.add(await decodeMeta(rawRecord)))
         .whenComplete(() => setIdle());
   }

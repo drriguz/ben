@@ -135,6 +135,6 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
         .whenComplete(() => userStore.isPausedToTakePhoto = false);
     if (image == null) return;
     print('Start to save image...');
-    return _imageStore.create(image);
+    return _imageStore.createImage(image);
   }
 }

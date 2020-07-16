@@ -28,7 +28,7 @@ dependencies:
   convert: ^2.1.1
   encryptions:
     path: ./encryptions
-  flutter_isolate: ^1.0.0+14
+  photo_view: ^0.9.2
 
 dev_dependencies:
   test: any

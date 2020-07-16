@@ -26,7 +26,7 @@ class ImageItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () =>
-          Navigator.of(context).pushNamed("/Image/detail", arguments: _id),
+          Navigator.of(context).pushNamed("/image/detail", arguments: _id),
       child: Card(
         child: Stack(
           children: <Widget>[

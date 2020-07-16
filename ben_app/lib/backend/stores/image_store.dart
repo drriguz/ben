@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:ben_app/backend/common/format/data/image_model.dart';
 import 'package:ben_app/backend/common/format/data/list_item_model.dart';
@@ -7,7 +6,6 @@ import 'package:ben_app/backend/common/format/data_format.dart';
 import 'package:ben_app/backend/common/format/serializer.dart';
 import 'package:ben_app/backend/common/services/item_service.dart';
 import 'package:ben_app/backend/services/album_service.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 
@@ -32,15 +30,15 @@ class ImageStore extends ItemListStore<ImageMeta, ImageData> {
   }
 
   @action
-  Future<void> create(PickedFile picked) async {
+  Future<void> createImage(PickedFile picked) async {
     final String id = _albumService.newId();
     final placeholder = ListItemModel(id, null);
     data.add(placeholder);
     ImageData image =
         await _albumService.createImage(_albumId, File(picked.path));
-    print('image generated...');
+    print('image generated...}');
     return itemService
-        .createOrUpdate(itemType, id, image, userStore.userCredential)
+        .create(itemType, id, image, userStore.userCredential)
         .then((rawRecord) async {
       print('replacing...');
       data.remove(placeholder);
