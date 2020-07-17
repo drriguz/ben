@@ -44,7 +44,7 @@ const ImageMetaMessage$json = const {
 const ImageDataMessage$json = const {
   '1': 'ImageDataMessage',
   '2': const [
-    const {'1': 'image', '3': 1, '4': 1, '5': 12, '10': 'image'},
+    const {'1': 'tiles', '3': 1, '4': 3, '5': 9, '10': 'tiles'},
   ],
 };
 

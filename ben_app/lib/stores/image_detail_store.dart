@@ -19,9 +19,11 @@ abstract class _ImageDetailStore with Store {
   _ImageDetailStore(this._userStore, this._imageService, this._id);
 
   @action
-  Future<void> fetch() {
+  Future<void> fetch() async {
+    final image =
+        await _imageService.fetchImage(_id, _userStore.userCredential);
     return _imageService
-        .fetchImage(_id, _userStore.userCredential)
-        .then((value) => item = MemoryImage(value.content.image));
+        .fetchImageData(image.content.tiles, _userStore.userCredential)
+        .then((bytes) => item = MemoryImage(bytes));
   }
 }

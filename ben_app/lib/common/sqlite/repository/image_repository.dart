@@ -1,5 +1,6 @@
 import 'package:ben_app/common/sqlite/entity/image_entity.dart';
 import 'package:ben_app/common/sqlite/entity/structured_item_brief_view.dart';
+import 'package:ben_app/common/sqlite/entity/tile_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../sqlite_repository.dart';
@@ -20,5 +21,15 @@ class ImageRepository extends SqliteRepository<String, ImageEntity> {
       whereArgs: [albumId],
     );
     return results.map((values) => MetaView.from(values)).toList();
+  }
+
+  Future<void> saveImageInTiles (
+      ImageEntity image, List<TileEntity> tiles) async {
+    return db.transaction((txn) async {
+      await txn.insert("image", image.toJson());
+      tiles.forEach((tile) async {
+        await txn.insert("tile", tile.toJson());
+      });
+    });
   }
 }

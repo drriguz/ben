@@ -1,6 +1,7 @@
 import 'package:ben_app/common/sqlite/repository/album_repository.dart';
 import 'package:ben_app/common/sqlite/repository/image_repository.dart';
 import 'package:ben_app/common/sqlite/repository/structured_item_repository.dart';
+import 'package:ben_app/common/sqlite/repository/tile_repository.dart';
 import 'package:ben_app/services/album_service.dart';
 import 'package:ben_app/services/image_service.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,8 @@ List<SingleChildCloneableWidget> _createComponents() {
         update: (_, database, repository) => AlbumRepository(database)),
     ProxyProvider<Database, ImageRepository>(
         update: (_, database, repository) => ImageRepository(database)),
+    ProxyProvider<Database, TileRepository>(
+        update: (_, database, repository) => TileRepository(database)),
   ];
 }
 
@@ -54,8 +57,9 @@ List<SingleChildCloneableWidget> _createServices() {
     ProxyProvider<AlbumRepository, AlbumService>(
       update: (_, repository, service) => AlbumService(repository, kdf),
     ),
-    ProxyProvider<ImageRepository, ImageService>(
-      update: (_, repository, service) => ImageService(repository, kdf),
+    ProxyProvider2<ImageRepository, TileRepository, ImageService>(
+      update: (_, imageRepository, tileRepository, service) =>
+          ImageService(imageRepository, tileRepository, kdf),
     ),
   ];
 }

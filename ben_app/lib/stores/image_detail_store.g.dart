@@ -26,16 +26,10 @@ mixin _$ImageDetailStore on _ImageDetailStore, Store {
     }, _$itemAtom, name: '${_$itemAtom.name}_set');
   }
 
-  final _$_ImageDetailStoreActionController =
-      ActionController(name: '_ImageDetailStore');
+  final _$fetchAsyncAction = AsyncAction('fetch');
 
   @override
   Future<void> fetch() {
-    final _$actionInfo = _$_ImageDetailStoreActionController.startAction();
-    try {
-      return super.fetch();
-    } finally {
-      _$_ImageDetailStoreActionController.endAction(_$actionInfo);
-    }
+    return _$fetchAsyncAction.run(() => super.fetch());
   }
 }

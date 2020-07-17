@@ -215,7 +215,7 @@ class ImageMetaMessage extends $pb.GeneratedMessage {
 
 class ImageDataMessage extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('ImageDataMessage', createEmptyInstance: create)
-    ..a<$core.List<$core.int>>(1, 'image', $pb.PbFieldType.OY)
+    ..pPS(1, 'tiles')
     ..hasRequiredFields = false
   ;
 
@@ -235,12 +235,6 @@ class ImageDataMessage extends $pb.GeneratedMessage {
   static ImageDataMessage _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.int> get image => $_getN(0);
-  @$pb.TagNumber(1)
-  set image($core.List<$core.int> v) { $_setBytes(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasImage() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearImage() => clearField(1);
+  $core.List<$core.String> get tiles => $_getList(0);
 }
 

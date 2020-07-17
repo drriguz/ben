@@ -25,5 +25,5 @@ message ImageMetaMessage {
 }
 
 message ImageDataMessage {
-  bytes image = 1;
+  repeated string tiles = 1;
 }

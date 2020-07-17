@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:ben_app/common/sqlite/entity/image_entity.dart';
 import 'package:ben_app/common/sqlite/entity/structured_item_brief_view.dart';
 import 'package:ben_app/common/utils/encrypter.dart';
@@ -17,6 +15,7 @@ class ImageData {
   Future<ImageEntity> encrypt(Encrypter encrypter) async {
     return ImageEntity(
         id: id,
+        albumId: albumId,
         meta: await encrypter.encrypt(meta.writeToBuffer()),
         content: await encrypter.encrypt(content.writeToBuffer()));
   }

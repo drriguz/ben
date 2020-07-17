@@ -14,7 +14,7 @@ class ImageEntity extends Entity<String>
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'albumId': albumId,
+      'album_id': albumId,
       'meta': meta,
       'content': content,
     };
@@ -24,7 +24,7 @@ class ImageEntity extends Entity<String>
     assert(values != null);
     return ImageEntity(
       id: values['id'],
-      albumId: values['albumId'],
+      albumId: values['album_id'],
       meta: values['meta'],
       content: values['content'],
     );
