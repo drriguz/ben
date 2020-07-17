@@ -39,4 +39,11 @@ mixin _$AlbumStore on _AlbumStore, Store {
   Future<void> create(String name) {
     return _$createAsyncAction.run(() => super.create(name));
   }
+
+  final _$updateAsyncAction = AsyncAction('update');
+
+  @override
+  Future<void> update(String id, String name) {
+    return _$updateAsyncAction.run(() => super.update(id, name));
+  }
 }

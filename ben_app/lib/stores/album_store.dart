@@ -33,4 +33,15 @@ abstract class _AlbumStore extends PageStatusNotifier with Store {
         .create(_userStore.userCredential, name)
         .then((value) => data.add(value));
   }
+
+  @action
+  Future<void> update(String id, String name) async {
+    final existing = await _albumService.fetch(id, _userStore.userCredential);
+    existing.content.lastUpdatedTime = DateTime.now().toIso8601String();
+    existing.content.name = name;
+
+    return _albumService
+        .update(_userStore.userCredential, existing)
+        .whenComplete(() => fetch());
+  }
 }
