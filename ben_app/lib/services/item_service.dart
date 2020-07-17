@@ -3,6 +3,7 @@ import 'package:ben_app/common/crypto/kdf.dart';
 import 'package:ben_app/common/format/note_data.dart';
 import 'package:ben_app/common/format/protobuf/data_formats.pb.dart';
 import 'package:ben_app/common/sqlite/entity/structured_Item_entity.dart';
+import 'package:ben_app/common/sqlite/entity/structured_item_brief_view.dart';
 import 'package:ben_app/common/sqlite/repository/structured_item_repository.dart';
 import 'package:ben_app/common/utils/encrypter.dart';
 import 'package:uuid/uuid.dart';
@@ -42,8 +43,15 @@ class ItemService {
   Future<List<BriefNoteData>> fetchNotes(PasswordCredential credential) async {
     final items = await _itemRepository.getItemsByType(TYPE_NOTE);
     final encrypter = Encrypter(credential, _kdf);
-    final decrypted = items.map((e) => BriefNoteData.from(e, encrypter));
+    final decrypted = items.map((e) => _metaToBriedNote(e, encrypter));
     return Future.wait(decrypted);
+  }
+
+  Future<BriefNoteData> _metaToBriedNote(
+      MetaView view, Encrypter encrypter) async {
+    NoteMetaMessage metaMessage =
+        NoteMetaMessage.fromBuffer(await encrypter.decrypt(view.meta));
+    return BriefNoteData(id: view.id, meta: metaMessage);
   }
 
   Future<NoteData> fetchNote(String id, PasswordCredential credential) async {

@@ -35,9 +35,7 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
         .then((updated) async {
       final index = data.indexWhere((element) => element.id == id);
       assert(index != -1);
-      print(data[index]);
-      data[index] = BriefNoteData.fromFullRecord(updated);
-      print(data[index]);
+      data[index].meta = updated.meta;
     }).whenComplete(() => setIdle());
   }
 
@@ -45,7 +43,8 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   Future<void> create(String content) async {
     return _itemService
         .createNote(content, _userStore.userCredential)
-        .then((note) async => data.add(BriefNoteData.fromFullRecord(note)))
+        .then((note) async =>
+            data.add(BriefNoteData(id: note.id, meta: note.meta)))
         .whenComplete(() => setIdle());
   }
 

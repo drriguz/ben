@@ -1,8 +1,11 @@
 import 'package:ben_app/common/sqlite/entity/structured_Item_entity.dart';
 import 'package:ben_app/common/sqlite/entity/structured_item_brief_view.dart';
 import 'package:ben_app/common/utils/encrypter.dart';
+import 'package:mobx/mobx.dart';
 
 import 'protobuf/data_formats.pb.dart';
+
+part 'note_data.g.dart';
 
 class NoteData {
   String id;
@@ -30,20 +33,13 @@ class NoteData {
   }
 }
 
-class BriefNoteData {
+class BriefNoteData = _BriefNoteData with _$BriefNoteData;
+
+abstract class _BriefNoteData with Store {
   String id;
 
+  @observable
   NoteMetaMessage meta;
 
-  BriefNoteData({this.id, this.meta});
-
-  static Future<BriefNoteData> from(MetaView view, Encrypter encrypter) async {
-    NoteMetaMessage metaMessage =
-        NoteMetaMessage.fromBuffer(await encrypter.decrypt(view.meta));
-    return BriefNoteData(id: view.id, meta: metaMessage);
-  }
-
-  factory BriefNoteData.fromFullRecord(NoteData data) {
-    return BriefNoteData(id: data.id, meta: data.meta);
-  }
+  _BriefNoteData({this.id, this.meta});
 }
