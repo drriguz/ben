@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/stores/initialize_store.dart';
+import 'package:ben_app/stores/initialize_store.dart';
 import 'package:ben_app/generated/l10n.dart';
 import 'package:ben_app/ui/widgets/setting_option.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -10,7 +10,9 @@ class SystemSettingsPage extends StatelessWidget {
   final Function onPrevious;
   final Function onNext;
 
-  const SystemSettingsPage(this._store, {Key key, @required this.onPrevious, @required this.onNext}) : super(key: key);
+  const SystemSettingsPage(this._store,
+      {Key key, @required this.onPrevious, @required this.onNext})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +29,17 @@ class SystemSettingsPage extends StatelessWidget {
           SwitchOption(
             S.of(context).enable_fingerprint,
             S.of(context).enable_fingerprint_description,
-            (_) => Switch(value: _store.enableFingerPrint, onChanged: (value) => _store.setEnableFingerPrint(value)),
+            (_) => Switch(
+                value: _store.enableFingerPrint,
+                onChanged: (value) => _store.setEnableFingerPrint(value)),
           ),
           SwitchOption(
             S.of(context).enable_password_options_auto_detect,
             S.of(context).enable_password_options_auto_detect_description,
             (_) => Switch(
                 value: _store.autoDetectEncryptOptions,
-                onChanged: (value) => _store.setAutoDetectEncryptOptions(value)),
+                onChanged: (value) =>
+                    _store.setAutoDetectEncryptOptions(value)),
           ),
           ButtonBar(
             alignment: MainAxisAlignment.spaceEvenly,

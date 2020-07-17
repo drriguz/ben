@@ -1,7 +1,6 @@
-
-import 'package:ben_app/backend/common/services/item_service.dart';
-import 'package:ben_app/backend/stores/item_detail_store.dart';
-import 'package:ben_app/backend/stores/user_store.dart';
+import 'package:ben_app/services/image_service.dart';
+import 'package:ben_app/stores/image_detail_store.dart';
+import 'package:ben_app/stores/user_store.dart';
 import 'package:ben_app/ui/model/choice.dart';
 import 'package:ben_app/ui/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,7 +31,7 @@ class _ImageDetailPageState extends State<ImageDetailPage> {
     super.initState();
     _detailStore = new ImageDetailStore(
       Provider.of<UserStore>(context, listen: false),
-      Provider.of<ItemService>(context, listen: false),
+      Provider.of<ImageService>(context, listen: false),
       widget._id,
     );
     _detailStore.fetch();

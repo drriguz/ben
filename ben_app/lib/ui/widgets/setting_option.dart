@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/common/crypto/protected_value.dart';
+import 'package:ben_app/common/crypto/protected_value.dart';
 import 'package:ben_app/generated/l10n.dart';
 import 'package:ben_app/ui/theme/styles.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,7 +30,8 @@ class SwitchOption extends SettingOption {
   final String _name;
   final WidgetBuilder _switchBuilder;
 
-  SwitchOption(this._name, String description, this._switchBuilder) : super(description);
+  SwitchOption(this._name, String description, this._switchBuilder)
+      : super(description);
 
   @override
   List<Widget> getFormFields() {
@@ -59,8 +60,8 @@ class PasswordSetting extends SettingOption {
   final ErrorPredict _errorPredict;
   final ErrorMessageProvider _errorMessageProvider;
 
-  PasswordSetting(String description, this._onChangePassword, this._onConfirmPassword, this._errorPredict,
-      this._errorMessageProvider)
+  PasswordSetting(String description, this._onChangePassword,
+      this._onConfirmPassword, this._errorPredict, this._errorMessageProvider)
       : super(description);
 
   @override
@@ -73,7 +74,8 @@ class PasswordSetting extends SettingOption {
       ),
       TextField(
         obscureText: true,
-        decoration: InputDecoration(hintText: S.current.please_input_password_again),
+        decoration:
+            InputDecoration(hintText: S.current.please_input_password_again),
         onChanged: (plain) => _onConfirmPassword(ProtectedValue.of(plain)),
       ),
       Observer(

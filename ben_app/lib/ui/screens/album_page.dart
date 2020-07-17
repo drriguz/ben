@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/stores/item_list_store.dart';
+import 'package:ben_app/stores/album_store.dart';
 import 'package:ben_app/ui/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -28,7 +28,8 @@ class _AlbumPageState extends State<AlbumPage> {
         title: Text("相册"),
       ),
       body: Observer(
-        builder: (_) => albumStore.isBusy ? Loading() : _createAlbumList(albumStore),
+        builder: (_) =>
+            albumStore.isBusy ? Loading() : _createAlbumList(albumStore),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).pushNamed("/album/add"),
@@ -40,9 +41,11 @@ class _AlbumPageState extends State<AlbumPage> {
 
   Widget _createAlbumList(AlbumStore albumStore) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.0),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, childAspectRatio: 1.0),
       itemCount: albumStore.data.length,
-      itemBuilder: (context, index) => AlbumItem(albumStore.data[index].id, albumStore.data[index].meta.title, 1),
+      itemBuilder: (context, index) => AlbumItem(
+          albumStore.data[index].id, albumStore.data[index].content.name, 1),
     );
   }
 }

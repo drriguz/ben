@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/stores/item_list_store.dart';
+import 'package:ben_app/stores/note_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -17,7 +17,6 @@ class NoteListPage extends StatefulWidget {
 class _NoteListPageState extends State {
   @override
   Widget build(BuildContext context) {
-    print('build...');
     final NoteStore store = Provider.of<NoteStore>(context);
     return Observer(
       builder: (_) {
@@ -32,7 +31,8 @@ class _NoteListPageState extends State {
   }
 
   Widget _createList(NoteStore store) {
-    if (store.totalCount == 0) return EmptyListTipWidget(onRefresh: store.fetch);
+    if (store.totalCount == 0)
+      return EmptyListTipWidget(onRefresh: store.fetch);
     return ListView.builder(
       itemCount: store.totalCount,
       itemBuilder: (_, int index) => NoteItem(store.data[index]),

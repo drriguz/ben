@@ -1,10 +1,9 @@
-import 'package:ben_app/backend/common/format/data/image_model.dart';
-import 'package:ben_app/backend/common/format/data/list_item_model.dart';
-import 'package:ben_app/backend/common/services/item_service.dart';
-import 'package:ben_app/backend/services/album_service.dart';
-import 'package:ben_app/backend/stores/image_store.dart';
-import 'package:ben_app/backend/stores/item_list_store.dart';
-import 'package:ben_app/backend/stores/user_store.dart';
+import 'dart:io';
+
+import 'package:ben_app/common/format/image_data.dart';
+import 'package:ben_app/services/image_service.dart';
+import 'package:ben_app/stores/image_store.dart';
+import 'package:ben_app/stores/user_store.dart';
 import 'package:ben_app/ui/model/choice.dart';
 import 'package:ben_app/ui/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +12,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import 'album_item.dart';
 import 'image_item.dart';
 
 const List<MenuChoice> menuItems = const <MenuChoice>[
@@ -43,10 +41,8 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     super.initState();
     _imageStore = ImageStore(
       Provider.of<UserStore>(context, listen: false),
-      Provider.of<AlbumStore>(context, listen: false),
-      Provider.of<ItemService>(context, listen: false),
+      Provider.of<ImageService>(context, listen: false),
       _id,
-      Provider.of<AlbumService>(context, listen: false),
     );
     _imageStore.fetch();
   }
@@ -97,30 +93,22 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     );
   }
 
-  Widget _createImage(ListItemModel<ImageMeta> item) {
-    return item.isLoading
-        ? LoadingImageItem(item.id)
-        : ImageItem(
-            item.id,
-            item.meta.title,
-            item.meta.thumb,
-          );
+  Widget _createImage(BriefImageData item) {
+    return ImageItem(
+      item.id,
+      item.meta.title,
+      item.meta.thumb,
+    );
   }
 
   Future<void> _onDropdownSelected(BuildContext context, MenuChoice choice) {
-    AlbumStore albumStore = Provider.of<AlbumStore>(context);
     switch (choice.value) {
       case "edit":
         {
           return Navigator.of(context)
               .pushReplacementNamed("/album/edit", arguments: _id);
         }
-      case "delete":
-        {
-          return albumStore
-              .delete(_id)
-              .whenComplete(() => Navigator.of(context).pop());
-        }
+
       default:
         break;
     }
@@ -135,6 +123,6 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
         .whenComplete(() => userStore.isPausedToTakePhoto = false);
     if (image == null) return;
     print('Start to save image...');
-    return _imageStore.createImage(image);
+    return _imageStore.create(File(image.path));
   }
 }

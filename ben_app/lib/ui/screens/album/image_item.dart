@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:ben_app/ui/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class LoadingImageItem extends StatelessWidget {
 class ImageItem extends StatelessWidget {
   final String _id;
   final String _name;
-  final String _thumb;
+  final Uint8List _thumb;
 
   ImageItem(this._id, this._name, this._thumb, {Key key})
       : super(key: ValueKey(_id));
@@ -41,7 +42,7 @@ class ImageItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: MemoryImage(base64.decode(_thumb)),
+          image: MemoryImage(_thumb),
           fit: BoxFit.cover,
         ),
       ),

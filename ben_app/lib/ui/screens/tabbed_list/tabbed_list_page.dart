@@ -1,9 +1,3 @@
-import 'package:ben_app/backend/services/note_service.dart';
-import 'package:ben_app/backend/stores/item_list_store.dart';
-import 'package:ben_app/backend/stores/user_store.dart';
-import 'package:ben_app/backend/common/services/item_service.dart';
-import 'package:provider/provider.dart';
-
 import '../../model/choice.dart';
 import '../../theme/icons.dart';
 
@@ -40,9 +34,11 @@ final tabConfigs = [
   ),
 ];
 
-class _TabbedListPageState extends State<TabbedListPage> with SingleTickerProviderStateMixin {
+class _TabbedListPageState extends State<TabbedListPage>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
-  final List<Tab> tabs = tabConfigs.map((config) => Tab(text: config.name)).toList();
+  final List<Tab> tabs =
+      tabConfigs.map((config) => Tab(text: config.name)).toList();
 
   void _onPressed() {}
 

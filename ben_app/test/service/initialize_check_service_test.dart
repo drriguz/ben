@@ -1,6 +1,6 @@
-import 'package:ben_app/backend/common/services/init_check_service.dart';
-import 'package:ben_app/backend/common/format/sqlite/header_entity.dart';
-import 'package:ben_app/backend/common/format/storage.dart';
+import 'package:ben_app/common/sqlite/entity/header_entity.dart';
+import 'package:ben_app/common/sqlite/repository/header_repository.dart';
+import 'package:ben_app/services/init_check_service.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 

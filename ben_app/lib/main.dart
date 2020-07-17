@@ -6,13 +6,11 @@ import 'package:ben_app/ui/screens/tabbed_list/note/note_detail_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'backend/stores/user_store.dart';
-import 'backend/provider_setup.dart';
-import 'backend/common/services/init_check_service.dart';
-import 'backend/common/format/data/list_item_model.dart';
-import 'backend/common/format/data/note_model.dart';
-import 'backend/common/format/sqlite/database_factory.dart';
-import 'backend/common/format/sqlite/sqlite_storage.dart';
+import 'common/sqlite/database_factory.dart';
+import 'common/sqlite/repository/header_repository.dart';
+import 'stores/user_store.dart';
+import 'provider_setup.dart';
+import 'services/init_check_service.dart';
 import 'generated/l10n.dart';
 import 'ui/screens/home_page.dart';
 import 'ui/screens/initialize/initialize_page.dart';
@@ -22,7 +20,7 @@ Future<bool> checkInitialized() async {
   final database =
       await SqliteFactory.createInstance("data.db", "assets/config/init.sql");
   final InitializeCheckService checkService =
-      InitializeCheckService(SqliteHeaderRepository()..db = database);
+      InitializeCheckService(HeaderRepository(database));
   final initialized = checkService.hasInitialized();
   await database.close();
   return initialized;
@@ -61,9 +59,9 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
           switch (settings.name) {
             case "/note/detail":
               {
-                ListItemModel<NoteMeta> argument = settings.arguments;
+                String id = settings.arguments;
                 return MaterialPageRoute(
-                    builder: (context) => NoteDetailPage(argument.id));
+                    builder: (context) => NoteDetailPage(id));
               }
             case "/note/edit":
             case "/note/add":

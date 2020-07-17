@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/stores/initialize_store.dart';
+import 'package:ben_app/stores/initialize_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 

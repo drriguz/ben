@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/common/crypto/protected_value.dart';
+import 'package:ben_app/common/crypto/protected_value.dart';
 import 'package:test/test.dart';
 
 void main() {

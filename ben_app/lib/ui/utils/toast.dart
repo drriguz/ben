@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Toasts {
-  static showError(String message, dynamic e) async {
-    print(e);
-    String errorMsg = e == null ? message : message + " " + e.runtimeType.toString();
+  static showError(String message,
+      {dynamic error, StackTrace stackTrace}) async {
+    String errorMsg =
+        error == null ? message : message + " " + error.runtimeType.toString();
+    if (stackTrace != null) print(stackTrace);
     Fluttertoast.showToast(
         msg: errorMsg,
         toastLength: Toast.LENGTH_LONG,

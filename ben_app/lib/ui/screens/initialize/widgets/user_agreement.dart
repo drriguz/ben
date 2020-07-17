@@ -1,4 +1,4 @@
-import 'package:ben_app/backend/stores/initialize_store.dart';
+import 'package:ben_app/stores/initialize_store.dart';
 import 'package:ben_app/generated/l10n.dart';
 import 'package:ben_app/ui/utils/links.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,9 @@ class UserAgreementPage extends StatelessWidget {
   final Function onPrevious;
   final Function onNext;
 
-  const UserAgreementPage(this._store, {Key key, @required this.onPrevious, @required this.onNext}) : super(key: key);
+  const UserAgreementPage(this._store,
+      {Key key, @required this.onPrevious, @required this.onNext})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

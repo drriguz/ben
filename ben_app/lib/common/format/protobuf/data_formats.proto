@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+message NoteMetaMessage {
+  string createdTime = 1;
+  string lastUpdatedTime = 2;
+  string title = 3;
+}
+
+message NoteDataMessage {
+  string content = 1;
+}
+
+message AlbumMessage {
+  string createdTime = 1;
+  string lastUpdatedTime = 2;
+  string name = 3;
+  bytes cover = 4;
+}
+
+message ImageMetaMessage {
+  string createdTime = 1;
+  string lastUpdatedTime = 2;
+  string title = 3;
+  bytes thumb = 4;
+}
+
+message ImageDataMessage {
+  bytes image = 1;
+}

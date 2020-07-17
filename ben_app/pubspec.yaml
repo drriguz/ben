@@ -29,7 +29,7 @@ dependencies:
   encryptions:
     path: ./encryptions
   photo_view: ^0.9.2
-
+  protobuf: ^1.0.1
 dev_dependencies:
   test: any
   mockito: ^4.1.1

@@ -1,5 +1,5 @@
-import 'package:ben_app/backend/stores/user_store.dart';
-import 'package:ben_app/backend/common/crypto/protected_value.dart';
+import 'package:ben_app/common/crypto/protected_value.dart';
+import 'package:ben_app/stores/user_store.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../main.dart';
@@ -55,7 +55,9 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
               _profileImage(),
               Observer(
                 builder: (_) {
-                  return widget._userStore.isBusy ? _progressBar() : _input(context);
+                  return widget._userStore.isBusy
+                      ? _progressBar()
+                      : _input(context);
                 },
               )
             ],

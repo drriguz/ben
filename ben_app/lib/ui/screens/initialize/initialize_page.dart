@@ -1,5 +1,5 @@
-import 'package:ben_app/backend/common/services/init_service.dart';
-import 'package:ben_app/backend/stores/initialize_store.dart';
+import 'package:ben_app/services/init_service.dart';
+import 'package:ben_app/stores/initialize_store.dart';
 import 'package:ben_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,8 @@ class InitializePage extends StatefulWidget {
   _InitializePageState createState() => _InitializePageState();
 }
 
-class _InitializePageState extends State<InitializePage> with SingleTickerProviderStateMixin {
+class _InitializePageState extends State<InitializePage>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
   InitializeStore _store;
 
@@ -25,7 +26,8 @@ class _InitializePageState extends State<InitializePage> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-    _store = new InitializeStore(Provider.of<InitializeService>(context, listen: false));
+    _store = new InitializeStore(
+        Provider.of<InitializeService>(context, listen: false));
     _tabController = new TabController(vsync: this, length: 4);
   }
 
@@ -82,8 +84,12 @@ class _InitializePageState extends State<InitializePage> with SingleTickerProvid
                   controller: _tabController,
                   children: <Widget>[
                     AboutPage(onNext: this._onNextPage),
-                    SystemSettingsPage(_store, onNext: this._onNextPage, onPrevious: this._onPreviousPage),
-                    UserAgreementPage(_store, onNext: this._onNextPage, onPrevious: this._onPreviousPage),
+                    SystemSettingsPage(_store,
+                        onNext: this._onNextPage,
+                        onPrevious: this._onPreviousPage),
+                    UserAgreementPage(_store,
+                        onNext: this._onNextPage,
+                        onPrevious: this._onPreviousPage),
                     FinishSetupPage(_store),
                   ],
                 ),

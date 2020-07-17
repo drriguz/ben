@@ -1,7 +1,7 @@
-import 'package:ben_app/backend/common/services/item_service.dart';
-import 'package:ben_app/backend/stores/item_detail_store.dart';
-import 'package:ben_app/backend/stores/item_list_store.dart';
-import 'package:ben_app/backend/stores/user_store.dart';
+import 'package:ben_app/services/item_service.dart';
+import 'package:ben_app/stores/note_detail_store.dart';
+import 'package:ben_app/stores/note_store.dart';
+import 'package:ben_app/stores/user_store.dart';
 import 'package:ben_app/ui/model/choice.dart';
 import 'package:ben_app/ui/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,11 +30,11 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   void initState() {
     super.initState();
     _detailStore = new NoteDetailStore(
+      widget._id,
       Provider.of<UserStore>(context, listen: false),
       Provider.of<ItemService>(context, listen: false),
-      Provider.of<NoteStore>(context, listen: false),
     );
-    _detailStore.fetch(widget._id);
+    _detailStore.fetch();
   }
 
   @override
@@ -65,7 +65,10 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
   Widget _createBody() {
     return Observer(
-        builder: (_) => _detailStore.isBusy ? Loading() : _displayNoteDetail(_detailStore.item.content.split("\n")));
+        builder: (_) => _detailStore.isBusy
+            ? Loading()
+            : _displayNoteDetail(
+                _detailStore.data.content.content.split("\n")));
   }
 
   Widget _displayNoteDetail(List<String> contents) {
@@ -84,7 +87,8 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
     switch (choice.value) {
       case "edit":
         {
-          return Navigator.of(context).pushReplacementNamed("/note/edit", arguments: widget._id);
+          return Navigator.of(context)
+              .pushReplacementNamed("/note/edit", arguments: widget._id);
         }
       case "delete":
         {

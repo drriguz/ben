@@ -1,9 +1,9 @@
-import 'package:ben_app/backend/common/services/init_service.dart';
-import 'package:ben_app/backend/common/services/login_service.dart';
-import 'package:ben_app/backend/common/crypto/kdf.dart';
-import 'package:ben_app/backend/common/crypto/protected_value.dart';
-import 'package:ben_app/backend/common/format/data_format.dart';
-import 'package:ben_app/backend/common/format/storage.dart';
+import 'package:ben_app/common/crypto/kdf.dart';
+import 'package:ben_app/common/crypto/protected_value.dart';
+import 'package:ben_app/common/sqlite/entity/header_entity.dart';
+import 'package:ben_app/common/sqlite/repository/header_repository.dart';
+import 'package:ben_app/services/init_service.dart';
+import 'package:ben_app/services/login_service.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
@@ -16,7 +16,7 @@ void main() async {
   final kdf = new MockKdf();
   final loginService = LoginService(repository, kdf);
 
-  final initService = InitializeService(repository, null, kdf);
+  final initService = InitializeService(repository, kdf);
 
   when(repository.saveHeaders(any)).thenAnswer((_) async => {});
   when(kdf.derive(any, any))
@@ -24,7 +24,7 @@ void main() async {
   await initService.initialize(ProtectedValue.of("correct password"), false);
 
   test('get user crendential', () async {
-    List<Header> generatedHeaders =
+    List<HeaderEntity> generatedHeaders =
         verify(repository.saveHeaders(captureAny)).captured.single;
 
     when(repository.getHeaders()).thenAnswer((_) async => generatedHeaders);
