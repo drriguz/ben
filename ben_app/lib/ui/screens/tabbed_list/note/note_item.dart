@@ -40,8 +40,6 @@ class NoteItem extends AbstractListItem {
 
   @override
   void onClick(BuildContext context) async {
-    NoteStore store = Provider.of<NoteStore>(context, listen: false);
-    print('got store:$store');
     Navigator.of(context).pushNamed("/note/detail", arguments: model.id);
   }
 }

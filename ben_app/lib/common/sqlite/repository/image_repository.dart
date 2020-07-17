@@ -1,4 +1,3 @@
-import 'package:ben_app/common/sqlite/entity/album_entity.dart';
 import 'package:ben_app/common/sqlite/entity/image_entity.dart';
 import 'package:ben_app/common/sqlite/entity/structured_item_brief_view.dart';
 import 'package:sqflite/sqflite.dart';

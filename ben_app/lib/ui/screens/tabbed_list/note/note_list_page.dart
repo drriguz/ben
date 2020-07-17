@@ -35,7 +35,9 @@ class _NoteListPageState extends State {
       return EmptyListTipWidget(onRefresh: store.fetch);
     return ListView.builder(
       itemCount: store.totalCount,
-      itemBuilder: (_, int index) => NoteItem(store.data[index]),
+      itemBuilder: (_, int index) {
+        return NoteItem(store.data[index]);
+      },
     );
   }
 
