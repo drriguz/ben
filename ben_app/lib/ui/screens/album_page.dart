@@ -45,7 +45,9 @@ class _AlbumPageState extends State<AlbumPage> {
           crossAxisCount: 2, childAspectRatio: 1.0),
       itemCount: albumStore.data.length,
       itemBuilder: (context, index) => AlbumItem(
-          albumStore.data[index].id, albumStore.data[index].content.name, 1),
+          albumStore.data[index].id,
+          albumStore.data[index].content.name,
+          albumStore.data[index].totalCount),
     );
   }
 }

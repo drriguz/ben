@@ -16,7 +16,11 @@ class AlbumService {
   Future<List<AlbumData>> fetchAlbums(PasswordCredential credential) async {
     final items = await _albumRepository.getAlbums();
     final encrypter = Encrypter(credential, _kdf);
-    final decrypted = items.map((e) => AlbumData.from(e, encrypter));
+    final decrypted = items.map((e) async {
+      final data = await AlbumData.from(e, encrypter);
+      data.totalCount = await _albumRepository.getAlbumImageCount(e.id);
+      return data;
+    });
     return Future.wait(decrypted);
   }
 

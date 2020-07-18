@@ -118,7 +118,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     UserStore userStore = Provider.of<UserStore>(context);
     userStore.isPausedToTakePhoto = true;
     final image = await _picker
-        .getImage(source: ImageSource.camera)
+        .getImage(source: ImageSource.camera, imageQuality: 50)
         .catchError((err) => null)
         .whenComplete(() => userStore.isPausedToTakePhoto = false);
     if (image == null) return;

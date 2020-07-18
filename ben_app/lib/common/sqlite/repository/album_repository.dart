@@ -15,4 +15,10 @@ class AlbumRepository extends SqliteRepository<String, AlbumEntity> {
     final List<Map<String, dynamic>> results = await db.query(tableName);
     return results.map((values) => AlbumEntity.from(values)).toList();
   }
+
+  Future<int> getAlbumImageCount(String albumId) async {
+    final result = await db.rawQuery(
+        "select count(*) as count from image where album_id=?", [albumId]);
+    return result[0]["count"];
+  }
 }

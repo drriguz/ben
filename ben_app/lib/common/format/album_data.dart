@@ -1,4 +1,3 @@
-import 'package:ben_app/common/crypto/credential.dart';
 import 'package:ben_app/common/sqlite/entity/album_entity.dart';
 import 'package:ben_app/common/utils/encrypter.dart';
 
@@ -6,9 +5,10 @@ import 'protobuf/data_formats.pb.dart';
 
 class AlbumData {
   String id;
+  int totalCount;
   AlbumMessage content;
 
-  AlbumData({this.id, this.content});
+  AlbumData({this.id, this.totalCount, this.content});
 
   Future<AlbumEntity> encrypt(Encrypter encrypter) async {
     return AlbumEntity(
