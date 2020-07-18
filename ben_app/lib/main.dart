@@ -52,7 +52,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
         supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
           //fontFamily: 'fzltxh',
-          primarySwatch: Colors.purple,
+          primarySwatch: Colors.indigo,
         ),
         onGenerateRoute: (settings) {
           print('on generate route:${settings}');
