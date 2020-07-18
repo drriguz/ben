@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "about_description_1" : MessageLookupByLibrary.simpleMessage("Okapia helps you to store all your password in one place."),
     "about_description_2" : MessageLookupByLibrary.simpleMessage("Your passwords will be encrypted using AES-256, and then stored in a local file. Your password will be safe even if the file is exposed, only if someone knows the master password can decrypt it."),
     "about_description_3" : MessageLookupByLibrary.simpleMessage("Although Okapia is the one you can trust, we still do not encourage you to rely too much on it, it\'s always the best to keep everything in mind, only use it when it\'s really necessary."),
-    "about_okapia" : MessageLookupByLibrary.simpleMessage("了解难知"),
+    "about_okapia" : MessageLookupByLibrary.simpleMessage("了解南知"),
     "agree" : MessageLookupByLibrary.simpleMessage("同意用户协议"),
     "enable_fingerprint" : MessageLookupByLibrary.simpleMessage("开启指纹解锁"),
     "enable_fingerprint_description" : MessageLookupByLibrary.simpleMessage("您可以开启指纹验证，这样仅需要在启动应用时输入一次主密码。当您重启应用之后，需要重新输入主密码。"),
