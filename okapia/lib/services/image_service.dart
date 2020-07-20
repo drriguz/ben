@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart';
 import 'package:okapia/common/crypto/credential.dart';
 import 'package:okapia/common/crypto/kdf.dart';
 import 'package:okapia/common/format/image_data.dart';
@@ -20,14 +21,15 @@ class ImageService {
   final _uuid = new Uuid();
   final Kdf _kdf;
 
+  static const MethodChannel openCVChannel = const MethodChannel('com.riguz.okapia/opencv');
+
   ImageService(this._imageRepository, this._tileRepository, this._kdf);
 
   String newId() {
     return _uuid.v4();
   }
 
-  Future<List<BriefImageData>> fetchImages(
-      String albumId, PasswordCredential credential) async {
+  Future<List<BriefImageData>> fetchImages(String albumId, PasswordCredential credential) async {
     final items = await _imageRepository.getImages(albumId);
     final encrypter = Encrypter(credential, _kdf);
     final decrypted = items.map((e) => BriefImageData.from(e, encrypter));
@@ -41,12 +43,10 @@ class ImageService {
     return ImageData.from(record, Encrypter(credential, _kdf));
   }
 
-  Future<Uint8List> fetchImageData(
-      List<String> tileIds, PasswordCredential credential) async {
+  Future<Uint8List> fetchImageData(List<String> tileIds, PasswordCredential credential) async {
     final tiles = await _tileRepository.getTiles(tileIds);
 
-    final encryptedBytes =
-        Uint8List.fromList(tiles.expand((x) => x.content).toList());
+    final encryptedBytes = Uint8List.fromList(tiles.expand((x) => x.content).toList());
     final encrypter = Encrypter(credential, _kdf);
     final decrypted = await encrypter.decrypt(encryptedBytes);
 
@@ -77,15 +77,17 @@ class ImageService {
     return tiles;
   }
 
-  Future<ImageData> createImage(
-      String albumId, File file, PasswordCredential credential) async {
+  Future<ImageData> createImage(String albumId, File file, PasswordCredential credential) async {
     assert(albumId != null);
 
-    final Uint8List bytes =
-        await file.readAsBytes().whenComplete(() => file.delete());
+    Uint8List thumb = await openCVChannel.invokeMethod("createThumb", {
+      "originalImage": file.path,
+      "width": 100,
+      "height": 100,
+    });
+
+    final Uint8List bytes = await file.readAsBytes().whenComplete(() => file.delete());
     print("image size:${bytes.length}");
-    final ImageLib.Image image = await compute(ImageLib.decodeImage, bytes);
-    final ImageLib.Image thumbnail = await compute(generateThumbnail, image);
     final currentTime = DateTime.now().toIso8601String();
 
     final ImageMetaMessage metaMessage = ImageMetaMessage.create();
@@ -93,18 +95,14 @@ class ImageService {
 
     metaMessage.createdTime = currentTime;
     metaMessage.lastUpdatedTime = currentTime;
-    metaMessage.thumb = await compute(ImageLib.encodeJpg, thumbnail);
+    metaMessage.thumb = thumb;
     metaMessage.title = "";
 
     final encryptor = Encrypter(credential, _kdf);
     List<TileEntity> tiles = split(await encryptor.encrypt(bytes));
     dataMessage.tiles.addAll(tiles.map((e) => e.id));
 
-    final imageData = ImageData(
-        id: _uuid.v4(),
-        albumId: albumId,
-        meta: metaMessage,
-        content: dataMessage);
+    final imageData = ImageData(id: _uuid.v4(), albumId: albumId, meta: metaMessage, content: dataMessage);
     final encrypted = await imageData.encrypt(encryptor);
 
     await _imageRepository.saveImageInTiles(encrypted, tiles);
