@@ -84,4 +84,19 @@ post_install do |installer|
       config.build_settings['ENABLE_BITCODE'] = 'NO'
     end
   end
+
+  opencv_prefix = installer.pod_targets.find{|e| e.pod_name == 'opencv_helper' }.prefix_header_path
+  puts "updating opencv prefix file #{opencv_prefix} ..."
+
+  originalText = File.read(opencv_prefix)
+  new_text =
+  <<~EOS
+    #ifdef __cplusplus
+    #include <opencv2/opencv.hpp>
+    #endif
+
+    #{originalText}
+  EOS
+
+  File.open(opencv_prefix, "w") {|file| file.puts new_text }
 end

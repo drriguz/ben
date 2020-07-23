@@ -12,6 +12,7 @@ import 'package:okapia/common/utils/encrypter.dart';
 import 'package:convert/convert.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as ImageLib;
+import 'package:opencv_helper/opencv_helper.dart';
 import 'package:uuid/uuid.dart';
 
 class ImageService {
@@ -81,11 +82,11 @@ class ImageService {
       String albumId, File file, PasswordCredential credential) async {
     assert(albumId != null);
 
+    Uint8List thumb = await OpencvHelper.resize(file.path, 100, 100);
     final Uint8List bytes =
         await file.readAsBytes().whenComplete(() => file.delete());
     print("image size:${bytes.length}");
-    final ImageLib.Image image = await compute(ImageLib.decodeImage, bytes);
-    final ImageLib.Image thumbnail = await compute(generateThumbnail, image);
+
     final currentTime = DateTime.now().toIso8601String();
 
     final ImageMetaMessage metaMessage = ImageMetaMessage.create();
@@ -93,7 +94,7 @@ class ImageService {
 
     metaMessage.createdTime = currentTime;
     metaMessage.lastUpdatedTime = currentTime;
-    metaMessage.thumb = await compute(ImageLib.encodeJpg, thumbnail);
+    metaMessage.thumb = thumb;
     metaMessage.title = "";
 
     final encryptor = Encrypter(credential, _kdf);
