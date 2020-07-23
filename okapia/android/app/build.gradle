@@ -38,17 +38,6 @@ android {
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-
-        externalNativeBuild {
-            /*
-                fix for dlopen failed: library "libc++_shared.so" not found
-                https://stackoverflow.com/questions/57698796/cannot-detect-opencv-libs-after-update-form-3-4-3-to-4-1-1
-             */
-            cmake {
-                cppFlags "-std=c++11"
-                arguments "-DANDROID_STL=c++_shared"
-            }
-        }
     }
 
     buildTypes {
@@ -58,16 +47,6 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-
-    externalNativeBuild {
-        cmake {
-            path "src/main/cpp/CMakeLists.txt"
-        }
-    }
-}
-
-dependencies {
-    implementation project(path: ':opencv')
 }
 
 flutter {
