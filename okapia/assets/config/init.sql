@@ -31,3 +31,10 @@ create table tile(
   id TEXT not null primary key,
   content BLOB not null
 );
+
+create table contact(
+  id TEXT not null primary key,
+  name TEXT not null,
+  public_key TEXT not null,
+  fingerprint TEXT not null
+);

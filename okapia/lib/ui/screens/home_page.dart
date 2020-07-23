@@ -3,6 +3,7 @@ import 'package:okapia/ui/screens/tool_box_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'album_page.dart';
+import 'contacts_page.dart';
 import 'not_implemented.dart';
 
 import '../theme/icons.dart';
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   static final List<Widget> _tabItems = <Widget>[
     TabbedListPage(),
     AlbumPage(),
-    NotImplementedPage(title: 'talk'),
+    ChatPage(),
     ToolboxPage(),
   ];
 
@@ -60,12 +61,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(FontIcon.list), title: Text("私密")),
-          BottomNavigationBarItem(
-              icon: Icon(FontIcon.galley), title: Text("相册")),
-          BottomNavigationBarItem(
-              icon: Icon(FontIcon.message), title: Text("私聊")),
-          BottomNavigationBarItem(
-              icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
+          BottomNavigationBarItem(icon: Icon(FontIcon.galley), title: Text("相册")),
+          BottomNavigationBarItem(icon: Icon(FontIcon.message), title: Text("私聊")),
+          BottomNavigationBarItem(icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
         ],
         type: BottomNavigationBarType.fixed,
         // without this line tab icon won't display
