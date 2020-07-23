@@ -32,7 +32,9 @@ class ContactItem extends StatelessWidget {
         ));
   }
 
-  void onClick(BuildContext context) async {}
+  void onClick(BuildContext context) async {
+    Navigator.of(context).pushNamed("/chat", arguments: data.id);
+  }
 
   @override
   Widget build(BuildContext context) {

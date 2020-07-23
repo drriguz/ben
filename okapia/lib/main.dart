@@ -1,6 +1,7 @@
 import 'ui/screens/album/album_detail_page.dart';
 import 'ui/screens/album/edit_album_page.dart';
 import 'ui/screens/album/image_detail_page.dart';
+import 'ui/screens/contacts/chat_page.dart';
 import 'ui/screens/tabbed_list/note/edit_note_page.dart';
 import 'ui/screens/tabbed_list/note/note_detail_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,10 +18,8 @@ import 'ui/screens/initialize/initialize_page.dart';
 import 'ui/screens/login_page.dart';
 
 Future<bool> checkInitialized() async {
-  final database =
-      await SqliteFactory.createInstance("data.db", "assets/config/init.sql");
-  final InitializeCheckService checkService =
-      InitializeCheckService(HeaderRepository(database));
+  final database = await SqliteFactory.createInstance("data.db", "assets/config/init.sql");
+  final InitializeCheckService checkService = InitializeCheckService(HeaderRepository(database));
   final initialized = checkService.hasInitialized();
   await database.close();
   return initialized;
@@ -60,34 +59,34 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
             case "/note/detail":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(
-                    builder: (context) => NoteDetailPage(id));
+                return MaterialPageRoute(builder: (context) => NoteDetailPage(id));
               }
             case "/note/edit":
             case "/note/add":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(
-                    builder: (context) => EditNotePage(id));
+                return MaterialPageRoute(builder: (context) => EditNotePage(id));
               }
             case "/album/edit":
             case "/album/add":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(
-                    builder: (context) => EditAlbumPage(id));
+                return MaterialPageRoute(builder: (context) => EditAlbumPage(id));
               }
             case "/album/detail":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(
-                    builder: (context) => AlbumDetailPage(id));
+                return MaterialPageRoute(builder: (context) => AlbumDetailPage(id));
               }
             case "/image/detail":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(
-                    builder: (context) => ImageDetailPage(id));
+                return MaterialPageRoute(builder: (context) => ImageDetailPage(id));
+              }
+            case "/chat":
+              {
+                String id = settings.arguments;
+                return MaterialPageRoute(builder: (context) => ChatPage(id));
               }
             default:
               break;

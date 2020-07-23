@@ -176,6 +176,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.6"
+  fast_rsa:
+    dependency: "direct main"
+    description:
+      name: fast_rsa
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.4"
   file:
     dependency: transitive
     description:

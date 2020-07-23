@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'album_page.dart';
 import 'contacts_page.dart';
-import 'not_implemented.dart';
 
 import '../theme/icons.dart';
 import 'tabbed_list/tabbed_list_page.dart';
@@ -19,7 +18,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   static final List<Widget> _tabItems = <Widget>[
     TabbedListPage(),
     AlbumPage(),
-    ChatPage(),
+    ContactPage(),
     ToolboxPage(),
   ];
 

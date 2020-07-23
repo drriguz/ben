@@ -1,6 +1,8 @@
 PODS:
   - encryptions (0.0.1):
     - Flutter
+  - fast_rsa (0.2.0):
+    - Flutter
   - Flutter (1.0.0)
   - flutter_plugin_android_lifecycle (0.0.1):
     - Flutter
@@ -33,6 +35,7 @@ PODS:
 
 DEPENDENCIES:
   - encryptions (from `.symlinks/plugins/encryptions/ios`)
+  - fast_rsa (from `.symlinks/plugins/fast_rsa/ios`)
   - Flutter (from `Flutter`)
   - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
@@ -54,6 +57,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   encryptions:
     :path: ".symlinks/plugins/encryptions/ios"
+  fast_rsa:
+    :path: ".symlinks/plugins/fast_rsa/ios"
   Flutter:
     :path: Flutter
   flutter_plugin_android_lifecycle:
@@ -83,6 +88,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   encryptions: a374d8610fbe88a7f00a14e059ff1df3f100d9e2
+  fast_rsa: 54f63d880791665452491cd6ea4ba2d12e9bdf2a
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b

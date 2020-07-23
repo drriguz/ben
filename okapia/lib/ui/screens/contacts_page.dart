@@ -1,3 +1,4 @@
+import 'package:fast_rsa/rsa.dart';
 import 'package:okapia/stores/album_store.dart';
 import 'package:okapia/stores/contact_store.dart';
 import 'package:okapia/ui/widgets/loading.dart';
@@ -8,12 +9,12 @@ import 'package:provider/provider.dart';
 import 'album/album_item.dart';
 import 'contacts/contact_item.dart';
 
-class ChatPage extends StatefulWidget {
+class ContactPage extends StatefulWidget {
   @override
-  _ChatPageState createState() => _ChatPageState();
+  _ContactPageState createState() => _ContactPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ContactPageState extends State<ContactPage> {
   @override
   Widget build(BuildContext context) {
     ContactStore store = Provider.of<ContactStore>(context);
@@ -27,6 +28,7 @@ class _ChatPageState extends State<ChatPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
+        onPressed: _onAdd,
       ),
     );
   }
@@ -36,6 +38,18 @@ class _ChatPageState extends State<ChatPage> {
       itemCount: store.data.length,
       itemBuilder: (context, index) => ContactItem(store.data[index]),
     );
+  }
+
+  Future<void> _onAdd() async {
+    var result = await RSA.generate(2048);
+    print(result.publicKey);
+    print(result.privateKey);
+
+    final e = await RSA.encryptPKCS1v15("helloworld", result.publicKey);
+    final x = await RSA.decryptPKCS1v15(e, result.privateKey);
+
+    print(e);
+    print(x);
   }
 
   @override
