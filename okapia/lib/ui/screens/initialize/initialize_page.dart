@@ -37,7 +37,7 @@ class _InitializePageState extends State<InitializePage>
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/green.jpeg"),
+            image: AssetImage("assets/images/green.jpeg"),
             fit: BoxFit.cover,
             alignment: Alignment.topCenter,
           ),
@@ -73,7 +73,7 @@ class _InitializePageState extends State<InitializePage>
         child: Column(
           children: <Widget>[
             Image(
-              image: AssetImage("assets/title.png"),
+              image: AssetImage("assets/images/title.png"),
             ),
             _createTabBar(),
             Expanded(

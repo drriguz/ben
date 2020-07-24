@@ -32,7 +32,7 @@ class FinishSetupPage extends StatelessWidget {
       child: Observer(
         builder: (_) => Column(
           children: <Widget>[
-            Image.asset("assets/undraw_to_the_moon_v1mv.png"),
+            Image.asset("assets/images/undraw_to_the_moon_v1mv.png"),
             Text("一切已经就绪，请开始使用吧！"),
             if (!_store.isBusy)
               FlatButton(

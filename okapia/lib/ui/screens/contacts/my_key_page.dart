@@ -41,7 +41,7 @@ class _MyKeyPageState extends State<MyKeyPage> {
   Widget _renderQr() {
     return Center(
       child: QrImage(
-        embeddedImage: AssetImage("assets/logo.png"),
+        embeddedImage: AssetImage("assets/icons/logo.png"),
         data: _qrStore.myKey,
         version: QrVersions.auto,
         size: 300.0,

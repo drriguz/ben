@@ -12,12 +12,12 @@ const tools = [
   ToolConfig(
     "Password Generator",
     "帮你生成理想的随机密码",
-    "assets/password-dict.png",
+    "assets/icons/password-dict.png",
   ),
   ToolConfig(
     "卡片识别",
     "识别您的银行卡",
-    "assets/scan.png",
+    "assets/icons/scan.png",
   ),
 ];
 

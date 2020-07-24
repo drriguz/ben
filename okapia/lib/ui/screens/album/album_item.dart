@@ -30,7 +30,7 @@ class AlbumItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/default_cover.png"),
+          image: AssetImage("assets/images/default_cover.png"),
           fit: BoxFit.cover,
         ),
       ),

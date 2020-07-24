@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
     return Padding(
       padding: const EdgeInsets.only(bottom: 50.0),
       child: Image(
-        image: AssetImage("assets/profile.png"),
+        image: AssetImage("assets/images/profile.png"),
         width: 150,
       ),
     );
