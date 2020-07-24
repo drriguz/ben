@@ -3,6 +3,7 @@ import '../../theme/icons.dart';
 
 import 'package:flutter/material.dart';
 
+import '../not_implemented.dart';
 import 'note/note_list_page.dart';
 
 class TabbedListPage extends StatefulWidget {
@@ -30,6 +31,16 @@ final tabConfigs = [
   _TabConfig(
     "记事",
     NoteListPage(),
+    "/note/add",
+  ),
+  _TabConfig(
+    "密码",
+    NotImplementedPage(),
+    "/note/add",
+  ),
+  _TabConfig(
+    "卡片",
+    NotImplementedPage(),
     "/note/add",
   ),
 ];
