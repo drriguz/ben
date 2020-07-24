@@ -21,6 +21,24 @@ const NoteDataMessage$json = const {
   ],
 };
 
+const KeyMetaMessage$json = const {
+  '1': 'KeyMetaMessage',
+  '2': const [
+    const {'1': 'createdTime', '3': 1, '4': 1, '5': 9, '10': 'createdTime'},
+    const {'1': 'lastUpdatedTime', '3': 2, '4': 1, '5': 9, '10': 'lastUpdatedTime'},
+    const {'1': 'type', '3': 3, '4': 1, '5': 9, '10': 'type'},
+    const {'1': 'publicKey', '3': 4, '4': 1, '5': 9, '10': 'publicKey'},
+    const {'1': 'fingerprint', '3': 5, '4': 1, '5': 9, '10': 'fingerprint'},
+  ],
+};
+
+const KeyDataMessage$json = const {
+  '1': 'KeyDataMessage',
+  '2': const [
+    const {'1': 'privateKey', '3': 1, '4': 1, '5': 9, '10': 'privateKey'},
+  ],
+};
+
 const AlbumMessage$json = const {
   '1': 'AlbumMessage',
   '2': const [

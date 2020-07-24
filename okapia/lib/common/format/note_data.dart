@@ -1,5 +1,4 @@
 import 'package:okapia/common/sqlite/entity/structured_Item_entity.dart';
-import 'package:okapia/common/sqlite/entity/structured_item_brief_view.dart';
 import 'package:okapia/common/utils/encrypter.dart';
 import 'package:mobx/mobx.dart';
 

@@ -5,9 +5,9 @@ import '../entity.dart';
 const int TYPE_PASSWORD = 1;
 const int TYPE_CERTIFICATE = 2;
 const int TYPE_NOTE = 3;
+const int TYPE_KEY = 4;
 
-class StructuredItemEntity extends Entity<String>
-    implements EncryptedMeta, EncryptedData {
+class StructuredItemEntity extends Entity<String> implements EncryptedMeta, EncryptedData {
   int _type;
   Uint8List _meta;
   Uint8List _content;
@@ -21,12 +21,7 @@ class StructuredItemEntity extends Entity<String>
   @override
   Uint8List get content => _content;
 
-  StructuredItemEntity(
-      {String id,
-      int type,
-      Uint8List meta,
-      Uint8List content,
-      Uint8List checksum})
+  StructuredItemEntity({String id, int type, Uint8List meta, Uint8List content, Uint8List checksum})
       : _type = type,
         _meta = meta,
         _content = content,

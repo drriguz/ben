@@ -1,3 +1,5 @@
+import 'package:okapia/ui/screens/contacts/my_key_page.dart';
+
 import 'ui/screens/album/album_detail_page.dart';
 import 'ui/screens/album/edit_album_page.dart';
 import 'ui/screens/album/image_detail_page.dart';
@@ -103,6 +105,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 builder: (_, store, child) => LoginPage(store),
               ),
           "/home": (_) => HomePage(),
+          "/chat/profile": (_) => MyKeyPage(),
         },
       ),
     ),

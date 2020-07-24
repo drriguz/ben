@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(FontIcon.list), title: Text("私密")),
           BottomNavigationBarItem(icon: Icon(FontIcon.galley), title: Text("相册")),
-          BottomNavigationBarItem(icon: Icon(FontIcon.message), title: Text("私聊")),
+          BottomNavigationBarItem(icon: Icon(FontIcon.message), title: Text("密信")),
           BottomNavigationBarItem(icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
         ],
         type: BottomNavigationBarType.fixed,

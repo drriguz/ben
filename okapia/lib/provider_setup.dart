@@ -6,6 +6,7 @@ import 'common/sqlite/repository/image_repository.dart';
 import 'common/sqlite/repository/structured_item_repository.dart';
 import 'common/sqlite/repository/tile_repository.dart';
 import 'services/album_service.dart';
+import 'services/chat_service.dart';
 import 'services/image_service.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -55,6 +56,9 @@ List<SingleChildCloneableWidget> _createServices() {
     ),
     ProxyProvider2<ImageRepository, TileRepository, ImageService>(
       update: (_, imageRepository, tileRepository, service) => ImageService(imageRepository, tileRepository, kdf),
+    ),
+    ProxyProvider<StructuredItemRepository, ChatService>(
+      update: (_, itemRepository, service) => ChatService(itemRepository, kdf),
     ),
   ];
 }

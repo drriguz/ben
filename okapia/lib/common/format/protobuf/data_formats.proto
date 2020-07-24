@@ -10,6 +10,18 @@ message NoteDataMessage {
   string content = 1;
 }
 
+message KeyMetaMessage {
+  string createdTime = 1;
+  string lastUpdatedTime = 2;
+  string type = 3;
+  string publicKey = 4;
+  string fingerprint = 5;
+}
+
+message KeyDataMessage {
+  string privateKey = 1;
+}
+
 message AlbumMessage {
   string createdTime = 1;
   string lastUpdatedTime = 2;

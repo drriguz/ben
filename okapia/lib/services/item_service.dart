@@ -43,11 +43,11 @@ class ItemService {
   Future<List<BriefNoteData>> fetchNotes(PasswordCredential credential) async {
     final items = await _itemRepository.getItemsByType(TYPE_NOTE);
     final encrypter = Encrypter(credential, _kdf);
-    final decrypted = items.map((e) => _metaToBriedNote(e, encrypter));
+    final decrypted = items.map((e) => _metaToBriefNote(e, encrypter));
     return Future.wait(decrypted);
   }
 
-  Future<BriefNoteData> _metaToBriedNote(
+  Future<BriefNoteData> _metaToBriefNote(
       MetaView view, Encrypter encrypter) async {
     NoteMetaMessage metaMessage =
         NoteMetaMessage.fromBuffer(await encrypter.decrypt(view.meta));

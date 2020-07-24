@@ -91,6 +91,108 @@ class NoteDataMessage extends $pb.GeneratedMessage {
   void clearContent() => clearField(1);
 }
 
+class KeyMetaMessage extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('KeyMetaMessage', createEmptyInstance: create)
+    ..aOS(1, 'createdTime', protoName: 'createdTime')
+    ..aOS(2, 'lastUpdatedTime', protoName: 'lastUpdatedTime')
+    ..aOS(3, 'type')
+    ..aOS(4, 'publicKey', protoName: 'publicKey')
+    ..aOS(5, 'fingerprint')
+    ..hasRequiredFields = false
+  ;
+
+  KeyMetaMessage._() : super();
+  factory KeyMetaMessage() => create();
+  factory KeyMetaMessage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory KeyMetaMessage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  KeyMetaMessage clone() => KeyMetaMessage()..mergeFromMessage(this);
+  KeyMetaMessage copyWith(void Function(KeyMetaMessage) updates) => super.copyWith((message) => updates(message as KeyMetaMessage));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static KeyMetaMessage create() => KeyMetaMessage._();
+  KeyMetaMessage createEmptyInstance() => create();
+  static $pb.PbList<KeyMetaMessage> createRepeated() => $pb.PbList<KeyMetaMessage>();
+  @$core.pragma('dart2js:noInline')
+  static KeyMetaMessage getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<KeyMetaMessage>(create);
+  static KeyMetaMessage _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get createdTime => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set createdTime($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasCreatedTime() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCreatedTime() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get lastUpdatedTime => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set lastUpdatedTime($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasLastUpdatedTime() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearLastUpdatedTime() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get type => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set type($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasType() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearType() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get publicKey => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set publicKey($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasPublicKey() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearPublicKey() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get fingerprint => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set fingerprint($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasFingerprint() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearFingerprint() => clearField(5);
+}
+
+class KeyDataMessage extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('KeyDataMessage', createEmptyInstance: create)
+    ..aOS(1, 'privateKey', protoName: 'privateKey')
+    ..hasRequiredFields = false
+  ;
+
+  KeyDataMessage._() : super();
+  factory KeyDataMessage() => create();
+  factory KeyDataMessage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory KeyDataMessage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  KeyDataMessage clone() => KeyDataMessage()..mergeFromMessage(this);
+  KeyDataMessage copyWith(void Function(KeyDataMessage) updates) => super.copyWith((message) => updates(message as KeyDataMessage));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static KeyDataMessage create() => KeyDataMessage._();
+  KeyDataMessage createEmptyInstance() => create();
+  static $pb.PbList<KeyDataMessage> createRepeated() => $pb.PbList<KeyDataMessage>();
+  @$core.pragma('dart2js:noInline')
+  static KeyDataMessage getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<KeyDataMessage>(create);
+  static KeyDataMessage _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get privateKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set privateKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPrivateKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPrivateKey() => clearField(1);
+}
+
 class AlbumMessage extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('AlbumMessage', createEmptyInstance: create)
     ..aOS(1, 'createdTime', protoName: 'createdTime')
