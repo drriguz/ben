@@ -4,8 +4,9 @@ class ToolConfig {
   final String title;
   final String subTitle;
   final String icon;
+  final String route;
 
-  const ToolConfig(this.title, this.subTitle, this.icon);
+  const ToolConfig(this.title, this.subTitle, this.icon, this.route);
 }
 
 const tools = [
@@ -13,11 +14,13 @@ const tools = [
     "Password Generator",
     "帮你生成理想的随机密码",
     "assets/icons/password-dict.png",
+    "/tools/password_generator",
   ),
   ToolConfig(
-    "卡片识别",
-    "识别您的银行卡",
+    "扫一扫",
+    "识别隐藏在图片里面的信息",
     "assets/icons/scan.png",
+    "/tools/scan",
   ),
 ];
 
@@ -47,21 +50,24 @@ class ToolItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: Image(
-          image: AssetImage(config.icon),
-          width: 50,
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pushNamed(config.route),
+      child: Card(
+        child: ListTile(
+          leading: Image(
+            image: AssetImage(config.icon),
+            width: 50,
+          ),
+          title: Text(
+            config.title,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(
+            config.subTitle,
+            style: TextStyle(fontSize: 14),
+          ),
+          trailing: Icon(Icons.expand_more),
         ),
-        title: Text(
-          config.title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        subtitle: Text(
-          config.subTitle,
-          style: TextStyle(fontSize: 14),
-        ),
-        trailing: Icon(Icons.expand_more),
       ),
     );
   }

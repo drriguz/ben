@@ -18,6 +18,7 @@ import 'generated/l10n.dart';
 import 'ui/screens/home_page.dart';
 import 'ui/screens/initialize/initialize_page.dart';
 import 'ui/screens/login_page.dart';
+import 'ui/screens/tools/scan_page.dart';
 
 Future<bool> checkInitialized() async {
   final database = await SqliteFactory.createInstance("data.db", "assets/config/init.sql");
@@ -106,6 +107,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
               ),
           "/home": (_) => HomePage(),
           "/chat/profile": (_) => MyKeyPage(),
+          "/tools/scan": (_) => ScanPage(),
         },
       ),
     ),

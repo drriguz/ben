@@ -26,8 +26,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   sqflite: ^1.1.6
-  image: ^2.1.12
   cupertino_icons: ^0.1.2
+  camera: ^0.5.8+2
   image_picker: ^0.6.7+4
   path_provider:
   path: ^1.6.2

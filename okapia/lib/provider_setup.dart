@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:okapia/common/sqlite/repository/contact_repository.dart';
 import 'package:okapia/stores/contact_store.dart';
 
@@ -23,7 +24,8 @@ import 'services/init_service.dart';
 
 Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
   return [
-    Provider<Database>.value(value: await SqliteFactory.createInstance("data.db", "assets/config/init.sql")),
+    Provider<List<CameraDescription>>.value(value: await availableCameras()),
+    Provider<Database>.value(value: await SqliteFactory.createInstance("data.db", "assets/config/init.sql"))
   ];
 }
 
