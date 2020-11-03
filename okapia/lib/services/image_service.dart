@@ -11,7 +11,6 @@ import 'package:okapia/common/sqlite/repository/tile_repository.dart';
 import 'package:okapia/common/utils/encrypter.dart';
 import 'package:convert/convert.dart';
 import 'package:flutter/foundation.dart';
-import 'package:image/image.dart' as ImageLib;
 import 'package:opencv_helper/opencv_helper.dart';
 import 'package:uuid/uuid.dart';
 
@@ -52,10 +51,6 @@ class ImageService {
     final decrypted = await encrypter.decrypt(encryptedBytes);
 
     return decrypted;
-  }
-
-  static ImageLib.Image generateThumbnail(ImageLib.Image raw) {
-    return ImageLib.copyResize(raw, width: 100);
   }
 
   static const TILE_LENGTH = 1024 * 1024; // 1MB
