@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:okapia/services/item_service.dart';
 import 'package:okapia/stores/note_detail_store.dart';
 import 'package:okapia/stores/note_store.dart';
@@ -70,11 +72,13 @@ class _EditNotePageState extends State<EditNotePage> {
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextField(
+              style: const TextStyle(color: Colors.grey),
               controller: _textEditingController,
               expands: true,
-              autofocus: false,
+              autofocus: true,
               keyboardType: TextInputType.multiline,
               maxLines: null,
+              maxLength: 1024,
               decoration: InputDecoration.collapsed(hintText: '在这里输入文字'),
             ),
           ),
@@ -88,15 +92,50 @@ class _EditNotePageState extends State<EditNotePage> {
     );
   }
 
+  void _appendText(final String text) {
+    _textEditingController.text = _textEditingController.text + text;
+    _textEditingController.selection = TextSelection.fromPosition(
+        TextPosition(offset: _textEditingController.text.length));
+  }
+
   Widget _createToolButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        ToolButton(label: "手写", icon: FontIcon.handWrite, onTap: () {}),
-        ToolButton(label: "图片", icon: FontIcon.image, onTap: () {}),
-        ToolButton(label: "视频", icon: FontIcon.video, onTap: () {}),
-        ToolButton(label: "录音", icon: FontIcon.audio, onTap: () {}),
-        ToolButton(label: "Markdown", icon: FontIcon.markdown, onTap: () {}),
+        ToolButton(
+            label: "粘贴",
+            icon: Icons.paste_outlined,
+            onTap: () async {
+              final ClipboardData data = await Clipboard.getData('text/plain');
+              _appendText(data.text);
+            }),
+        ToolButton(
+            label: "清空",
+            icon: Icons.clear_outlined,
+            onTap: () {
+              _textEditingController.clear();
+            }),
+        ToolButton(
+            label: "时间",
+            icon: Icons.timer,
+            onTap: () {
+              final DateTime now = DateTime.now();
+              _appendText(now.toIso8601String() + "\n");
+            }),
+        ToolButton(
+            label: "位置",
+            icon: Icons.navigation_outlined,
+            onTap: () async {
+              Position position = await Geolocator.getCurrentPosition(
+                  desiredAccuracy: LocationAccuracy.high);
+              _appendText(position.toString() + "\n");
+            }),
+        ToolButton(
+            label: "序号",
+            icon: Icons.list_outlined,
+            onTap: () {
+              _appendText("§ ");
+            }),
       ],
     );
   }
@@ -108,10 +147,13 @@ class _EditNotePageState extends State<EditNotePage> {
         Expanded(
           child: _createToolButtons(),
         ),
-        Container(
-          height: 20,
-          child: VerticalDivider(
-            color: Colors.red,
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 8.0),
+          child: Container(
+            height: 20,
+            child: VerticalDivider(
+              color: Colors.red,
+            ),
           ),
         ),
         FlatButton(

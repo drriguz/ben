@@ -46,6 +46,7 @@ dependencies:
   protobuf: ^1.0.1
   fast_rsa: ^1.1.4
   qr_flutter: ^3.2.0
+  geolocator: ^6.1.4
   opencv_helper:
     path: ../opencv_helper
 dev_dependencies:

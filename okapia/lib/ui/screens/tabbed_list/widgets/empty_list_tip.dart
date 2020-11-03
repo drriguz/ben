@@ -20,7 +20,7 @@ class EmptyListTipWidget extends StatelessWidget {
             children: <Widget>[
               Image(
                 width: 150,
-                image: AssetImage('assets/undraw_not_found_60pq.png'),
+                image: AssetImage('assets/images/undraw_not_found_60pq.png'),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
