@@ -1,3 +1,4 @@
+import 'package:okapia/services/config_service.dart';
 import 'package:okapia/ui/screens/contacts/my_key_page.dart';
 
 import 'ui/screens/album/album_detail_page.dart';
@@ -9,31 +10,19 @@ import 'ui/screens/tabbed_list/note/note_detail_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'common/sqlite/database_factory.dart';
-import 'common/sqlite/repository/header_repository.dart';
 import 'stores/user_store.dart';
 import 'provider_setup.dart';
-import 'services/init_check_service.dart';
 import 'generated/l10n.dart';
 import 'ui/screens/home_page.dart';
 import 'ui/screens/initialize/initialize_page.dart';
 import 'ui/screens/login_page.dart';
 import 'ui/screens/tools/scan_page.dart';
 
-Future<bool> checkInitialized() async {
-  final database = await SqliteFactory.createInstance("data.db", "assets/config/init.sql");
-  final InitializeCheckService checkService = InitializeCheckService(HeaderRepository(database));
-  final initialized = checkService.hasInitialized();
-  await database.close();
-  return initialized;
-}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final bool hasInitialized = await checkInitialized();
 
   final List<SingleChildCloneableWidget> providers = await createProviders();
-
+  final hasInitialized = await ConfigService.isConfigExists();
   print("starting app: initialized? $hasInitialized");
   startApp(hasInitialized, providers);
 }
@@ -62,29 +51,34 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
             case "/note/detail":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(builder: (context) => NoteDetailPage(id));
+                return MaterialPageRoute(
+                    builder: (context) => NoteDetailPage(id));
               }
             case "/note/edit":
             case "/note/add":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(builder: (context) => EditNotePage(id));
+                return MaterialPageRoute(
+                    builder: (context) => EditNotePage(id));
               }
             case "/album/edit":
             case "/album/add":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(builder: (context) => EditAlbumPage(id));
+                return MaterialPageRoute(
+                    builder: (context) => EditAlbumPage(id));
               }
             case "/album/detail":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(builder: (context) => AlbumDetailPage(id));
+                return MaterialPageRoute(
+                    builder: (context) => AlbumDetailPage(id));
               }
             case "/image/detail":
               {
                 String id = settings.arguments;
-                return MaterialPageRoute(builder: (context) => ImageDetailPage(id));
+                return MaterialPageRoute(
+                    builder: (context) => ImageDetailPage(id));
               }
             case "/chat":
               {

@@ -1,46 +1,41 @@
-import 'dart:typed_data';
-import 'package:okapia/common/sqlite/entity/header_entity.dart';
-import 'package:convert/convert.dart';
+import 'dart:convert';
+import 'dart:io';
 
-import '../common/sqlite/repository/header_repository.dart';
-import '../common/crypto/credential.dart';
-import '../common/crypto/hmac_validator.dart';
-import '../common/crypto/kdf.dart';
+import 'package:convert/convert.dart';
+import 'package:okapia/common/crypto/hmac_validator.dart';
+import 'package:okapia/common/crypto/key.dart';
+import 'package:okapia/common/utils/random.dart';
+import 'package:okapia/services/config_service.dart';
+
 import '../common/crypto/protected_value.dart';
-import '../common/utils/random.dart';
 
 class InitializeService {
-  final HeaderRepository _headerRepository;
-  final Kdf _kdf;
+  final ConfigService _configService;
 
-  InitializeService(this._headerRepository, this._kdf);
+  InitializeService(this._configService);
 
-  Future<void> initialize(ProtectedValue masterPassword, bool enableFingerPrint) async {
-    PasswordCredential credential = PasswordCredential(masterPassword, RandomStringUtil.generateUUIDasBytes(),
-        RandomStringUtil.generateUUIDasBytes(), RandomStringUtil.generateUUIDasBytes());
-    final List<HeaderEntity> headers = _createHeaderWithoutChecksum(credential);
-    final HashValidator hashValidator = new HmacValidator(await credential.getHashKey(_kdf));
-    final Uint8List checksum = hashValidator.computeChecksum(_getSourceBytes(headers));
-    headers.add(HeaderEntity(id: Headers.CHECKSUM, content: hex.encode(checksum)));
-    await _headerRepository.saveHeaders(headers);
+  Future<void> initialize(
+      final ProtectedValue masterPassword, bool enableFingerPrint) async {
+    final config = await _configService.createConfig(masterPassword);
+    final Key key = await Key.create(
+      masterPassword,
+      IDUtil.parseUUID(config.masterSeed),
+      IDUtil.parseUUID(config.transformSeed),
+      IDUtil.parseUUID(config.encryptionIV),
+    );
+    final String configData = jsonEncode(config);
+    final configHmacKey =
+        await key.getHmacKey(IDUtil.parseUUID(config.clientId));
+    final HmacValidator hashValidator =
+        new HmacValidator(configHmacKey.binaryValue);
+    final checksum = hashValidator.computeChecksum(utf8.encode(configData));
+
+    await _saveConfig(configData, hex.encode(checksum));
   }
 
-  List<HeaderEntity> _createHeaderWithoutChecksum(PasswordCredential credential) {
-    return [
-      HeaderEntity(id: Headers.VERSION, content: "0.1"),
-      HeaderEntity(id: Headers.CIPHER_ID, content: Headers.AES),
-      HeaderEntity(id: Headers.COMPRESSION_FLAGS, content: Headers.NO_COMPRESSION),
-      HeaderEntity(id: Headers.MASTER_SEED, content: hex.encode(credential.masterSeed)),
-      HeaderEntity(id: Headers.TRANSFORM_SEED, content: hex.encode(credential.transformSeed)),
-      HeaderEntity(id: Headers.ENCRYPTION_IV, content: hex.encode(credential.encryptionIv)),
-      HeaderEntity(id: Headers.KDF_PARAMETERS, content: ""),
-    ];
-  }
-
-  Uint8List _getSourceBytes(List<HeaderEntity> headers) {
-    final List<int> bytes = [];
-    headers.sort((l, r) => l.id.compareTo(r.id));
-    headers.forEach((header) => bytes.addAll(header.getSources()));
-    return Uint8List.fromList(bytes);
+  Future<void> _saveConfig(final String configData, final String hash) async {
+    final File file = await ConfigService.configFile();
+    List<String> lines = [configData, hash];
+    await file.writeAsString(lines.join("\n"));
   }
 }

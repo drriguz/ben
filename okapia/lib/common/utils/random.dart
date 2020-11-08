@@ -1,22 +1,21 @@
-import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:convert/convert.dart';
+import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid_util.dart';
 
-class RandomStringUtil {
-  static final _random = Random.secure();
+class IDUtil {
+  static final _uuid = new Uuid(options: {'grng': UuidUtil.cryptoRNG});
 
   static String generateUUID() {
-    // fixme: use real uuid instead
-    return hex.encode(generateUUIDasBytes());
+    return _uuid.v4();
   }
 
-  static List<int> generateUUIDasBytes() {
-    return randomBytes(16);
+  static Uint8List generateUUIDasBytes() {
+    final List<int> buffer = new List<int>(32);
+    return Uint8List.fromList(_uuid.v4buffer(buffer));
   }
 
-  static Uint8List randomBytes(int length) {
-    return Uint8List.fromList(
-        List.generate(length, (i) => _random.nextInt(0xff)));
+  static Uint8List parseUUID(final String uuid) {
+    return Uint8List.fromList(_uuid.parse(uuid));
   }
 }

@@ -25,7 +25,7 @@ class LoginService {
       hex.decode(meta.encryptionIv),
       hex.decode(meta.transformSeed),
     );
-    final HashValidator hashValidator =
+    final HmacValidator hashValidator =
         new HmacValidator(await credential.getHashKey(_kdf));
     List<HeaderEntity> checksumHeaders = List.from(headers);
     checksumHeaders.removeWhere((item) => item.id == Headers.CHECKSUM);

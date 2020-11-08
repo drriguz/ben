@@ -8,6 +8,7 @@ import 'common/sqlite/repository/structured_item_repository.dart';
 import 'common/sqlite/repository/tile_repository.dart';
 import 'services/album_service.dart';
 import 'services/chat_service.dart';
+import 'services/config_service.dart';
 import 'services/image_service.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -25,19 +26,27 @@ import 'services/init_service.dart';
 Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
   return [
     Provider<List<CameraDescription>>.value(value: await availableCameras()),
-    Provider<Database>.value(value: await SqliteFactory.createInstance("data.db", "assets/config/init.sql"))
+    Provider<Database>.value(
+        value: await SqliteFactory.createInstance(
+            "data.db", "assets/config/init.sql"))
   ];
 }
 
 List<SingleChildCloneableWidget> _createComponents() {
   return [
-    ProxyProvider<Database, HeaderRepository>(update: (_, database, repository) => HeaderRepository(database)),
+    ProxyProvider<Database, HeaderRepository>(
+        update: (_, database, repository) => HeaderRepository(database)),
     ProxyProvider<Database, StructuredItemRepository>(
-        update: (_, database, repository) => StructuredItemRepository(database)),
-    ProxyProvider<Database, AlbumRepository>(update: (_, database, repository) => AlbumRepository(database)),
-    ProxyProvider<Database, ImageRepository>(update: (_, database, repository) => ImageRepository(database)),
-    ProxyProvider<Database, TileRepository>(update: (_, database, repository) => TileRepository(database)),
-    ProxyProvider<Database, ContactRepository>(update: (_, database, repository) => ContactRepository(database)),
+        update: (_, database, repository) =>
+            StructuredItemRepository(database)),
+    ProxyProvider<Database, AlbumRepository>(
+        update: (_, database, repository) => AlbumRepository(database)),
+    ProxyProvider<Database, ImageRepository>(
+        update: (_, database, repository) => ImageRepository(database)),
+    ProxyProvider<Database, TileRepository>(
+        update: (_, database, repository) => TileRepository(database)),
+    ProxyProvider<Database, ContactRepository>(
+        update: (_, database, repository) => ContactRepository(database)),
   ];
 }
 
@@ -45,8 +54,10 @@ final Kdf kdf = new Argon2Kdf();
 
 List<SingleChildCloneableWidget> _createServices() {
   return [
-    ProxyProvider<HeaderRepository, InitializeService>(
-        update: (_, headerRepository, service) => InitializeService(headerRepository, kdf)),
+    Provider<ConfigService>.value(value: new ConfigService()),
+    ProxyProvider<ConfigService, InitializeService>(
+        update: (_, configService, service) =>
+            InitializeService(configService)),
     ProxyProvider<HeaderRepository, LoginService>(
       update: (_, repository, service) => LoginService(repository, kdf),
     ),
@@ -57,7 +68,8 @@ List<SingleChildCloneableWidget> _createServices() {
       update: (_, repository, service) => AlbumService(repository, kdf),
     ),
     ProxyProvider2<ImageRepository, TileRepository, ImageService>(
-      update: (_, imageRepository, tileRepository, service) => ImageService(imageRepository, tileRepository, kdf),
+      update: (_, imageRepository, tileRepository, service) =>
+          ImageService(imageRepository, tileRepository, kdf),
     ),
     ProxyProvider<StructuredItemRepository, ChatService>(
       update: (_, itemRepository, service) => ChatService(itemRepository, kdf),
@@ -70,12 +82,16 @@ List<SingleChildCloneableWidget> _createServices() {
  */
 List<SingleChildCloneableWidget> _createStores() {
   return [
-    ProxyProvider<LoginService, UserStore>(update: (_, service, child) => UserStore(service)),
+    ProxyProvider<LoginService, UserStore>(
+        update: (_, service, child) => UserStore(service)),
     ProxyProvider2<UserStore, ItemService, NoteStore>(
-        update: (_, userStore, itemService, child) => NoteStore(userStore, itemService)),
+        update: (_, userStore, itemService, child) =>
+            NoteStore(userStore, itemService)),
     ProxyProvider2<UserStore, AlbumService, AlbumStore>(
-        update: (_, userStore, albumService, child) => AlbumStore(userStore, albumService)),
-    ProxyProvider<ContactRepository, ContactStore>(update: (_, repository, child) => ContactStore(repository)),
+        update: (_, userStore, albumService, child) =>
+            AlbumStore(userStore, albumService)),
+    ProxyProvider<ContactRepository, ContactStore>(
+        update: (_, repository, child) => ContactStore(repository)),
   ];
 }
 

@@ -49,6 +49,8 @@ dependencies:
   geolocator: ^6.1.4
   opencv_helper:
     path: ../opencv_helper
+  native_sqlcipher:
+    path: ../flutter_sqlcipher
 dev_dependencies:
   flutter_test:
     sdk: flutter
