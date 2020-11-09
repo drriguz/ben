@@ -9,6 +9,8 @@ import 'intl/messages_all.dart';
 // **************************************************************************
 
 // ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
+// ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
+// ignore_for_file: avoid_redundant_argument_values
 
 class S {
   S();
@@ -34,20 +36,20 @@ class S {
   }
 
   /// `About`
-  String get about_okapia {
+  String get about {
     return Intl.message(
       'About',
-      name: 'about_okapia',
+      name: 'about',
       desc: '',
       args: [],
     );
   }
 
   /// `Settings`
-  String get system_settings {
+  String get settings {
     return Intl.message(
       'Settings',
-      name: 'system_settings',
+      name: 'settings',
       desc: '',
       args: [],
     );
@@ -73,61 +75,31 @@ class S {
     );
   }
 
-  /// `Previous Step`
+  /// `Previous`
   String get previous {
     return Intl.message(
-      'Previous Step',
+      'Previous',
       name: 'previous',
       desc: '',
       args: [],
     );
   }
 
-  /// `Next Step`
+  /// `Next`
   String get next {
     return Intl.message(
-      'Next Step',
+      'Next',
       name: 'next',
       desc: '',
       args: [],
     );
   }
 
-  /// `Okapia helps you to store all your password in one place.`
-  String get about_description_1 {
+  /// `<h5>Fully encrypted</h5><br/><p>Everything inside OKAPIA is fully encrypted with <strong>AES-256</strong> algorithm, it's theoretically impossible to decrypt without your master password.</p><p><a href="">Learn more about security details</a></p>`
+  String get security_description {
     return Intl.message(
-      'Okapia helps you to store all your password in one place.',
-      name: 'about_description_1',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Your passwords will be encrypted using AES-256, and then stored in a local file. Your password will be safe even if the file is exposed, only if someone knows the master password can decrypt it.`
-  String get about_description_2 {
-    return Intl.message(
-      'Your passwords will be encrypted using AES-256, and then stored in a local file. Your password will be safe even if the file is exposed, only if someone knows the master password can decrypt it.',
-      name: 'about_description_2',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Although Okapia is the one you can trust, we still do not encourage you to rely too much on it, it's always the best to keep everything in mind, only use it when it's really necessary.`
-  String get about_description_3 {
-    return Intl.message(
-      'Although Okapia is the one you can trust, we still do not encourage you to rely too much on it, it\'s always the best to keep everything in mind, only use it when it\'s really necessary.',
-      name: 'about_description_3',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Learn more about security details`
-  String get know_more_security_details {
-    return Intl.message(
-      'Learn more about security details',
-      name: 'know_more_security_details',
+      '<h5>Fully encrypted</h5><br/><p>Everything inside OKAPIA is fully encrypted with <strong>AES-256</strong> algorithm, it\'s theoretically impossible to decrypt without your master password.</p><p><a href="">Learn more about security details</a></p>',
+      name: 'security_description',
       desc: '',
       args: [],
     );
@@ -153,10 +125,10 @@ class S {
     );
   }
 
-  /// `您可以开启指纹验证，这样仅需要在启动应用时输入一次主密码。当您重启应用之后，需要重新输入主密码。`
+  /// `Enable fingerprint so that you can unlock with your fingerprint(if supported), however master password is required whenever the first time you login into Okapia.`
   String get enable_fingerprint_description {
     return Intl.message(
-      '您可以开启指纹验证，这样仅需要在启动应用时输入一次主密码。当您重启应用之后，需要重新输入主密码。',
+      'Enable fingerprint so that you can unlock with your fingerprint(if supported), however master password is required whenever the first time you login into Okapia.',
       name: 'enable_fingerprint_description',
       desc: '',
       args: [],
@@ -250,7 +222,6 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
-      Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
 

@@ -77,4 +77,11 @@ class Key {
     final key = sha512.convert(List.from(itemId)..addAll(temp)).bytes;
     return ProtectedValue.ofBinary(key);
   }
+
+  Future<ProtectedValue> getSqlcipherKey() async {
+    final encryptionKey = await getEncryptionKey();
+    final sqlcipherKey = List<int>.from(encryptionKey.binaryValue)
+      ..addAll(encryptionIV);
+    return ProtectedValue.ofBinary(Uint8List.fromList(sqlcipherKey));
+  }
 }

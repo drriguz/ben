@@ -1,10 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:convert/convert.dart';
-import 'package:okapia/common/crypto/credential.dart';
-import 'package:okapia/common/crypto/kdf.dart';
-import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/common/utils/path_util.dart';
 import 'package:okapia/common/utils/random.dart';
@@ -19,6 +14,7 @@ class AppConfig {
   final String encryptionIV;
   final String kdfParameters;
   final String device;
+  final bool localAuth;
 
   AppConfig(
       {this.version,
@@ -29,7 +25,8 @@ class AppConfig {
       this.transformSeed,
       this.encryptionIV,
       this.kdfParameters,
-      this.device});
+      this.device,
+      this.localAuth});
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
     return AppConfig(
@@ -42,6 +39,7 @@ class AppConfig {
       encryptionIV: json["encryptionIV"],
       kdfParameters: json["kdfParameters"],
       device: json["device"],
+      localAuth: json["localAuth"],
     );
   }
 
@@ -55,11 +53,12 @@ class AppConfig {
         'encryptionIV': encryptionIV,
         'kdfParameters': kdfParameters,
         'device': device,
+        'localAuth': localAuth,
       };
 }
 
 class ConfigService {
-  static const String CONFIG_FILE = "config.dat";
+  static const String CONFIG_FILE = "app.config";
   static const String VERSION = "Okapia_1.0";
   static const String AES_256_CBC = "AES/256/CBC";
   static const String NO_COMPRESSION = "no";
@@ -77,22 +76,10 @@ class ConfigService {
     final String signature = lines[0];
     final String hmacChecksum = lines[1];
     final String configData = lines[2];
-
-    // return new PublicConfig(version, indexDb, signature);
-    //
-    // List<String> lines = [config.version, config.indexDb, config.signature];
-    // return file.writeAsString(lines.join("\n"));
   }
 
-//  Future<AppConfig> createConfig(final ProtectedValue masterPassword) async {
-//    final config = await _createConfig(masterPassword);
-//    final configJson = jsonEncode(config);
-//
-//    print(configJson);
-//    final File file = await configFile();
-//  }
-
-  Future<AppConfig> createConfig(final ProtectedValue masterPassword) async {
+  Future<AppConfig> createConfig(
+      final ProtectedValue masterPassword, bool enableLocalAuth) async {
     final masterSeed = IDUtil.generateUUID();
     final transformSeed = IDUtil.generateUUID();
     final encryptionIV = IDUtil.generateUUID();
@@ -106,11 +93,16 @@ class ConfigService {
       encryptionIV: encryptionIV,
       kdfParameters: 'default',
       device: '',
+      localAuth: enableLocalAuth,
     );
   }
 
   static Future<File> configFile() async {
     return new File(await PathUtil.getLocalPath(CONFIG_FILE));
+  }
+
+  static Future<File> localFile(String path) async {
+    return new File(await PathUtil.getLocalPath(path));
   }
 
   static Future<bool> isConfigExists() async {

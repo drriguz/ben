@@ -33,25 +33,15 @@ class SystemSettingsPage extends StatelessWidget {
                 value: _store.enableFingerPrint,
                 onChanged: (value) => _store.setEnableFingerPrint(value)),
           ),
-          SwitchOption(
-            S.of(context).enable_password_options_auto_detect,
-            S.of(context).enable_password_options_auto_detect_description,
-            (_) => Switch(
-                value: _store.autoDetectEncryptOptions,
-                onChanged: (value) =>
-                    _store.setAutoDetectEncryptOptions(value)),
-          ),
           ButtonBar(
             alignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               FlatButton(
-                key: Key("previousButton"),
                 onPressed: this.onPrevious,
                 child: Text(S.of(context).previous),
               ),
               Observer(
                 builder: (_) => FlatButton(
-                  key: Key("nextButton"),
                   onPressed: _store.isSettingsCompleted ? this.onNext : null,
                   child: Text(S.of(context).next),
                 ),

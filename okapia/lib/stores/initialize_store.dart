@@ -20,9 +20,6 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
   bool enableFingerPrint;
 
   @observable
-  bool autoDetectEncryptOptions;
-
-  @observable
   bool agreeUserAgreement;
 
   @observable
@@ -36,7 +33,6 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
         _confirmedMasterPassword = null,
         errorMessage = null,
         enableFingerPrint = false,
-        autoDetectEncryptOptions = false,
         agreeUserAgreement = false,
         isSettingsCompleted = false;
 
@@ -59,11 +55,6 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
   @action
   void setEnableFingerPrint(bool enabled) {
     enableFingerPrint = enabled;
-  }
-
-  @action
-  void setAutoDetectEncryptOptions(bool enabled) {
-    autoDetectEncryptOptions = enabled;
   }
 
   @action

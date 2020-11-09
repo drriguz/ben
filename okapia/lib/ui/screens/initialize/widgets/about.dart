@@ -1,5 +1,5 @@
+import 'package:flutter_html/flutter_html.dart';
 import 'package:okapia/generated/l10n.dart';
-import 'package:okapia/ui/utils/links.dart';
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
@@ -12,24 +12,25 @@ class AboutPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Text(S.of(context).about_description_1),
-          Image(image: AssetImage('assets/images/undraw_mobile_login_ikmv.png')),
-          Text(S.of(context).about_description_2),
-          Image(image: AssetImage('assets/images/undraw_hacker_mind_6y85.png')),
-          Text(S.of(context).about_description_3),
-          FlatButton(
-            child: Text(S.of(context).know_more_security_details),
-            onPressed: () => Links.launchURL("http://riguz.com"),
+          Image(
+            image:
+                AssetImage('assets/images/undraw_mobile_encryption_cl5q.png'),
           ),
-          ButtonBar(
-            alignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              FlatButton(
-                key: Key("nextButton"),
-                onPressed: this.onNext,
-                child: Text(S.of(context).next),
-              )
-            ],
+          Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 10),
+            child: Html(data: S.of(context).security_description),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 15.0),
+            child: ButtonBar(
+              alignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                FlatButton(
+                  onPressed: this.onNext,
+                  child: Text(S.of(context).next),
+                )
+              ],
+            ),
           ),
         ],
       ),

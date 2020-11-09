@@ -4,6 +4,6 @@ import 'package:flutter/material.dart';
 class Styles {
   static const TextStyle descriptionStyle = TextStyle(
     color: Colors.grey,
-    fontSize: 12,
+    fontSize: 14,
   );
 }

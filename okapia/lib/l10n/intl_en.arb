@@ -1,20 +1,17 @@
 {
-  "about_okapia": "About",
-  "system_settings": "Settings",
+  "about": "About",
+  "settings": "Settings",
   "user_agreement": "User Agreement",
   "get_started": "Get Started",
 
-  "previous": "Previous Step",
-  "next": "Next Step",
+  "previous": "Previous",
+  "next": "Next",
 
-  "about_description_1": "Okapia helps you to store all your password in one place.",
-  "about_description_2": "Your passwords will be encrypted using AES-256, and then stored in a local file. Your password will be safe even if the file is exposed, only if someone knows the master password can decrypt it.",
-  "about_description_3": "Although Okapia is the one you can trust, we still do not encourage you to rely too much on it, it's always the best to keep everything in mind, only use it when it's really necessary.",
-  "know_more_security_details": "Learn more about security details",
+  "security_description": "<h5>Fully encrypted</h5><br/><p>Everything inside OKAPIA is fully encrypted with <strong>AES-256</strong> algorithm, it's theoretically impossible to decrypt without your master password.</p><p><a href=\"\">Learn more about security details</a></p>",
 
   "master_password_description": "Master password will be the only credential for you to manage other passwords, we use it to initialize storage but it will never be stored. Once you forget the password, this is no way to find it. So please trying to set a password which is strong enough and also easy for yourself to remember. ",
   "enable_fingerprint": "Enable fingerprint",
-  "enable_fingerprint_description": "您可以开启指纹验证，这样仅需要在启动应用时输入一次主密码。当您重启应用之后，需要重新输入主密码。",
+  "enable_fingerprint_description": "Enable fingerprint so that you can unlock with your fingerprint(if supported), however master password is required whenever the first time you login into Okapia.",
   "enable_password_options_auto_detect": "Auto detect encrypt options",
   "enable_password_options_auto_detect_description": "开启后，系统会尝试根据您的设备计算出（比默认更强的）达到要求的安全设置。如果不开启系统将会使用推荐的默认设置。",
   "please_input_password": "Please input your password",

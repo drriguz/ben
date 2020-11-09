@@ -21,9 +21,9 @@ PODS:
     - Flutter
   - path_provider (0.0.1):
     - Flutter
-  - sqflite (0.0.1):
+  - sqflite (0.0.2):
     - Flutter
-    - FMDB (~> 2.7.2)
+    - FMDB (>= 2.7.5)
   - url_launcher (0.0.1):
     - Flutter
 
@@ -72,7 +72,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
-  camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
+  camera: a0ca5080336f7af47b88436e5e26da3dee5568f0
   encryptions: a374d8610fbe88a7f00a14e059ff1df3f100d9e2
   fast_rsa: 54f63d880791665452491cd6ea4ba2d12e9bdf2a
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
@@ -83,7 +83,7 @@ SPEC CHECKSUMS:
   native_sqlcipher: 6d6f5a8c43c5db0cfb22d384d8282c02c54583ef
   opencv_helper: 8890108accf45e9b9d4cc04261c7b1857d145cb8
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
 PODFILE CHECKSUM: a43c82cc0965a0eb7822fd2731ec088d6eec5b88

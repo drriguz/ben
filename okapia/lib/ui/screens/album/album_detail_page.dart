@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:okapia/common/format/image_data.dart';
 import 'package:okapia/services/image_service.dart';
 import 'package:okapia/stores/image_store.dart';
@@ -8,7 +9,6 @@ import 'package:okapia/ui/model/choice.dart';
 import 'package:okapia/ui/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 

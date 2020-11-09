@@ -47,8 +47,8 @@ class _InitializePageState extends State<InitializePage>
   }
 
   static final tabNames = [
-    S.current.about_okapia,
-    S.current.system_settings,
+    S.current.about,
+    S.current.settings,
     S.current.user_agreement,
     S.current.get_started,
   ];
@@ -72,9 +72,6 @@ class _InitializePageState extends State<InitializePage>
         create: (context) => _tabController,
         child: Column(
           children: <Widget>[
-            Image(
-              image: AssetImage("assets/images/title.png"),
-            ),
             _createTabBar(),
             Expanded(
               child: Padding(
@@ -119,7 +116,7 @@ class _InitializePageState extends State<InitializePage>
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          _createBackground(),
+          //_createBackground(),
           _createTabs(),
         ],
       ),
