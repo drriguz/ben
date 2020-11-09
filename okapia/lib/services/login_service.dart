@@ -1,45 +1,43 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:okapia/common/crypto/credential.dart';
 import 'package:okapia/common/crypto/hmac_validator.dart';
 import 'package:okapia/common/crypto/kdf.dart';
+import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/common/sqlite/entity/header_entity.dart';
 import 'package:okapia/common/sqlite/repository/header_repository.dart';
 import 'package:convert/convert.dart';
+import 'package:okapia/common/utils/random.dart';
+
+import 'config_service.dart';
 
 class PasswordIncorrectError extends Error {}
 
 class LoginService {
-  final HeaderRepository _headerRepository;
-  final Kdf _kdf;
+  final ConfigService _configService;
 
-  LoginService(this._headerRepository, this._kdf);
+  LoginService(this._configService);
 
-  Future<PasswordCredential> checkUserCredential(
-      ProtectedValue masterPassword) async {
-    final List<HeaderEntity> headers = await _headerRepository.getHeaders();
-    final Headers meta = Headers.from(headers);
-    final PasswordCredential credential = PasswordCredential(
+  Future<Key> checkUserCredential(ProtectedValue masterPassword) async {
+    final config = await _configService.readConfig();
+    _configService.verifyConfig(config.appConfig);
+    final Key key = await Key.create(
       masterPassword,
-      hex.decode(meta.masterSeed),
-      hex.decode(meta.encryptionIv),
-      hex.decode(meta.transformSeed),
+      IDUtil.parseUUID(config.appConfig.masterSeed),
+      IDUtil.parseUUID(config.appConfig.transformSeed),
+      IDUtil.parseUUID(config.appConfig.encryptionIV),
     );
+
+    final String configData = jsonEncode(config.appConfig);
+    final configHmacKey =
+        await key.getHmacKey(IDUtil.parseUUID(config.appConfig.clientId));
     final HmacValidator hashValidator =
-        new HmacValidator(await credential.getHashKey(_kdf));
-    List<HeaderEntity> checksumHeaders = List.from(headers);
-    checksumHeaders.removeWhere((item) => item.id == Headers.CHECKSUM);
+        new HmacValidator(configHmacKey.binaryValue);
+    final checksum = hashValidator.computeChecksum(utf8.encode(configData));
 
-    final String checksum = hex.encode(
-        hashValidator.computeChecksum(_getSourceBytes(checksumHeaders)));
-    if (checksum == meta.checksum) return credential;
+    print("\na: ${hex.encode(checksum)} \nc: ${config.signature}");
+    if (hex.encode(checksum) == config.signature) return key;
     throw PasswordIncorrectError();
-  }
-
-  Uint8List _getSourceBytes(List<HeaderEntity> headers) {
-    final List<int> bytes = [];
-    headers.sort((l, r) => l.id.compareTo(r.id));
-    headers.forEach((header) => bytes.addAll(header.getSources()));
-    return Uint8List.fromList(bytes);
   }
 }

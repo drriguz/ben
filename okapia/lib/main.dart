@@ -17,6 +17,7 @@ import 'ui/screens/home_page.dart';
 import 'ui/screens/initialize/initialize_page.dart';
 import 'ui/screens/login_page.dart';
 import 'ui/screens/tools/scan_page.dart';
+import 'ui/utils/toast.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

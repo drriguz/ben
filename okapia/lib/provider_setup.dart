@@ -58,8 +58,8 @@ List<SingleChildCloneableWidget> _createServices() {
     ProxyProvider<ConfigService, InitializeService>(
         update: (_, configService, service) =>
             InitializeService(configService)),
-    ProxyProvider<HeaderRepository, LoginService>(
-      update: (_, repository, service) => LoginService(repository, kdf),
+    ProxyProvider<ConfigService, LoginService>(
+      update: (_, configService, service) => LoginService(configService),
     ),
     ProxyProvider<StructuredItemRepository, ItemService>(
       update: (_, repository, service) => ItemService(repository, kdf),

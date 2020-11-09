@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/common/utils/path_util.dart';
 import 'package:okapia/common/utils/random.dart';
+import 'package:okapia/exception/config.dart';
 
 class AppConfig {
   final String version;
@@ -57,6 +59,13 @@ class AppConfig {
       };
 }
 
+class AppConfigWithSignature {
+  final AppConfig appConfig;
+  final String signature;
+
+  AppConfigWithSignature(this.appConfig, this.signature);
+}
+
 class ConfigService {
   static const String CONFIG_FILE = "app.config";
   static const String VERSION = "Okapia_1.0";
@@ -68,14 +77,39 @@ class ConfigService {
     return config.existsSync();
   }
 
-  Future<AppConfig> readConfig(final ProtectedValue masterPassword) async {
+  Future<AppConfigWithSignature> readConfig() async {
     final File config = await configFile();
 
     final lines = await config.readAsLines();
-    assert(lines.length == 3);
-    final String signature = lines[0];
-    final String hmacChecksum = lines[1];
-    final String configData = lines[2];
+    if (lines.length != 2)
+      throw new InvalidConfigFormatException("Invalid config file");
+    final String configData = lines[0];
+    final String signature = lines[1];
+
+    if (signature.length != 64) // 32bit hex
+      throw new InvalidConfigFormatException("Invalid config signature");
+
+    final appConfig = AppConfig.fromJson(jsonDecode(configData));
+    return new AppConfigWithSignature(appConfig, signature);
+  }
+
+  Future<void> verifyConfig(final AppConfig config) async {
+    if (config.version != VERSION)
+      throw new InvalidConfigDataException("Unsupported version");
+    final dbFile = await ConfigService.localFile("${config.clientId}.dat");
+    if (!dbFile.existsSync())
+      throw new InvalidConfigDataException("Database file not exists");
+    if (config.cipherType != AES_256_CBC)
+      throw new InvalidConfigDataException("Unsupported encryption mechanism");
+    if (!IDUtil.isUUIDFormat(config.encryptionIV))
+      throw new InvalidConfigDataException(
+          "Invalid IV: ${config.encryptionIV}");
+    if (!IDUtil.isUUIDFormat(config.masterSeed))
+      throw new InvalidConfigDataException(
+          "Invalid master seed: ${config.masterSeed}");
+    if (!IDUtil.isUUIDFormat(config.transformSeed))
+      throw new InvalidConfigDataException(
+          "Invalid transform seed: ${config.transformSeed}");
   }
 
   Future<AppConfig> createConfig(

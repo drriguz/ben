@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:okapia/common/crypto/kdf.dart';
 
@@ -75,6 +76,7 @@ class Key {
             List.from(_masterSeed)..addAll(_transformedMasterKey.binaryValue))
         .bytes;
     final key = sha512.convert(List.from(itemId)..addAll(temp)).bytes;
+
     return ProtectedValue.ofBinary(key);
   }
 

@@ -21,8 +21,8 @@ abstract class _ChatQrStore extends PageStatusNotifier with Store {
   @action
   Future<void> fetch() async {
     setBusy();
-    final activeKey = await _chatService.getActiveKey(_userStore.userCredential);
-    myKey = activeKey.meta.publicKey;
+//    final activeKey = await _chatService.getActiveKey(_userStore.userCredential);
+//    myKey = activeKey.meta.publicKey;
 
     setIdle();
   }

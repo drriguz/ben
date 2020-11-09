@@ -22,10 +22,10 @@ abstract class _AlbumDetailStore extends PageStatusNotifier with Store {
   @action
   Future<void> fetch() async {
     setBusy();
-    return _albumService
-        .fetch(_id, _userStore.userCredential)
-        .then((data) => _albumData = data)
-        .whenComplete(() => setIdle());
+//    return _albumService
+//        .fetch(_id, _userStore.userCredential)
+//        .then((data) => _albumData = data)
+//        .whenComplete(() => setIdle());
   }
 
   AlbumData get data => _albumData;

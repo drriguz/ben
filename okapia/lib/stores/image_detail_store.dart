@@ -20,10 +20,10 @@ abstract class _ImageDetailStore with Store {
 
   @action
   Future<void> fetch() async {
-    final image =
-        await _imageService.fetchImage(_id, _userStore.userCredential);
-    return _imageService
-        .fetchImageData(image.content.tiles, _userStore.userCredential)
-        .then((bytes) => item = MemoryImage(bytes));
+//    final image =
+//        await _imageService.fetchImage(_id, _userStore.userCredential);
+//    return _imageService
+//        .fetchImageData(image.content.tiles, _userStore.userCredential)
+//        .then((bytes) => item = MemoryImage(bytes));
   }
 }

@@ -25,16 +25,16 @@ abstract class _ImageStore extends PageStatusNotifier with Store {
   Future<void> fetch() async {
     setBusy();
     data.clear();
-    return _imageService
-        .fetchImages(_albumId, _userStore.userCredential)
-        .then((items) => data.addAll(items))
-        .whenComplete(() => setIdle());
+//    return _imageService
+//        .fetchImages(_albumId, _userStore.userCredential)
+//        .then((items) => data.addAll(items))
+//        .whenComplete(() => setIdle());
   }
 
   @action
   Future<void> create(File file) async {
-    return _imageService
-        .createImage(_albumId, file, _userStore.userCredential)
-        .then((value) => data.add(BriefImageData.fromFullRecord(value)));
+//    return _imageService
+//        .createImage(_albumId, file, _userStore.userCredential)
+//        .then((value) => data.add(BriefImageData.fromFullRecord(value)));
   }
 }

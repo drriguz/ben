@@ -1,3 +1,5 @@
+import 'package:okapia/common/crypto/key.dart';
+import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/login_service.dart';
 
 import '../common/crypto/credential.dart';
@@ -13,9 +15,9 @@ class UserStore = _UserStore with _$UserStore;
 abstract class _UserStore extends PageStatusNotifier with Store {
   final LoginService _loginService;
 
-  PasswordCredential _userCredential;
+  Key _userCredential;
 
-  PasswordCredential get userCredential => _userCredential;
+  Key get userCredential => _userCredential;
 
   bool isPausedToTakePhoto = false;
 
@@ -33,11 +35,11 @@ abstract class _UserStore extends PageStatusNotifier with Store {
         super();
 
   @action
-  Future<bool> login(ProtectedValue masterPassword) async {
+  Future<bool> login(final ProtectedValue masterPassword) async {
     setBusy();
     bool success = false;
     try {
-      final PasswordCredential credential =
+      final Key credential =
           await _loginService.checkUserCredential(masterPassword);
       _errorMessage = null;
       _userCredential = credential;
@@ -45,7 +47,7 @@ abstract class _UserStore extends PageStatusNotifier with Store {
     } catch (_) {
       print(_);
       _userCredential = null;
-      _errorMessage = "密码验证失败";
+      _errorMessage = S.current.password_validation_failed;
     }
     setIdle();
     return success;

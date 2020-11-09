@@ -21,27 +21,27 @@ abstract class _AlbumStore extends PageStatusNotifier with Store {
   Future<void> fetch() async {
     setBusy();
     data.clear();
-    return _albumService
-        .fetchAlbums(_userStore.userCredential)
-        .then((items) => data.addAll(items))
-        .whenComplete(() => setIdle());
+//    return _albumService
+//        .fetchAlbums(_userStore.userCredential)
+//        .then((items) => data.addAll(items))
+//        .whenComplete(() => setIdle());
   }
 
   @action
   Future<void> create(String name) async {
-    return _albumService
-        .create(_userStore.userCredential, name)
-        .then((value) => data.add(value));
+//    return _albumService
+//        .create(_userStore.userCredential, name)
+//        .then((value) => data.add(value));
   }
 
   @action
   Future<void> update(String id, String name) async {
-    final existing = await _albumService.fetch(id, _userStore.userCredential);
-    existing.content.lastUpdatedTime = DateTime.now().toIso8601String();
-    existing.content.name = name;
-
-    return _albumService
-        .update(_userStore.userCredential, existing)
-        .whenComplete(() => fetch());
+//    final existing = await _albumService.fetch(id, _userStore.userCredential);
+//    existing.content.lastUpdatedTime = DateTime.now().toIso8601String();
+//    existing.content.name = name;
+//
+//    return _albumService
+//        .update(_userStore.userCredential, existing)
+//        .whenComplete(() => fetch());
   }
 }

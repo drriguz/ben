@@ -22,30 +22,30 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   Future<void> fetch() async {
     setBusy();
     data.clear();
-    return _itemService
-        .fetchNotes(_userStore.userCredential)
-        .then((items) => data.addAll(items))
-        .whenComplete(() => setIdle());
+//    return _itemService
+//        .fetchNotes(_userStore.userCredential)
+//        .then((items) => data.addAll(items))
+//        .whenComplete(() => setIdle());
   }
 
   @action
   Future<void> update(String id, String content) async {
-    return _itemService
-        .updateNote(id, content, _userStore.userCredential)
-        .then((updated) async {
-      final index = data.indexWhere((element) => element.id == id);
-      assert(index != -1);
-      data[index].meta = updated.meta;
-    }).whenComplete(() => setIdle());
+//    return _itemService
+//        .updateNote(id, content, _userStore.userCredential)
+//        .then((updated) async {
+//      final index = data.indexWhere((element) => element.id == id);
+//      assert(index != -1);
+//      data[index].meta = updated.meta;
+//    }).whenComplete(() => setIdle());
   }
 
   @action
   Future<void> create(String content) async {
-    return _itemService
-        .createNote(content, _userStore.userCredential)
-        .then((note) async =>
-            data.add(BriefNoteData(id: note.id, meta: note.meta)))
-        .whenComplete(() => setIdle());
+//    return _itemService
+//        .createNote(content, _userStore.userCredential)
+//        .then((note) async =>
+//            data.add(BriefNoteData(id: note.id, meta: note.meta)))
+//        .whenComplete(() => setIdle());
   }
 
   @action
