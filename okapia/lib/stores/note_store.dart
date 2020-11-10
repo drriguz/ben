@@ -1,4 +1,4 @@
-import 'package:okapia/common/model/note.dart';
+import 'package:okapia/common/sqlcipher/model/note.dart';
 import 'package:mobx/mobx.dart';
 import 'package:okapia/services/note_service.dart';
 
@@ -58,9 +58,11 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
 
   @action
   Future<void> delete(String id) async {
-//    return _itemService.delete(id).whenComplete(() {
-//      data.removeWhere((element) => element.id == id);
-//    });
+    setBusy();
+    _noteService
+        .delete(_userStore.database, id)
+        .then((id) => data.removeWhere((element) => element.id == id))
+        .whenComplete(() => setIdle());
   }
 
   @computed

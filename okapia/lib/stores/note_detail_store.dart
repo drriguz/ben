@@ -1,4 +1,4 @@
-import 'package:okapia/common/model/note.dart';
+import 'package:okapia/common/sqlcipher/model/note.dart';
 import 'package:okapia/services/note_service.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
 import 'package:mobx/mobx.dart';

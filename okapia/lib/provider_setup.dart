@@ -1,13 +1,12 @@
 import 'package:camera/camera.dart';
+import 'package:okapia/common/sqlcipher/repository/note_repository.dart';
 import 'package:okapia/services/note_service.dart';
-import 'package:okapia/stores/contact_store.dart';
 
 import 'services/config_service.dart';
 import 'package:provider/provider.dart';
 
 import 'common/crypto/kdf.dart';
 import 'services/login_service.dart';
-import 'stores/album_store.dart';
 import 'stores/note_store.dart';
 import 'stores/user_store.dart';
 import 'services/init_service.dart';
@@ -18,12 +17,19 @@ Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
   ];
 }
 
+List<SingleChildCloneableWidget> _createRepositories() {
+  return [
+    Provider<NoteRepository>.value(value: new NoteRepository()),
+  ];
+}
+
 final Kdf kdf = new Argon2Kdf();
 
 List<SingleChildCloneableWidget> _createServices() {
   return [
     Provider<ConfigService>.value(value: new ConfigService()),
-    Provider<NoteService>.value(value: new NoteService()),
+    ProxyProvider<NoteRepository, NoteService>(
+        update: (_, noteRepository, service) => NoteService(noteRepository)),
     ProxyProvider<ConfigService, InitializeService>(
         update: (_, configService, service) =>
             InitializeService(configService)),
@@ -49,6 +55,7 @@ List<SingleChildCloneableWidget> _createStores() {
 Future<List<SingleChildCloneableWidget>> createProviders() async {
   return [
     ...await _createStandaloneProviders(),
+    ..._createRepositories(),
     ..._createServices(),
     ..._createStores(),
   ];
