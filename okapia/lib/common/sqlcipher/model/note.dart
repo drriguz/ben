@@ -9,20 +9,16 @@ class NoteModel extends Entity {
   static final String FIELDS = "title, content";
 
   NoteModel(
-      {String id,
-      this.title,
-      this.content,
-      DateTime createdTime,
-      DateTime lastUpdatedTime})
+      {int id, this.title, this.content, int createdTime, int lastUpdatedTime})
       : super(id, createdTime, lastUpdatedTime);
 
   static NoteModel fromResult(Row r) {
     return NoteModel(
-      id: r.readColumnAsText("id"),
+      id: r.readColumnAsInt("id"),
       title: r.readColumnAsText("title"),
       content: r.readColumnAsText("content"),
-      createdTime: DateTime.parse(r.readColumnAsText("created_time")),
-      lastUpdatedTime: DateTime.parse(r.readColumnAsText("last_updated_time")),
+      createdTime: r.readColumnAsInt("created_time"),
+      lastUpdatedTime: r.readColumnAsInt("last_updated_time"),
     );
   }
 

@@ -14,7 +14,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class EditNotePage extends StatefulWidget {
-  final String _id;
+  final int _id;
 
   EditNotePage(this._id, {Key key}) : super(key: key);
 
@@ -23,7 +23,7 @@ class EditNotePage extends StatefulWidget {
 }
 
 class _EditNotePageState extends State<EditNotePage> {
-  final String _id;
+  final int _id;
   TextEditingController _textEditingController;
 
   NoteDetailStore _detailStore;

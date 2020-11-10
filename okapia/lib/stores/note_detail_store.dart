@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 import 'user_store.dart';
 
 class NoteDetailStore extends PageStatusNotifier with Store {
-  final String _id;
+  final int _id;
   final UserStore _userStore;
   final NoteService _noteService;
 

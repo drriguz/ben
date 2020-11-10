@@ -15,7 +15,7 @@ const List<MenuChoice> menuItems = const <MenuChoice>[
 ];
 
 class NoteDetailPage extends StatefulWidget {
-  final String _id;
+  final int _id;
 
   NoteDetailPage(this._id, {Key key}) : super(key: key);
 

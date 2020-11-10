@@ -51,14 +51,14 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
           switch (settings.name) {
             case "/note/detail":
               {
-                String id = settings.arguments;
+                int id = settings.arguments;
                 return MaterialPageRoute(
                     builder: (context) => NoteDetailPage(id));
               }
             case "/note/edit":
             case "/note/add":
               {
-                String id = settings.arguments;
+                int id = settings.arguments;
                 return MaterialPageRoute(
                     builder: (context) => EditNotePage(id));
               }

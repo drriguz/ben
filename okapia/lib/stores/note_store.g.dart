@@ -41,7 +41,7 @@ mixin _$NoteStore<M> on _NoteStore<M>, Store {
   final _$updateAsyncAction = AsyncAction('_NoteStore.update');
 
   @override
-  Future<void> update(String id, String content) {
+  Future<void> update(int id, String content) {
     return _$updateAsyncAction.run(() => super.update(id, content));
   }
 
@@ -55,7 +55,7 @@ mixin _$NoteStore<M> on _NoteStore<M>, Store {
   final _$deleteAsyncAction = AsyncAction('_NoteStore.delete');
 
   @override
-  Future<void> delete(String id) {
+  Future<void> delete(int id) {
     return _$deleteAsyncAction.run(() => super.delete(id));
   }
 

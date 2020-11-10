@@ -29,7 +29,7 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   }
 
   @action
-  Future<void> update(String id, String content) async {
+  Future<void> update(int id, String content) async {
     setBusy();
     NoteModel existing = data.firstWhere((element) => element.id == id);
     assert(existing != null);
@@ -57,7 +57,7 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   }
 
   @action
-  Future<void> delete(String id) async {
+  Future<void> delete(int id) async {
     setBusy();
     _noteService
         .delete(_userStore.database, id)

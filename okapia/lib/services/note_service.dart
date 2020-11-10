@@ -15,7 +15,7 @@ class NoteService {
     return _noteRepository.select(database, "order by id desc limit 5");
   }
 
-  Future<NoteModel> fetchById(final Database database, String id) async {
+  Future<NoteModel> fetchById(final Database database, int id) async {
     return _noteRepository.selectById(database, id);
   }
 
@@ -38,7 +38,7 @@ class NoteService {
     return _noteRepository.update(database, note.id, note);
   }
 
-  Future<String> delete(final Database database, String id) async {
+  Future<int> delete(final Database database, int id) async {
     return _noteRepository.delete(database, id);
   }
 }

@@ -1,10 +1,9 @@
 import 'package:native_sqlcipher/database.dart';
-import 'package:okapia/common/utils/random.dart';
 
 abstract class Entity {
-  String id;
-  DateTime createdTime;
-  DateTime lastUpdatedTime;
+  int id;
+  int createdTime;
+  int lastUpdatedTime;
 
   static final String FIELDS = "id, created_time, last_updated_time,";
 
@@ -40,50 +39,49 @@ abstract class Sqlite3Repository<E extends Entity> {
     return list;
   }
 
-  Future<E> selectById(final Database database, String id) async {
+  Future<E> selectById(final Database database, int id) async {
     Row r = database
         .query(
-          "select $fields from $table where id='${id}';",
+          "select $fields from $table where id='$id';",
         )
         .first;
     return convert(r);
   }
 
   Future<E> insert(final Database database, final E item) async {
-    final String id = IDUtil.generateUUID();
-    final DateTime now = DateTime.now();
-    item.id = id;
+    final int now = DateTime.now().millisecondsSinceEpoch;
     item.createdTime = now;
     item.lastUpdatedTime = now;
     _executeSql(database, """
     insert into $table($fields)
       values
-      ('${item.id}', 
-       '${item.createdTime.toIso8601String()}',
-       '${item.lastUpdatedTime.toIso8601String()}',
+      (null, 
+       ${item.createdTime},
+       ${item.lastUpdatedTime},
        ${item.toSqlValues()});
     """);
+    int id = database.last_insert_rowid();
+    item.id = id;
     return item;
   }
 
   Future<E> update(
-      final Database database, final String id, final E updated) async {
+      final Database database, final int id, final E updated) async {
     final E existing = await selectById(database, id);
     assert(existing != null);
 
     E merged = merge(existing, updated);
-    final DateTime now = DateTime.now();
-    merged.lastUpdatedTime = now;
+    merged.lastUpdatedTime = DateTime.now().millisecondsSinceEpoch;
     _executeSql(database, """
-    update $table set last_updated_time='${merged.lastUpdatedTime}', ${merged.toUpdateSql()}
-    where id='$id';
+    update $table set last_updated_time=${merged.lastUpdatedTime}, ${merged.toUpdateSql()}
+    where id=$id;
     """);
     return merged;
   }
 
-  Future<String> delete(final Database database, String id) async {
+  Future<int> delete(final Database database, int id) async {
     _executeSql(database, """
-    delete from $table where id='${id}';
+    delete from $table where id=$id;
     """);
     return id;
   }
