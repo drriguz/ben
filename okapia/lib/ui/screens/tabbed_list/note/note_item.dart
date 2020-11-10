@@ -1,11 +1,11 @@
-import 'package:okapia/common/format/note_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:okapia/common/model/note.dart';
 
 import '../widgets/list_item.dart';
 
 class NoteItem extends AbstractListItem {
-  final BriefNoteData model;
+  final NoteModel model;
 
   NoteItem(this.model, {Key key}) : super(key: key);
 
@@ -21,14 +21,14 @@ class NoteItem extends AbstractListItem {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      model.meta.title,
+                      model.title,
                       overflow: TextOverflow.ellipsis,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
                     ),
                   ),
                   Text(
-                    model.meta.lastUpdatedTime?.toString() ?? "",
+                    model.lastUpdatedTime?.toString() ?? "",
                     overflow: TextOverflow.fade,
                     maxLines: 1,
                     softWrap: false,

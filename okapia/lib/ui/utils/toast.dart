@@ -6,6 +6,7 @@ class Toasts {
       {dynamic error, StackTrace stackTrace}) async {
     String errorMsg =
         error == null ? message : message + " " + error.runtimeType.toString();
+    if (error != null) print(error);
     if (stackTrace != null) print(stackTrace);
     Fluttertoast.showToast(
         msg: errorMsg,

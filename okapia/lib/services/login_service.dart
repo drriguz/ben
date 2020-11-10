@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
+import 'package:native_sqlcipher/database.dart';
 import 'package:okapia/common/crypto/credential.dart';
 import 'package:okapia/common/crypto/hmac_validator.dart';
 import 'package:okapia/common/crypto/kdf.dart';
@@ -19,10 +21,21 @@ class LoginService {
 
   LoginService(this._configService);
 
+  Future<Database> openSqlcipher(final Key key) async {
+    final File databaseFile =
+        await ConfigService.localFile("${key.clientId}.dat");
+    final dbKey = await key.getSqlcipherKey();
+    final db =
+        new Database(databaseFile.path, "x'${hex.encode(dbKey.binaryValue)}'");
+    db.execute("SELECT count(*) FROM sqlite_master;");
+    return db;
+  }
+
   Future<Key> checkUserCredential(ProtectedValue masterPassword) async {
     final config = await _configService.readConfig();
     _configService.verifyConfig(config.appConfig);
     final Key key = await Key.create(
+      config.appConfig.clientId,
       masterPassword,
       IDUtil.parseUUID(config.appConfig.masterSeed),
       IDUtil.parseUUID(config.appConfig.transformSeed),
@@ -36,7 +49,6 @@ class LoginService {
         new HmacValidator(configHmacKey.binaryValue);
     final checksum = hashValidator.computeChecksum(utf8.encode(configData));
 
-    print("\na: ${hex.encode(checksum)} \nc: ${config.signature}");
     if (hex.encode(checksum) == config.signature) return key;
     throw PasswordIncorrectError();
   }

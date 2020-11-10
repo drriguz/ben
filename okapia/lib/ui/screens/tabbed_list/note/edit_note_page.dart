@@ -1,6 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/item_service.dart';
+import 'package:okapia/services/note_service.dart';
 import 'package:okapia/stores/note_detail_store.dart';
 import 'package:okapia/stores/note_store.dart';
 import 'package:okapia/stores/user_store.dart';
@@ -41,7 +43,7 @@ class _EditNotePageState extends State<EditNotePage> {
     _detailStore = new NoteDetailStore(
       _id,
       Provider.of<UserStore>(context, listen: false),
-      Provider.of<ItemService>(context, listen: false),
+      Provider.of<NoteService>(context, listen: false),
     );
     if (_id != null) _detailStore.fetch();
   }
@@ -65,7 +67,7 @@ class _EditNotePageState extends State<EditNotePage> {
   }
 
   Widget _createEditor() {
-    _textEditingController.text = _detailStore.data?.content?.content;
+    _textEditingController.text = _detailStore.data?.content;
     return Column(
       children: <Widget>[
         Expanded(
@@ -171,7 +173,7 @@ class _EditNotePageState extends State<EditNotePage> {
   Future<void> _onSave(BuildContext context) async {
     final String content = _textEditingController.text;
     if (content == null || content.trim().isEmpty) {
-      Toasts.showError("内容不能为空");
+      Toasts.showError(Toasts.showError(S.of(context).content_is_empty));
       return;
     }
 
@@ -180,13 +182,13 @@ class _EditNotePageState extends State<EditNotePage> {
       return noteStore
           .create(_textEditingController.text)
           .then((_) => Navigator.of(context).pop())
-          .catchError((e, stack) =>
-              Toasts.showError("保存失败，请重试", error: e, stackTrace: stack));
+          .catchError((e, stack) => Toasts.showError(S.of(context).save_failed,
+              error: e, stackTrace: stack));
     else
       return noteStore
           .update(_id, _textEditingController.text)
           .then((_) => Navigator.of(context).pop())
-          .catchError((e, stack) =>
-              Toasts.showError("保存失败，请重试", error: e, stackTrace: stack));
+          .catchError((e, stack) => Toasts.showError(S.of(context).save_failed,
+              error: e, stackTrace: stack));
   }
 }

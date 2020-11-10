@@ -234,6 +234,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Content is empty`
+  String get content_is_empty {
+    return Intl.message(
+      'Content is empty',
+      name: 'content_is_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save failed, reason:`
+  String get save_failed {
+    return Intl.message(
+      'Save failed, reason:',
+      name: 'save_failed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

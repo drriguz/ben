@@ -21,6 +21,7 @@ class InitializeService {
     final config =
         await _configService.createConfig(masterPassword, enableFingerPrint);
     final Key key = await Key.create(
+      config.clientId,
       masterPassword,
       IDUtil.parseUUID(config.masterSeed),
       IDUtil.parseUUID(config.transformSeed),
@@ -51,7 +52,8 @@ class InitializeService {
       final String dbPath, final ProtectedValue sqlcipherKey) async {
     Database db =
         new Database(dbPath, "x'${hex.encode(sqlcipherKey.binaryValue)}'");
-    final String script = await rootBundle.loadString("assets/config/create_db.sql");
+    final String script =
+        await rootBundle.loadString("assets/config/create_db.sql");
     db.execute(script);
     db.close();
   }

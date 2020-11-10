@@ -121,6 +121,10 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
   }
 
   void onPasswordSubmitted(BuildContext context, String password) async {
+    if (password == null || password.length < 6) {
+      _showErrorToast(S.of(context).password_too_short);
+      return;
+    }
     FocusScope.of(context).unfocus();
     bool success = await widget._userStore.login(ProtectedValue.of(password));
     if (success)
@@ -131,7 +135,8 @@ class _LoginPageState extends State<LoginPage> with RouteAware {
 
   void _showErrorToast(final String message) {
     _fToast.showToast(
-      child: Toasts.createCustomToast(message, backgroundColor: Colors.redAccent),
+      child:
+          Toasts.createCustomToast(message, backgroundColor: Colors.redAccent),
       toastDuration: Duration(seconds: 2),
     );
   }

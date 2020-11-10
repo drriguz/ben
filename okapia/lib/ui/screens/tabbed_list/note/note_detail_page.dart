@@ -1,4 +1,5 @@
 import 'package:okapia/services/item_service.dart';
+import 'package:okapia/services/note_service.dart';
 import 'package:okapia/stores/note_detail_store.dart';
 import 'package:okapia/stores/note_store.dart';
 import 'package:okapia/stores/user_store.dart';
@@ -32,7 +33,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
     _detailStore = new NoteDetailStore(
       widget._id,
       Provider.of<UserStore>(context, listen: false),
-      Provider.of<ItemService>(context, listen: false),
+      Provider.of<NoteService>(context, listen: false),
     );
     _detailStore.fetch();
   }
@@ -67,8 +68,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
     return Observer(
         builder: (_) => _detailStore.isBusy
             ? Loading()
-            : _displayNoteDetail(
-                _detailStore.data.content.content.split("\n")));
+            : _displayNoteDetail(_detailStore.data.content.split("\n")));
   }
 
   Widget _displayNoteDetail(List<String> contents) {

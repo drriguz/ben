@@ -24,5 +24,8 @@
 
   "please_input_master_password": "Please input your password",
   "password_validation_failed": "Incorrect password",
-  "unlocking": "Unlocking, please wait..."
+  "unlocking": "Unlocking, please wait...",
+
+  "content_is_empty": "Content is empty",
+  "save_failed": "Save failed, reason:"
 }

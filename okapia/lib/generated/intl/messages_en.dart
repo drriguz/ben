@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "about" : MessageLookupByLibrary.simpleMessage("About"),
     "agree" : MessageLookupByLibrary.simpleMessage("I Agree"),
+    "content_is_empty" : MessageLookupByLibrary.simpleMessage("Content is empty"),
     "enable_fingerprint" : MessageLookupByLibrary.simpleMessage("Enable fingerprint"),
     "enable_fingerprint_description" : MessageLookupByLibrary.simpleMessage("Enable fingerprint so that you can unlock with your fingerprint(if supported), however master password is required whenever the first time you login into Okapia."),
     "enable_password_options_auto_detect" : MessageLookupByLibrary.simpleMessage("Auto detect encrypt options"),
@@ -36,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "please_input_password" : MessageLookupByLibrary.simpleMessage("Please input your password"),
     "please_input_password_again" : MessageLookupByLibrary.simpleMessage("Please confirm your password"),
     "previous" : MessageLookupByLibrary.simpleMessage("Previous"),
+    "save_failed" : MessageLookupByLibrary.simpleMessage("Save failed, reason:"),
     "security_description" : MessageLookupByLibrary.simpleMessage("<h5>Fully encrypted</h5><br/><p>Everything inside OKAPIA is fully encrypted with <strong>AES-256</strong> algorithm, it\'s theoretically impossible to decrypt without your master password.</p><p><a href=\"\">Learn more about security details</a></p>"),
     "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
     "unlocking" : MessageLookupByLibrary.simpleMessage("Unlocking, please wait..."),

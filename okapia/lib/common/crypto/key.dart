@@ -27,17 +27,18 @@ import 'protected_value.dart';
 class Key {
   static final Kdf _kdf = new Argon2Kdf();
 
+  final String clientId;
   final ProtectedValue _transformedMasterKey;
   final Uint8List _masterSeed;
   final Uint8List encryptionIV;
 
   ProtectedValue _encryptionKeyCache;
-  ProtectedValue _hmacKeyCache;
 
-  Key._internal(
-      this._transformedMasterKey, this._masterSeed, this.encryptionIV) {}
+  Key._internal(this.clientId, this._transformedMasterKey, this._masterSeed,
+      this.encryptionIV) {}
 
   static Future<Key> create(
+      final String clientId,
       final ProtectedValue masterPassword,
       final Uint8List masterSeed,
       final Uint8List transformSeed,
@@ -52,8 +53,11 @@ class Key {
     final Uint8List transformedMasterKey =
         await _kdf.derive(passwordHash, transformSeed);
 
-    return new Key._internal(ProtectedValue.ofBinary(transformedMasterKey),
-        masterSeed, encryptionIV);
+    return new Key._internal(
+        clientId,
+        ProtectedValue.ofBinary(transformedMasterKey),
+        masterSeed,
+        encryptionIV);
   }
 
   Future<ProtectedValue> getEncryptionKey() async {

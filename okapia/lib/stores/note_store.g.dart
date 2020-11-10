@@ -19,13 +19,13 @@ mixin _$NoteStore<M> on _NoteStore<M>, Store {
   final _$dataAtom = Atom(name: '_NoteStore.data');
 
   @override
-  ObservableList<BriefNoteData> get data {
+  ObservableList<NoteModel> get data {
     _$dataAtom.reportRead();
     return super.data;
   }
 
   @override
-  set data(ObservableList<BriefNoteData> value) {
+  set data(ObservableList<NoteModel> value) {
     _$dataAtom.reportWrite(value, super.data, () {
       super.data = value;
     });

@@ -1,3 +1,4 @@
+import 'package:native_sqlcipher/database.dart';
 import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/login_service.dart';
@@ -19,6 +20,10 @@ abstract class _UserStore extends PageStatusNotifier with Store {
 
   Key get userCredential => _userCredential;
 
+  Database _database;
+
+  Database get database => _database;
+
   bool isPausedToTakePhoto = false;
 
   @observable
@@ -32,6 +37,7 @@ abstract class _UserStore extends PageStatusNotifier with Store {
   _UserStore(this._loginService)
       : _userCredential = null,
         _errorMessage = null,
+        _database = null,
         super();
 
   @action
@@ -43,6 +49,8 @@ abstract class _UserStore extends PageStatusNotifier with Store {
           await _loginService.checkUserCredential(masterPassword);
       _errorMessage = null;
       _userCredential = credential;
+      if (_database != null) _database.close();
+      _database = await _loginService.openSqlcipher(_userCredential);
       success = true;
     } catch (_) {
       print(_);

@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:okapia/common/sqlite/repository/contact_repository.dart';
+import 'package:okapia/services/note_service.dart';
 import 'package:okapia/stores/contact_store.dart';
 
 import 'common/sqlite/repository/album_repository.dart';
@@ -55,6 +56,7 @@ final Kdf kdf = new Argon2Kdf();
 List<SingleChildCloneableWidget> _createServices() {
   return [
     Provider<ConfigService>.value(value: new ConfigService()),
+    Provider<NoteService>.value(value: new NoteService()),
     ProxyProvider<ConfigService, InitializeService>(
         update: (_, configService, service) =>
             InitializeService(configService)),
@@ -84,9 +86,9 @@ List<SingleChildCloneableWidget> _createStores() {
   return [
     ProxyProvider<LoginService, UserStore>(
         update: (_, service, child) => UserStore(service)),
-    ProxyProvider2<UserStore, ItemService, NoteStore>(
-        update: (_, userStore, itemService, child) =>
-            NoteStore(userStore, itemService)),
+    ProxyProvider2<UserStore, NoteService, NoteStore>(
+        update: (_, userStore, noteService, child) =>
+            NoteStore(userStore, noteService)),
     ProxyProvider2<UserStore, AlbumService, AlbumStore>(
         update: (_, userStore, albumService, child) =>
             AlbumStore(userStore, albumService)),
