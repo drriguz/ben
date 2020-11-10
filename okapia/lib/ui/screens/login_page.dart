@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/generated/l10n.dart';
@@ -7,7 +8,7 @@ import 'package:okapia/ui/utils/toast.dart';
 
 import '../../main.dart';
 import '../theme/icons.dart';
-import 'package:flutter/material.dart';
+
 
 class LoginPage extends StatefulWidget {
   final UserStore _userStore;

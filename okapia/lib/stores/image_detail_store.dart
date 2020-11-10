@@ -1,4 +1,3 @@
-import 'package:okapia/services/image_service.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -10,13 +9,12 @@ class ImageDetailStore = _ImageDetailStore with _$ImageDetailStore;
 
 abstract class _ImageDetailStore with Store {
   final UserStore _userStore;
-  final ImageService _imageService;
   final String _id;
 
   @observable
   ImageProvider<dynamic> item;
 
-  _ImageDetailStore(this._userStore, this._imageService, this._id);
+  _ImageDetailStore(this._userStore, this._id);
 
   @action
   Future<void> fetch() async {

@@ -1,14 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:native_sqlcipher/database.dart';
-import 'package:okapia/common/crypto/credential.dart';
 import 'package:okapia/common/crypto/hmac_validator.dart';
-import 'package:okapia/common/crypto/kdf.dart';
 import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
-import 'package:okapia/common/sqlite/entity/header_entity.dart';
-import 'package:okapia/common/sqlite/repository/header_repository.dart';
 import 'package:convert/convert.dart';
 import 'package:okapia/common/utils/random.dart';
 
@@ -27,6 +22,9 @@ class LoginService {
     final dbKey = await key.getSqlcipherKey();
     final db =
         new Database(databaseFile.path, "x'${hex.encode(dbKey.binaryValue)}'");
+    //fixme: only for debugging
+    print("opening db: ${databaseFile.path}\n pragma key=\"x'${hex.encode(dbKey.binaryValue)}'\"");
+
     db.execute("SELECT count(*) FROM sqlite_master;");
     return db;
   }

@@ -1,4 +1,3 @@
-import 'package:okapia/services/item_service.dart';
 import 'package:okapia/services/note_service.dart';
 import 'package:okapia/stores/note_detail_store.dart';
 import 'package:okapia/stores/note_store.dart';

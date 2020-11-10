@@ -50,6 +50,10 @@ class InitializeService {
 
   Future<void> _initializeDatabase(
       final String dbPath, final ProtectedValue sqlcipherKey) async {
+    /**
+     * Do not include sqflite plugin, otherwise it will conflict with sqlcipher
+     * the key will not be correct.
+     */
     Database db =
         new Database(dbPath, "x'${hex.encode(sqlcipherKey.binaryValue)}'");
     final String script =

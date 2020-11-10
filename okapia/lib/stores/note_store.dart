@@ -1,6 +1,4 @@
-import 'package:okapia/common/format/note_data.dart';
 import 'package:okapia/common/model/note.dart';
-import 'package:okapia/services/item_service.dart';
 import 'package:mobx/mobx.dart';
 import 'package:okapia/services/note_service.dart';
 

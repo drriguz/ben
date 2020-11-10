@@ -1,4 +1,3 @@
-import 'package:okapia/services/image_service.dart';
 import 'package:okapia/stores/image_detail_store.dart';
 import 'package:okapia/stores/user_store.dart';
 import 'package:okapia/ui/model/choice.dart';
@@ -31,7 +30,6 @@ class _ImageDetailPageState extends State<ImageDetailPage> {
     super.initState();
     _detailStore = new ImageDetailStore(
       Provider.of<UserStore>(context, listen: false),
-      Provider.of<ImageService>(context, listen: false),
       widget._id,
     );
     _detailStore.fetch();

@@ -1,12 +1,10 @@
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:okapia/generated/l10n.dart';
-import 'package:okapia/services/item_service.dart';
 import 'package:okapia/services/note_service.dart';
 import 'package:okapia/stores/note_detail_store.dart';
 import 'package:okapia/stores/note_store.dart';
 import 'package:okapia/stores/user_store.dart';
-import 'package:okapia/ui/theme/icons.dart';
 import 'package:okapia/ui/widgets/loading.dart';
 import 'package:okapia/ui/widgets/tool_button.dart';
 import 'package:okapia/ui/utils/toast.dart';

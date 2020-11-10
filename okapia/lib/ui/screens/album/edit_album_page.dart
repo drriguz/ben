@@ -1,4 +1,3 @@
-import 'package:okapia/services/album_service.dart';
 import 'package:okapia/stores/album_detail_store.dart';
 import 'package:okapia/stores/album_store.dart';
 import 'package:okapia/stores/user_store.dart';
@@ -36,7 +35,6 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
     _detailStore = new AlbumDetailStore(
       _id,
       Provider.of<UserStore>(context, listen: false),
-      Provider.of<AlbumService>(context, listen: false),
     );
     if (_id != null) _detailStore.fetch();
   }

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:okapia/common/format/image_data.dart';
-import 'package:okapia/services/image_service.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
 import 'package:mobx/mobx.dart';
 
@@ -13,10 +12,9 @@ class ImageStore = _ImageStore with _$ImageStore;
 
 abstract class _ImageStore extends PageStatusNotifier with Store {
   final UserStore _userStore;
-  final ImageService _imageService;
   final String _albumId;
 
-  _ImageStore(this._userStore, this._imageService, this._albumId);
+  _ImageStore(this._userStore, this._albumId);
 
   @observable
   ObservableList<BriefImageData> data = ObservableList<BriefImageData>();

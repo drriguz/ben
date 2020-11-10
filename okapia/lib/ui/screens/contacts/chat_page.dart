@@ -1,15 +1,8 @@
 import 'package:fast_rsa/rsa.dart';
 import 'package:flutter/services.dart';
-import 'package:okapia/common/sqlite/repository/contact_repository.dart';
-import 'package:okapia/services/item_service.dart';
 import 'package:okapia/stores/chat_store.dart';
-import 'package:okapia/stores/note_detail_store.dart';
-import 'package:okapia/stores/note_store.dart';
 import 'package:okapia/stores/user_store.dart';
-import 'package:okapia/ui/theme/icons.dart';
 import 'package:okapia/ui/widgets/loading.dart';
-import 'package:okapia/ui/widgets/tool_button.dart';
-import 'package:okapia/ui/utils/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -39,7 +32,6 @@ class _ChatPageState extends State<ChatPage> {
     _chatStore = new ChatStore(
       _id,
       Provider.of<UserStore>(context, listen: false),
-      Provider.of<ContactRepository>(context, listen: false),
     );
     _chatStore.fetch();
   }
@@ -55,7 +47,9 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
           title: Observer(
-        builder: (_) => _chatStore.isBusy ? Text("") : Text("与${_chatStore.contact.name}的聊天"),
+        builder: (_) => _chatStore.isBusy
+            ? Text("")
+            : Text("与${_chatStore.contact.name}的聊天"),
       )),
       body: Observer(
         builder: (_) => _chatStore.isBusy ? Loading() : _createEditor(),
@@ -127,7 +121,8 @@ class _ChatPageState extends State<ChatPage> {
     var result = await RSA.generate(2048);
     print(result.publicKey);
 
-    final e = await RSA.encryptPKCS1v15(_textEditingController.text, result.publicKey);
+    final e = await RSA.encryptPKCS1v15(
+        _textEditingController.text, result.publicKey);
     print(e);
     Clipboard.setData(new ClipboardData(text: e));
   }

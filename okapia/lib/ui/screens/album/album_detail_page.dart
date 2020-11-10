@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:okapia/common/format/image_data.dart';
-import 'package:okapia/services/image_service.dart';
 import 'package:okapia/stores/image_store.dart';
 import 'package:okapia/stores/user_store.dart';
 import 'package:okapia/ui/model/choice.dart';
@@ -41,7 +40,6 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     super.initState();
     _imageStore = ImageStore(
       Provider.of<UserStore>(context, listen: false),
-      Provider.of<ImageService>(context, listen: false),
       _id,
     );
     _imageStore.fetch();
