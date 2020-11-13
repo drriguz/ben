@@ -23,8 +23,6 @@ List<SingleChildCloneableWidget> _createRepositories() {
   ];
 }
 
-final Kdf kdf = new Argon2Kdf();
-
 List<SingleChildCloneableWidget> _createServices() {
   return [
     Provider<ConfigService>.value(value: new ConfigService()),
@@ -45,7 +43,8 @@ List<SingleChildCloneableWidget> _createServices() {
 List<SingleChildCloneableWidget> _createStores() {
   return [
     ProxyProvider<LoginService, UserStore>(
-        update: (_, service, child) => UserStore(service)),
+      update: (_, service, child) => UserStore(service),
+    ),
     ProxyProvider2<UserStore, NoteService, NoteStore>(
         update: (_, userStore, noteService, child) =>
             NoteStore(userStore, noteService)),

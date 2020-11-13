@@ -12,20 +12,33 @@ class NoteStore = _NoteStore with _$NoteStore;
 abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   final UserStore _userStore;
   final NoteService _noteService;
+  int lastId = -1;
 
   @observable
   ObservableList<NoteModel> data = ObservableList<NoteModel>();
 
+  @observable
+  bool isLoading = false;
+
   _NoteStore(this._userStore, this._noteService) {}
 
   @action
-  Future<void> fetch() async {
+  Future<void> refresh() async {
     setBusy();
     data.clear();
     return _noteService
-        .fetch(_userStore.database)
+        .refresh(_userStore.database)
         .then((items) => data.addAll(items))
         .whenComplete(() => setIdle());
+  }
+
+  @action
+  Future<void> fetchMore() async {
+    isLoading = true;
+    return _noteService.fetch(_userStore.database, lastId).then((items) {
+      lastId = items.last.id;
+      data.addAll(items);
+    }).whenComplete(() => isLoading = false);
   }
 
   @action

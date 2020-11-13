@@ -11,7 +11,12 @@ class NoteService {
     return _noteRepository.selectCount(database);
   }
 
-  Future<List<NoteModel>> fetch(final Database database) async {
+  Future<List<NoteModel>> fetch(final Database database, int lastId) async {
+    String where = lastId < 0 ? "" : "where id < $lastId";
+    return _noteRepository.select(database, "$where order by id desc limit 5");
+  }
+
+  Future<List<NoteModel>> refresh(final Database database) async {
     return _noteRepository.select(database, "order by id desc limit 5");
   }
 

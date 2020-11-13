@@ -15,6 +15,23 @@ class NoteListPage extends StatefulWidget {
 }
 
 class _NoteListPageState extends State {
+  ScrollController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = new ScrollController()..addListener(_scrollListener);
+
+    final NoteStore store = Provider.of<NoteStore>(context, listen: false);
+    store.refresh();
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(_scrollListener);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final NoteStore store = Provider.of<NoteStore>(context);
@@ -24,27 +41,29 @@ class _NoteListPageState extends State {
             ? Center(child: CircularProgressIndicator())
             : RefreshIndicator(
                 child: _createList(store),
-                onRefresh: store.fetch,
+                onRefresh: store.refresh,
               );
       },
     );
   }
 
+  void _scrollListener() {
+    print(controller.position.extentAfter);
+    if (controller.position.extentAfter < 500) {
+      print("fire~~~");
+    }
+  }
+
   Widget _createList(NoteStore store) {
     if (store.totalCount == 0)
-      return EmptyListTipWidget(onRefresh: store.fetch);
+      return EmptyListTipWidget(onRefresh: store.refresh);
     return ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(),
+      controller: controller,
       itemCount: store.totalCount,
       itemBuilder: (_, int index) {
         return NoteItem(store.data[index]);
       },
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    final NoteStore store = Provider.of<NoteStore>(context, listen: false);
-    store.fetch();
   }
 }

@@ -25,27 +25,38 @@ abstract class Sqlite3Repository<E extends Entity> {
   E merge(final E existing, final E updated);
 
   Future<int> selectCount(final Database database) async {
-    Row result = database.query("select count(*) from $table;").first;
-    return result.readColumnByIndexAsInt(0);
+    Result result = database.query("select count(*) from $table;");
+    try {
+      return result.first.readColumnByIndexAsInt(0);
+    } finally {
+      result.close();
+    }
   }
 
   Future<List<E>> select(final Database database, String where) async {
     Result result = database.query("select $fields from $table $where;");
-    List<E> list = new List<E>();
-    for (Row r in result) {
-      E item = convert(r);
-      list.add(item);
+
+    try {
+      List<E> list = new List<E>();
+      for (Row r in result) {
+        E item = convert(r);
+        list.add(item);
+      }
+      return list;
+    } finally {
+      result.close();
     }
-    return list;
   }
 
   Future<E> selectById(final Database database, int id) async {
-    Row r = database
-        .query(
-          "select $fields from $table where id='$id';",
-        )
-        .first;
-    return convert(r);
+    Result result = database.query(
+      "select $fields from $table where id='$id';",
+    );
+    try {
+      return convert(result.first);
+    } finally {
+      result.close();
+    }
   }
 
   Future<E> insert(final Database database, final E item) async {

@@ -31,11 +31,33 @@ mixin _$NoteStore<M> on _NoteStore<M>, Store {
     });
   }
 
-  final _$fetchAsyncAction = AsyncAction('_NoteStore.fetch');
+  final _$isLoadingAtom = Atom(name: '_NoteStore.isLoading');
 
   @override
-  Future<void> fetch() {
-    return _$fetchAsyncAction.run(() => super.fetch());
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
+  final _$refreshAsyncAction = AsyncAction('_NoteStore.refresh');
+
+  @override
+  Future<void> refresh() {
+    return _$refreshAsyncAction.run(() => super.refresh());
+  }
+
+  final _$fetchMoreAsyncAction = AsyncAction('_NoteStore.fetchMore');
+
+  @override
+  Future<void> fetchMore() {
+    return _$fetchMoreAsyncAction.run(() => super.fetchMore());
   }
 
   final _$updateAsyncAction = AsyncAction('_NoteStore.update');
@@ -63,6 +85,7 @@ mixin _$NoteStore<M> on _NoteStore<M>, Store {
   String toString() {
     return '''
 data: ${data},
+isLoading: ${isLoading},
 totalCount: ${totalCount}
     ''';
   }
