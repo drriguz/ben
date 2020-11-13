@@ -11,7 +11,6 @@ class NoteItem extends AbstractListItem {
 
   @override
   Widget buildContent(BuildContext context) {
-    print("building: ${model.id}/${model.title}");
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: Column(

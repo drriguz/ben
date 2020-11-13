@@ -35,9 +35,12 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   @action
   Future<void> fetchMore() async {
     isLoading = true;
+
     return _noteService.fetch(_userStore.database, lastId).then((items) {
-      lastId = items.last.id;
-      data.addAll(items);
+      if (items.isNotEmpty) {
+        lastId = items.last.id;
+        data.addAll(items);
+      }
     }).whenComplete(() => isLoading = false);
   }
 
@@ -65,7 +68,7 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
     NoteModel note = NoteModel(title: title, content: content);
     _noteService
         .create(_userStore.database, note)
-        .then((created) => data.add(created))
+        .then((created) => data.insert(0, created))
         .whenComplete(() => setIdle());
   }
 
