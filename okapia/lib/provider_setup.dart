@@ -1,6 +1,9 @@
 import 'package:camera/camera.dart';
+import 'package:okapia/common/sqlcipher/repository/event_repository.dart';
 import 'package:okapia/common/sqlcipher/repository/note_repository.dart';
+import 'package:okapia/services/event_service.dart';
 import 'package:okapia/services/note_service.dart';
+import 'package:okapia/stores/event_store.dart';
 
 import 'services/config_service.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +23,7 @@ Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
 List<SingleChildCloneableWidget> _createRepositories() {
   return [
     Provider<NoteRepository>.value(value: new NoteRepository()),
+    Provider<EventRepository>.value(value: new EventRepository()),
   ];
 }
 
@@ -28,6 +32,8 @@ List<SingleChildCloneableWidget> _createServices() {
     Provider<ConfigService>.value(value: new ConfigService()),
     ProxyProvider<NoteRepository, NoteService>(
         update: (_, noteRepository, service) => NoteService(noteRepository)),
+    ProxyProvider<EventRepository, EventService>(
+        update: (_, eventRepository, service) => EventService(eventRepository)),
     ProxyProvider<ConfigService, InitializeService>(
         update: (_, configService, service) =>
             InitializeService(configService)),
@@ -48,6 +54,9 @@ List<SingleChildCloneableWidget> _createStores() {
     ProxyProvider2<UserStore, NoteService, NoteStore>(
         update: (_, userStore, noteService, child) =>
             NoteStore(userStore, noteService)),
+    ProxyProvider2<UserStore, EventService, EventStore>(
+        update: (_, userStore, eventService, child) =>
+            EventStore(userStore, eventService)),
   ];
 }
 

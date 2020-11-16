@@ -58,7 +58,15 @@ class InitializeService {
         new Database(dbPath, "x'${hex.encode(sqlcipherKey.binaryValue)}'");
     final String script =
         await rootBundle.loadString("assets/config/create_db.sql");
-    db.execute(script);
+    db.execute("BEGIN;");
+    for (String line in script.split(";")) {
+      final String sql = line.trim();
+      if (sql.isNotEmpty) {
+        print("Executing:" + sql);
+        db.execute(sql);
+      }
+    }
+    db.execute("COMMIT;");
     db.close();
   }
 }

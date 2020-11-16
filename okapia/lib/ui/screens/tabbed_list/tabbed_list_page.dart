@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../not_implemented.dart';
 import 'calendar/calendar_tab.dart';
+import 'event/event_list_page.dart';
 import 'note/note_list_page.dart';
 
 class TabbedListPage extends StatefulWidget {
@@ -43,7 +44,7 @@ final tabConfigs = [
   ),
   _TabConfig(
     S.current.event,
-    NotImplementedPage(),
+    EventListPage(),
     "/note/add",
   ),
 ];
