@@ -31,11 +31,11 @@ class EventModel extends Entity {
 
   @override
   String toSqlValues() {
-    return "'$title', '$eventTime'";
+    return "'$title', $eventTime";
   }
 
   @override
   String toUpdateSql() {
-    return "title='$title', event_time='$eventTime'";
+    return "title='$title', event_time=$eventTime";
   }
 }

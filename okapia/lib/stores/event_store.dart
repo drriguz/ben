@@ -1,8 +1,6 @@
 import 'package:okapia/common/sqlcipher/model/event.dart';
-import 'package:okapia/common/sqlcipher/model/note.dart';
 import 'package:mobx/mobx.dart';
 import 'package:okapia/services/event_service.dart';
-import 'package:okapia/services/note_service.dart';
 
 import 'page_status_notifier.dart';
 import 'user_store.dart';

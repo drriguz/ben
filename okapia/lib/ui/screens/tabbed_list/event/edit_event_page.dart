@@ -149,16 +149,23 @@ class _EditEventPageState extends State<EditEventPage> {
       return;
     }
 
+    final DateTime eventTime = DateTime(
+        _detailStore.selectedDate.year,
+        _detailStore.selectedDate.month,
+        _detailStore.selectedDate.day,
+        _detailStore.selectedTime.hour,
+        _detailStore.selectedTime.minute);
+    ;
     EventStore eventStore = Provider.of<EventStore>(context);
     if (_isCreating())
       return eventStore
-          .create(title, DateTime.now())
+          .create(title, eventTime)
           .then((_) => Navigator.of(context).pop())
           .catchError((e, stack) => Toasts.showError(S.of(context).save_failed,
               error: e, stackTrace: stack));
     else
       return eventStore
-          .update(_id, title, DateTime.now())
+          .update(_id, title, eventTime)
           .then((_) => Navigator.of(context).pop())
           .catchError((e, stack) => Toasts.showError(S.of(context).save_failed,
               error: e, stackTrace: stack));

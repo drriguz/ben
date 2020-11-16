@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:okapia/common/sqlcipher/model/note.dart';
+import 'package:okapia/ui/screens/tabbed_list/widgets/date_title.dart';
 import 'package:okapia/ui/screens/tabbed_list/widgets/thumb_image.dart';
-import 'package:okapia/ui/theme/styles.dart';
 
 import '../widgets/list_item.dart';
 
@@ -24,7 +24,7 @@ class NoteItem extends AbstractListItem {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _createDate(lastUpdated),
+          DateTitle(lastUpdated),
           Padding(
             padding: const EdgeInsets.only(top: 8),
             child: _content(lastUpdated),
@@ -34,70 +34,18 @@ class NoteItem extends AbstractListItem {
     );
   }
 
-  Widget _createDate(DateTime lastUpdated) {
-    return Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Text(
-            lastUpdated.day.toString(),
-            style: const TextStyle(
-              color: Colors.indigo,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Text(
-            monthFormat.format(lastUpdated),
-            style: const TextStyle(
-              fontSize: 22,
-              color: Colors.black45,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        Expanded(
-          child: Text(
-            "${lastUpdated.year.toString()}, ${dayOfWeekFormat.format(lastUpdated)}",
-            style: Styles.descriptionStyle,
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _content(DateTime lastUpdated) {
     return Container(
       height: 100,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text(
-                    timeFormat.format(lastUpdated),
-                    style: const TextStyle(
-                      color: Colors.indigo,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    model.title,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                  ),
-                ),
-              ],
+            child: Text(
+              model.title,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             ),
           ),
           ThumbImage(),

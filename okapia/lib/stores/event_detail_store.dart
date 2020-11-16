@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:okapia/common/sqlcipher/model/event.dart';
 import 'package:okapia/services/event_service.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
