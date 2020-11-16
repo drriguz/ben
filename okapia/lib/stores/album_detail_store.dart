@@ -9,7 +9,7 @@ part 'album_detail_store.g.dart';
 class AlbumDetailStore = _AlbumDetailStore with _$AlbumDetailStore;
 
 abstract class _AlbumDetailStore extends PageStatusNotifier with Store {
-  final String _id;
+  final int _id;
   final UserStore _userStore;
 
   @observable

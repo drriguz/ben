@@ -1,3 +1,4 @@
+import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/stores/album_detail_store.dart';
 import 'package:okapia/stores/album_store.dart';
 import 'package:okapia/stores/user_store.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class EditAlbumPage extends StatefulWidget {
-  final String _id;
+  final int _id;
 
   EditAlbumPage(this._id, {Key key}) : super(key: key);
 
@@ -18,7 +19,7 @@ class EditAlbumPage extends StatefulWidget {
 }
 
 class _EditAlbumPageState extends State<EditAlbumPage> {
-  final String _id;
+  final int _id;
   AlbumDetailStore _detailStore;
   TextEditingController _textEditingController;
 
@@ -48,7 +49,16 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_isCreating() ? "创建相册" : "编辑相册")),
+      appBar: AppBar(
+          actions: [
+            FlatButton(
+              onPressed: () => _onSave(context),
+              child: Text(S.of(context).save),
+            ),
+          ],
+          title: Text(_isCreating()
+              ? S.of(context).creating_album
+              : S.of(context).editing_album)),
       body: Observer(builder: (_) => _createEditor()),
     );
   }
@@ -60,46 +70,19 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
       child: Column(
         children: <Widget>[
           FormInput(
-            "创建一个相册用来归类您的照片，相册名称可以随意填写。系统将自动生成唯一的ID来进行区分，即使您创建了相同名称的相册也不会混淆",
-            "相册名称",
+            S.of(context).album_description,
+            S.of(context).album_name,
             _textEditingController,
-          ),
-          Divider(),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: _createToolbar(context),
           ),
         ],
       ),
     );
   }
 
-  Widget _createToolbar(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Container(
-          height: 20,
-          child: VerticalDivider(
-            color: Colors.red,
-          ),
-        ),
-        FlatButton(
-          onPressed: () => _onSave(context),
-          textColor: Colors.blue,
-          child: Text(
-            "保存",
-            style: TextStyle(fontSize: 16),
-          ),
-        ),
-      ],
-    );
-  }
-
   Future<void> _onSave(BuildContext context) async {
     final String content = _textEditingController.text;
     if (content == null || content.trim().isEmpty) {
-      Toasts.showError("相册名称不能为空");
+      Toasts.showError(S.of(context).content_is_empty);
       return;
     }
 
@@ -108,13 +91,13 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
       return albumStore
           .create(_textEditingController.text)
           .then((_) => Navigator.of(context).pop())
-          .catchError(
-              (e, s) => Toasts.showError("保存失败，请重试", error: e, stackTrace: s));
+          .catchError((e, s) => Toasts.showError(S.of(context).save_failed,
+              error: e, stackTrace: s));
     else
       return albumStore
           .update(_id, _textEditingController.text)
           .then((_) => Navigator.of(context).pop())
-          .catchError(
-              (e, s) => Toasts.showError("保存失败，请重试", error: e, stackTrace: s));
+          .catchError((e, s) => Toasts.showError(S.of(context).save_failed,
+              error: e, stackTrace: s));
   }
 }

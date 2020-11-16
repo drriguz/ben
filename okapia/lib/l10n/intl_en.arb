@@ -37,5 +37,9 @@
   "please_choose_time": "Please choose event time",
   "please_input_title": "Please input event title",
   "create_checklist": "Create checklist",
-  "save": "Save"
+  "save": "Save",
+  "creating_album": "Create album",
+  "editing_album": "Edit album",
+  "album_name": "Album name",
+  "album_description": "The albums is protected and it's not visible out of Okapia"
 }

@@ -73,7 +73,7 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
             case "/album/edit":
             case "/album/add":
               {
-                String id = settings.arguments;
+                int id = settings.arguments;
                 return MaterialPageRoute(
                     builder: (context) => EditAlbumPage(id));
               }

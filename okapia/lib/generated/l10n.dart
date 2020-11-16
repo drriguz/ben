@@ -424,6 +424,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Create album`
+  String get creating_album {
+    return Intl.message(
+      'Create album',
+      name: 'creating_album',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit album`
+  String get editing_album {
+    return Intl.message(
+      'Edit album',
+      name: 'editing_album',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Album name`
+  String get album_name {
+    return Intl.message(
+      'Album name',
+      name: 'album_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The albums is protected and it's not visible out of Okapia`
+  String get album_description {
+    return Intl.message(
+      'The albums is protected and it\'s not visible out of Okapia',
+      name: 'album_description',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
