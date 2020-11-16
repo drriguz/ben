@@ -5,7 +5,6 @@ import '../../theme/icons.dart';
 
 import 'package:flutter/material.dart';
 
-import '../not_implemented.dart';
 import 'calendar/calendar_tab.dart';
 import 'event/event_list_page.dart';
 import 'note/note_list_page.dart';
@@ -40,12 +39,12 @@ final tabConfigs = [
   _TabConfig(
     S.current.calendar,
     CalendarTabPage(),
-    "/note/add",
+    "/event/add",
   ),
   _TabConfig(
     S.current.event,
     EventListPage(),
-    "/note/add",
+    "/event/add",
   ),
 ];
 

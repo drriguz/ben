@@ -364,6 +364,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Create new event`
+  String get creating_event {
+    return Intl.message(
+      'Create new event',
+      name: 'creating_event',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit event`
+  String get editing_event {
+    return Intl.message(
+      'Edit event',
+      name: 'editing_event',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please choose event time`
+  String get please_choose_time {
+    return Intl.message(
+      'Please choose event time',
+      name: 'please_choose_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input event title`
+  String get please_input_title {
+    return Intl.message(
+      'Please input event title',
+      name: 'please_input_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create checklist`
+  String get create_checklist {
+    return Intl.message(
+      'Create checklist',
+      name: 'create_checklist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -5,6 +5,7 @@ import 'ui/screens/album/album_detail_page.dart';
 import 'ui/screens/album/edit_album_page.dart';
 import 'ui/screens/album/image_detail_page.dart';
 import 'ui/screens/contacts/chat_page.dart';
+import 'ui/screens/tabbed_list/event/edit_event_page.dart';
 import 'ui/screens/tabbed_list/note/edit_note_page.dart';
 import 'ui/screens/tabbed_list/note/note_detail_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -61,6 +62,13 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 int id = settings.arguments;
                 return MaterialPageRoute(
                     builder: (context) => EditNotePage(id));
+              }
+            case "/event/edit":
+            case "/event/add":
+              {
+                int id = settings.arguments;
+                return MaterialPageRoute(
+                    builder: (context) => EditEventPage(id));
               }
             case "/album/edit":
             case "/album/add":
