@@ -1,3 +1,5 @@
+import 'package:okapia/generated/l10n.dart';
+
 import '../../model/choice.dart';
 import '../../theme/icons.dart';
 
@@ -29,17 +31,17 @@ class _TabConfig {
 
 final tabConfigs = [
   _TabConfig(
-    "记事",
+    S.current.note,
     NoteListPage(),
     "/note/add",
   ),
   _TabConfig(
-    "密码",
+    S.current.calendar,
     NotImplementedPage(),
     "/note/add",
   ),
   _TabConfig(
-    "卡片",
+    S.current.event,
     NotImplementedPage(),
     "/note/add",
   ),

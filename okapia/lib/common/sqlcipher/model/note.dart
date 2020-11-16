@@ -1,8 +1,32 @@
 import 'package:native_sqlcipher/database.dart';
 import 'package:okapia/common/sqlcipher/repository.dart';
 
+class NoteCheckList {
+  String title;
+  int checkItems;
+  int finishedItems;
+}
+
+class NoteEvent {
+  DateTime time;
+  String title;
+}
+
+class NoteImage {
+  String thumb;
+  String path;
+}
+
+class NoteLocation {
+  String title;
+  String location;
+}
+
 class NoteModel extends Entity {
   String title;
+  List<NoteCheckList> checklists;
+  List<NoteEvent> events;
+  List<NoteImage> images;
   String content;
 
   static final String TABLE = "note";
@@ -17,8 +41,8 @@ class NoteModel extends Entity {
       id: r.readColumnAsInt("id"),
       title: r.readColumnAsText("title"),
       content: r.readColumnAsText("content"),
-      createdTime: r.readColumnAsInt("created_time"),
-      lastUpdatedTime: r.readColumnAsInt("last_updated_time"),
+      createdTime: r.readColumnAsInt64("created_time"),
+      lastUpdatedTime: r.readColumnAsInt64("last_updated_time"),
     );
   }
 

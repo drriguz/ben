@@ -1,3 +1,4 @@
+import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/stores/user_store.dart';
 import 'package:okapia/ui/screens/tool_box_page.dart';
 import 'package:flutter/material.dart';
@@ -58,11 +59,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         child: _tabItems.elementAt(_currentPageIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(FontIcon.list), title: Text("私密")),
-          BottomNavigationBarItem(icon: Icon(FontIcon.galley), title: Text("相册")),
-          BottomNavigationBarItem(icon: Icon(FontIcon.message), title: Text("密信")),
-          BottomNavigationBarItem(icon: Icon(FontIcon.toolbox), title: Text("工具箱")),
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(FontIcon.list), label: S.of(context).reminder),
+          BottomNavigationBarItem(
+              icon: Icon(FontIcon.galley), label: S.of(context).photo),
+          BottomNavigationBarItem(
+              icon: Icon(FontIcon.message), label: S.of(context).strongbox),
+          BottomNavigationBarItem(
+              icon: Icon(FontIcon.toolbox), label: S.of(context).toolbox),
         ],
         type: BottomNavigationBarType.fixed,
         // without this line tab icon won't display

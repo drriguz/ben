@@ -26,10 +26,12 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   Future<void> refresh() async {
     setBusy();
     data.clear();
-    return _noteService
-        .refresh(_userStore.database)
-        .then((items) => data.addAll(items))
-        .whenComplete(() => setIdle());
+    return _noteService.refresh(_userStore.database).then((items) {
+      if (items.isNotEmpty) {
+        lastId = items.last.id;
+        data.addAll(items);
+      }
+    }).whenComplete(() => setIdle());
   }
 
   @action
@@ -63,8 +65,7 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   @action
   Future<void> create(String content) async {
     setBusy();
-    final String title =
-        content.length > 20 ? content.substring(0, 20) : content;
+    final String title = content.split("\n")[0];
     NoteModel note = NoteModel(title: title, content: content);
     _noteService
         .create(_userStore.database, note)

@@ -26,6 +26,17 @@
   "password_validation_failed": "Incorrect password",
   "unlocking": "Unlocking, please wait...",
 
+  "secret": "Secret",
+  "reminder": "Reminder",
+  "photo": "Photo",
+  "calendar": "Calendar",
+  "message": "Message",
+  "toolbox": "Toolbox",
+  "event": "Events",
+  "note": "Notes",
+  "strongbox": "Strongbox",
+  "password": "Password",
+  "card": "Card",
   "content_is_empty": "Content is empty",
   "save_failed": "Save failed, reason:"
 }

@@ -14,4 +14,7 @@ class FontIcon {
   static const image = IconData(0xe8ba, fontFamily: 'ali');
   static const video = IconData(0xe6dc, fontFamily: 'ali');
   static const audio = IconData(0xe759, fontFamily: 'ali');
+  static const calendar = IconData(0xe746, fontFamily: 'ali');
+  static const clock = IconData(0xe8bb, fontFamily: 'ali');
+  static const location = IconData(0xe8ae, fontFamily: 'ali');
 }

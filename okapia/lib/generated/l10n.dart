@@ -235,6 +235,116 @@ class S {
     );
   }
 
+  /// `Secret`
+  String get secret {
+    return Intl.message(
+      'Secret',
+      name: 'secret',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reminder`
+  String get reminder {
+    return Intl.message(
+      'Reminder',
+      name: 'reminder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photo`
+  String get photo {
+    return Intl.message(
+      'Photo',
+      name: 'photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calendar`
+  String get calendar {
+    return Intl.message(
+      'Calendar',
+      name: 'calendar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message`
+  String get message {
+    return Intl.message(
+      'Message',
+      name: 'message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Toolbox`
+  String get toolbox {
+    return Intl.message(
+      'Toolbox',
+      name: 'toolbox',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Events`
+  String get event {
+    return Intl.message(
+      'Events',
+      name: 'event',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes`
+  String get note {
+    return Intl.message(
+      'Notes',
+      name: 'note',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Strongbox`
+  String get strongbox {
+    return Intl.message(
+      'Strongbox',
+      name: 'strongbox',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Card`
+  String get card {
+    return Intl.message(
+      'Card',
+      name: 'card',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Content is empty`
   String get content_is_empty {
     return Intl.message(
