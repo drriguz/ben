@@ -1,49 +1,8 @@
-import 'package:native_sqlcipher/database.dart';
 import 'package:okapia/common/sqlcipher/model/note.dart';
 import 'package:okapia/common/sqlcipher/repository/note_repository.dart';
 
-class NoteService {
-  final NoteRepository _noteRepository;
+import 'curd_service.dart';
 
-  NoteService(this._noteRepository);
-
-  Future<int> getTotalCount(final Database database) async {
-    return _noteRepository.selectCount(database);
-  }
-
-  Future<List<NoteModel>> fetch(final Database database, int lastId) async {
-    String where = lastId < 0 ? "" : "where id < $lastId";
-    return _noteRepository.select(database, "$where order by id desc limit 20");
-  }
-
-  Future<List<NoteModel>> refresh(final Database database) async {
-    return _noteRepository.select(database, "order by id desc limit 20");
-  }
-
-  Future<NoteModel> fetchById(final Database database, int id) async {
-    return _noteRepository.selectById(database, id);
-  }
-
-  Future<NoteModel> create(
-      final Database database, final NoteModel note) async {
-    assert(note.title != null);
-    assert(note.content != null);
-
-    return _noteRepository.insert(database, note);
-  }
-
-  Future<NoteModel> update(
-      final Database database, final NoteModel note) async {
-    assert(note.id != null);
-    assert(note.createdTime != null);
-    assert(note.lastUpdatedTime != null);
-    assert(note.title != null);
-    assert(note.content != null);
-
-    return _noteRepository.update(database, note.id, note);
-  }
-
-  Future<int> delete(final Database database, int id) async {
-    return _noteRepository.delete(database, id);
-  }
+class NoteService extends CurdService<NoteModel, NoteRepository> {
+  NoteService(NoteRepository repository) : super(repository);
 }

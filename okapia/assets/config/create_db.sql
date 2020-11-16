@@ -14,3 +14,20 @@ create table event(
     note_id integer,
     event_time integer
 );
+
+create table album(
+    id integer primary key autoincrement,
+    created_time integer not null,
+    last_updated_time integer not null,
+    name text,
+    cover_image_id integer
+);
+
+create table image(
+    id integer primary key autoincrement,
+    album_id integer,
+    created_time integer not null,
+    last_updated_time integer not null,
+    thumb BLOB,
+    path text not null
+);

@@ -1,10 +1,15 @@
 import 'package:camera/camera.dart';
 import 'package:okapia/common/sqlcipher/repository/event_repository.dart';
 import 'package:okapia/common/sqlcipher/repository/note_repository.dart';
+import 'package:okapia/services/album_service.dart';
 import 'package:okapia/services/event_service.dart';
+import 'package:okapia/services/image_service.dart';
 import 'package:okapia/services/note_service.dart';
+import 'package:okapia/stores/album_store.dart';
 import 'package:okapia/stores/event_store.dart';
 
+import 'common/sqlcipher/repository/album_repository.dart';
+import 'common/sqlcipher/repository/image_repository.dart';
 import 'services/config_service.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +29,8 @@ List<SingleChildCloneableWidget> _createRepositories() {
   return [
     Provider<NoteRepository>.value(value: new NoteRepository()),
     Provider<EventRepository>.value(value: new EventRepository()),
+    Provider<AlbumRepository>.value(value: new AlbumRepository()),
+    Provider<ImageRepository>.value(value: new ImageRepository()),
   ];
 }
 
@@ -34,6 +41,10 @@ List<SingleChildCloneableWidget> _createServices() {
         update: (_, noteRepository, service) => NoteService(noteRepository)),
     ProxyProvider<EventRepository, EventService>(
         update: (_, eventRepository, service) => EventService(eventRepository)),
+    ProxyProvider<AlbumRepository, AlbumService>(
+        update: (_, repository, service) => AlbumService(repository)),
+    ProxyProvider<ImageRepository, ImageService>(
+        update: (_, repository, service) => ImageService(repository)),
     ProxyProvider<ConfigService, InitializeService>(
         update: (_, configService, service) =>
             InitializeService(configService)),
@@ -57,6 +68,9 @@ List<SingleChildCloneableWidget> _createStores() {
     ProxyProvider2<UserStore, EventService, EventStore>(
         update: (_, userStore, eventService, child) =>
             EventStore(userStore, eventService)),
+    ProxyProvider2<UserStore, AlbumService, AlbumStore>(
+        update: (_, userStore, albumService, child) =>
+            AlbumStore(userStore, albumService)),
   ];
 }
 

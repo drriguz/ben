@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AlbumItem extends StatelessWidget {
-  final String _id;
+  final int _id;
   final String _name;
   final int _imageCount;
 

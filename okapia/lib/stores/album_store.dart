@@ -1,4 +1,6 @@
 import 'package:okapia/common/format/album_data.dart';
+import 'package:okapia/common/sqlcipher/model/album.dart';
+import 'package:okapia/services/album_service.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
 import 'package:mobx/mobx.dart';
 import 'user_store.dart';
@@ -9,20 +11,21 @@ class AlbumStore = _AlbumStore with _$AlbumStore;
 
 abstract class _AlbumStore extends PageStatusNotifier with Store {
   final UserStore _userStore;
+  final AlbumService _albumService;
 
-  _AlbumStore(this._userStore);
+  _AlbumStore(this._userStore, this._albumService);
 
   @observable
-  ObservableList<AlbumData> data = ObservableList<AlbumData>();
+  ObservableList<AlbumModel> data = ObservableList<AlbumModel>();
 
   @action
   Future<void> fetch() async {
     setBusy();
     data.clear();
-//    return _albumService
-//        .fetchAlbums(_userStore.userCredential)
-//        .then((items) => data.addAll(items))
-//        .whenComplete(() => setIdle());
+    return _albumService
+        .fetchAll(_userStore.database)
+        .then((items) => data.addAll(items))
+        .whenComplete(() => setIdle());
   }
 
   @action

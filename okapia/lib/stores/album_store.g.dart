@@ -12,13 +12,13 @@ mixin _$AlbumStore on _AlbumStore, Store {
   final _$dataAtom = Atom(name: '_AlbumStore.data');
 
   @override
-  ObservableList<AlbumData> get data {
+  ObservableList<AlbumModel> get data {
     _$dataAtom.reportRead();
     return super.data;
   }
 
   @override
-  set data(ObservableList<AlbumData> value) {
+  set data(ObservableList<AlbumModel> value) {
     _$dataAtom.reportWrite(value, super.data, () {
       super.data = value;
     });
