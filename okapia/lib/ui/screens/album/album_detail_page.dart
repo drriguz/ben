@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:okapia/common/format/image_data.dart';
+import 'package:okapia/common/sqlcipher/model/image.dart';
+import 'package:okapia/services/image_service.dart';
 import 'package:okapia/stores/image_store.dart';
 import 'package:okapia/stores/user_store.dart';
 import 'package:okapia/ui/model/choice.dart';
@@ -19,7 +20,7 @@ const List<MenuChoice> menuItems = const <MenuChoice>[
 ];
 
 class AlbumDetailPage extends StatefulWidget {
-  final String _id;
+  final int _id;
 
   AlbumDetailPage(this._id, {Key key}) : super(key: key);
 
@@ -28,7 +29,7 @@ class AlbumDetailPage extends StatefulWidget {
 }
 
 class _AlbumDetailPageState extends State<AlbumDetailPage> {
-  final String _id;
+  final int _id;
 
   _AlbumDetailPageState(this._id);
 
@@ -40,6 +41,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     super.initState();
     _imageStore = ImageStore(
       Provider.of<UserStore>(context, listen: false),
+      Provider.of<ImageService>(context, listen: false),
       _id,
     );
     _imageStore.fetch();
@@ -91,11 +93,11 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     );
   }
 
-  Widget _createImage(BriefImageData item) {
+  Widget _createImage(ImageModel item) {
     return ImageItem(
       item.id,
-      item.meta.title,
-      item.meta.thumb,
+      item.path,
+      null,
     );
   }
 

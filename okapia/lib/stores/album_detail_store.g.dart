@@ -12,13 +12,13 @@ mixin _$AlbumDetailStore on _AlbumDetailStore, Store {
   final _$_albumDataAtom = Atom(name: '_AlbumDetailStore._albumData');
 
   @override
-  AlbumData get _albumData {
+  AlbumModel get _albumData {
     _$_albumDataAtom.reportRead();
     return super._albumData;
   }
 
   @override
-  set _albumData(AlbumData value) {
+  set _albumData(AlbumModel value) {
     _$_albumDataAtom.reportWrite(value, super._albumData, () {
       super._albumData = value;
     });

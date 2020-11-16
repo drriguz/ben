@@ -54,7 +54,7 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
   }
 
   Widget _createEditor() {
-    _textEditingController.text = _detailStore.data?.content?.name;
+    _textEditingController.text = _detailStore.data?.name;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
       child: Column(

@@ -1,4 +1,4 @@
-import 'package:okapia/common/format/album_data.dart';
+import 'package:okapia/common/sqlcipher/model/album.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
 import 'package:mobx/mobx.dart';
 
@@ -13,7 +13,7 @@ abstract class _AlbumDetailStore extends PageStatusNotifier with Store {
   final UserStore _userStore;
 
   @observable
-  AlbumData _albumData;
+  AlbumModel _albumData;
 
   _AlbumDetailStore(this._id, this._userStore);
 
@@ -26,5 +26,5 @@ abstract class _AlbumDetailStore extends PageStatusNotifier with Store {
 //        .whenComplete(() => setIdle());
   }
 
-  AlbumData get data => _albumData;
+  AlbumModel get data => _albumData;
 }

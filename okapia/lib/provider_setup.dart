@@ -7,6 +7,7 @@ import 'package:okapia/services/image_service.dart';
 import 'package:okapia/services/note_service.dart';
 import 'package:okapia/stores/album_store.dart';
 import 'package:okapia/stores/event_store.dart';
+import 'package:okapia/stores/image_store.dart';
 
 import 'common/sqlcipher/repository/album_repository.dart';
 import 'common/sqlcipher/repository/image_repository.dart';

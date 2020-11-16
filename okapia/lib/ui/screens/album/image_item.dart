@@ -16,7 +16,7 @@ class LoadingImageItem extends StatelessWidget {
 }
 
 class ImageItem extends StatelessWidget {
-  final String _id;
+  final int _id;
   final String _name;
   final Uint8List _thumb;
 

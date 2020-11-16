@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:okapia/common/format/image_data.dart';
+import 'package:okapia/common/sqlcipher/model/image.dart';
+import 'package:okapia/services/image_service.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
 import 'package:mobx/mobx.dart';
 
@@ -12,21 +13,27 @@ class ImageStore = _ImageStore with _$ImageStore;
 
 abstract class _ImageStore extends PageStatusNotifier with Store {
   final UserStore _userStore;
-  final String _albumId;
+  final ImageService _imageService;
+  final int _albumId;
+  int _lastId = -1;
 
-  _ImageStore(this._userStore, this._albumId);
+  _ImageStore(this._userStore, this._imageService, this._albumId);
 
   @observable
-  ObservableList<BriefImageData> data = ObservableList<BriefImageData>();
+  ObservableList<ImageModel> data = ObservableList<ImageModel>();
 
   @action
   Future<void> fetch() async {
     setBusy();
     data.clear();
-//    return _imageService
-//        .fetchImages(_albumId, _userStore.userCredential)
-//        .then((items) => data.addAll(items))
-//        .whenComplete(() => setIdle());
+    return _imageService
+        .fetchByAlbum(_userStore.database, _albumId, _lastId)
+        .then((items) {
+      if (items.isNotEmpty) {
+        _lastId = items.last.id;
+        data.addAll(items);
+      }
+    }).whenComplete(() => setIdle());
   }
 
   @action

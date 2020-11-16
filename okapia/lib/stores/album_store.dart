@@ -1,4 +1,3 @@
-import 'package:okapia/common/format/album_data.dart';
 import 'package:okapia/common/sqlcipher/model/album.dart';
 import 'package:okapia/services/album_service.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
@@ -30,9 +29,10 @@ abstract class _AlbumStore extends PageStatusNotifier with Store {
 
   @action
   Future<void> create(String name) async {
-//    return _albumService
-//        .create(_userStore.userCredential, name)
-//        .then((value) => data.add(value));
+    AlbumModel item = AlbumModel(name: name);
+    return _albumService
+        .create(_userStore.database, item)
+        .then((value) => data.add(value));
   }
 
   @action

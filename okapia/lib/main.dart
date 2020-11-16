@@ -79,13 +79,13 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
               }
             case "/album/detail":
               {
-                String id = settings.arguments;
+                int id = settings.arguments;
                 return MaterialPageRoute(
                     builder: (context) => AlbumDetailPage(id));
               }
             case "/image/detail":
               {
-                String id = settings.arguments;
+                int id = settings.arguments;
                 return MaterialPageRoute(
                     builder: (context) => ImageDetailPage(id));
               }

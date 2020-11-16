@@ -12,13 +12,13 @@ mixin _$ImageStore on _ImageStore, Store {
   final _$dataAtom = Atom(name: '_ImageStore.data');
 
   @override
-  ObservableList<BriefImageData> get data {
+  ObservableList<ImageModel> get data {
     _$dataAtom.reportRead();
     return super.data;
   }
 
   @override
-  set data(ObservableList<BriefImageData> value) {
+  set data(ObservableList<ImageModel> value) {
     _$dataAtom.reportWrite(value, super.data, () {
       super.data = value;
     });

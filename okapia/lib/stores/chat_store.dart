@@ -1,4 +1,3 @@
-import 'package:okapia/common/format/album_data.dart';
 import 'package:okapia/common/sqlite/entity/contact_entity.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
 import 'package:mobx/mobx.dart';

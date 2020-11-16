@@ -9,7 +9,7 @@ class ImageDetailStore = _ImageDetailStore with _$ImageDetailStore;
 
 abstract class _ImageDetailStore with Store {
   final UserStore _userStore;
-  final String _id;
+  final int _id;
 
   @observable
   ImageProvider<dynamic> item;
