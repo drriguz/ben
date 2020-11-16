@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:okapia/common/sqlcipher/model/image.dart';
+import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/image_service.dart';
 import 'package:okapia/stores/image_store.dart';
 import 'package:okapia/stores/user_store.dart';
@@ -14,9 +15,9 @@ import 'package:provider/provider.dart';
 
 import 'image_item.dart';
 
-const List<MenuChoice> menuItems = const <MenuChoice>[
-  const MenuChoice('编辑', 'edit', Icons.edit),
-  const MenuChoice('删除', 'delete', Icons.delete),
+final List<MenuChoice> menuItems = <MenuChoice>[
+  MenuChoice(S.current.edit, 'edit', Icons.edit),
+  MenuChoice(S.current.delete, 'delete', Icons.delete),
 ];
 
 class AlbumDetailPage extends StatefulWidget {
@@ -51,7 +52,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("查看相册"),
+        title: Text(S.of(context).view_album),
         actions: <Widget>[
           PopupMenuButton<MenuChoice>(
             onSelected: (choice) => _onDropdownSelected(context, choice),

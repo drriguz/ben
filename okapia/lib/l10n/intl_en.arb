@@ -38,8 +38,12 @@
   "please_input_title": "Please input event title",
   "create_checklist": "Create checklist",
   "save": "Save",
+  "edit": "Edit",
+  "delete": "Delete",
   "creating_album": "Create album",
   "editing_album": "Edit album",
+  "album": "Album",
   "album_name": "Album name",
+  "view_album": "View album",
   "album_description": "The albums is protected and it's not visible out of Okapia"
 }

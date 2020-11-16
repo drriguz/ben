@@ -1,3 +1,4 @@
+import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/stores/album_store.dart';
 import 'package:okapia/ui/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _AlbumPageState extends State<AlbumPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("相册"),
+        title: Text(S.of(context).album),
       ),
       body: Observer(
         builder: (_) =>

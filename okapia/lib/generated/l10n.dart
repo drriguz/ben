@@ -425,6 +425,26 @@ class S {
     );
   }
 
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Create album`
   String get creating_album {
     return Intl.message(
@@ -445,11 +465,31 @@ class S {
     );
   }
 
+  /// `Album`
+  String get album {
+    return Intl.message(
+      'Album',
+      name: 'album',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Album name`
   String get album_name {
     return Intl.message(
       'Album name',
       name: 'album_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View album`
+  String get view_album {
+    return Intl.message(
+      'View album',
+      name: 'view_album',
       desc: '',
       args: [],
     );
