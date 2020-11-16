@@ -47,6 +47,7 @@ dependencies:
   qr_flutter: ^3.2.0
   geolocator: ^6.1.4
   intl: ^0.16.1
+  table_calendar: ^2.3.0
   opencv_helper:
     path: ../opencv_helper
   native_sqlcipher:
