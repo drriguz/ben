@@ -17,7 +17,7 @@ class PasswordScreen extends StatelessWidget {
           ],
         ),
         body: ListView.builder(
-          itemCount: 1,
+          itemCount: 10,
           itemBuilder: _itemBuilder,
         ));
   }

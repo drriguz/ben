@@ -1,4 +1,6 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:okapia/services/config_service.dart';
+import 'package:okapia/ui/theme/styles.dart';
 import 'ui/screens/album/album_detail_page.dart';
 import 'ui/screens/album/edit_album_page.dart';
 import 'ui/screens/album/image_detail_page.dart';
@@ -39,11 +41,8 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
           S.delegate,
           GlobalMaterialLocalizations.delegate,
         ],
+        theme: globalTheme,
         supportedLocales: S.delegate.supportedLocales,
-        theme: ThemeData(
-          //fontFamily: 'fzltxh',
-          primarySwatch: Colors.indigo,
-        ),
         onGenerateRoute: (settings) {
           print('on generate route:${settings}');
           switch (settings.name) {

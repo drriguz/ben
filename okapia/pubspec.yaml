@@ -48,6 +48,7 @@ dependencies:
   geolocator: ^6.1.4
   intl: ^0.16.1
   table_calendar: ^2.3.0
+  google_fonts: ^1.1.1
   opencv_helper:
     path: ../opencv_helper
   native_sqlcipher:
@@ -82,9 +83,6 @@ flutter:
     - family: ali
       fonts:
         - asset: assets/iconfont.ttf
-    - family: fzltxh
-      fonts:
-        - asset: assets/fzltxh.ttf
 flutter_intl:
   enabled: true
   # To add assets to your application, add an assets section, like this:
