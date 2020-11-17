@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'album_screen.dart';
 
 import '../theme/icons.dart';
+import 'password_screen.dart';
 import 'reminder_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   static final List<Widget> _tabItems = <Widget>[
     ReminderScreen(),
     AlbumScreen(),
-    AlbumScreen(),
+    PasswordScreen(),
     ToolboxScreen(),
   ];
 
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           BottomNavigationBarItem(
               icon: Icon(FontIcon.galley), label: S.of(context).photo),
           BottomNavigationBarItem(
-              icon: Icon(FontIcon.message), label: S.of(context).strongbox),
+              icon: Icon(FontIcon.message), label: S.of(context).password),
           BottomNavigationBarItem(
               icon: Icon(FontIcon.toolbox), label: S.of(context).toolbox),
         ],

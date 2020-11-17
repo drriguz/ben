@@ -5,9 +5,9 @@ import '../theme/icons.dart';
 
 import 'package:flutter/material.dart';
 
-import 'tabbed_list/calendar/calendar_tab.dart';
-import 'tabbed_list/event/event_list_page.dart';
-import 'tabbed_list/note/note_list_page.dart';
+import 'reminder/calendar/calendar_tab.dart';
+import 'reminder/event/event_list_page.dart';
+import 'reminder/note/note_list_page.dart';
 
 class ReminderScreen extends StatefulWidget {
   @override

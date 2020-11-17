@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:okapia/common/sqlcipher/model/note.dart';
-import 'package:okapia/ui/screens/tabbed_list/widgets/date_title.dart';
-import 'package:okapia/ui/screens/tabbed_list/widgets/thumb_image.dart';
+import 'package:okapia/ui/screens/reminder/widgets/date_title.dart';
+import 'package:okapia/ui/screens/reminder/widgets/thumb_image.dart';
 
 import '../widgets/list_item.dart';
 

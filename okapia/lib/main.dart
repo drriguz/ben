@@ -2,9 +2,9 @@ import 'package:okapia/services/config_service.dart';
 import 'ui/screens/album/album_detail_page.dart';
 import 'ui/screens/album/edit_album_page.dart';
 import 'ui/screens/album/image_detail_page.dart';
-import 'ui/screens/tabbed_list/event/edit_event_page.dart';
-import 'ui/screens/tabbed_list/note/edit_note_page.dart';
-import 'ui/screens/tabbed_list/note/note_detail_page.dart';
+import 'ui/screens/reminder/event/edit_event_page.dart';
+import 'ui/screens/reminder/note/edit_note_page.dart';
+import 'ui/screens/reminder/note/note_detail_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +14,7 @@ import 'generated/l10n.dart';
 import 'ui/screens/home_screen.dart';
 import 'ui/screens/initialize/initialize_page.dart';
 import 'ui/screens/login_screen.dart';
-import 'ui/screens/tools/scan_page.dart';
+import 'ui/screens/toolbox/scan_page.dart';
 import 'ui/utils/toast.dart';
 
 void main() async {
