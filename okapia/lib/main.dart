@@ -1,10 +1,7 @@
 import 'package:okapia/services/config_service.dart';
-import 'package:okapia/ui/screens/contacts/my_key_page.dart';
-
 import 'ui/screens/album/album_detail_page.dart';
 import 'ui/screens/album/edit_album_page.dart';
 import 'ui/screens/album/image_detail_page.dart';
-import 'ui/screens/contacts/chat_page.dart';
 import 'ui/screens/tabbed_list/event/edit_event_page.dart';
 import 'ui/screens/tabbed_list/note/edit_note_page.dart';
 import 'ui/screens/tabbed_list/note/note_detail_page.dart';
@@ -14,9 +11,9 @@ import 'package:provider/provider.dart';
 import 'stores/user_store.dart';
 import 'provider_setup.dart';
 import 'generated/l10n.dart';
-import 'ui/screens/home_page.dart';
+import 'ui/screens/home_screen.dart';
 import 'ui/screens/initialize/initialize_page.dart';
-import 'ui/screens/login_page.dart';
+import 'ui/screens/login_screen.dart';
 import 'ui/screens/tools/scan_page.dart';
 import 'ui/utils/toast.dart';
 
@@ -89,11 +86,6 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 return MaterialPageRoute(
                     builder: (context) => ImageDetailPage(id));
               }
-            case "/chat":
-              {
-                String id = settings.arguments;
-                return MaterialPageRoute(builder: (context) => ChatPage(id));
-              }
             default:
               break;
           }
@@ -102,14 +94,13 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
         routes: {
           "/": (_) => initialized
               ? Consumer<UserStore>(
-                  builder: (_, store, child) => LoginPage(store),
+                  builder: (_, store, child) => LoginScreen(store),
                 )
               : InitializePage(),
           "/login": (_) => Consumer<UserStore>(
-                builder: (_, store, child) => LoginPage(store),
+                builder: (_, store, child) => LoginScreen(store),
               ),
-          "/home": (_) => HomePage(),
-          "/chat/profile": (_) => MyKeyPage(),
+          "/home": (_) => HomeScreen(),
           "/tools/scan": (_) => ScanPage(),
         },
       ),

@@ -1,26 +1,25 @@
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/stores/user_store.dart';
-import 'package:okapia/ui/screens/tool_box_page.dart';
+import 'package:okapia/ui/screens/toolbox_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'album_page.dart';
-import 'contacts_page.dart';
+import 'album_screen.dart';
 
 import '../theme/icons.dart';
-import 'tabbed_list/tabbed_list_page.dart';
+import 'reminder_screen.dart';
 
-class HomePage extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   int _currentPageIndex = 0;
   static final List<Widget> _tabItems = <Widget>[
-    TabbedListPage(),
-    AlbumPage(),
-    ContactPage(),
-    ToolboxPage(),
+    ReminderScreen(),
+    AlbumScreen(),
+    AlbumScreen(),
+    ToolboxScreen(),
   ];
 
   void _onTabActivate(int index) {

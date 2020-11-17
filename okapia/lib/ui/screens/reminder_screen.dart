@@ -1,17 +1,17 @@
 import 'package:okapia/generated/l10n.dart';
 
-import '../../model/choice.dart';
-import '../../theme/icons.dart';
+import '../model/choice.dart';
+import '../theme/icons.dart';
 
 import 'package:flutter/material.dart';
 
-import 'calendar/calendar_tab.dart';
-import 'event/event_list_page.dart';
-import 'note/note_list_page.dart';
+import 'tabbed_list/calendar/calendar_tab.dart';
+import 'tabbed_list/event/event_list_page.dart';
+import 'tabbed_list/note/note_list_page.dart';
 
-class TabbedListPage extends StatefulWidget {
+class ReminderScreen extends StatefulWidget {
   @override
-  State<TabbedListPage> createState() => _TabbedListPageState();
+  State<ReminderScreen> createState() => _ReminderScreenState();
 }
 
 const List<MenuChoice> menuItems = const <MenuChoice>[
@@ -48,7 +48,7 @@ final tabConfigs = [
   ),
 ];
 
-class _TabbedListPageState extends State<TabbedListPage>
+class _ReminderScreenState extends State<ReminderScreen>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   final List<Tab> tabs =

@@ -7,12 +7,12 @@ import 'package:provider/provider.dart';
 
 import 'album/album_item.dart';
 
-class AlbumPage extends StatefulWidget {
+class AlbumScreen extends StatefulWidget {
   @override
-  _AlbumPageState createState() => _AlbumPageState();
+  _AlbumScreenState createState() => _AlbumScreenState();
 }
 
-class _AlbumPageState extends State<AlbumPage> {
+class _AlbumScreenState extends State<AlbumScreen> {
   @override
   void initState() {
     super.initState();

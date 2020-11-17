@@ -24,7 +24,7 @@ const tools = [
   ),
 ];
 
-class ToolboxPage extends StatelessWidget {
+class ToolboxScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

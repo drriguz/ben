@@ -10,16 +10,16 @@ import '../../main.dart';
 import '../theme/icons.dart';
 
 
-class LoginPage extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   final UserStore _userStore;
 
-  const LoginPage(this._userStore, {Key key}) : super(key: key);
+  const LoginScreen(this._userStore, {Key key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> with RouteAware {
+class _LoginScreenState extends State<LoginScreen> with RouteAware {
   FocusNode _inputFocusNode;
   FToast _fToast;
 
