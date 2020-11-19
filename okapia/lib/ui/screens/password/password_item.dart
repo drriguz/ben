@@ -51,7 +51,7 @@ class PasswordItem extends AbstractListItem {
   Widget _tags() {
     return Row(
       children: [
-        Tag("Answers", Icons.question_answer_outlined, Colors.green),
+        Tag("Photos", Icons.question_answer_outlined, Colors.green),
         Tag("Weak", Icons.warning_rounded, Colors.red),
       ],
     );

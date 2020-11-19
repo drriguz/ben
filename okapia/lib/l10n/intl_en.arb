@@ -36,7 +36,11 @@
   "editing_event": "Edit event",
   "please_choose_time": "Please choose event time",
   "please_input_title": "Please input event title",
+  "please_input_password_title": "Name of the password",
+  "please_input_url": "Website url",
+  "please_input_account": "Additional information, eg. the account",
   "create_checklist": "Create checklist",
+  "add_photo": "Take photo",
   "save": "Save",
   "edit": "Edit",
   "delete": "Delete",
@@ -45,5 +49,7 @@
   "album": "Album",
   "album_name": "Album name",
   "view_album": "View album",
-  "album_description": "The albums is protected and it's not visible out of Okapia"
+  "album_description": "The albums is protected and it's not visible out of Okapia",
+  "create_password": "Add password",
+  "public_fields": "The following fields are double encrypted, you'll need to input PIN to view those fields"
 }

@@ -1,5 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:okapia/services/config_service.dart';
+import 'package:okapia/ui/screens/password/password_edit_screen.dart';
 import 'package:okapia/ui/theme/styles.dart';
 import 'ui/screens/album/album_detail_page.dart';
 import 'ui/screens/album/edit_album_page.dart';
@@ -84,6 +85,13 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 int id = settings.arguments;
                 return MaterialPageRoute(
                     builder: (context) => ImageDetailPage(id));
+              }
+            case "/password/edit":
+            case "/password/add":
+              {
+                int id = settings.arguments;
+                return MaterialPageRoute(
+                    builder: (context) => PasswordEditScreen());
               }
             default:
               break;

@@ -405,11 +405,51 @@ class S {
     );
   }
 
+  /// `Name of the password`
+  String get please_input_password_title {
+    return Intl.message(
+      'Name of the password',
+      name: 'please_input_password_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Website url`
+  String get please_input_url {
+    return Intl.message(
+      'Website url',
+      name: 'please_input_url',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Additional information, eg. the account`
+  String get please_input_account {
+    return Intl.message(
+      'Additional information, eg. the account',
+      name: 'please_input_account',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Create checklist`
   String get create_checklist {
     return Intl.message(
       'Create checklist',
       name: 'create_checklist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Take photo`
+  String get add_photo {
+    return Intl.message(
+      'Take photo',
+      name: 'add_photo',
       desc: '',
       args: [],
     );
@@ -500,6 +540,26 @@ class S {
     return Intl.message(
       'The albums is protected and it\'s not visible out of Okapia',
       name: 'album_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add password`
+  String get create_password {
+    return Intl.message(
+      'Add password',
+      name: 'create_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The following fields are double encrypted, you'll need to input PIN to view those fields`
+  String get public_fields {
+    return Intl.message(
+      'The following fields are double encrypted, you\'ll need to input PIN to view those fields',
+      name: 'public_fields',
       desc: '',
       args: [],
     );
