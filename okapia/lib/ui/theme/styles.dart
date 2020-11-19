@@ -31,7 +31,7 @@ final appTextTheme = TextTheme(
 );
 
 final globalTheme = ThemeData(
-  primarySwatch: Colors.red,
+  primarySwatch: Colors.blueGrey,
   textTheme: appTextTheme,
 );
 
