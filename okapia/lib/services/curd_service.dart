@@ -10,6 +10,10 @@ abstract class CurdService<M extends Entity, R extends Sqlite3Repository<M>> {
     return _repository.selectCount(database);
   }
 
+  Future<List<M>> fetchAll(final Database database, {String where = ""}) async {
+    return _repository.select(database, "$where order by id desc");
+  }
+
   Future<List<M>> fetch(final Database database, int lastId) async {
     String where = lastId < 0 ? "" : "where id < $lastId";
     return _repository.select(database, "$where order by id desc limit 20");

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:okapia/common/sqlcipher/model/password.dart';
 import 'package:okapia/ui/screens/reminder/widgets/list_item.dart';
 import 'package:okapia/ui/theme/icons.dart';
 import 'package:okapia/ui/theme/styles.dart';
@@ -7,6 +8,10 @@ import 'package:okapia/ui/theme/styles.dart';
 import 'tag.dart';
 
 class PasswordItem extends AbstractListItem {
+  final PasswordModel data;
+
+  PasswordItem(this.data);
+
   Widget _title(BuildContext context) {
     return Row(
       children: [
@@ -26,7 +31,7 @@ class PasswordItem extends AbstractListItem {
             Padding(
               padding: const EdgeInsets.only(bottom: 3),
               child: Text(
-                "淘宝Headline 6",
+                data.name,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context)
                     .textTheme
@@ -37,7 +42,7 @@ class PasswordItem extends AbstractListItem {
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
               child: Text(
-                "solee.linux@gmail.com",
+                data.account,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.subtitle1,
               ),

@@ -10,8 +10,4 @@ class AlbumService extends CurdService<AlbumModel, AlbumRepository> {
   AlbumService(AlbumRepository repository)
       : _repository = repository,
         super(repository);
-
-  Future<List<AlbumModel>> fetchAll(final Database database) async {
-    return _repository.select(database, "order by id desc");
-  }
 }

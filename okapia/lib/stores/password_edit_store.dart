@@ -6,6 +6,7 @@ import 'package:okapia/services/event_service.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
 import 'package:mobx/mobx.dart';
+import 'package:okapia/stores/password_list_store.dart';
 
 import 'user_store.dart';
 

@@ -9,6 +9,7 @@ import 'package:okapia/services/note_service.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/album_store.dart';
 import 'package:okapia/stores/event_store.dart';
+import 'package:okapia/stores/password_list_store.dart';
 import 'package:okapia/stores/password_store.dart';
 
 import 'common/sqlcipher/repository/album_repository.dart';
@@ -76,9 +77,9 @@ List<SingleChildCloneableWidget> _createStores() {
     ProxyProvider2<UserStore, AlbumService, AlbumStore>(
         update: (_, userStore, albumService, child) =>
             AlbumStore(userStore, albumService)),
-    ProxyProvider2<UserStore, PasswordService, PasswordStore>(
+    ProxyProvider2<UserStore, PasswordService, PasswordListStore>(
         update: (_, userStore, service, child) =>
-            PasswordStore(userStore, service)),
+            PasswordListStore(userStore, service)),
   ];
 }
 
