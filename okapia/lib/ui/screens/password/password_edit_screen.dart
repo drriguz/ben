@@ -4,6 +4,7 @@ import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/password_edit_store.dart';
+import 'package:okapia/stores/user_store.dart';
 import 'package:okapia/ui/widgets/text_input.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +29,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
     super.initState();
     _store = PasswordEditStore(
       -1,
+      Provider.of<UserStore>(context, listen: false),
       Provider.of<PasswordService>(context, listen: false),
     );
   }
@@ -131,7 +133,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
 
     final confirmed = await showDialog<bool>(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       builder: (_) => ConfirmPasswordDialog(_password),
     );
     if (!confirmed) return;
@@ -151,7 +153,9 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
         ],
       ),
     ));
-    await _store.create(_name, _account, _url, _password);
-    _scaffoldKey.currentState.hideCurrentSnackBar();
+    return _store
+        .create(_name, _account, _url, _password)
+        .then((_) => Navigator.of(context).pop())
+        .whenComplete(() => _scaffoldKey.currentState.hideCurrentSnackBar());
   }
 }

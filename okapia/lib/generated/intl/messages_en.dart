@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "album_description" : MessageLookupByLibrary.simpleMessage("The albums is protected and it\'s not visible out of Okapia"),
     "album_name" : MessageLookupByLibrary.simpleMessage("Album name"),
     "calendar" : MessageLookupByLibrary.simpleMessage("Calendar"),
+    "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "card" : MessageLookupByLibrary.simpleMessage("Card"),
     "content_is_empty" : MessageLookupByLibrary.simpleMessage("Content is empty"),
     "create_checklist" : MessageLookupByLibrary.simpleMessage("Create checklist"),

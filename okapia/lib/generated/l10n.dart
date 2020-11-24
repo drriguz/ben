@@ -435,6 +435,16 @@ class S {
     );
   }
 
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Edit`
   String get edit {
     return Intl.message(

@@ -37,6 +37,12 @@ class ConfirmPasswordDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         TextButton(
+          child: Text(S.of(context).cancel),
+          onPressed: () {
+            Navigator.of(context).pop(false);
+          },
+        ),
+        TextButton(
           child: Text(S.of(context).save),
           onPressed: () {
             if (_formKey.currentState.validate()) {

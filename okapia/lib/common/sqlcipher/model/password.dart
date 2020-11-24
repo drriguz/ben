@@ -39,13 +39,17 @@ class PasswordModel extends Entity {
     );
   }
 
+  String _encode(Uint8List value) {
+    return value == null ? 'null' : "x'${hex.encode(value)}'";
+  }
+
   @override
   String toSqlValues() {
-    return "'$name', '$account', '$url', x'${hex.encode(icon)}', x'${hex.encode(content)}'";
+    return "'$name', '$account', '$url', ${_encode(icon)}, ${_encode(content)}";
   }
 
   @override
   String toUpdateSql() {
-    return "name='$name', account='$account', url='$url', icon=x'${hex.encode(icon)}', content=x'${hex.encode(content)}'";
+    return "name='$name', account='$account', url='$url', icon=${_encode(icon)}, content=${_encode(content)}";
   }
 }
