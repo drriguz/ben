@@ -405,36 +405,6 @@ class S {
     );
   }
 
-  /// `Name of the password`
-  String get please_input_password_title {
-    return Intl.message(
-      'Name of the password',
-      name: 'please_input_password_title',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Website url`
-  String get please_input_url {
-    return Intl.message(
-      'Website url',
-      name: 'please_input_url',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Additional information, eg. the account`
-  String get please_input_account {
-    return Intl.message(
-      'Additional information, eg. the account',
-      name: 'please_input_account',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Create checklist`
   String get create_checklist {
     return Intl.message(
@@ -560,6 +530,116 @@ class S {
     return Intl.message(
       'The following fields are double encrypted, you\'ll need to input PIN to view those fields',
       name: 'public_fields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saving...`
+  String get saving {
+    return Intl.message(
+      'Saving...',
+      name: 'saving',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account`
+  String get account {
+    return Intl.message(
+      'Account',
+      name: 'account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login url`
+  String get login_url {
+    return Intl.message(
+      'Login url',
+      name: 'login_url',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name of the password`
+  String get password_name_hint {
+    return Intl.message(
+      'Name of the password',
+      name: 'password_name_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Additional account info for this password`
+  String get password_account_hint {
+    return Intl.message(
+      'Additional account info for this password',
+      name: 'password_account_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The login url for this account`
+  String get password_url_hint {
+    return Intl.message(
+      'The login url for this account',
+      name: 'password_url_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password does not match with the previous one`
+  String get password_not_match {
+    return Intl.message(
+      'Password does not match with the previous one',
+      name: 'password_not_match',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter some text`
+  String get please_input_the_value {
+    return Intl.message(
+      'Please enter some text',
+      name: 'please_input_the_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm password`
+  String get password_confirm {
+    return Intl.message(
+      'Confirm password',
+      name: 'password_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Re-input the password you want to save. This is not your master password!`
+  String get password_confirm_tip {
+    return Intl.message(
+      'Re-input the password you want to save. This is not your master password!',
+      name: 'password_confirm_tip',
       desc: '',
       args: [],
     );

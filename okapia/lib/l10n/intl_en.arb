@@ -36,9 +36,6 @@
   "editing_event": "Edit event",
   "please_choose_time": "Please choose event time",
   "please_input_title": "Please input event title",
-  "please_input_password_title": "Name of the password",
-  "please_input_url": "Website url",
-  "please_input_account": "Additional information, eg. the account",
   "create_checklist": "Create checklist",
   "add_photo": "Take photo",
   "save": "Save",
@@ -51,5 +48,16 @@
   "view_album": "View album",
   "album_description": "The albums is protected and it's not visible out of Okapia",
   "create_password": "Add password",
-  "public_fields": "The following fields are double encrypted, you'll need to input PIN to view those fields"
+  "public_fields": "The following fields are double encrypted, you'll need to input PIN to view those fields",
+  "saving": "Saving...",
+  "name": "Name",
+  "account": "Account",
+  "login_url": "Login url",
+  "password_name_hint": "Name of the password",
+  "password_account_hint": "Additional account info for this password",
+  "password_url_hint": "The login url for this account",
+  "password_not_match": "Password does not match with the previous one",
+  "please_input_the_value": "Please enter some text",
+  "password_confirm": "Confirm password",
+  "password_confirm_tip": "Re-input the password you want to save. This is not your master password!"
 }

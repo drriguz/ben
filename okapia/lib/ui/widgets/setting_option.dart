@@ -15,10 +15,11 @@ abstract class SettingOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 15),
-          child: Text(_description, style: Styles.descriptionStyle),
+          child: Text(_description, style: Theme.of(context).textTheme.subtitle1),
         ),
         ...getFormFields()
       ],
