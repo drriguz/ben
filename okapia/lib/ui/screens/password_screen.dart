@@ -2,7 +2,6 @@ import 'package:okapia/common/sqlcipher/model/password.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/stores/data_list_store.dart';
 import 'package:okapia/stores/password_list_store.dart';
-import 'package:okapia/stores/password_store.dart';
 import 'package:okapia/ui/widgets/data_list.dart';
 import 'package:provider/provider.dart';
 

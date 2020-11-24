@@ -10,7 +10,6 @@ import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/album_store.dart';
 import 'package:okapia/stores/event_store.dart';
 import 'package:okapia/stores/password_list_store.dart';
-import 'package:okapia/stores/password_store.dart';
 
 import 'common/sqlcipher/repository/album_repository.dart';
 import 'common/sqlcipher/repository/image_repository.dart';
