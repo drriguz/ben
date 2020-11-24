@@ -51,6 +51,7 @@
   "create_password": "Add password",
   "public_fields": "The following fields are double encrypted, you'll need to input PIN to view those fields",
   "saving": "Saving...",
+  "download_icon_failed": "Failed to download the icon",
   "name": "Name",
   "account": "Account",
   "login_url": "Login url",
@@ -60,5 +61,6 @@
   "password_not_match": "Password does not match with the previous one",
   "please_input_the_value": "Please enter some text",
   "password_confirm": "Confirm password",
+  "invalid_url": "Invalid url address",
   "password_confirm_tip": "Re-input the password you want to save. This is not your master password!"
 }

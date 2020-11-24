@@ -555,6 +555,16 @@ class S {
     );
   }
 
+  /// `Failed to download the icon`
+  String get download_icon_failed {
+    return Intl.message(
+      'Failed to download the icon',
+      name: 'download_icon_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Name`
   String get name {
     return Intl.message(
@@ -640,6 +650,16 @@ class S {
     return Intl.message(
       'Confirm password',
       name: 'password_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid url address`
+  String get invalid_url {
+    return Intl.message(
+      'Invalid url address',
+      name: 'invalid_url',
       desc: '',
       args: [],
     );

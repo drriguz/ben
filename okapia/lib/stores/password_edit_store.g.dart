@@ -24,19 +24,58 @@ mixin _$PasswordEditStore on _PasswordEditStore, Store {
     });
   }
 
+  final _$downloadingAtom = Atom(name: '_PasswordEditStore.downloading');
+
+  @override
+  bool get downloading {
+    _$downloadingAtom.reportRead();
+    return super.downloading;
+  }
+
+  @override
+  set downloading(bool value) {
+    _$downloadingAtom.reportWrite(value, super.downloading, () {
+      super.downloading = value;
+    });
+  }
+
+  final _$iconAtom = Atom(name: '_PasswordEditStore.icon');
+
+  @override
+  Uint8List get icon {
+    _$iconAtom.reportRead();
+    return super.icon;
+  }
+
+  @override
+  set icon(Uint8List value) {
+    _$iconAtom.reportWrite(value, super.icon, () {
+      super.icon = value;
+    });
+  }
+
+  final _$fetchIconAsyncAction = AsyncAction('_PasswordEditStore.fetchIcon');
+
+  @override
+  Future<void> fetchIcon(String loginUrl) {
+    return _$fetchIconAsyncAction.run(() => super.fetchIcon(loginUrl));
+  }
+
   final _$createAsyncAction = AsyncAction('_PasswordEditStore.create');
 
   @override
-  Future<void> create(
-      String name, String account, String url, ProtectedValue password) {
+  Future<void> create(String name, String account, String url,
+      ProtectedValue password, Uint8List icon) {
     return _$createAsyncAction
-        .run(() => super.create(name, account, url, password));
+        .run(() => super.create(name, account, url, password, icon));
   }
 
   @override
   String toString() {
     return '''
-isSaveAble: ${isSaveAble}
+isSaveAble: ${isSaveAble},
+downloading: ${downloading},
+icon: ${icon}
     ''';
   }
 }

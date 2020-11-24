@@ -12,17 +12,22 @@ class PasswordItem extends AbstractListItem {
 
   PasswordItem(this.data);
 
+  Widget _icon() {
+    if (data.icon != null)
+      return Image.memory(data.icon, width: 48, height: 48);
+    return Icon(
+      Icons.message_rounded,
+      size: 36,
+    );
+  }
+
   Widget _title(BuildContext context) {
     return Row(
       children: [
         Container(
           width: 60,
           child: Center(
-            child: Image.network(
-              'https://github.com/favicon.ico',
-              width: 48,
-              height: 48,
-            ),
+            child: _icon(),
           ),
         ),
         Column(

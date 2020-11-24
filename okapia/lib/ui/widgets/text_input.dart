@@ -17,6 +17,9 @@ class TextInput extends StatelessWidget {
   final int maxLength;
   final bool mandatory;
   final bool obscureText;
+  final Widget suffixIcon;
+  final Widget prefixIcon;
+  final TextEditingController controller;
 
   const TextInput({
     Key key,
@@ -28,30 +31,38 @@ class TextInput extends StatelessWidget {
     this.maxLength,
     this.mandatory = false,
     this.obscureText = false,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    FormFieldValidator<String> mergedValidator;
+    FormFieldValidator<String> mergedValidator = validator;
     if (mandatory) {
-      if (validator == null)
+      if (mergedValidator == null)
         mergedValidator = mandatoryValidator;
-      else
+      else {
         mergedValidator = (text) {
           String result = mandatoryValidator(text);
-          if (result == null) result = validator(text);
-          return result;
+          if (result != null) return result;
+          return validator(text);
         };
+      }
     }
+
     return TextFormField(
       obscureText: obscureText,
       onChanged: onChanged,
       onSaved: onSaved,
       maxLength: maxLength,
       validator: mergedValidator,
+      controller: controller,
       decoration: InputDecoration(
         labelText: name,
         helperText: hint,
+        suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
       ),
     );
   }

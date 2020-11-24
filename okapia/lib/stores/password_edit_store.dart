@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:typed_data';
+
+import 'package:http/http.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
-import 'package:okapia/common/sqlcipher/model/event.dart';
 import 'package:okapia/common/sqlcipher/model/password.dart';
-import 'package:okapia/services/event_service.dart';
 import 'package:okapia/services/password_service.dart';
-import 'package:okapia/stores/page_status_notifier.dart';
 import 'package:mobx/mobx.dart';
-import 'package:okapia/stores/password_list_store.dart';
 
 import 'user_store.dart';
 
@@ -22,16 +20,35 @@ abstract class _PasswordEditStore with Store {
   @observable
   bool isSaveAble = false;
 
+  @observable
+  bool downloading = false;
+
+  @observable
+  Uint8List icon;
+
   _PasswordEditStore(this._id, this._userStore, this._service);
 
   @action
-  Future<void> create(
-      String name, String account, String url, ProtectedValue password) async {
+  Future<void> fetchIcon(String loginUrl) async {
+    if (downloading) return;
+    downloading = true;
+    Uri uri = Uri.parse(loginUrl);
+    String favico = "${uri.scheme}://${uri.host}/favicon.ico";
+    print("downloading ${favico}");
+    return get(favico).then((response) {
+      icon = response.bodyBytes;
+    }).whenComplete(() => downloading = false);
+  }
+
+  @action
+  Future<void> create(String name, String account, String url,
+      ProtectedValue password, Uint8List icon) async {
     print("created...");
     PasswordModel item = PasswordModel(
       name: name,
       account: account,
       url: url,
+      icon: icon,
       content: password.binaryValue,
     );
     return _service.create(_userStore.database, item);

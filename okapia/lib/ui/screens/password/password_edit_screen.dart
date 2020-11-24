@@ -1,10 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:http/http.dart';
+import 'package:mobx/mobx.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
+import 'package:okapia/common/utils/strings.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/password_edit_store.dart';
 import 'package:okapia/stores/user_store.dart';
+import 'package:okapia/ui/utils/toast.dart';
 import 'package:okapia/ui/widgets/text_input.dart';
 import 'package:provider/provider.dart';
 
@@ -18,11 +24,15 @@ class PasswordEditScreen extends StatefulWidget {
 class _PasswordEditScreenState extends State<PasswordEditScreen> {
   PasswordEditStore _store;
   final _formKey = GlobalKey<FormState>();
+  final _urlFieldKey = GlobalKey<FormFieldState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String _name;
   String _account;
   String _url;
   ProtectedValue _password;
+  Uint8List _icon;
+
+  TextEditingController _urlController;
 
   @override
   void initState() {
@@ -32,6 +42,13 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
       Provider.of<UserStore>(context, listen: false),
       Provider.of<PasswordService>(context, listen: false),
     );
+    _urlController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _urlController.dispose();
+    super.dispose();
   }
 
   @override
@@ -41,13 +58,10 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
       appBar: AppBar(
         title: Text(S.of(context).create_password),
         actions: [
-          Observer(
-            builder: (_) => FlatButton(
-              textColor: Colors.white,
-              onPressed:
-                  _store.isSaveAble ? () => _onConfirmPassword(context) : null,
-              child: Text(S.of(context).save),
-            ),
+          FlatButton(
+            textColor: Colors.white,
+            onPressed: () => _onConfirmPassword(context),
+            child: Text(S.of(context).save),
           ),
         ],
       ),
@@ -62,11 +76,13 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
 
   Future<void> _validate() async {
     _store.isSaveAble = _formKey.currentState.validate();
+    _urlFieldKey.currentState.validate();
   }
 
   Widget _createEditor() {
     return Form(
       key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: <Widget>[
           TextInput(
@@ -74,22 +90,38 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
             hint: S.of(context).password_name_hint,
             maxLength: 20,
             mandatory: true,
-            onChanged: (_) => _validate(),
             onSaved: (text) => _name = text,
+            prefixIcon: Observer(
+              builder: (_) => _store.icon == null
+                  ? Icon(
+                      Icons.admin_panel_settings_outlined,
+                      size: 36,
+                    )
+                  : Image.memory(
+                      _store.icon,
+                      width: 48,
+                      height: 48,
+                    ),
+            ),
           ),
           TextInput(
             name: S.of(context).account,
             hint: S.of(context).password_account_hint,
             maxLength: 50,
-            onChanged: (_) => _validate(),
             onSaved: (text) => _account = text,
           ),
           TextInput(
+            key: _urlFieldKey,
+            controller: _urlController,
             name: S.of(context).login_url,
             hint: S.of(context).password_url_hint,
             maxLength: 100,
-            onChanged: (_) => _validate(),
             onSaved: (text) => _url = text,
+            suffixIcon: _fetchIcon(),
+            validator: (text) {
+              if (!Strings.isValidUrl(text)) return S.of(context).invalid_url;
+              return null;
+            },
           ),
           Divider(),
           _createTip(context),
@@ -98,12 +130,30 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
             obscureText: true,
             mandatory: true,
             maxLength: 50,
-            onChanged: (_) => _validate(),
             onSaved: (text) => _password = ProtectedValue.of(text),
           ),
         ],
       ),
     );
+  }
+
+  Widget _fetchIcon() {
+    return IconButton(
+      icon: const Icon(Icons.download_outlined),
+      onPressed: onFetchPressed,
+    );
+  }
+
+  Future<void> onFetchPressed() async {
+    final url = _urlController.text;
+    if (url.isEmpty || !Strings.isValidUrl(url)) {
+      Toasts.showError(S.of(context).invalid_url);
+      return;
+    } else
+      print(url);
+    return _store.fetchIcon(url).catchError((e) {
+      Toasts.showError(S.of(context).download_icon_failed);
+    });
   }
 
   Widget _createTip(BuildContext context) {
@@ -154,7 +204,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
       ),
     ));
     return _store
-        .create(_name, _account, _url, _password)
+        .create(_name, _account, _url, _password, _store.icon)
         .then((_) => Navigator.of(context).pop())
         .whenComplete(() => _scaffoldKey.currentState.hideCurrentSnackBar());
   }
