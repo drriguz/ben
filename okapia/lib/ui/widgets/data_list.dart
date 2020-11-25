@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:okapia/common/sqlcipher/repository.dart';
 import 'package:okapia/stores/data_list_store.dart';
 
@@ -14,7 +15,9 @@ abstract class DataList<M extends Entity> extends StatelessWidget {
   Widget build(BuildContext context) {
     print("${_store.isLoading}");
     print("${_store.data}");
-    return RefreshIndicator(
+    return LiquidPullToRefresh(
+      springAnimationDurationInMilliseconds: 200,
+      showChildOpacityTransition: false,
       onRefresh: () => _store.refresh(),
       child: Observer(
         builder: (_) => _store.isLoading ? Loading() : _createList(),
