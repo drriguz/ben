@@ -12,7 +12,16 @@ class PasswordItem extends AbstractListItem {
 
   Widget _icon() {
     if (data.icon != null)
-      return Image.memory(data.icon, width: 48, height: 48);
+      return Container(
+        width: 50,
+        height: 36,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: MemoryImage(data.icon),
+            fit: BoxFit.contain,
+          ),
+        ),
+      );
     return Icon(
       Icons.message_rounded,
       size: 36,
@@ -22,11 +31,9 @@ class PasswordItem extends AbstractListItem {
   Widget _title(BuildContext context) {
     return Row(
       children: [
-        Container(
-          width: 60,
-          child: Center(
-            child: _icon(),
-          ),
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: _icon(),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
