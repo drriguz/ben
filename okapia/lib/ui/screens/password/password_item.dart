@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
 import 'package:okapia/common/sqlcipher/model/password.dart';
 import 'package:okapia/ui/screens/reminder/widgets/list_item.dart';
 
@@ -7,24 +8,23 @@ import 'tag.dart';
 
 class PasswordItem extends AbstractListItem {
   final PasswordModel data;
+  static final ImageProvider<Object> defaultIcon =
+      AssetImage("assets/icons/password-dict.png");
 
   PasswordItem(this.data);
 
   Widget _icon() {
-    if (data.icon != null)
-      return Container(
-        width: 50,
-        height: 36,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: MemoryImage(data.icon),
-            fit: BoxFit.contain,
-          ),
+    ImageProvider image =
+        data.icon != null ? MemoryImage(data.icon) : defaultIcon;
+    return Container(
+      width: 50,
+      height: 36,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: image,
+          fit: BoxFit.contain,
         ),
-      );
-    return Icon(
-      Icons.message_rounded,
-      size: 36,
+      ),
     );
   }
 
@@ -72,8 +72,12 @@ class PasswordItem extends AbstractListItem {
     );
   }
 
+  static final dateFormat = new DateFormat("yyyy-MM-dd");
+
   @override
   Widget buildContent(BuildContext context) {
+    final DateTime lastUpdated =
+        DateTime.fromMillisecondsSinceEpoch(data.lastUpdatedTime);
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       child: Column(
@@ -91,7 +95,8 @@ class PasswordItem extends AbstractListItem {
               Expanded(
                 child: _tags(),
               ),
-              Text("2020-10-23", style: Theme.of(context).textTheme.caption)
+              Text(dateFormat.format(lastUpdated),
+                  style: Theme.of(context).textTheme.caption)
             ],
           )
         ],

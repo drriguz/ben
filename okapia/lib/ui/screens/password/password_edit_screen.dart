@@ -119,7 +119,8 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
             onSaved: (text) => _url = text,
             suffixIcon: _fetchIcon(),
             validator: (text) {
-              if (!Strings.isValidUrl(text)) return S.of(context).invalid_url;
+              if (text.isNotEmpty && !Strings.isValidUrl(text))
+                return S.of(context).invalid_url;
               return null;
             },
           ),
