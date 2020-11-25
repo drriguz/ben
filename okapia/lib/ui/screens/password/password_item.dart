@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:okapia/common/sqlcipher/model/password.dart';
 import 'package:okapia/ui/screens/reminder/widgets/list_item.dart';
-import 'package:okapia/ui/theme/icons.dart';
-import 'package:okapia/ui/theme/styles.dart';
 
 import 'tag.dart';
 
