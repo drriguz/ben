@@ -29,7 +29,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<PasswordListStore>(context, listen: false).fetch();
+    Provider.of<PasswordListStore>(context, listen: false).refresh();
   }
 
   @override
