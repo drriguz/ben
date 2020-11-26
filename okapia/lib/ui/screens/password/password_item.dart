@@ -18,30 +18,13 @@ class PasswordItem extends AbstractListItem {
         data.icon != null ? MemoryImage(data.icon) : defaultIcon;
     return Container(
       width: 30,
-      height: 15,
+      height: 30,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: image,
           fit: BoxFit.contain,
         ),
       ),
-    );
-  }
-
-  Widget _title(BuildContext context) {
-    final String subtitle = data.account.isEmpty ? data.name : data.account;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        _icon(),
-        Expanded(
-          child: Text(
-            subtitle,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-        ),
-      ],
     );
   }
 
@@ -58,28 +41,52 @@ class PasswordItem extends AbstractListItem {
 
   @override
   Widget buildContent(BuildContext context) {
-    final DateTime lastUpdated =
-        DateTime.fromMillisecondsSinceEpoch(data.lastUpdatedTime);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 10),
+      child: Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 10),
-            child: _title(context),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: _tags(),
-              ),
-              Text(dateFormat.format(lastUpdated),
-                  style: Theme.of(context).textTheme.caption)
-            ],
+          _icon(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: _infoArea(context),
+            ),
           )
         ],
       ),
+    );
+  }
+
+  Widget _infoArea(BuildContext context) {
+    final String subtitle = data.account.isEmpty ? data.name : data.account;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Text(
+            subtitle,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+        ),
+        _remarkInfo(context),
+      ],
+    );
+  }
+
+  Widget _remarkInfo(BuildContext context) {
+    final DateTime lastUpdated =
+        DateTime.fromMillisecondsSinceEpoch(data.lastUpdatedTime);
+    return Row(
+      children: [
+        Expanded(
+          child: _tags(),
+        ),
+        Text(dateFormat.format(lastUpdated),
+            style: Theme.of(context).textTheme.caption)
+      ],
     );
   }
 
