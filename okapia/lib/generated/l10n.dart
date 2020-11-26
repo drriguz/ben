@@ -675,6 +675,16 @@ class S {
     );
   }
 
+  /// `(N/A)`
+  String get not_available {
+    return Intl.message(
+      '(N/A)',
+      name: 'not_available',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Re-input the password you want to save. This is not your master password!`
   String get password_confirm_tip {
     return Intl.message(

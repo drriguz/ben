@@ -5,6 +5,7 @@ import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/password_detail_store.dart';
 import 'package:okapia/stores/user_store.dart';
 import 'package:okapia/ui/widgets/loading.dart';
+import 'package:okapia/ui/widgets/text_line.dart';
 import 'package:provider/provider.dart';
 
 class PasswordDetailScreen extends StatefulWidget {
@@ -37,8 +38,33 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
         title: Text(S.of(context).view_password_detail),
       ),
       body: Observer(
-        builder: (_) => _store.isBusy ? Loading() : Text(_store.data.name),
+        builder: (_) => _store.isBusy
+            ? Loading()
+            : Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: _content(),
+              ),
       ),
+    );
+  }
+
+  Widget _content() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextLine(
+          _store.data.name,
+          name: S.of(context).name,
+        ),
+        TextLine(
+          _store.data.account,
+          name: S.of(context).account,
+        ),
+        TextLine(
+          _store.data.url,
+          name: S.of(context).login_url,
+        ),
+      ],
     );
   }
 }

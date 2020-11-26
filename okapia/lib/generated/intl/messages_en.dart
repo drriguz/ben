@@ -52,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "message" : MessageLookupByLibrary.simpleMessage("Message"),
     "name" : MessageLookupByLibrary.simpleMessage("Name"),
     "next" : MessageLookupByLibrary.simpleMessage("Next"),
+    "not_available" : MessageLookupByLibrary.simpleMessage("(N/A)"),
     "note" : MessageLookupByLibrary.simpleMessage("Notes"),
     "password" : MessageLookupByLibrary.simpleMessage("Password"),
     "password_account_hint" : MessageLookupByLibrary.simpleMessage("Additional account info for this password"),
