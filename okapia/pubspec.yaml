@@ -51,6 +51,7 @@ dependencies:
   google_fonts: ^1.1.1
   http: ^0.12.2
   liquid_pull_to_refresh: ^2.0.0
+  grouped_list: ^3.7.1
   opencv_helper:
     path: ../opencv_helper
   native_sqlcipher:

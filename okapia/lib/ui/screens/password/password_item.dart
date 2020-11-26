@@ -17,8 +17,8 @@ class PasswordItem extends AbstractListItem {
     ImageProvider image =
         data.icon != null ? MemoryImage(data.icon) : defaultIcon;
     return Container(
-      width: 50,
-      height: 36,
+      width: 30,
+      height: 15,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: image,
@@ -30,35 +30,14 @@ class PasswordItem extends AbstractListItem {
 
   Widget _title(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: _icon(),
+        _icon(),
+        Text(
+          data.account,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.subtitle1,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 3),
-              child: Text(
-                data.name,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .apply(fontSizeDelta: -2),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5),
-              child: Text(
-                data.account,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-            ),
-          ],
-        )
       ],
     );
   }
@@ -84,14 +63,11 @@ class PasswordItem extends AbstractListItem {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
             child: _title(context),
           ),
           Row(
             children: [
-              Container(
-                width: 60,
-              ),
               Expanded(
                 child: _tags(),
               ),

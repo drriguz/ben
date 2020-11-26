@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:okapia/common/sqlcipher/model/password.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/stores/data_list_store.dart';
@@ -12,7 +14,11 @@ import 'package:flutter/material.dart';
 import 'password/password_item.dart';
 
 class PasswordList extends DataList<PasswordModel> {
-  PasswordList(DataListStore<PasswordModel> store) : super(store);
+  PasswordList(DataListStore<PasswordModel> store)
+      : super(
+          store,
+          groupBy: (item) => item.name,
+        );
 
   @override
   Widget createListItem(PasswordModel item) {
