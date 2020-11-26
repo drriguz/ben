@@ -29,14 +29,17 @@ class PasswordItem extends AbstractListItem {
   }
 
   Widget _title(BuildContext context) {
+    final String subtitle = data.account.isEmpty ? data.name : data.account;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _icon(),
-        Text(
-          data.account,
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.subtitle1,
+        Expanded(
+          child: Text(
+            subtitle,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
         ),
       ],
     );

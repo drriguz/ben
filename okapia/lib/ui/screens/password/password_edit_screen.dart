@@ -88,7 +88,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
           TextInput(
             name: S.of(context).name,
             hint: S.of(context).password_name_hint,
-            maxLength: 20,
+            maxLength: 100,
             mandatory: true,
             onSaved: (text) => _name = text,
             prefixIcon: Observer(
@@ -107,7 +107,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
           TextInput(
             name: S.of(context).account,
             hint: S.of(context).password_account_hint,
-            maxLength: 50,
+            maxLength: 100,
             onSaved: (text) => _account = text,
           ),
           TextInput(
@@ -115,7 +115,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
             controller: _urlController,
             name: S.of(context).login_url,
             hint: S.of(context).password_url_hint,
-            maxLength: 100,
+            maxLength: 200,
             onSaved: (text) => _url = text,
             suffixIcon: _fetchIcon(),
             validator: (text) {
