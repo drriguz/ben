@@ -655,6 +655,16 @@ class S {
     );
   }
 
+  /// `View password detail`
+  String get view_password_detail {
+    return Intl.message(
+      'View password detail',
+      name: 'view_password_detail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Invalid url address`
   String get invalid_url {
     return Intl.message(

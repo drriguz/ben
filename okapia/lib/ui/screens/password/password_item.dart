@@ -92,6 +92,6 @@ class PasswordItem extends AbstractListItem {
 
   @override
   void onClick(BuildContext context) {
-    // TODO: implement onClick
+    Navigator.of(context).pushNamed("/password/detail", arguments: data.id);
   }
 }

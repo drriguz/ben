@@ -61,6 +61,7 @@
   "password_not_match": "Password does not match with the previous one",
   "please_input_the_value": "Please enter some text",
   "password_confirm": "Confirm password",
+  "view_password_detail": "View password detail",
   "invalid_url": "Invalid url address",
   "password_confirm_tip": "Re-input the password you want to save. This is not your master password!"
 }
