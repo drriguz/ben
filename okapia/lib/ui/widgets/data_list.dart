@@ -15,8 +15,6 @@ abstract class DataList<M extends Entity> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("${_store.isLoading}");
-    print("${_store.data}");
     return LiquidPullToRefresh(
       springAnimationDurationInMilliseconds: 200,
       showChildOpacityTransition: false,
