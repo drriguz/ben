@@ -9,13 +9,16 @@ class TextLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool notAvailable = value == null || value.isEmpty;
     return TextFormField(
-      initialValue: value,
+      initialValue: notAvailable ? S.of(context).not_available : value,
+      style: notAvailable
+          ? Theme.of(context).textTheme.bodyText1.apply(color: Colors.grey)
+          : null,
       readOnly: true,
       maxLines: null,
       decoration: InputDecoration(
         labelText: name,
-        hintText: S.of(context).not_available,
       ),
     );
   }
