@@ -21,4 +21,10 @@ abstract class _PasswordListStore extends DataListStore<PasswordModel>
     print("refreshing....");
     return _passwordService.fetchAll(_userStore.database);
   }
+
+  Future<void> delete(int id) async {
+    return _passwordService
+        .delete(_userStore.database, id)
+        .then((value) => refresh());
+  }
 }

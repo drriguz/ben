@@ -545,6 +545,16 @@ class S {
     );
   }
 
+  /// `Are you sure to delete?`
+  String get confirm_delete {
+    return Intl.message(
+      'Are you sure to delete?',
+      name: 'confirm_delete',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Create album`
   String get creating_album {
     return Intl.message(
@@ -775,10 +785,10 @@ class S {
     );
   }
 
-  /// `Please input your secondary password to decrypt`
+  /// `Please input your secondary password`
   String get please_input_secondary_password {
     return Intl.message(
-      'Please input your secondary password to decrypt',
+      'Please input your secondary password',
       name: 'please_input_secondary_password',
       desc: '',
       args: [],

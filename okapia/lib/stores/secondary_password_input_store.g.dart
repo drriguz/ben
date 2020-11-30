@@ -9,20 +9,18 @@ part of 'secondary_password_input_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$SecondaryPasswordInputStore on _SecondaryPasswordInputStore, Store {
-  final _$_secondaryPasswordCompletedAtom =
-      Atom(name: '_SecondaryPasswordInputStore._secondaryPasswordCompleted');
+  final _$_errorAtom = Atom(name: '_SecondaryPasswordInputStore._error');
 
   @override
-  bool get _secondaryPasswordCompleted {
-    _$_secondaryPasswordCompletedAtom.reportRead();
-    return super._secondaryPasswordCompleted;
+  String get _error {
+    _$_errorAtom.reportRead();
+    return super._error;
   }
 
   @override
-  set _secondaryPasswordCompleted(bool value) {
-    _$_secondaryPasswordCompletedAtom
-        .reportWrite(value, super._secondaryPasswordCompleted, () {
-      super._secondaryPasswordCompleted = value;
+  set _error(String value) {
+    _$_errorAtom.reportWrite(value, super._error, () {
+      super._error = value;
     });
   }
 

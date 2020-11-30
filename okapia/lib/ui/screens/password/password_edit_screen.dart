@@ -2,19 +2,17 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:http/http.dart';
-import 'package:mobx/mobx.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/common/utils/strings.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/password_edit_store.dart';
+import 'package:okapia/stores/password_list_store.dart';
 import 'package:okapia/stores/user_store.dart';
 import 'package:okapia/ui/utils/toast.dart';
 import 'package:okapia/ui/widgets/text_input.dart';
 import 'package:provider/provider.dart';
 
-import 'confirm_password.dart';
 import 'seconday_password_input_dialog.dart';
 
 class PasswordEditScreen extends StatefulWidget {
@@ -40,6 +38,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
     _store = PasswordEditStore(
       -1,
       Provider.of<UserStore>(context, listen: false),
+      Provider.of<PasswordListStore>(context, listen: false),
       Provider.of<PasswordService>(context, listen: false),
     );
     _urlController = TextEditingController();

@@ -5,7 +5,9 @@ import 'package:okapia/common/sqlcipher/model/image.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/password_detail_store.dart';
+import 'package:okapia/stores/password_list_store.dart';
 import 'package:okapia/stores/user_store.dart';
+import 'package:okapia/ui/model/choice.dart';
 import 'package:okapia/ui/screens/password/seconday_password_input_dialog.dart';
 import 'package:okapia/ui/widgets/image_card.dart';
 import 'package:okapia/ui/widgets/loading.dart';
@@ -20,6 +22,11 @@ class PasswordDetailScreen extends StatefulWidget {
   @override
   _PasswordDetailScreenState createState() => _PasswordDetailScreenState();
 }
+
+final List<MenuChoice> menuItems = <MenuChoice>[
+  MenuChoice(S.current.edit, 'edit', Icons.edit),
+  MenuChoice(S.current.delete, 'delete', Icons.delete),
+];
 
 class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
   PasswordDetailStore _store;
@@ -39,8 +46,23 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).view_password_detail),
-      ),
+          title: Text(S.of(context).view_password_detail),
+          actions: <Widget>[
+            PopupMenuButton<MenuChoice>(
+              onSelected: (choice) => _onDropdownSelected(context, choice),
+              itemBuilder: (BuildContext context) {
+                return menuItems.map((MenuChoice choice) {
+                  return PopupMenuItem<MenuChoice>(
+                    value: choice,
+                    child: ListTile(
+                      leading: Icon(choice.icon),
+                      title: Text(choice.displayName),
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          ]),
       body: Observer(
         builder: (_) => _store.isBusy
             ? Loading()
@@ -52,6 +74,29 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
               ),
       ),
     );
+  }
+
+  Future<void> _onDropdownSelected(
+      BuildContext context, MenuChoice choice) async {
+    switch (choice.value) {
+      case "delete":
+        {
+          final secondaryPassword = await showDialog<ProtectedValue>(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => SecondaryPasswordInputDialog(
+              title: S.of(context).confirm_delete,
+            ),
+          );
+          if (secondaryPassword == null) return;
+          Provider.of<PasswordListStore>(context)
+              .delete(widget.id)
+              .then((_) => Navigator.of(context).pop());
+          break;
+        }
+      default:
+        break;
+    }
   }
 
   Widget _content() {
