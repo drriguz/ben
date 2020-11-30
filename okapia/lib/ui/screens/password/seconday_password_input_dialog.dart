@@ -79,27 +79,22 @@ class _SecondaryPasswordInputDialogState
 
   Widget _pinInput() {
     final BoxDecoration decoration = BoxDecoration(
-      border: Border.all(color: Colors.blueGrey),
-      borderRadius: BorderRadius.circular(15.0),
+      border:
+          const Border(bottom: BorderSide(color: Colors.blueGrey, width: 2)),
     );
     return Container(
       width: 100,
       color: Colors.white,
       child: PinPut(
         autofocus: true,
-        fieldsCount: 4,
+        fieldsCount: 6,
         obscureText: '*',
         onSubmit: (pwd) => _onSubmitPassword(ProtectedValue.of(pwd)),
-        submittedFieldDecoration: decoration.copyWith(
-          borderRadius: BorderRadius.circular(20.0),
+        submittedFieldDecoration: const BoxDecoration(
+          border: null,
         ),
         selectedFieldDecoration: decoration,
-        followingFieldDecoration: decoration.copyWith(
-          borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(
-            color: Colors.blueGrey.withOpacity(.5),
-          ),
-        ),
+        followingFieldDecoration: decoration,
       ),
     );
   }

@@ -100,12 +100,12 @@ class _SystemSettingsPageState extends State<SystemSettingsPage> {
               obscureText: true,
               name: S.of(context).secondary_password,
               hint: S.of(context).secondary_password_hint,
-              maxLength: 4,
+              maxLength: 6,
               onChanged: (text) {
                 _secondaryPassword = ProtectedValue.of(text);
               },
               validator: (text) {
-                if (text.length != 4)
+                if (text.length != 6)
                   return S.of(context).secondary_password_rule;
                 return null;
               },
@@ -113,7 +113,7 @@ class _SystemSettingsPageState extends State<SystemSettingsPage> {
             TextInput(
               obscureText: true,
               name: S.of(context).confirm_secondary_password,
-              maxLength: 4,
+              maxLength: 6,
               validator: (text) {
                 if (_secondaryPassword != null &&
                     _secondaryPassword.getText() != text)
