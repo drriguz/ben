@@ -38,6 +38,8 @@ abstract class DataList<M extends Entity> extends StatelessWidget {
   Widget _createGroupedList(BuildContext context) {
     return GroupedListView<dynamic, String>(
       elements: _store.data,
+      physics:
+          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       groupBy: (element) => groupBy(element),
       groupSeparatorBuilder: (name) => _separator(context, name),
       itemBuilder: (context, dynamic element) => createListItem(element),

@@ -67,6 +67,7 @@ class _SecondaryPasswordInputDialogState
       width: 100,
       color: Colors.white,
       child: PinPut(
+        autofocus: true,
         fieldsCount: 4,
         obscureText: '*',
         onSubmit: (pwd) => _onSubmitPassword(ProtectedValue.of(pwd)),

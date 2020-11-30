@@ -15,6 +15,7 @@ import 'package:okapia/ui/widgets/text_input.dart';
 import 'package:provider/provider.dart';
 
 import 'confirm_password.dart';
+import 'seconday_password_input_dialog.dart';
 
 class PasswordEditScreen extends StatefulWidget {
   @override
@@ -24,7 +25,6 @@ class PasswordEditScreen extends StatefulWidget {
 class _PasswordEditScreenState extends State<PasswordEditScreen> {
   PasswordEditStore _store;
   final _formKey = GlobalKey<FormState>();
-  final _urlFieldKey = GlobalKey<FormFieldState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String _name;
   String _account;
@@ -74,11 +74,6 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
     );
   }
 
-  Future<void> _validate() async {
-    _store.isSaveAble = _formKey.currentState.validate();
-    _urlFieldKey.currentState.validate();
-  }
-
   Widget _createEditor() {
     return Form(
       key: _formKey,
@@ -111,7 +106,6 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
             onSaved: (text) => _account = text,
           ),
           TextInput(
-            key: _urlFieldKey,
             controller: _urlController,
             name: S.of(context).login_url,
             hint: S.of(context).password_url_hint,
@@ -131,7 +125,18 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
             obscureText: true,
             mandatory: true,
             maxLength: 50,
-            onSaved: (text) => _password = ProtectedValue.of(text),
+            onChanged: (text) => _password = ProtectedValue.of(text),
+          ),
+          TextInput(
+            name: S.of(context).confirm_password,
+            obscureText: true,
+            mandatory: true,
+            maxLength: 50,
+            validator: (text) {
+              if (_password != null && _password.getText() != text)
+                return S.of(context).password_not_match;
+              return null;
+            },
           ),
         ],
       ),
@@ -182,12 +187,12 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
     if (!_formKey.currentState.validate()) return;
     _formKey.currentState.save();
 
-    final confirmed = await showDialog<bool>(
+    final secondaryPassword = await showDialog<ProtectedValue>(
       context: context,
       barrierDismissible: false,
-      builder: (_) => ConfirmPasswordDialog(_password),
+      builder: (_) => SecondaryPasswordInputDialog(),
     );
-    if (!confirmed) return;
+    if (secondaryPassword == null) return;
 
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
       backgroundColor: Theme.of(context).backgroundColor,

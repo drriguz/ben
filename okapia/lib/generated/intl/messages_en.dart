@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "card" : MessageLookupByLibrary.simpleMessage("Card"),
     "confirm_master_password" : MessageLookupByLibrary.simpleMessage("Confirm master password"),
+    "confirm_password" : MessageLookupByLibrary.simpleMessage("Confirm password"),
     "confirm_secondary_password" : MessageLookupByLibrary.simpleMessage("Confirm secondary password"),
     "content_is_empty" : MessageLookupByLibrary.simpleMessage("Content is empty"),
     "create_checklist" : MessageLookupByLibrary.simpleMessage("Create checklist"),

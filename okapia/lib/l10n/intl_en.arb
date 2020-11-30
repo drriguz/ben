@@ -13,6 +13,7 @@
   "enable_password_options_auto_detect": "Auto detect encrypt options",
   "master_password": "Master password",
   "master_password_hint": "at least 10 characters",
+  "confirm_password": "Confirm password",
   "confirm_master_password": "Confirm master password",
   "secondary_password": "Master password",
   "confirm_secondary_password": "Confirm secondary password",
