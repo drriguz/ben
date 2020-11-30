@@ -685,6 +685,26 @@ class S {
     );
   }
 
+  /// `Decrypt password detail`
+  String get show_password {
+    return Intl.message(
+      'Decrypt password detail',
+      name: 'show_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input your secondary password to decrypt`
+  String get please_input_secondary_password {
+    return Intl.message(
+      'Please input your secondary password to decrypt',
+      name: 'please_input_secondary_password',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Re-input the password you want to save. This is not your master password!`
   String get password_confirm_tip {
     return Intl.message(

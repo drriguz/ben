@@ -4,9 +4,12 @@ import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/password_detail_store.dart';
 import 'package:okapia/stores/user_store.dart';
+import 'package:okapia/ui/screens/password/display_password.dart';
 import 'package:okapia/ui/widgets/loading.dart';
 import 'package:okapia/ui/widgets/text_line.dart';
 import 'package:provider/provider.dart';
+
+import 'confirm_password.dart';
 
 class PasswordDetailScreen extends StatefulWidget {
   final int id;
@@ -42,7 +45,9 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
             ? Loading()
             : Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: _content(),
+                child: SingleChildScrollView(
+                  child: _content(),
+                ),
               ),
       ),
     );
@@ -64,7 +69,29 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
           _store.data.url,
           name: S.of(context).login_url,
         ),
+        Padding(
+          padding: const EdgeInsets.only(top: 15, bottom: 10),
+          child: Row(
+            children: [
+              Expanded(
+                child: RaisedButton(
+                  onPressed: _displayPassword,
+                  child: Text(S.of(context).show_password),
+                ),
+              )
+            ],
+          ),
+        ),
       ],
     );
+  }
+
+  Future<void> _displayPassword() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => DisplayPasswordDialog(_store.data.content),
+    );
+    if (!confirmed) return;
   }
 }

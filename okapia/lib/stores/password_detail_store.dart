@@ -1,3 +1,4 @@
+import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/common/sqlcipher/model/password.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
