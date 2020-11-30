@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/generated/l10n.dart';
+import 'package:okapia/services/login_service.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/secondary_password_input_store.dart';
 import 'package:okapia/stores/user_store.dart';
+import 'package:okapia/ui/widgets/loading.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:provider/provider.dart';
 
@@ -26,8 +28,7 @@ class _SecondaryPasswordInputDialogState
   void initState() {
     super.initState();
     _store = SecondaryPasswordInputStore(
-      Provider.of<UserStore>(context, listen: false),
-      Provider.of<PasswordService>(context, listen: false),
+      Provider.of<LoginService>(context, listen: false),
     );
   }
 
@@ -57,16 +58,20 @@ class _SecondaryPasswordInputDialogState
           child: Text(S.of(context).please_input_secondary_password),
         ),
         _pinInput(),
-        Observer(
-          builder: (_) => _store.error == null
-              ? Container()
-              : Text(
-                  _store.error,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      .apply(color: Colors.red),
-                ),
+        Container(
+          height: 50,
+          child: Observer(
+            builder: (_) {
+              if (_store.isChecking) return Loading();
+              if (_store.error != null)
+                return Text(_store.error,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .apply(color: Colors.red));
+              return Container();
+            },
+          ),
         ),
       ],
     );

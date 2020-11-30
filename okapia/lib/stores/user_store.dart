@@ -1,4 +1,3 @@
-
 import 'package:native_sqlcipher/database.dart';
 import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/generated/l10n.dart';

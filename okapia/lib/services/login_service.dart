@@ -32,24 +32,34 @@ class LoginService {
   }
 
   Future<Key> checkUserCredential(ProtectedValue masterPassword) async {
+    return _checkPassword(masterPassword, false);
+  }
+
+  Future<Key> checkSecondaryPassword(ProtectedValue secondaryPassword) async {
+    return _checkPassword(secondaryPassword, true);
+  }
+
+  Future<Key> _checkPassword(
+      ProtectedValue password, bool isSecondaryPassword) async {
     final config = await _configService.readConfig();
     _configService.verifyConfig(config.appConfig);
     final Key key = await Key.create(
       config.appConfig.clientId,
-      masterPassword,
-      IDUtil.parseUUID(config.appConfig.masterSeed),
+      password,
+      IDUtil.parseUUID(isSecondaryPassword
+          ? config.appConfig.secondarySeed
+          : config.appConfig.masterSeed),
       IDUtil.parseUUID(config.appConfig.transformSeed),
       IDUtil.parseUUID(config.appConfig.encryptionIV),
     );
 
     final String configData = jsonEncode(config.appConfig);
-    final configHmacKey =
-        await key.getHmacKey(IDUtil.parseUUID(config.appConfig.clientId));
-    final HmacValidator hashValidator =
-        new HmacValidator(configHmacKey.binaryValue);
-    final checksum = hashValidator.computeChecksum(utf8.encode(configData));
+    final signature = await KeyUtil.computeChecksum(
+        key, config.appConfig.clientId, configData);
 
-    if (hex.encode(checksum) == config.signature) return key;
+    String expectedSignature =
+        isSecondaryPassword ? config.secondarySignature : config.signature;
+    if (hex.encode(signature) == expectedSignature) return key;
     throw PasswordIncorrectError();
   }
 }

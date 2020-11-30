@@ -24,6 +24,22 @@ mixin _$SecondaryPasswordInputStore on _SecondaryPasswordInputStore, Store {
     });
   }
 
+  final _$_isCheckingAtom =
+      Atom(name: '_SecondaryPasswordInputStore._isChecking');
+
+  @override
+  bool get _isChecking {
+    _$_isCheckingAtom.reportRead();
+    return super._isChecking;
+  }
+
+  @override
+  set _isChecking(bool value) {
+    _$_isCheckingAtom.reportWrite(value, super._isChecking, () {
+      super._isChecking = value;
+    });
+  }
+
   final _$submitSecondaryPasswordAsyncAction =
       AsyncAction('_SecondaryPasswordInputStore.submitSecondaryPassword');
 
