@@ -14,7 +14,7 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
 
   ProtectedValue _masterPassword;
 
-  ProtectedValue _confirmedMasterPassword;
+  ProtectedValue _secondaryPassword;
 
   @observable
   bool enableFingerPrint;
@@ -30,7 +30,7 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
 
   _InitializeStore(this._initializeService)
       : _masterPassword = null,
-        _confirmedMasterPassword = null,
+        _secondaryPassword = null,
         errorMessage = null,
         enableFingerPrint = false,
         agreeUserAgreement = false,
@@ -40,16 +40,12 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
   void setMasterPassword(ProtectedValue password) {
     setBusy();
     _masterPassword = password;
-    _validatePassword();
     setIdle();
   }
 
-  @action
-  void confirmPassword(ProtectedValue password) {
-    setBusy();
-    _confirmedMasterPassword = password;
-    _validatePassword();
-    setIdle();
+  void setPasswords(ProtectedValue password, ProtectedValue secondaryPassword) {
+    _masterPassword = password;
+    _secondaryPassword = secondaryPassword;
   }
 
   @action
@@ -62,26 +58,15 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
     agreeUserAgreement = agree;
   }
 
-  void _validatePassword() {
-    if (_masterPassword == null || _masterPassword.getText().length < 6) {
-      errorMessage = S.current.password_too_short;
-      isSettingsCompleted = false;
-    } else if (_masterPassword != _confirmedMasterPassword) {
-      errorMessage = S.current.password_does_not_match;
-      isSettingsCompleted = false;
-    } else {
-      errorMessage = null;
-      isSettingsCompleted = true;
-    }
-    print(errorMessage);
-  }
-
   @action
   Future<void> initialize() async {
     assert(_masterPassword != null);
+    assert(_secondaryPassword != null);
     assert(agreeUserAgreement);
+
     setBusy();
-    await _initializeService.initialize(_masterPassword, enableFingerPrint);
+    await _initializeService.initialize(
+        _masterPassword, _secondaryPassword, enableFingerPrint);
     setIdle();
   }
 }

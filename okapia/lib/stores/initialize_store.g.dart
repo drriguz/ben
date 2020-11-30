@@ -94,17 +94,6 @@ mixin _$InitializeStore on _InitializeStore, Store {
   }
 
   @override
-  void confirmPassword(ProtectedValue password) {
-    final _$actionInfo = _$_InitializeStoreActionController.startAction(
-        name: '_InitializeStore.confirmPassword');
-    try {
-      return super.confirmPassword(password);
-    } finally {
-      _$_InitializeStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void setEnableFingerPrint(bool enabled) {
     final _$actionInfo = _$_InitializeStoreActionController.startAction(
         name: '_InitializeStore.setEnableFingerPrint');

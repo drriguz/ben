@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:convert/convert.dart';
 import 'package:flutter/services.dart';
 import 'package:native_sqlcipher/database.dart';
-import 'package:okapia/common/crypto/hmac_validator.dart';
 import 'package:okapia/common/crypto/key.dart';
+import 'package:okapia/common/utils/key_util.dart';
 import 'package:okapia/common/utils/random.dart';
 import 'package:okapia/services/config_service.dart';
 
@@ -17,7 +17,10 @@ class InitializeService {
   InitializeService(this._configService);
 
   Future<void> initialize(
-      final ProtectedValue masterPassword, bool enableFingerPrint) async {
+    final ProtectedValue masterPassword,
+    final ProtectedValue secondaryPassword,
+    bool enableFingerPrint,
+  ) async {
     final config =
         await _configService.createConfig(masterPassword, enableFingerPrint);
     final Key key = await Key.create(
@@ -27,24 +30,36 @@ class InitializeService {
       IDUtil.parseUUID(config.transformSeed),
       IDUtil.parseUUID(config.encryptionIV),
     );
+    final Key secondaryKey = await Key.create(
+      config.clientId,
+      secondaryPassword,
+      IDUtil.parseUUID(config.secondarySeed),
+      IDUtil.parseUUID(config.transformSeed),
+      IDUtil.parseUUID(config.encryptionIV),
+    );
     final String configData = jsonEncode(config);
-    final configHmacKey =
-        await key.getHmacKey(IDUtil.parseUUID(config.clientId));
-    final HmacValidator hashValidator =
-        new HmacValidator(configHmacKey.binaryValue);
-    final checksum = hashValidator.computeChecksum(utf8.encode(configData));
 
+    final signature1 =
+        await KeyUtil.computeChecksum(key, config.clientId, configData);
+    final signature2 = await KeyUtil.computeChecksum(
+        secondaryKey, config.clientId, configData);
     final File databaseFile =
         await ConfigService.localFile("${config.clientId}.dat");
-    await _initializeDatabase(databaseFile.path, await key.getSqlcipherKey());
+    await _initializeDatabase(
+        databaseFile.path, await KeyUtil.getSqlcipherKey(key));
 
-    await _saveConfig(configData, hex.encode(checksum));
+    await _saveConfig(
+        configData, hex.encode(signature1), hex.encode(signature2));
   }
 
-  Future<void> _saveConfig(final String configData, final String hash) async {
+  Future<void> _saveConfig(
+    final String configData,
+    final String masterHash,
+    final String secondaryHash,
+  ) async {
     final File file = await ConfigService.configFile();
     print("saving config to: ${file.path}");
-    List<String> lines = [configData, hash];
+    List<String> lines = [configData, masterHash, secondaryHash];
     await file.writeAsString(lines.join("\n"));
   }
 

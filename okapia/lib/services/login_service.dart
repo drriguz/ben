@@ -5,6 +5,7 @@ import 'package:okapia/common/crypto/hmac_validator.dart';
 import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:convert/convert.dart';
+import 'package:okapia/common/utils/key_util.dart';
 import 'package:okapia/common/utils/random.dart';
 
 import 'config_service.dart';
@@ -19,11 +20,12 @@ class LoginService {
   Future<Database> openSqlcipher(final Key key) async {
     final File databaseFile =
         await ConfigService.localFile("${key.clientId}.dat");
-    final dbKey = await key.getSqlcipherKey();
+    final dbKey = await KeyUtil.getSqlcipherKey(key);
     final db =
         new Database(databaseFile.path, "x'${hex.encode(dbKey.binaryValue)}'");
     //fixme: only for debugging
-    print("opening db: ${databaseFile.path}\n pragma key=\"x'${hex.encode(dbKey.binaryValue)}'\"");
+    print(
+        "opening db: ${databaseFile.path}\n pragma key=\"x'${hex.encode(dbKey.binaryValue)}'\"");
 
     db.execute("SELECT count(*) FROM sqlite_master;");
     return db;

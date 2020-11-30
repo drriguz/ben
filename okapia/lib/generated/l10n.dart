@@ -115,6 +115,16 @@ class S {
     );
   }
 
+  /// `Secondary password is used to protect your passwords from been viewed by someone who get accessed to your unlocked app`
+  String get secondary_password_description {
+    return Intl.message(
+      'Secondary password is used to protect your passwords from been viewed by someone who get accessed to your unlocked app',
+      name: 'secondary_password_description',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enable fingerprint`
   String get enable_fingerprint {
     return Intl.message(
@@ -145,21 +155,81 @@ class S {
     );
   }
 
-  /// `Please input your password`
-  String get please_input_password {
+  /// `Master password`
+  String get master_password {
     return Intl.message(
-      'Please input your password',
-      name: 'please_input_password',
+      'Master password',
+      name: 'master_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please confirm your password`
-  String get please_input_password_again {
+  /// `at least 10 characters`
+  String get master_password_hint {
     return Intl.message(
-      'Please confirm your password',
-      name: 'please_input_password_again',
+      'at least 10 characters',
+      name: 'master_password_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm master password`
+  String get confirm_master_password {
+    return Intl.message(
+      'Confirm master password',
+      name: 'confirm_master_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Master password`
+  String get secondary_password {
+    return Intl.message(
+      'Master password',
+      name: 'secondary_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm secondary password`
+  String get confirm_secondary_password {
+    return Intl.message(
+      'Confirm secondary password',
+      name: 'confirm_secondary_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `4 digits`
+  String get secondary_password_hint {
+    return Intl.message(
+      '4 digits',
+      name: 'secondary_password_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Secondary password must be 4 digits`
+  String get secondary_password_rule {
+    return Intl.message(
+      'Secondary password must be 4 digits',
+      name: 'secondary_password_rule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm secondary password`
+  String get secondary_master_password {
+    return Intl.message(
+      'Confirm secondary password',
+      name: 'secondary_master_password',
       desc: '',
       args: [],
     );

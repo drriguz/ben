@@ -12,6 +12,7 @@ class AppConfig {
   final String cipherType;
   final String compressionFlags;
   final String masterSeed;
+  final String secondarySeed;
   final String transformSeed;
   final String encryptionIV;
   final String kdfParameters;
@@ -24,6 +25,7 @@ class AppConfig {
       this.cipherType,
       this.compressionFlags,
       this.masterSeed,
+      this.secondarySeed,
       this.transformSeed,
       this.encryptionIV,
       this.kdfParameters,
@@ -37,6 +39,7 @@ class AppConfig {
       cipherType: json["cipherType"],
       compressionFlags: json["compressionFlags"],
       masterSeed: json["masterSeed"],
+      secondarySeed: json["secondarySeed"],
       transformSeed: json["transformSeed"],
       encryptionIV: json["encryptionIV"],
       kdfParameters: json["kdfParameters"],
@@ -51,6 +54,7 @@ class AppConfig {
         'cipherType': cipherType, // AES-256
         'compressionFlags': compressionFlags,
         'masterSeed': masterSeed,
+        'secondarySeed': secondarySeed,
         'transformSeed': transformSeed,
         'encryptionIV': encryptionIV,
         'kdfParameters': kdfParameters,
@@ -62,8 +66,10 @@ class AppConfig {
 class AppConfigWithSignature {
   final AppConfig appConfig;
   final String signature;
+  final String secondarySignature;
 
-  AppConfigWithSignature(this.appConfig, this.signature);
+  AppConfigWithSignature(
+      this.appConfig, this.signature, this.secondarySignature);
 }
 
 class ConfigService {
@@ -79,18 +85,20 @@ class ConfigService {
 
   Future<AppConfigWithSignature> readConfig() async {
     final File config = await configFile();
+    print("config: ${config.path}");
 
     final lines = await config.readAsLines();
-    if (lines.length != 2)
+    if (lines.length != 3)
       throw new InvalidConfigFormatException("Invalid config file");
     final String configData = lines[0];
     final String signature = lines[1];
+    final String secondarySignature = lines[2];
 
-    if (signature.length != 64) // 32bit hex
+    if (signature.length != 64 || secondarySignature.length != 64) // 32bit hex
       throw new InvalidConfigFormatException("Invalid config signature");
 
     final appConfig = AppConfig.fromJson(jsonDecode(configData));
-    return new AppConfigWithSignature(appConfig, signature);
+    return new AppConfigWithSignature(appConfig, signature, secondarySignature);
   }
 
   Future<void> verifyConfig(final AppConfig config) async {
@@ -107,6 +115,9 @@ class ConfigService {
     if (!IDUtil.isUUIDFormat(config.masterSeed))
       throw new InvalidConfigDataException(
           "Invalid master seed: ${config.masterSeed}");
+    if (!IDUtil.isUUIDFormat(config.secondarySeed))
+      throw new InvalidConfigDataException(
+          "Invalid secondary seed: ${config.secondarySeed}");
     if (!IDUtil.isUUIDFormat(config.transformSeed))
       throw new InvalidConfigDataException(
           "Invalid transform seed: ${config.transformSeed}");
@@ -115,6 +126,7 @@ class ConfigService {
   Future<AppConfig> createConfig(
       final ProtectedValue masterPassword, bool enableLocalAuth) async {
     final masterSeed = IDUtil.generateUUID();
+    final secondarySeed = IDUtil.generateUUID();
     final transformSeed = IDUtil.generateUUID();
     final encryptionIV = IDUtil.generateUUID();
     return AppConfig(
@@ -123,6 +135,7 @@ class ConfigService {
       cipherType: AES_256_CBC,
       compressionFlags: NO_COMPRESSION,
       masterSeed: masterSeed,
+      secondarySeed: secondarySeed,
       transformSeed: transformSeed,
       encryptionIV: encryptionIV,
       kdfParameters: 'default',

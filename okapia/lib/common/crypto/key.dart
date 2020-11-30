@@ -28,47 +28,57 @@ class Key {
   static final Kdf _kdf = new Argon2Kdf();
 
   final String clientId;
-  final ProtectedValue _transformedMasterKey;
-  final Uint8List _masterSeed;
+  final ProtectedValue transformedKey;
+  final Uint8List seed;
   final Uint8List encryptionIV;
 
   ProtectedValue _encryptionKeyCache;
+  ProtectedValue _secondaryEncryptionKeyCache;
 
-  Key._internal(this.clientId, this._transformedMasterKey, this._masterSeed,
-      this.encryptionIV) {}
+  Key._internal(
+    this.clientId,
+    this.transformedKey,
+    this.seed,
+    this.encryptionIV,
+  ) {}
 
   static Future<Key> create(
       final String clientId,
-      final ProtectedValue masterPassword,
-      final Uint8List masterSeed,
+      final ProtectedValue password,
+      final Uint8List seed,
       final Uint8List transformSeed,
       final Uint8List encryptionIV) async {
     assert(transformSeed.length == 16);
-    assert(masterSeed.length == 16);
+    assert(seed.length == 16);
     assert(encryptionIV.length == 16);
 
     // transformedMasterKey = argon2d(2, 1024, sha256(sha256(plain_password)), transformSeed)
-    final Uint8List passwordHash =
-        sha256.convert(sha256.convert(masterPassword.binaryValue).bytes).bytes;
-    final Uint8List transformedMasterKey =
-        await _kdf.derive(passwordHash, transformSeed);
+    return new Key._internal(clientId,
+        await _derivePassword(password, transformSeed), seed, encryptionIV);
+  }
 
-    return new Key._internal(
-        clientId,
-        ProtectedValue.ofBinary(transformedMasterKey),
-        masterSeed,
-        encryptionIV);
+  static Future<ProtectedValue> _derivePassword(
+      ProtectedValue password, Uint8List transformSeed) async {
+    final Uint8List passwordHash =
+        sha256.convert(sha256.convert(password.binaryValue).bytes).bytes;
+    final Uint8List transformedKey =
+        await _kdf.derive(passwordHash, transformSeed);
+    return ProtectedValue.ofBinary(transformedKey);
   }
 
   Future<ProtectedValue> getEncryptionKey() async {
     // encryptionKey = sha256(masterSeed + transformedMasterKey)
     if (_encryptionKeyCache == null) {
-      final List<int> source = List.from(_masterSeed)
-        ..addAll(_transformedMasterKey.binaryValue);
-      final key = sha256.convert(source).bytes;
-      _encryptionKeyCache = ProtectedValue.ofBinary(key);
+      _encryptionKeyCache = await _transformKey(seed);
     }
     return _encryptionKeyCache;
+  }
+
+  Future<ProtectedValue> _transformKey(Uint8List seed) async {
+    final List<int> source = List.from(seed)
+      ..addAll(transformedKey.binaryValue);
+    final key = sha256.convert(source).bytes;
+    return ProtectedValue.ofBinary(key);
   }
 
   Future<ProtectedValue> getHmacKey(final Uint8List itemId) async {
@@ -76,18 +86,10 @@ class Key {
 
     // hmacKey = sha512(itemId + sha512(masterSeed + transformedMasterKey))
     final temp = sha512
-        .convert(
-            List.from(_masterSeed)..addAll(_transformedMasterKey.binaryValue))
+        .convert(List.from(seed)..addAll(transformedKey.binaryValue))
         .bytes;
     final key = sha512.convert(List.from(itemId)..addAll(temp)).bytes;
 
     return ProtectedValue.ofBinary(key);
-  }
-
-  Future<ProtectedValue> getSqlcipherKey() async {
-    final encryptionKey = await getEncryptionKey();
-    final sqlcipherKey = List<int>.from(encryptionKey.binaryValue)
-      ..addAll(encryptionIV);
-    return ProtectedValue.ofBinary(Uint8List.fromList(sqlcipherKey));
   }
 }

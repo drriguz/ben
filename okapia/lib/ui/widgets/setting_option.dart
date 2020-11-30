@@ -19,7 +19,8 @@ abstract class SettingOption extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 15),
-          child: Text(_description, style: Theme.of(context).textTheme.subtitle1),
+          child:
+              Text(_description, style: Theme.of(context).textTheme.subtitle1),
         ),
         ...getFormFields()
       ],
@@ -56,27 +57,34 @@ typedef String ErrorMessageProvider();
 typedef void OnPasswordChanged(ProtectedValue value);
 
 class PasswordSetting extends SettingOption {
+  final String _passwordHint;
+  final String _confirmPasswordHint;
   final OnPasswordChanged _onChangePassword;
   final OnPasswordChanged _onConfirmPassword;
   final ErrorPredict _errorPredict;
   final ErrorMessageProvider _errorMessageProvider;
 
-  PasswordSetting(String description, this._onChangePassword,
-      this._onConfirmPassword, this._errorPredict, this._errorMessageProvider)
-      : super(description);
+  PasswordSetting(
+    String description,
+    this._passwordHint,
+    this._confirmPasswordHint,
+    this._onChangePassword,
+    this._onConfirmPassword,
+    this._errorPredict,
+    this._errorMessageProvider,
+  ) : super(description);
 
   @override
   List<Widget> getFormFields() {
     return <Widget>[
       TextField(
         obscureText: true,
-        decoration: InputDecoration(hintText: S.current.please_input_password),
+        decoration: InputDecoration(hintText: _passwordHint),
         onChanged: (plain) => _onChangePassword(ProtectedValue.of(plain)),
       ),
       TextField(
         obscureText: true,
-        decoration:
-            InputDecoration(hintText: S.current.please_input_password_again),
+        decoration: InputDecoration(hintText: _confirmPasswordHint),
         onChanged: (plain) => _onConfirmPassword(ProtectedValue.of(plain)),
       ),
       Observer(
