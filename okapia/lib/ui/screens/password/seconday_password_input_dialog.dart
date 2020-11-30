@@ -1,32 +1,28 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/password_service.dart';
-import 'package:okapia/stores/password_decrypt_store.dart';
+import 'package:okapia/stores/secondary_password_input_store.dart';
 import 'package:okapia/stores/user_store.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:provider/provider.dart';
 
-class DisplayPasswordDialog extends StatefulWidget {
-  final Uint8List data;
-
-  const DisplayPasswordDialog(this.data, {Key key}) : super(key: key);
+class SecondaryPasswordInputDialog extends StatefulWidget {
+  const SecondaryPasswordInputDialog({Key key}) : super(key: key);
 
   @override
-  _DisplayPasswordDialogState createState() => _DisplayPasswordDialogState();
+  _SecondaryPasswordInputDialogState createState() =>
+      _SecondaryPasswordInputDialogState();
 }
 
-class _DisplayPasswordDialogState extends State<DisplayPasswordDialog> {
-  PasswordDecryptStore _store;
+class _SecondaryPasswordInputDialogState
+    extends State<SecondaryPasswordInputDialog> {
+  SecondaryPasswordInputStore _store;
 
   @override
   void initState() {
     super.initState();
-    _store = PasswordDecryptStore(
-      widget.data,
+    _store = SecondaryPasswordInputStore(
       Provider.of<UserStore>(context, listen: false),
       Provider.of<PasswordService>(context, listen: false),
     );
@@ -37,17 +33,13 @@ class _DisplayPasswordDialogState extends State<DisplayPasswordDialog> {
     return AlertDialog(
       title: Text(S.of(context).show_password),
       content: SingleChildScrollView(
-        child: Observer(
-          builder: (_) => _store.secondaryPasswordCompleted
-              ? _holdToShowPassword()
-              : _pinInputContainer(context),
-        ),
+        child: _pinInputContainer(context),
       ),
       actions: <Widget>[
         TextButton(
           child: Text(S.of(context).cancel),
           onPressed: () {
-            Navigator.of(context).pop(false);
+            Navigator.of(context).pop(null);
           },
         ),
       ],
@@ -66,10 +58,6 @@ class _DisplayPasswordDialogState extends State<DisplayPasswordDialog> {
     );
   }
 
-  Widget _holdToShowPassword() {
-    return Text("Hold!");
-  }
-
   Widget _pinInput() {
     final BoxDecoration decoration = BoxDecoration(
       border: Border.all(color: Colors.blueGrey),
@@ -81,8 +69,7 @@ class _DisplayPasswordDialogState extends State<DisplayPasswordDialog> {
       child: PinPut(
         fieldsCount: 4,
         obscureText: '*',
-        onSubmit: (pwd) =>
-            _store.submitSecondaryPassword(ProtectedValue.of(pwd)),
+        onSubmit: (pwd) => _onSubmitPassword(ProtectedValue.of(pwd)),
         submittedFieldDecoration: decoration.copyWith(
           borderRadius: BorderRadius.circular(20.0),
         ),
@@ -95,5 +82,10 @@ class _DisplayPasswordDialogState extends State<DisplayPasswordDialog> {
         ),
       ),
     );
+  }
+
+  Future<void> _onSubmitPassword(ProtectedValue password) async {
+    bool verified = await _store.submitSecondaryPassword(password);
+    if (verified) Navigator.of(context).pop(password);
   }
 }

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/common/sqlcipher/model/image.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/password_detail_store.dart';
 import 'package:okapia/stores/user_store.dart';
-import 'package:okapia/ui/screens/password/display_password.dart';
+import 'package:okapia/ui/screens/password/seconday_password_input_dialog.dart';
 import 'package:okapia/ui/widgets/image_card.dart';
 import 'package:okapia/ui/widgets/loading.dart';
 import 'package:okapia/ui/widgets/text_line.dart';
 import 'package:provider/provider.dart';
-
-import 'confirm_password.dart';
 
 class PasswordDetailScreen extends StatefulWidget {
   final int id;
@@ -71,13 +70,25 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
           _store.data.url,
           name: S.of(context).login_url,
         ),
+        Observer(
+          builder: (_) => _store.secondaryPasswordVerified
+              ? _showDecryptedPassword()
+              : _showPasswordPlaceholders(),
+        ),
+      ],
+    );
+  }
+
+  Widget _showPasswordPlaceholders() {
+    return Column(
+      children: [
         Padding(
           padding: const EdgeInsets.only(top: 15, bottom: 10),
           child: Row(
             children: [
               Expanded(
                 child: RaisedButton.icon(
-                  onPressed: _displayPassword,
+                  onPressed: _onDecryptPassword,
                   color: Colors.red,
                   textColor: Colors.white,
                   icon: Icon(Icons.warning_amber_outlined),
@@ -87,15 +98,29 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: TextLine(
-            '**********',
-            name: S.of(context).password,
-          ),
-        ),
+        _displayPassword('******'),
         _attachments(),
       ],
+    );
+  }
+
+  Widget _showDecryptedPassword() {
+    if (_store.decrypting)
+      return Padding(
+        padding: const EdgeInsets.only(top: 40),
+        child: Loading(),
+      );
+    return Container();
+  }
+
+  Widget _displayPassword(String text) {
+    return Padding(
+      key: ObjectKey(text),
+      padding: const EdgeInsets.only(bottom: 20),
+      child: TextLine(
+        text,
+        name: S.of(context).password,
+      ),
     );
   }
 
@@ -114,12 +139,14 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
     return ImageCard();
   }
 
-  Future<void> _displayPassword() async {
-    final confirmed = await showDialog<bool>(
+  Future<void> _onDecryptPassword() async {
+    final secondaryPassword = await showDialog<ProtectedValue>(
       context: context,
       barrierDismissible: false,
-      builder: (_) => DisplayPasswordDialog(_store.data.content),
+      builder: (_) => SecondaryPasswordInputDialog(),
     );
-    if (!confirmed) return;
+    if (secondaryPassword != null) {
+      _store.setSecondaryPassword(secondaryPassword);
+    }
   }
 }

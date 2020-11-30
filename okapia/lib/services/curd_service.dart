@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:native_sqlcipher/database.dart';
 import 'package:okapia/common/sqlcipher/repository.dart';
 

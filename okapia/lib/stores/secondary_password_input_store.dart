@@ -8,30 +8,27 @@ import 'package:mobx/mobx.dart';
 
 import 'user_store.dart';
 
-part 'password_decrypt_store.g.dart';
+part 'secondary_password_input_store.g.dart';
 
-class PasswordDecryptStore = _PasswordDecryptStore with _$PasswordDecryptStore;
+class SecondaryPasswordInputStore = _SecondaryPasswordInputStore
+    with _$SecondaryPasswordInputStore;
 
-abstract class _PasswordDecryptStore with Store {
-  final Uint8List _encryptedPassword;
+abstract class _SecondaryPasswordInputStore with Store {
   final UserStore _userStore;
   final PasswordService _service;
 
-  _PasswordDecryptStore(this._encryptedPassword, this._userStore, this._service);
-
-  @observable
-  bool _secondaryPasswordVerified = false;
+  _SecondaryPasswordInputStore(this._userStore, this._service);
 
   @observable
   bool _secondaryPasswordCompleted = false;
 
-  bool get secondaryPasswordVerified => _secondaryPasswordVerified;
-
   bool get secondaryPasswordCompleted => _secondaryPasswordCompleted;
 
   @action
-  Future<void> submitSecondaryPassword(ProtectedValue secondaryPassword) async {
+  Future<bool> submitSecondaryPassword(ProtectedValue secondaryPassword) async {
     _secondaryPasswordCompleted = true;
-    _secondaryPasswordVerified = false;
+
+    //fixme
+    return secondaryPassword == ProtectedValue.of("1234");
   }
 }
