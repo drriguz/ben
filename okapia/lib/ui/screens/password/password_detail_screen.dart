@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:okapia/common/sqlcipher/model/image.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/password_detail_store.dart';
 import 'package:okapia/stores/user_store.dart';
 import 'package:okapia/ui/screens/password/display_password.dart';
+import 'package:okapia/ui/widgets/image_card.dart';
 import 'package:okapia/ui/widgets/loading.dart';
 import 'package:okapia/ui/widgets/text_line.dart';
 import 'package:provider/provider.dart';
@@ -74,16 +76,42 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
           child: Row(
             children: [
               Expanded(
-                child: RaisedButton(
+                child: RaisedButton.icon(
                   onPressed: _displayPassword,
-                  child: Text(S.of(context).show_password),
+                  color: Colors.red,
+                  textColor: Colors.white,
+                  icon: Icon(Icons.warning_amber_outlined),
+                  label: Text(S.of(context).show_password),
                 ),
               )
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: TextLine(
+            '**********',
+            name: S.of(context).password,
+          ),
+        ),
+        _attachments(),
       ],
     );
+  }
+
+  Widget _attachments() {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, childAspectRatio: 1.0),
+      itemCount: 10,
+      itemBuilder: (context, index) => _createImage(null),
+    );
+  }
+
+  Widget _createImage(ImageModel item) {
+    return ImageCard();
   }
 
   Future<void> _displayPassword() async {
