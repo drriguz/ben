@@ -56,6 +56,22 @@ mixin _$PasswordDetailStore on _PasswordDetailStore, Store {
     });
   }
 
+  final _$_remainSecondsAtom =
+      Atom(name: '_PasswordDetailStore._remainSeconds');
+
+  @override
+  int get _remainSeconds {
+    _$_remainSecondsAtom.reportRead();
+    return super._remainSeconds;
+  }
+
+  @override
+  set _remainSeconds(int value) {
+    _$_remainSecondsAtom.reportWrite(value, super._remainSeconds, () {
+      super._remainSeconds = value;
+    });
+  }
+
   final _$fetchAsyncAction = AsyncAction('_PasswordDetailStore.fetch');
 
   @override

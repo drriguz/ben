@@ -44,6 +44,12 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
   }
 
   @override
+  void dispose() {
+    _store.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -158,6 +164,15 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
       );
     return Column(
       children: [
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            "${_store.remainSeconds} seconds",
+            style: Theme.of(context).textTheme.headline6.apply(
+                  color: Colors.red,
+                ),
+          ),
+        ),
         _displayPassword(_store.decryptedPassword.getText()),
       ],
     );
