@@ -65,9 +65,9 @@ mixin _$PasswordEditStore on _PasswordEditStore, Store {
 
   @override
   Future<void> create(String name, String account, String url,
-      ProtectedValue password, Uint8List icon) {
-    return _$createAsyncAction
-        .run(() => super.create(name, account, url, password, icon));
+      ProtectedValue password, Uint8List icon, TransformedKey secondaryKey) {
+    return _$createAsyncAction.run(
+        () => super.create(name, account, url, password, icon, secondaryKey));
   }
 
   @override

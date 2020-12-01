@@ -17,7 +17,7 @@ class LoginService {
 
   LoginService(this._configService);
 
-  Future<Database> openSqlcipher(final Key key) async {
+  Future<Database> openSqlcipher(final TransformedKey key) async {
     final File databaseFile =
         await ConfigService.localFile("${key.clientId}.dat");
     final dbKey = await KeyUtil.getSqlcipherKey(key);
@@ -31,19 +31,19 @@ class LoginService {
     return db;
   }
 
-  Future<Key> checkUserCredential(ProtectedValue masterPassword) async {
+  Future<TransformedKey> checkUserCredential(ProtectedValue masterPassword) async {
     return _checkPassword(masterPassword, false);
   }
 
-  Future<Key> checkSecondaryPassword(ProtectedValue secondaryPassword) async {
+  Future<TransformedKey> checkSecondaryPassword(ProtectedValue secondaryPassword) async {
     return _checkPassword(secondaryPassword, true);
   }
 
-  Future<Key> _checkPassword(
+  Future<TransformedKey> _checkPassword(
       ProtectedValue password, bool isSecondaryPassword) async {
     final config = await _configService.readConfig();
     _configService.verifyConfig(config.appConfig);
-    final Key key = await Key.create(
+    final TransformedKey key = await TransformedKey.create(
       config.appConfig.clientId,
       password,
       IDUtil.parseUUID(isSecondaryPassword

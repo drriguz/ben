@@ -8,7 +8,7 @@ import 'package:okapia/common/crypto/protected_value.dart';
 import 'random.dart';
 
 class KeyUtil {
-  static Future<ProtectedValue> getSqlcipherKey(Key key) async {
+  static Future<ProtectedValue> getSqlcipherKey(TransformedKey key) async {
     final encryptionKey = await key.getEncryptionKey();
     final sqlcipherKey = List<int>.from(encryptionKey.binaryValue)
       ..addAll(key.encryptionIV);
@@ -16,7 +16,7 @@ class KeyUtil {
   }
 
   static Future<Uint8List> computeChecksum(
-      Key key, String itemId, String data) async {
+      TransformedKey key, String itemId, String data) async {
     final configHmacKey = await key.getHmacKey(IDUtil.parseUUID(itemId));
     final HmacValidator hashValidator =
         new HmacValidator(configHmacKey.binaryValue);

@@ -32,15 +32,15 @@ abstract class _SecondaryPasswordInputStore with Store {
   String get error => _error;
 
   @action
-  Future<bool> submitSecondaryPassword(ProtectedValue secondaryPassword) async {
+  Future<TransformedKey> submitSecondaryPassword(ProtectedValue secondaryPassword) async {
     _isChecking = true;
     try {
-      Key secondaryKey =
+      TransformedKey secondaryKey =
           await _loginService.checkSecondaryPassword(secondaryPassword);
-      return true;
+      return secondaryKey;
     } catch (_) {
       _error = S.current.password_validation_failed;
-      return false;
+      return null;
     } finally {
       _isChecking = false;
     }

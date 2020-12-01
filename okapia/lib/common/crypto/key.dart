@@ -24,7 +24,7 @@ import 'protected_value.dart';
 /// and use the same key/salt
 ///
 
-class Key {
+class TransformedKey {
   static final Kdf _kdf = new Argon2Kdf();
 
   final String clientId;
@@ -33,16 +33,15 @@ class Key {
   final Uint8List encryptionIV;
 
   ProtectedValue _encryptionKeyCache;
-  ProtectedValue _secondaryEncryptionKeyCache;
 
-  Key._internal(
+  TransformedKey._internal(
     this.clientId,
     this.transformedKey,
     this.seed,
     this.encryptionIV,
   ) {}
 
-  static Future<Key> create(
+  static Future<TransformedKey> create(
       final String clientId,
       final ProtectedValue password,
       final Uint8List seed,
@@ -53,7 +52,7 @@ class Key {
     assert(encryptionIV.length == 16);
 
     // transformedMasterKey = argon2d(2, 1024, sha256(sha256(plain_password)), transformSeed)
-    return new Key._internal(clientId,
+    return new TransformedKey._internal(clientId,
         await _derivePassword(password, transformSeed), seed, encryptionIV);
   }
 

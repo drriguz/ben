@@ -15,9 +15,9 @@ class UserStore = _UserStore with _$UserStore;
 abstract class _UserStore extends PageStatusNotifier with Store {
   final LoginService _loginService;
 
-  Key _userCredential;
+  TransformedKey _userCredential;
 
-  Key get userCredential => _userCredential;
+  TransformedKey get userCredential => _userCredential;
 
   Database _database;
 
@@ -56,7 +56,7 @@ abstract class _UserStore extends PageStatusNotifier with Store {
     setBusy();
     bool success = false;
     try {
-      final Key credential =
+      final TransformedKey credential =
           await _loginService.checkUserCredential(masterPassword);
       _errorMessage = null;
       _userCredential = credential;

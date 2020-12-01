@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/common/utils/strings.dart';
 import 'package:okapia/generated/l10n.dart';
@@ -186,12 +187,12 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
     if (!_formKey.currentState.validate()) return;
     _formKey.currentState.save();
 
-    final secondaryPassword = await showDialog<ProtectedValue>(
+    final secondaryKey = await showDialog<TransformedKey>(
       context: context,
       barrierDismissible: false,
       builder: (_) => SecondaryPasswordInputDialog(),
     );
-    if (secondaryPassword == null) return;
+    if (secondaryKey == null) return;
 
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -209,7 +210,7 @@ class _PasswordEditScreenState extends State<PasswordEditScreen> {
       ),
     ));
     return _store
-        .create(_name, _account, _url, _password, _store.icon)
+        .create(_name, _account, _url, _password, _store.icon, secondaryKey)
         .then((_) => Navigator.of(context).pop())
         .whenComplete(() => _scaffoldKey.currentState.hideCurrentSnackBar());
   }

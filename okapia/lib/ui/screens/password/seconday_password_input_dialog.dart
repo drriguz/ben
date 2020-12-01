@@ -100,7 +100,7 @@ class _SecondaryPasswordInputDialogState
   }
 
   Future<void> _onSubmitPassword(ProtectedValue password) async {
-    bool verified = await _store.submitSecondaryPassword(password);
-    if (verified) Navigator.of(context).pop(password);
+    final secondaryKey = await _store.submitSecondaryPassword(password);
+    if (secondaryKey != null) Navigator.of(context).pop(secondaryKey);
   }
 }

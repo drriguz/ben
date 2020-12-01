@@ -44,7 +44,8 @@ mixin _$SecondaryPasswordInputStore on _SecondaryPasswordInputStore, Store {
       AsyncAction('_SecondaryPasswordInputStore.submitSecondaryPassword');
 
   @override
-  Future<bool> submitSecondaryPassword(ProtectedValue secondaryPassword) {
+  Future<TransformedKey> submitSecondaryPassword(
+      ProtectedValue secondaryPassword) {
     return _$submitSecondaryPasswordAsyncAction
         .run(() => super.submitSecondaryPassword(secondaryPassword));
   }

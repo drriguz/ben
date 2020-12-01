@@ -1,14 +1,12 @@
 import 'dart:typed_data';
 
-import 'package:okapia/common/crypto/credential.dart';
-import 'package:okapia/common/crypto/kdf.dart';
 import 'package:encryptions/encryptions.dart';
+import 'package:okapia/common/crypto/key.dart';
 
 class Encrypter {
-  final PasswordCredential _passwordCredential;
-  final Kdf _kdf;
+  final TransformedKey _key;
 
-  Encrypter(this._passwordCredential, this._kdf);
+  Encrypter(this._key);
 
   Future<Uint8List> encrypt(Uint8List content) async {
     return _getAES().then((aes) => aes.encrypt(content));
@@ -20,8 +18,8 @@ class Encrypter {
 
   Future<AES> _getAES() async {
     return AES.ofCBC(
-      await _passwordCredential.getEncryptionKey(_kdf),
-      _passwordCredential.encryptionIv,
+      (await _key.getEncryptionKey()).binaryValue,
+      _key.encryptionIV,
       PaddingScheme.PKCS5Padding,
     );
   }

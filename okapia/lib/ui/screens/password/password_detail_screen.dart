@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/common/sqlcipher/model/image.dart';
 import 'package:okapia/generated/l10n.dart';
@@ -155,7 +156,11 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
         padding: const EdgeInsets.only(top: 40),
         child: Loading(),
       );
-    return Container();
+    return Column(
+      children: [
+        _displayPassword(_store.decryptedPassword.getText()),
+      ],
+    );
   }
 
   Widget _displayPassword(String text) {
@@ -185,13 +190,13 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
   }
 
   Future<void> _onDecryptPassword() async {
-    final secondaryPassword = await showDialog<ProtectedValue>(
+    final secondaryKey = await showDialog<TransformedKey>(
       context: context,
       barrierDismissible: false,
       builder: (_) => SecondaryPasswordInputDialog(),
     );
-    if (secondaryPassword != null) {
-      _store.setSecondaryPassword(secondaryPassword);
+    if (secondaryKey != null) {
+      _store.setSecondaryPassword(secondaryKey);
     }
   }
 }

@@ -23,14 +23,14 @@ class InitializeService {
   ) async {
     final config =
         await _configService.createConfig(masterPassword, enableFingerPrint);
-    final Key key = await Key.create(
+    final TransformedKey key = await TransformedKey.create(
       config.clientId,
       masterPassword,
       IDUtil.parseUUID(config.masterSeed),
       IDUtil.parseUUID(config.transformSeed),
       IDUtil.parseUUID(config.encryptionIV),
     );
-    final Key secondaryKey = await Key.create(
+    final TransformedKey secondaryKey = await TransformedKey.create(
       config.clientId,
       secondaryPassword,
       IDUtil.parseUUID(config.secondarySeed),

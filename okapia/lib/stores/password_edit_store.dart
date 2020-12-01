@@ -1,8 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:http/http.dart';
+import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/common/sqlcipher/model/password.dart';
+import 'package:okapia/common/utils/encrypter.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -43,15 +45,20 @@ abstract class _PasswordEditStore with Store {
   }
 
   @action
-  Future<void> create(String name, String account, String url,
-      ProtectedValue password, Uint8List icon) async {
-    print("created...");
+  Future<void> create(
+      String name,
+      String account,
+      String url,
+      ProtectedValue password,
+      Uint8List icon,
+      TransformedKey secondaryKey) async {
+    final Encrypter encrypter = Encrypter(secondaryKey);
     PasswordModel item = PasswordModel(
       name: name,
       account: account,
       url: url,
       icon: icon,
-      content: password.binaryValue,
+      content: await encrypter.encrypt(password.binaryValue),
     );
     return _service
         .create(_userStore.database, item)

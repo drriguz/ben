@@ -67,9 +67,9 @@ mixin _$PasswordDetailStore on _PasswordDetailStore, Store {
       AsyncAction('_PasswordDetailStore.setSecondaryPassword');
 
   @override
-  Future<void> setSecondaryPassword(ProtectedValue secondaryPassword) {
+  Future<void> setSecondaryPassword(TransformedKey secondaryKey) {
     return _$setSecondaryPasswordAsyncAction
-        .run(() => super.setSecondaryPassword(secondaryPassword));
+        .run(() => super.setSecondaryPassword(secondaryKey));
   }
 
   @override

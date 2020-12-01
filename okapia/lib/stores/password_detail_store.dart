@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/common/sqlcipher/model/password.dart';
+import 'package:okapia/common/utils/encrypter.dart';
 import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/page_status_notifier.dart';
 import 'package:mobx/mobx.dart';
@@ -32,6 +35,8 @@ abstract class _PasswordDetailStore extends PageStatusNotifier with Store {
 
   _PasswordDetailStore(this._id, this._userStore, this._service);
 
+  ProtectedValue decryptedPassword;
+
   @action
   Future<void> fetch() async {
     setBusy();
@@ -42,10 +47,12 @@ abstract class _PasswordDetailStore extends PageStatusNotifier with Store {
   }
 
   @action
-  Future<void> setSecondaryPassword(ProtectedValue secondaryPassword) async {
+  Future<void> setSecondaryPassword(TransformedKey secondaryKey) async {
     _secondaryPasswordVerified = true;
     _decrypting = true;
-    await Future.delayed(Duration(milliseconds: 1000));
+    Encrypter encrypter = Encrypter(secondaryKey);
+    Uint8List rawPassword = await encrypter.decrypt(_data.content);
+    decryptedPassword = ProtectedValue.ofBinary(rawPassword);
     _decrypting = false;
   }
 
