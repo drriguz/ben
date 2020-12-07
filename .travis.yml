@@ -41,7 +41,7 @@ matrix:
         - export GRADLE_HOME=$PWD/gradle-3.5
         - export PATH=$GRADLE_HOME/bin:$PATH
         - git clone -b stable https://github.com/flutter/flutter.git
-        - cd ben_app
+        - cd okapia
         - ../flutter/bin/flutter packages get
         - ../flutter/bin/flutter precache
         - yes | ../flutter/bin/flutter doctor --android-licenses
@@ -52,7 +52,7 @@ matrix:
       osx_image: xcode11
       before_script:
         - git clone -b stable https://github.com/flutter/flutter.git
-        - cd ben_app
+        - cd okapia
         - ../flutter/bin/flutter packages get
         - ../flutter/bin/flutter precache
       script:
