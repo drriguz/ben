@@ -22,6 +22,7 @@ class PasswordList extends DataList<PasswordModel> {
 
   @override
   Widget createListItem(PasswordModel item) {
+    print("rendering:${item.name}");
     return PasswordItem(item);
   }
 }

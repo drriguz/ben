@@ -1,3 +1,4 @@
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/stores/album_store.dart';
 import 'package:okapia/ui/widgets/loading.dart';
@@ -41,6 +42,13 @@ class _AlbumScreenState extends State<AlbumScreen> {
   }
 
   Widget _createAlbumList(AlbumStore albumStore) {
+//    return LiquidPullToRefresh(
+//        springAnimationDurationInMilliseconds: 200,
+//        showChildOpacityTransition: false,
+//        onRefresh: () => albumStore(),
+//        child: Observer(
+//          builder: (_) => _store.isLoading ? Loading() : _createList(context),
+//        )
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, childAspectRatio: 1.0),

@@ -18,7 +18,6 @@ abstract class _PasswordListStore extends DataListStore<PasswordModel>
 
   @override
   Future<List<PasswordModel>> fetch() async {
-    print("refreshing....");
     return _passwordService.fetchAll(_userStore.database);
   }
 

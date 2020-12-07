@@ -195,7 +195,7 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
       physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3, childAspectRatio: 1.0),
-      itemCount: 10,
+      itemCount: 3,
       itemBuilder: (context, index) => _createImage(null),
     );
   }

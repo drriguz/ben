@@ -19,6 +19,7 @@ abstract class _DataListStore<T> with Store {
   Future<void> refresh() async {
     _isLoading = true;
     data.clear();
+    await Future.delayed(Duration(seconds: 2));
     fetch().then((items) => data.addAll(items)).whenComplete(() {
       _isLoading = false;
     });

@@ -20,7 +20,7 @@ abstract class DataList<M extends Entity> extends StatelessWidget {
       showChildOpacityTransition: false,
       onRefresh: () => _store.refresh(),
       child: Observer(
-        builder: (_) => _store.isLoading ? Loading() : _createList(context),
+        builder: (_) => _createList(context),
       ),
     );
   }
