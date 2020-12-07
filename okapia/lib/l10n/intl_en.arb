@@ -74,6 +74,7 @@
   "invalid_url": "Invalid url address",
   "not_available": "(N/A)",
   "show_password": "Decrypt password detail",
+  "loading": "Loading data, please wait",
   "please_input_secondary_password": "Please input your secondary password",
   "password_confirm_tip": "Re-input the password you want to save. This is not your master password!"
 }

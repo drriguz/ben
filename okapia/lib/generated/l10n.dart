@@ -785,6 +785,16 @@ class S {
     );
   }
 
+  /// `Loading data, please wait`
+  String get loading {
+    return Intl.message(
+      'Loading data, please wait',
+      name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please input your secondary password`
   String get please_input_secondary_password {
     return Intl.message(

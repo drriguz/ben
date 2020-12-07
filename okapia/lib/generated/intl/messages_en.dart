@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "event" : MessageLookupByLibrary.simpleMessage("Events"),
     "get_started" : MessageLookupByLibrary.simpleMessage("Get Started"),
     "invalid_url" : MessageLookupByLibrary.simpleMessage("Invalid url address"),
+    "loading" : MessageLookupByLibrary.simpleMessage("Loading data, please wait"),
     "login_url" : MessageLookupByLibrary.simpleMessage("Login url"),
     "master_password" : MessageLookupByLibrary.simpleMessage("Master password"),
     "master_password_description" : MessageLookupByLibrary.simpleMessage("Master password will be the only credential for you to manage other passwords, we use it to initialize storage but it will never be stored. Once you forget the password, this is no way to find it. So please trying to set a password which is strong enough and also easy for yourself to remember. "),
