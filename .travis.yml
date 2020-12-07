@@ -28,6 +28,7 @@ matrix:
             - libstdc++6
             - fonts-droid
       before_install:
+        - git lfs pull
         - yes | sdkmanager --update
       install:
         - echo y | sdkmanager "ndk-bundle" > /dev/null
@@ -50,6 +51,8 @@ matrix:
     - os: osx
       language: generic
       osx_image: xcode11
+      before_install:
+        - git lfs pull
       before_script:
         - git clone -b stable https://github.com/flutter/flutter.git
         - cd okapia
