@@ -53,7 +53,7 @@ matrix:
       osx_image: xcode11
       before_install:
         - brew install git-lfs
-        - git -C opencv_helper lfs pull
+        - cd opencv_helper && git lfs pull && cd ../
       before_script:
         - git clone -b stable https://github.com/flutter/flutter.git
         - cd okapia
