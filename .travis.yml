@@ -60,7 +60,7 @@ matrix:
         - ../flutter/bin/flutter packages get
         - ../flutter/bin/flutter precache
       script:
-        - ls -l opencv_helper/ios/opencv2.framework/Versions/A
+        - ls -l ../opencv_helper/ios/opencv2.framework/Versions/A
         - ../flutter/bin/flutter build ios --no-codesign  
 cache:
   directories:
