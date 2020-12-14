@@ -27,14 +27,13 @@ void main() async {
   final List<SingleChildCloneableWidget> providers = await createProviders();
   final hasInitialized = await ConfigService.isConfigExists();
   print("starting app: initialized? $hasInitialized");
-  final cameras = await availableCameras();
-  startApp(hasInitialized, providers, cameras.first);
+
+  startApp(hasInitialized, providers);
 }
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
-void startApp(bool initialized, List<SingleChildCloneableWidget> providers,
-    CameraDescription camera) {
+void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
   runApp(
     MultiProvider(
       providers: providers,
@@ -101,15 +100,6 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers,
                 int id = settings.arguments;
                 return MaterialPageRoute(
                     builder: (context) => PasswordDetailScreen(id));
-              }
-            case "/take_picture":
-              {
-                String callback = settings.arguments;
-                return MaterialPageRoute(
-                    builder: (context) => TakePictureScreen(
-                          camera: camera,
-                          callbackRoute: callback,
-                        ));
               }
             default:
               break;
