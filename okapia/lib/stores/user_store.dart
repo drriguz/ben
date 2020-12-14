@@ -85,8 +85,10 @@ abstract class _UserStore extends PageStatusNotifier with Store {
 
   Future<void> _closeDatabaseConnection() async {
     print("closing existing database");
-    _database.close();
-    _database = null;
+    if (_database != null) {
+      _database.close();
+      _database = null;
+    }
   }
 
   Future<void> logout() async {

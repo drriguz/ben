@@ -1,4 +1,6 @@
+import 'package:camera/camera.dart';
 import 'package:okapia/services/config_service.dart';
+import 'package:okapia/ui/screens/album/take_picture_screen.dart';
 import 'package:okapia/ui/screens/password/password_detail_screen.dart';
 import 'package:okapia/ui/screens/password/password_edit_screen.dart';
 import 'package:okapia/ui/theme/styles.dart';
@@ -25,12 +27,14 @@ void main() async {
   final List<SingleChildCloneableWidget> providers = await createProviders();
   final hasInitialized = await ConfigService.isConfigExists();
   print("starting app: initialized? $hasInitialized");
-  startApp(hasInitialized, providers);
+  final cameras = await availableCameras();
+  startApp(hasInitialized, providers, cameras.first);
 }
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
-void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
+void startApp(bool initialized, List<SingleChildCloneableWidget> providers,
+    CameraDescription camera) {
   runApp(
     MultiProvider(
       providers: providers,
@@ -97,6 +101,15 @@ void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
                 int id = settings.arguments;
                 return MaterialPageRoute(
                     builder: (context) => PasswordDetailScreen(id));
+              }
+            case "/take_picture":
+              {
+                String callback = settings.arguments;
+                return MaterialPageRoute(
+                    builder: (context) => TakePictureScreen(
+                          camera: camera,
+                          callbackRoute: callback,
+                        ));
               }
             default:
               break;

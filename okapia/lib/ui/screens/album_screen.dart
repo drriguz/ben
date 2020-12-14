@@ -1,3 +1,5 @@
+import 'package:camera/camera.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/stores/album_store.dart';
@@ -14,6 +16,8 @@ class AlbumScreen extends StatefulWidget {
 }
 
 class _AlbumScreenState extends State<AlbumScreen> {
+  final picker = ImagePicker();
+
   @override
   void initState() {
     super.initState();
@@ -52,10 +56,16 @@ class _AlbumScreenState extends State<AlbumScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pushNamed("/album/add"),
+        onPressed: _takePhoto,
         tooltip: 'Take photo',
         child: Icon(Icons.camera),
       ),
     );
+  }
+
+  Future<void> _takePhoto() async {
+    print("take picture: ${ModalRoute.of(context).settings.name}");
+    Navigator.of(context).pushNamed("/take_picture",
+        arguments: ModalRoute.of(context).settings.name);
   }
 }
