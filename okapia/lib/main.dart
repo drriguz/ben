@@ -1,4 +1,3 @@
-import 'package:google_fonts/google_fonts.dart';
 import 'package:okapia/services/config_service.dart';
 import 'package:okapia/ui/screens/password/password_detail_screen.dart';
 import 'package:okapia/ui/screens/password/password_edit_screen.dart';
@@ -19,7 +18,6 @@ import 'ui/screens/home_screen.dart';
 import 'ui/screens/initialize/initialize_page.dart';
 import 'ui/screens/login_screen.dart';
 import 'ui/screens/toolbox/scan_page.dart';
-import 'ui/utils/toast.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

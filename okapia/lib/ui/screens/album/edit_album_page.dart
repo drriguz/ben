@@ -89,17 +89,17 @@ class _EditAlbumPageState extends State<EditAlbumPage> {
     }
 
     AlbumStore albumStore = Provider.of<AlbumStore>(context);
-    if (_isCreating())
-      return albumStore
-          .create(_textEditingController.text)
-          .then((_) => Navigator.of(context).pop())
-          .catchError((e, s) => Toasts.showError(S.of(context).save_failed,
-              error: e, stackTrace: s));
-    else
-      return albumStore
-          .update(_id, _textEditingController.text)
-          .then((_) => Navigator.of(context).pop())
-          .catchError((e, s) => Toasts.showError(S.of(context).save_failed,
-              error: e, stackTrace: s));
+//    if (_isCreating())
+//      return albumStore
+//          .create(_textEditingController.text)
+//          .then((_) => Navigator.of(context).pop())
+//          .catchError((e, s) => Toasts.showError(S.of(context).save_failed,
+//              error: e, stackTrace: s));
+//    else
+//      return albumStore
+//          .update(_id, _textEditingController.text)
+//          .then((_) => Navigator.of(context).pop())
+//          .catchError((e, s) => Toasts.showError(S.of(context).save_failed,
+//              error: e, stackTrace: s));
   }
 }

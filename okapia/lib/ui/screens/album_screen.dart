@@ -17,44 +17,45 @@ class _AlbumScreenState extends State<AlbumScreen> {
   @override
   void initState() {
     super.initState();
-    AlbumStore albumStore = Provider.of<AlbumStore>(context, listen: false);
-    albumStore.fetch();
+    Provider.of<AlbumStore>(context, listen: false).refresh();
   }
 
   @override
   Widget build(BuildContext context) {
-    AlbumStore albumStore = Provider.of<AlbumStore>(context);
+    AlbumStore _store = Provider.of<AlbumStore>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).album),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: 'Create album',
+            onPressed: () => Navigator.of(context).pushNamed("/album/add"),
+          ),
+        ],
       ),
-      body: Observer(
-        builder: (_) =>
-            albumStore.isBusy ? Loading() : _createAlbumList(albumStore),
+      body: LiquidPullToRefresh(
+        springAnimationDurationInMilliseconds: 200,
+        showChildOpacityTransition: false,
+        onRefresh: () => _store.refresh(),
+        child: Observer(
+          builder: (_) => _store.isLoading
+              ? Loading()
+              : GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3, childAspectRatio: 1.0),
+                  itemCount: _store.data.length,
+                  itemBuilder: (context, index) => AlbumItem(
+                      _store.data[index].id, _store.data[index].name, 0),
+                ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).pushNamed("/album/add"),
         tooltip: 'Take photo',
-        child: Icon(Icons.add),
+        child: Icon(Icons.camera),
       ),
-    );
-  }
-
-  Widget _createAlbumList(AlbumStore albumStore) {
-//    return LiquidPullToRefresh(
-//        springAnimationDurationInMilliseconds: 200,
-//        showChildOpacityTransition: false,
-//        onRefresh: () => albumStore(),
-//        child: Observer(
-//          builder: (_) => _store.isLoading ? Loading() : _createList(context),
-//        )
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, childAspectRatio: 1.0),
-      itemCount: albumStore.data.length,
-      itemBuilder: (context, index) =>
-          AlbumItem(albumStore.data[index].id, albumStore.data[index].name, 0),
     );
   }
 }
