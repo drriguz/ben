@@ -3,7 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/stores/album_store.dart';
-import 'package:okapia/ui/screens/album/take_picture_screen.dart';
+import 'package:okapia/ui/screens/camera/take_picture_screen.dart';
 import 'package:okapia/ui/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
