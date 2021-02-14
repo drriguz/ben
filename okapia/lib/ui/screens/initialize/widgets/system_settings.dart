@@ -2,7 +2,6 @@ import 'package:okapia/common/crypto/protected_value.dart';
 import 'package:okapia/stores/initialize_store.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/ui/widgets/setting_option.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:flutter/material.dart';
 import 'package:okapia/ui/widgets/text_input.dart';
@@ -22,40 +21,6 @@ class SystemSettingsPage extends StatefulWidget {
 
 class _SystemSettingsPageState extends State<SystemSettingsPage> {
   final _formKey = GlobalKey<FormState>();
-
-  Widget build1(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          SwitchOption(
-            S.of(context).enable_fingerprint,
-            S.of(context).enable_fingerprint_description,
-            (_) => Switch(
-                value: widget._store.enableFingerPrint,
-                onChanged: (value) =>
-                    widget._store.setEnableFingerPrint(value)),
-          ),
-          ButtonBar(
-            alignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              FlatButton(
-                onPressed: this.widget.onPrevious,
-                child: Text(S.of(context).previous),
-              ),
-              Observer(
-                builder: (_) => FlatButton(
-                  onPressed: widget._store.isSettingsCompleted
-                      ? this.widget.onNext
-                      : null,
-                  child: Text(S.of(context).next),
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 
   ProtectedValue _masterPassword;
   ProtectedValue _secondaryPassword;

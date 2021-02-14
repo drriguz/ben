@@ -1,6 +1,4 @@
-import 'package:camera/camera.dart';
 import 'package:okapia/services/config_service.dart';
-import 'package:okapia/ui/screens/album/take_picture_screen.dart';
 import 'package:okapia/ui/screens/password/password_detail_screen.dart';
 import 'package:okapia/ui/screens/password/password_edit_screen.dart';
 import 'package:okapia/ui/theme/styles.dart';

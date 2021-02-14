@@ -195,10 +195,10 @@ class S {
     );
   }
 
-  /// `Master password`
+  /// `Secondary password`
   String get secondary_password {
     return Intl.message(
-      'Master password',
+      'Secondary password',
       name: 'secondary_password',
       desc: '',
       args: [],

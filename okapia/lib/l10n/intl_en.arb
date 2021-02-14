@@ -15,7 +15,7 @@
   "master_password_hint": "at least 10 characters",
   "confirm_password": "Confirm password",
   "confirm_master_password": "Confirm master password",
-  "secondary_password": "Master password",
+  "secondary_password": "Secondary password",
   "confirm_secondary_password": "Confirm secondary password",
   "secondary_password_hint": "4 digits",
   "secondary_password_rule": "Secondary password must be 4 digits",

@@ -66,12 +66,10 @@ class _AlbumScreenState extends State<AlbumScreen> {
 
   Future<void> _takePhoto() async {
     final callback = ModalRoute.of(context).settings.name;
-    final cameras = await availableCameras();
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => TakePictureScreen(
-          camera: cameras.first,
           callbackRoute: callback,
         ),
       ),

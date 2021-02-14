@@ -84,7 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "save_failed" : MessageLookupByLibrary.simpleMessage("Save failed, reason:"),
     "saving" : MessageLookupByLibrary.simpleMessage("Saving..."),
     "secondary_master_password" : MessageLookupByLibrary.simpleMessage("Confirm secondary password"),
-    "secondary_password" : MessageLookupByLibrary.simpleMessage("Master password"),
+    "secondary_password" : MessageLookupByLibrary.simpleMessage("Secondary password"),
     "secondary_password_description" : MessageLookupByLibrary.simpleMessage("Secondary password is used to protect your passwords from been viewed by someone who get accessed to your unlocked app"),
     "secondary_password_hint" : MessageLookupByLibrary.simpleMessage("4 digits"),
     "secondary_password_rule" : MessageLookupByLibrary.simpleMessage("Secondary password must be 4 digits"),
