@@ -2,6 +2,7 @@ import 'package:okapia/services/config_service.dart';
 import 'package:okapia/ui/screens/password/password_detail_screen.dart';
 import 'package:okapia/ui/screens/password/password_edit_screen.dart';
 import 'package:okapia/ui/theme/styles.dart';
+import 'package:provider/single_child_widget.dart';
 import 'ui/screens/album/album_detail_page.dart';
 import 'ui/screens/album/edit_album_page.dart';
 import 'ui/screens/album/image_detail_page.dart';
@@ -22,7 +23,7 @@ import 'ui/screens/toolbox/scan_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final List<SingleChildCloneableWidget> providers = await createProviders();
+  final List<SingleChildWidget> providers = await createProviders();
   final hasInitialized = await ConfigService.isConfigExists();
   print("starting app: initialized? $hasInitialized");
 
@@ -31,7 +32,7 @@ void main() async {
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
-void startApp(bool initialized, List<SingleChildCloneableWidget> providers) {
+void startApp(bool initialized, List<SingleChildWidget> providers) {
   runApp(
     MultiProvider(
       providers: providers,

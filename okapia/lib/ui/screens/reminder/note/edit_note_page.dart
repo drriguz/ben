@@ -175,7 +175,7 @@ class _EditNotePageState extends State<EditNotePage> {
       return;
     }
 
-    NoteStore noteStore = Provider.of<NoteStore>(context);
+    NoteStore noteStore = Provider.of<NoteStore>(context, listen: false);
     if (_isCreating())
       return noteStore
           .create(_textEditingController.text)

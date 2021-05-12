@@ -10,6 +10,7 @@ import 'package:okapia/services/password_service.dart';
 import 'package:okapia/stores/album_store.dart';
 import 'package:okapia/stores/event_store.dart';
 import 'package:okapia/stores/password_list_store.dart';
+import 'package:provider/single_child_widget.dart';
 
 import 'common/sqlcipher/repository/album_repository.dart';
 import 'common/sqlcipher/repository/image_repository.dart';
@@ -21,13 +22,13 @@ import 'stores/note_store.dart';
 import 'stores/user_store.dart';
 import 'services/init_service.dart';
 
-Future<List<SingleChildCloneableWidget>> _createStandaloneProviders() async {
+Future<List<SingleChildWidget>> _createStandaloneProviders() async {
   return [
     Provider<List<CameraDescription>>.value(value: await availableCameras()),
   ];
 }
 
-List<SingleChildCloneableWidget> _createRepositories() {
+List<SingleChildWidget> _createRepositories() {
   return [
     Provider<NoteRepository>.value(value: new NoteRepository()),
     Provider<EventRepository>.value(value: new EventRepository()),
@@ -37,7 +38,7 @@ List<SingleChildCloneableWidget> _createRepositories() {
   ];
 }
 
-List<SingleChildCloneableWidget> _createServices() {
+List<SingleChildWidget> _createServices() {
   return [
     Provider<ConfigService>.value(value: new ConfigService()),
     ProxyProvider<NoteRepository, NoteService>(
@@ -62,7 +63,7 @@ List<SingleChildCloneableWidget> _createServices() {
 /*
   to read: https://mobx.netlify.app/guides/stores
  */
-List<SingleChildCloneableWidget> _createStores() {
+List<SingleChildWidget> _createStores() {
   return [
     ProxyProvider<LoginService, UserStore>(
       update: (_, service, child) => UserStore(service),
@@ -82,7 +83,7 @@ List<SingleChildCloneableWidget> _createStores() {
   ];
 }
 
-Future<List<SingleChildCloneableWidget>> createProviders() async {
+Future<List<SingleChildWidget>> createProviders() async {
   return [
     ...await _createStandaloneProviders(),
     ..._createRepositories(),

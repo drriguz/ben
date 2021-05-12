@@ -27,7 +27,7 @@ class _NoteListPageState extends State {
 
   @override
   Widget build(BuildContext context) {
-    final NoteStore store = Provider.of<NoteStore>(context);
+    final NoteStore store = Provider.of<NoteStore>(context, listen: false);
     return Observer(
       builder: (_) {
         return store.isBusy
