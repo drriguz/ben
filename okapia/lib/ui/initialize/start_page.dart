@@ -11,22 +11,20 @@ class StartPage extends StatelessWidget {
         children: [
           Image.asset("assets/images/undraw_to_the_moon_v1mv.png"),
           Text(S.of(context).description_start_usage),
-          Consumer<InitializationState>(
-            builder: (_, state, child) {
-              return TextButton(
-                onPressed: state.initializeApplication,
-                child: Text(S.of(context).button_start),
-              );
-            },
-          ),
-          Consumer<InitializationState>(
-            builder: (_, state, child) {
-              if (state.isBusy) {
-                return const CircularProgressIndicator();
-              } else {
-                return Container();
-              }
-            },
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Consumer<InitializationState>(
+              builder: (_, state, child) {
+                if (state.isBusy) {
+                  return const CircularProgressIndicator();
+                } else {
+                  return TextButton(
+                    onPressed: state.initializeApplication,
+                    child: Text(S.of(context).button_start),
+                  );
+                }
+              },
+            ),
           ),
         ],
       ),

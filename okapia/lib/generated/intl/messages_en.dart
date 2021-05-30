@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Secondary password is used to protect your passwords from been viewed by someone who get accessed to your unlocked app"),
         "description_start_usage": MessageLookupByLibrary.simpleMessage(
             "Almost ready... Let\'s start!"),
+        "description_unlocking":
+            MessageLookupByLibrary.simpleMessage("Unlocking, please wait..."),
         "helper_valid_password":
             MessageLookupByLibrary.simpleMessage("6 - 20 characters"),
         "introduction_about": MessageLookupByLibrary.simpleMessage(
@@ -44,8 +46,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "label_secondary_password":
             MessageLookupByLibrary.simpleMessage("Secondary Password"),
         "label_settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "tip_input_password": MessageLookupByLibrary.simpleMessage(
+            "Please input your master password"),
         "tip_mandatory": MessageLookupByLibrary.simpleMessage(
             "The value could not be empty"),
+        "tip_password_invalid":
+            MessageLookupByLibrary.simpleMessage("Invalid password"),
         "tip_password_too_short": MessageLookupByLibrary.simpleMessage(
             "The password is not long enough")
       };

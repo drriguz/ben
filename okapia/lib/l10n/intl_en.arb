@@ -9,10 +9,13 @@
   "description_master_password": "Master password will be the only credential for you to manage other passwords, we use it to initialize storage but it will never be stored. Once you forget the password, this is no way to find it. So please trying to set a password which is strong enough and also easy for yourself to remember.",
   "description_secondary_password": "Secondary password is used to protect your passwords from been viewed by someone who get accessed to your unlocked app",
   "description_start_usage": "Almost ready... Let's start!",
+  "description_unlocking": "Unlocking, please wait...",
   "button_previous": "Previous",
   "button_next": "Next",
   "button_start": "Initialize",
   "helper_valid_password": "6 - 20 characters",
+  "tip_input_password": "Please input your master password",
   "tip_mandatory": "The value could not be empty",
-  "tip_password_too_short": "The password is not long enough"
+  "tip_password_too_short": "The password is not long enough",
+  "tip_password_invalid": "Invalid password"
 }

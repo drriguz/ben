@@ -150,6 +150,16 @@ class S {
     );
   }
 
+  /// `Unlocking, please wait...`
+  String get description_unlocking {
+    return Intl.message(
+      'Unlocking, please wait...',
+      name: 'description_unlocking',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Previous`
   String get button_previous {
     return Intl.message(
@@ -190,6 +200,16 @@ class S {
     );
   }
 
+  /// `Please input your master password`
+  String get tip_input_password {
+    return Intl.message(
+      'Please input your master password',
+      name: 'tip_input_password',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `The value could not be empty`
   String get tip_mandatory {
     return Intl.message(
@@ -205,6 +225,16 @@ class S {
     return Intl.message(
       'The password is not long enough',
       name: 'tip_password_too_short',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid password`
+  String get tip_password_invalid {
+    return Intl.message(
+      'Invalid password',
+      name: 'tip_password_invalid',
       desc: '',
       args: [],
     );

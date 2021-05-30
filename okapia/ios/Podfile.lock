@@ -8,6 +8,12 @@ PODS:
     - Flutter
   - path_provider (0.0.1):
     - Flutter
+  - video_player (0.0.1):
+    - Flutter
+  - wakelock (0.0.1):
+    - Flutter
+  - webview_flutter (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - encryptions (from `.symlinks/plugins/encryptions/ios`)
@@ -15,6 +21,9 @@ DEPENDENCIES:
   - native_sqlcipher (from `.symlinks/plugins/native_sqlcipher/ios`)
   - opencv_helper (from `.symlinks/plugins/opencv_helper/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - video_player (from `.symlinks/plugins/video_player/ios`)
+  - wakelock (from `.symlinks/plugins/wakelock/ios`)
+  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 EXTERNAL SOURCES:
   encryptions:
@@ -27,6 +36,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/opencv_helper/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
+  wakelock:
+    :path: ".symlinks/plugins/wakelock/ios"
+  webview_flutter:
+    :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
   encryptions: a374d8610fbe88a7f00a14e059ff1df3f100d9e2
@@ -34,6 +49,9 @@ SPEC CHECKSUMS:
   native_sqlcipher: 6d6f5a8c43c5db0cfb22d384d8282c02c54583ef
   opencv_helper: 8890108accf45e9b9d4cc04261c7b1857d145cb8
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
+  wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
+  webview_flutter: 9f491a9b5a66f2573946a389b2677987b0ff8c0b
 
 PODFILE CHECKSUM: cc6d8c95f501e4a52ad3fd35abed65fcd5eef6f1
 
