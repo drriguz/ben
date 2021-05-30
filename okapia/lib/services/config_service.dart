@@ -17,20 +17,19 @@ class AppConfig {
   final String encryptionIV;
   final String kdfParameters;
   final String device;
-  final bool localAuth;
 
-  AppConfig(
-      {required this.version,
-      required this.clientId,
-      required this.cipherType,
-      required this.compressionFlags,
-      required this.masterSeed,
-      required this.secondarySeed,
-      required this.transformSeed,
-      required this.encryptionIV,
-      required this.kdfParameters,
-      required this.device,
-      required this.localAuth});
+  AppConfig({
+    required this.version,
+    required this.clientId,
+    required this.cipherType,
+    required this.compressionFlags,
+    required this.masterSeed,
+    required this.secondarySeed,
+    required this.transformSeed,
+    required this.encryptionIV,
+    required this.kdfParameters,
+    required this.device,
+  });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
     return AppConfig(
@@ -44,7 +43,6 @@ class AppConfig {
       encryptionIV: json["encryptionIV"],
       kdfParameters: json["kdfParameters"],
       device: json["device"],
-      localAuth: json["localAuth"],
     );
   }
 
@@ -59,7 +57,6 @@ class AppConfig {
         'encryptionIV': encryptionIV,
         'kdfParameters': kdfParameters,
         'device': device,
-        'localAuth': localAuth,
       };
 }
 
@@ -123,8 +120,7 @@ class ConfigService {
           "Invalid transform seed: ${config.transformSeed}");
   }
 
-  Future<AppConfig> createConfig(
-      final ProtectedValue masterPassword, bool enableLocalAuth) async {
+  Future<AppConfig> createConfig(final ProtectedValue masterPassword) async {
     final masterSeed = IDUtil.generateUUID();
     final secondarySeed = IDUtil.generateUUID();
     final transformSeed = IDUtil.generateUUID();
@@ -140,7 +136,6 @@ class ConfigService {
       encryptionIV: encryptionIV,
       kdfParameters: 'default',
       device: '',
-      localAuth: enableLocalAuth,
     );
   }
 

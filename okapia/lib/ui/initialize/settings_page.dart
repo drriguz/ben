@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:okapia/generated/l10n.dart';
+import 'package:okapia/states/InitializationState.dart';
+import 'package:provider/provider.dart';
 import '../common/text_input.dart';
 import '../../common/crypto/protected_value.dart';
 
@@ -65,7 +67,7 @@ class _SettingPageState extends State<SettingPage> {
                 child: Text(S.of(context).button_previous),
               ),
               TextButton(
-                onPressed: widget.onNext,
+                onPressed: _onNext,
                 child: Text(S.of(context).button_next),
               )
             ],
@@ -73,5 +75,12 @@ class _SettingPageState extends State<SettingPage> {
         ]),
       ),
     );
+  }
+
+  void _onNext() {
+    if (!_formKey.currentState!.validate()) return;
+    Provider.of<InitializationState>(context, listen: false)
+        .setPassword(_masterPassword!, _secondaryPassword!);
+    widget.onNext();
   }
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:okapia/generated/l10n.dart';
-import 'package:okapia/ui/initialize/settings_page.dart';
-import 'package:okapia/ui/initialize/start_page.dart';
 import 'package:provider/provider.dart';
+import 'package:okapia/generated/l10n.dart';
 
+import 'initialize/settings_page.dart';
+import 'initialize/start_page.dart';
 import 'initialize/about_page.dart';
+
+import '../states/InitializationState.dart';
 
 class InitializeScreen extends StatefulWidget {
   @override
@@ -45,27 +47,30 @@ class _InitializeScreenState extends State<InitializeScreen>
       padding: const EdgeInsets.only(top: 50.0, left: 20, right: 20),
       child: ChangeNotifierProvider<TabController>(
         create: (context) => _tabController,
-        child: Column(
-          children: <Widget>[
-            _createTabBar(),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: TabBarView(
-                  // physics: NeverScrollableScrollPhysics(),
-                  controller: _tabController,
-                  children: <Widget>[
-                    AboutPage(onNext: this._onNextPage),
-                    SettingPage(
-                        onPrevious: this._onPreviousPage,
-                        onNext: this._onNextPage),
-                    StartPage(),
-                  ],
+        child: ChangeNotifierProvider<InitializationState>(
+            create: (_) =>
+                new InitializationState(Provider.of(_, listen: false)),
+            child: Column(
+              children: <Widget>[
+                _createTabBar(),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: TabBarView(
+                      physics: NeverScrollableScrollPhysics(),
+                      controller: _tabController,
+                      children: <Widget>[
+                        AboutPage(onNext: this._onNextPage),
+                        SettingPage(
+                            onPrevious: this._onPreviousPage,
+                            onNext: this._onNextPage),
+                        StartPage(),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ],
-        ),
+              ],
+            )),
       ),
     );
   }

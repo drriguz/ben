@@ -19,10 +19,8 @@ class InitializeService {
   Future<void> initialize(
     final ProtectedValue masterPassword,
     final ProtectedValue secondaryPassword,
-    bool enableFingerPrint,
   ) async {
-    final config =
-        await _configService.createConfig(masterPassword, enableFingerPrint);
+    final config = await _configService.createConfig(masterPassword);
     final TransformedKey key = await TransformedKey.create(
       config.clientId,
       masterPassword,
