@@ -1,123 +1,113 @@
-import 'package:okapia/services/config_service.dart';
-import 'package:okapia/ui/screens/password/password_detail_screen.dart';
-import 'package:okapia/ui/screens/password/password_edit_screen.dart';
-import 'package:okapia/ui/theme/styles.dart';
-import 'package:provider/single_child_widget.dart';
-import 'ui/screens/album/album_detail_page.dart';
-import 'ui/screens/album/edit_album_page.dart';
-import 'ui/screens/album/image_detail_page.dart';
-import 'ui/screens/reminder/event/edit_event_page.dart';
-import 'ui/screens/reminder/note/edit_note_page.dart';
-import 'ui/screens/reminder/note/note_detail_page.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'stores/user_store.dart';
-import 'provider_setup.dart';
-import 'generated/l10n.dart';
-import 'ui/screens/home_screen.dart';
-import 'ui/screens/initialize/initialize_page.dart';
-import 'ui/screens/login_screen.dart';
-import 'ui/screens/toolbox/scan_page.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final List<SingleChildWidget> providers = await createProviders();
-  final hasInitialized = await ConfigService.isConfigExists();
-  print("starting app: initialized? $hasInitialized");
-
-  startApp(hasInitialized, providers);
+void main() {
+  runApp(MyApp());
 }
 
-final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
-
-void startApp(bool initialized, List<SingleChildWidget> providers) {
-  runApp(
-    MultiProvider(
-      providers: providers,
-      child: MaterialApp(
-        navigatorObservers: [routeObserver],
-        title: 'ben',
-        localizationsDelegates: [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-        ],
-        theme: globalTheme,
-        supportedLocales: S.delegate.supportedLocales,
-        onGenerateRoute: (settings) {
-          print('on generate route:${settings}');
-          switch (settings.name) {
-            case "/note/detail":
-              {
-                int id = settings.arguments as int;
-                return MaterialPageRoute(
-                    builder: (context) => NoteDetailPage(id));
-              }
-            case "/note/edit":
-            case "/note/add":
-              {
-                int id = settings.arguments as int;
-                return MaterialPageRoute(
-                    builder: (context) => EditNotePage(id));
-              }
-            case "/event/edit":
-            case "/event/add":
-              {
-                int id = settings.arguments as int;
-                return MaterialPageRoute(
-                    builder: (context) => EditEventPage(id));
-              }
-            case "/album/edit":
-            case "/album/add":
-              {
-                int id = settings.arguments as int;
-                return MaterialPageRoute(
-                    builder: (context) => EditAlbumPage(id));
-              }
-            case "/album/detail":
-              {
-                int id = settings.arguments as int;
-                return MaterialPageRoute(
-                    builder: (context) => AlbumDetailPage(id));
-              }
-            case "/image/detail":
-              {
-                int id = settings.arguments as int;
-                return MaterialPageRoute(
-                    builder: (context) => ImageDetailPage(id));
-              }
-            case "/password/edit":
-            case "/password/add":
-              {
-                int id = settings.arguments as int;
-                return MaterialPageRoute(
-                    builder: (context) => PasswordEditScreen());
-              }
-            case "/password/detail":
-              {
-                int id = settings.arguments as int;
-                return MaterialPageRoute(
-                    builder: (context) => PasswordDetailScreen(id));
-              }
-            default:
-              break;
-          }
-          return null;
-        },
-        routes: {
-          "/": (_) => initialized
-              ? Consumer<UserStore>(
-                  builder: (_, store, child) => LoginScreen(store),
-                )
-              : InitializePage(),
-          "/login": (_) => Consumer<UserStore>(
-                builder: (_, store, child) => LoginScreen(store),
-              ),
-          "/home": (_) => HomeScreen(),
-          "/tools/scan": (_) => ScanPage(),
-        },
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // Try running your application with "flutter run". You'll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // "hot reload" (press "r" in the console where you ran "flutter run",
+        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // Notice that the counter didn't reset back to zero; the application
+        // is not restarted.
+        primarySwatch: Colors.blue,
       ),
-    ),
-  );
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key, required this.title}) : super(key: key);
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          // Column is also a layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Invoke "debug painting" (press "p" in the console, choose the
+          // "Toggle Debug Paint" action from the Flutter Inspector in Android
+          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+          // to see the wireframe for each widget.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
 }

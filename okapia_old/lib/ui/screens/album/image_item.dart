@@ -18,7 +18,7 @@ class LoadingImageItem extends StatelessWidget {
 class ImageItem extends StatelessWidget {
   final int _id;
   final String _name;
-  final Uint8List _thumb;
+  final Uint8List? _thumb;
 
   ImageItem(this._id, this._name, this._thumb, {Key? key})
       : super(key: ValueKey(_id));
@@ -42,7 +42,7 @@ class ImageItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: MemoryImage(_thumb),
+          image: MemoryImage(_thumb!),
           fit: BoxFit.cover,
         ),
       ),

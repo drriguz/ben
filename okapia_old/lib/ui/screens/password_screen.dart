@@ -17,7 +17,7 @@ class PasswordList extends DataList<PasswordModel> {
   PasswordList(DataListStore<PasswordModel> store)
       : super(
           store,
-          groupBy: (item) => item.name,
+          groupBy: (item) => item.name!,
         );
 
   @override

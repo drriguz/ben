@@ -1,5 +1,5 @@
 name: okapia
-description: A flutter project for secret/password management.
+description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -19,53 +19,19 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.20.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  cupertino_icons: ^1.0.3
-  camera: ^0.8.1
-  image_picker: ^0.7.5
-  path_provider: 2.0.1
-  path: ^1.8.0
-  crypto: ^3.0.1
-  provider: ^5.0.0
-  url_launcher: ^6.0.3
-  flutter_html: ^2.0.0
-  uuid: ^3.0.4
-  mobx: ^2.0.1
-  flutter_mobx: ^2.0.0
-  flutter_masked_text: ^0.8.0
-  fluttertoast: ^8.0.6
-  convert: ^3.0.0
-  photo_view: ^0.11.1
-  protobuf: ^2.0.0
-  fast_rsa: ^2.0.0-nullsafety.0
-  qr_flutter: ^4.0.0
-  geolocator: ^7.0.3
-  intl: ^0.17.0
-  table_calendar: ^3.0.0
-  google_fonts: ^2.1.0
-  http: ^0.13.3
-  liquid_pull_to_refresh: ^3.0.0
-  grouped_list: ^4.0.0
-  pinput: ^1.2.0
-  opencv_helper:
-    path: ../opencv_helper
-  native_sqlcipher:
-    path: ../native_sqlcipher
-  encryptions:
-    path: ../encryptions
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  test: any
-  mockito: ^5.0.7
-  mobx_codegen: ^2.0.1+3
-  build_runner:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -77,18 +43,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  assets:
-    - assets/
-    - assets/images/
-    - assets/icons/
-    - assets/config/init.sql
-    - assets/config/create_db.sql
-  fonts:
-    - family: ali
-      fonts:
-        - asset: assets/iconfont.ttf
-flutter_intl:
-  enabled: true
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
