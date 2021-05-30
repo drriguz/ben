@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:okapia/generated/l10n.dart';
 
 final FormFieldValidator<String> mandatoryValidator = (value) {
-  if (value.isEmpty) {
+  if (value!.isEmpty) {
     return S.current.please_input_the_value;
   }
   return null;
 };
 
 class TextInput extends StatelessWidget {
-  final ValueChanged<String> onChanged;
-  final FormFieldSetter<String> onSaved;
-  final FormFieldValidator<String> validator;
-  final String name;
-  final String hint;
-  final int maxLength;
+  final ValueChanged<String>? onChanged;
+  final FormFieldSetter<String>? onSaved;
+  final FormFieldValidator<String>? validator;
+  final String? name;
+  final String? hint;
+  final int? maxLength;
   final bool mandatory;
   final bool obscureText;
-  final Widget suffixIcon;
-  final Widget prefixIcon;
-  final TextEditingController controller;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final TextEditingController? controller;
 
   const TextInput({
-    Key key,
+    Key? key,
     this.onChanged,
     this.onSaved,
     this.validator,
@@ -38,15 +38,15 @@ class TextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FormFieldValidator<String> mergedValidator = validator;
+    FormFieldValidator<String>? mergedValidator = validator;
     if (mandatory) {
       if (mergedValidator == null)
         mergedValidator = mandatoryValidator;
       else {
         mergedValidator = (text) {
-          String result = mandatoryValidator(text);
+          String? result = mandatoryValidator(text);
           if (result != null) return result;
-          return validator(text);
+          return validator!(text);
         };
       }
     }

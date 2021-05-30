@@ -12,13 +12,13 @@ mixin _$ImageDetailStore on _ImageDetailStore, Store {
   final _$itemAtom = Atom(name: '_ImageDetailStore.item');
 
   @override
-  ImageProvider<dynamic> get item {
+  ImageProvider<dynamic>? get item {
     _$itemAtom.reportRead();
     return super.item;
   }
 
   @override
-  set item(ImageProvider<dynamic> value) {
+  set item(ImageProvider<dynamic>? value) {
     _$itemAtom.reportWrite(value, super.item, () {
       super.item = value;
     });

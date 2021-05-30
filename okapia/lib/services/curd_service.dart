@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:native_sqlcipher/database.dart';
+import 'package:native_sqlcipher/native_sqlcipher.dart';
 import 'package:okapia/common/sqlcipher/repository.dart';
 
 abstract class CurdService<M extends Entity, R extends Sqlite3Repository<M>> {
@@ -38,7 +36,7 @@ abstract class CurdService<M extends Entity, R extends Sqlite3Repository<M>> {
     assert(note.createdTime != null);
     assert(note.lastUpdatedTime != null);
 
-    return _repository.update(database, note.id, note);
+    return _repository.update(database, note.id!, note);
   }
 
   Future<int> delete(final Database database, int id) async {

@@ -23,7 +23,7 @@ final List<MenuChoice> menuItems = <MenuChoice>[
 class AlbumDetailPage extends StatefulWidget {
   final int _id;
 
-  AlbumDetailPage(this._id, {Key key}) : super(key: key);
+  AlbumDetailPage(this._id, {Key? key}) : super(key: key);
 
   @override
   _AlbumDetailPageState createState() => _AlbumDetailPageState(_id);
@@ -35,7 +35,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
   _AlbumDetailPageState(this._id);
 
   final ImagePicker _picker = ImagePicker();
-  ImageStore _imageStore;
+  late ImageStore _imageStore;
 
   @override
   void initState() {
@@ -96,8 +96,8 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
 
   Widget _createImage(ImageModel item) {
     return ImageItem(
-      item.id,
-      item.path,
+      item.id!,
+      item.path!,
       null,
     );
   }

@@ -1,39 +1,39 @@
-import 'package:native_sqlcipher/database.dart';
+import 'package:native_sqlcipher/native_sqlcipher.dart';
 import 'package:okapia/common/sqlcipher/repository.dart';
 
 class NoteCheckList {
-  String title;
-  int checkItems;
-  int finishedItems;
+  String? title;
+  int? checkItems;
+  int? finishedItems;
 }
 
 class NoteEvent {
-  DateTime time;
-  String title;
+  DateTime? time;
+  String? title;
 }
 
 class NoteImage {
-  String thumb;
-  String path;
+  String? thumb;
+  String? path;
 }
 
 class NoteLocation {
-  String title;
-  String location;
+  String? title;
+  String? location;
 }
 
 class NoteModel extends Entity {
-  String title;
-  List<NoteCheckList> checklists;
-  List<NoteEvent> events;
-  List<NoteImage> images;
-  String content;
+  String? title;
+  List<NoteCheckList>? checklists;
+  List<NoteEvent>? events;
+  List<NoteImage>? images;
+  String? content;
 
   static final String TABLE = "note";
   static final String FIELDS = "title, content";
 
   NoteModel(
-      {int id, this.title, this.content, int createdTime, int lastUpdatedTime})
+      {int? id, this.title, this.content, int? createdTime, int? lastUpdatedTime})
       : super(id, createdTime, lastUpdatedTime);
 
   static NoteModel fromResult(Row r) {

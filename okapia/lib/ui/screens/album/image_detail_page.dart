@@ -16,7 +16,7 @@ const List<MenuChoice> menuItems = const <MenuChoice>[
 class ImageDetailPage extends StatefulWidget {
   final int _id;
 
-  ImageDetailPage(this._id, {Key key}) : super(key: key);
+  ImageDetailPage(this._id, {Key? key}) : super(key: key);
 
   @override
   _ImageDetailPageState createState() => _ImageDetailPageState();

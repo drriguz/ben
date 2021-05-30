@@ -50,53 +50,53 @@ void startApp(bool initialized, List<SingleChildWidget> providers) {
           switch (settings.name) {
             case "/note/detail":
               {
-                int id = settings.arguments;
+                int id = settings.arguments as int;
                 return MaterialPageRoute(
                     builder: (context) => NoteDetailPage(id));
               }
             case "/note/edit":
             case "/note/add":
               {
-                int id = settings.arguments;
+                int id = settings.arguments as int;
                 return MaterialPageRoute(
                     builder: (context) => EditNotePage(id));
               }
             case "/event/edit":
             case "/event/add":
               {
-                int id = settings.arguments;
+                int id = settings.arguments as int;
                 return MaterialPageRoute(
                     builder: (context) => EditEventPage(id));
               }
             case "/album/edit":
             case "/album/add":
               {
-                int id = settings.arguments;
+                int id = settings.arguments as int;
                 return MaterialPageRoute(
                     builder: (context) => EditAlbumPage(id));
               }
             case "/album/detail":
               {
-                int id = settings.arguments;
+                int id = settings.arguments as int;
                 return MaterialPageRoute(
                     builder: (context) => AlbumDetailPage(id));
               }
             case "/image/detail":
               {
-                int id = settings.arguments;
+                int id = settings.arguments as int;
                 return MaterialPageRoute(
                     builder: (context) => ImageDetailPage(id));
               }
             case "/password/edit":
             case "/password/add":
               {
-                int id = settings.arguments;
+                int id = settings.arguments as int;
                 return MaterialPageRoute(
                     builder: (context) => PasswordEditScreen());
               }
             case "/password/detail":
               {
-                int id = settings.arguments;
+                int id = settings.arguments as int;
                 return MaterialPageRoute(
                     builder: (context) => PasswordDetailScreen(id));
               }

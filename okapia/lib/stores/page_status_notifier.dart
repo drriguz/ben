@@ -11,9 +11,9 @@ class PageStatusNotifier = _PageStatusNotifier with _$PageStatusNotifier;
 
 abstract class _PageStatusNotifier with Store {
   @observable
-  State _state;
+  State?_state;
 
-  State get state => _state;
+  State? get state => _state;
 
   @computed
   bool get isBusy => _state == State.BUSY;

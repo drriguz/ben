@@ -11,7 +11,7 @@ class UserAgreementPage extends StatelessWidget {
   final Function onNext;
 
   const UserAgreementPage(this._store,
-      {Key key, @required this.onPrevious, @required this.onNext})
+      {Key? key, @required this.onPrevious, @required this.onNext})
       : super(key: key);
 
   @override

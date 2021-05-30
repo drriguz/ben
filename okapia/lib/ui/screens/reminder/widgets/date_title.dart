@@ -9,7 +9,7 @@ class DateTitle extends StatelessWidget {
   static final dayOfWeekFormat = new DateFormat("EEEE");
   static final monthFormat = new DateFormat("MMM");
 
-  const DateTitle(this._dateTime, {Key key}) : super(key: key);
+  const DateTitle(this._dateTime, {Key? key}) : super(key: key);
 
   Widget _title() {
     return Row(

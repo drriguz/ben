@@ -12,7 +12,7 @@ class SystemSettingsPage extends StatefulWidget {
   final Function onNext;
 
   const SystemSettingsPage(this._store,
-      {Key key, @required this.onPrevious, @required this.onNext})
+      {Key? key, @required this.onPrevious, @required this.onNext})
       : super(key: key);
 
   @override

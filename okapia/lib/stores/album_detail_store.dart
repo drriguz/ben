@@ -10,23 +10,23 @@ part 'album_detail_store.g.dart';
 class AlbumDetailStore = _AlbumDetailStore with _$AlbumDetailStore;
 
 abstract class _AlbumDetailStore extends PageStatusNotifier with Store {
-  final int _id;
-  final UserStore _userStore;
-  final AlbumService _albumService;
+  late final int _id;
+  late final UserStore _userStore;
+  late final AlbumService _albumService;
 
   @observable
-  AlbumModel _albumData;
+  AlbumModel? _albumData;
 
   _AlbumDetailStore(this._id, this._userStore, this._albumService);
 
   @action
   Future<void> fetch() async {
     setBusy();
-    return _albumService
-        .fetchById(_userStore.database, _id)
+    await _albumService
+        .fetchById(_userStore.database!, _id)
         .then((data) => _albumData = data)
         .whenComplete(() => setIdle());
   }
 
-  AlbumModel get data => _albumData;
+  AlbumModel? get data => _albumData;
 }

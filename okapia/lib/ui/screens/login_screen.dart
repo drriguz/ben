@@ -13,21 +13,19 @@ import '../theme/icons.dart';
 class LoginScreen extends StatefulWidget {
   final UserStore _userStore;
 
-  const LoginScreen(this._userStore, {Key key}) : super(key: key);
+  const LoginScreen(this._userStore, {Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> with RouteAware {
-  FocusNode _inputFocusNode;
-  FToast _fToast;
+  FocusNode _inputFocusNode = new FocusNode();
+  FToast _fToast = FToast();
 
   @override
   void initState() {
     super.initState();
-    _inputFocusNode = new FocusNode();
-    _fToast = FToast();
     _fToast.init(context);
   }
 

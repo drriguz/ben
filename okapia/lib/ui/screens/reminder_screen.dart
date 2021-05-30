@@ -50,7 +50,7 @@ final tabConfigs = [
 
 class _ReminderScreenState extends State<ReminderScreen>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  TabController? _tabController;
   final List<Tab> tabs =
       tabConfigs.map((config) => Tab(text: config.name)).toList();
 
@@ -66,7 +66,7 @@ class _ReminderScreenState extends State<ReminderScreen>
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController?.dispose();
     super.dispose();
   }
 
@@ -123,7 +123,7 @@ class _ReminderScreenState extends State<ReminderScreen>
   }
 
   Future<void> _onAddPressed() async {
-    final route = tabConfigs[_tabController.index].addRoute;
-    return Navigator.of(context).pushNamed(route);
+    final route = tabConfigs[_tabController!.index].addRoute;
+    await Navigator.of(context).pushNamed(route);
   }
 }

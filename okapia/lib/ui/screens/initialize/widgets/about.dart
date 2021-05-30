@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class AboutPage extends StatelessWidget {
   final Function onNext;
 
-  const AboutPage({Key key, @required this.onNext}) : super(key: key);
+  const AboutPage({Key? key, @required this.onNext}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -61,6 +61,6 @@ class _PasswordScreenState extends State<PasswordScreen> {
   Future<void> _onSearch() async {}
 
   Future<void> _onAddPressed() async {
-    return Navigator.of(context).pushNamed("/password/add");
+    await Navigator.of(context).pushNamed("/password/add");
   }
 }

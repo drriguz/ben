@@ -18,12 +18,12 @@ abstract class _PasswordListStore extends DataListStore<PasswordModel>
 
   @override
   Future<List<PasswordModel>> fetch() async {
-    return _passwordService.fetchAll(_userStore.database);
+    return _passwordService.fetchAll(_userStore.database!);
   }
 
   Future<void> delete(int id) async {
     return _passwordService
-        .delete(_userStore.database, id)
+        .delete(_userStore.database!, id)
         .then((value) => refresh());
   }
 }

@@ -20,6 +20,6 @@ class KeyUtil {
     final configHmacKey = await key.getHmacKey(IDUtil.parseUUID(itemId));
     final HmacValidator hashValidator =
         new HmacValidator(configHmacKey.binaryValue);
-    return hashValidator.computeChecksum(utf8.encode(data));
+    return hashValidator.computeChecksum(Uint8List.fromList(utf8.encode(data)));
   }
 }

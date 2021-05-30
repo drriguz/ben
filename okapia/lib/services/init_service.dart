@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:convert/convert.dart';
 import 'package:flutter/services.dart';
-import 'package:native_sqlcipher/database.dart';
+import 'package:native_sqlcipher/native_sqlcipher.dart';
 import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/common/utils/key_util.dart';
 import 'package:okapia/common/utils/random.dart';

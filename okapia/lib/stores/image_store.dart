@@ -27,10 +27,10 @@ abstract class _ImageStore extends PageStatusNotifier with Store {
     setBusy();
     data.clear();
     return _imageService
-        .fetchByAlbum(_userStore.database, _albumId, _lastId)
+        .fetchByAlbum(_userStore.database!, _albumId, _lastId)
         .then((items) {
       if (items.isNotEmpty) {
-        _lastId = items.last.id;
+        _lastId = items.last.id!;
         data.addAll(items);
       }
     }).whenComplete(() => setIdle());

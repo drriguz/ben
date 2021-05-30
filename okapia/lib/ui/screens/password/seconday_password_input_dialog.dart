@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class SecondaryPasswordInputDialog extends StatefulWidget {
   final String title;
 
-  const SecondaryPasswordInputDialog({Key key, this.title}) : super(key: key);
+  const SecondaryPasswordInputDialog({Key? key, this.title}) : super(key: key);
 
   @override
   _SecondaryPasswordInputDialogState createState() =>

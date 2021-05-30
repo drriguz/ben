@@ -18,7 +18,7 @@ import 'package:provider/provider.dart';
 class PasswordDetailScreen extends StatefulWidget {
   final int id;
 
-  const PasswordDetailScreen(this.id, {Key key}) : super(key: key);
+  const PasswordDetailScreen(this.id, {Key? key}) : super(key: key);
 
   @override
   _PasswordDetailScreenState createState() => _PasswordDetailScreenState();

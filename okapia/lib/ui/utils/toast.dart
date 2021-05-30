@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class Toasts {
   static showError(String message,
-      {dynamic error, StackTrace stackTrace}) async {
+      {dynamic error, StackTrace? stackTrace}) async {
     String errorMsg =
         error == null ? message : message + " " + error.runtimeType.toString();
     if (error != null) print(error);

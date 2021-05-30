@@ -20,17 +20,17 @@ class AppConfig {
   final bool localAuth;
 
   AppConfig(
-      {this.version,
-      this.clientId,
-      this.cipherType,
-      this.compressionFlags,
-      this.masterSeed,
-      this.secondarySeed,
-      this.transformSeed,
-      this.encryptionIV,
-      this.kdfParameters,
-      this.device,
-      this.localAuth});
+      {required this.version,
+      required this.clientId,
+      required this.cipherType,
+      required this.compressionFlags,
+      required this.masterSeed,
+      required this.secondarySeed,
+      required this.transformSeed,
+      required this.encryptionIV,
+      required this.kdfParameters,
+      required this.device,
+      required this.localAuth});
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
     return AppConfig(

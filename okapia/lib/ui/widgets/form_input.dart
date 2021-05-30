@@ -6,7 +6,7 @@ class FormInput extends SettingOption {
   final String _placeholder;
   final TextEditingController _controller;
 
-  const FormInput(String description, this._placeholder, this._controller, {Key key}) : super(description, key: key);
+  const FormInput(String description, this._placeholder, this._controller, {Key? key}) : super(description, key: key);
 
   @override
   List<Widget> getFormFields() {

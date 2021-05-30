@@ -5,7 +5,7 @@ class Tag extends StatelessWidget {
   final IconData _icon;
   final Color _iconColor;
 
-  const Tag(this._title, this._icon, this._iconColor, {Key key})
+  const Tag(this._title, this._icon, this._iconColor, {Key? key})
       : super(key: key);
 
   @override

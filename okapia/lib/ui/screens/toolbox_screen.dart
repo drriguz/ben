@@ -46,7 +46,7 @@ class ToolboxScreen extends StatelessWidget {
 class ToolItem extends StatelessWidget {
   final ToolConfig config;
 
-  const ToolItem({Key key, this.config}) : super(key: key);
+  const ToolItem({Key? key, required this.config}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

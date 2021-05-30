@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 class EditEventPage extends StatefulWidget {
   final int _id;
 
-  EditEventPage(this._id, {Key key}) : super(key: key);
+  EditEventPage(this._id, {Key? key}) : super(key: key);
 
   @override
   _EditEventPageState createState() => _EditEventPageState(_id);

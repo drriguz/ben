@@ -22,17 +22,17 @@ abstract class _SecondaryPasswordInputStore with Store {
   _SecondaryPasswordInputStore(this._loginService);
 
   @observable
-  String _error;
+  String? _error;
 
   @observable
   bool _isChecking = false;
 
   bool get isChecking => _isChecking;
 
-  String get error => _error;
+  String? get error => _error;
 
   @action
-  Future<TransformedKey> submitSecondaryPassword(ProtectedValue secondaryPassword) async {
+  Future<TransformedKey?> submitSecondaryPassword(ProtectedValue secondaryPassword) async {
     _isChecking = true;
     try {
       TransformedKey secondaryKey =

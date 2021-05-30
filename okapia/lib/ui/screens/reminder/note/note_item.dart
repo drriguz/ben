@@ -12,7 +12,7 @@ class NoteItem extends AbstractListItem {
   static final dayOfWeekFormat = new DateFormat("EEEE");
   static final monthFormat = new DateFormat("MMM");
 
-  NoteItem(this.model, {Key key}) : super(key: key);
+  NoteItem(this.model, {Key? key}) : super(key: key);
 
   @override
   Widget buildContent(BuildContext context) {

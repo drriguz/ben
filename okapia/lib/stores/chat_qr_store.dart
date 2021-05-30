@@ -11,7 +11,7 @@ abstract class _ChatQrStore extends PageStatusNotifier with Store {
   final UserStore _userStore;
 
   @observable
-  String myKey;
+  String? myKey;
 
   _ChatQrStore(this._userStore);
 

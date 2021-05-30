@@ -11,7 +11,7 @@ abstract class DataList<M extends Entity> extends StatelessWidget {
   final DataListStore<M> _store;
   final String Function(M object) groupBy;
 
-  const DataList(this._store, {Key key, this.groupBy}) : super(key: key);
+  const DataList(this._store, {Key? key, required this.groupBy}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ abstract class DataList<M extends Entity> extends StatelessWidget {
       child: Text(
         groupName,
         overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.headline6.apply(fontSizeDelta: -2),
+        style: Theme.of(context).textTheme.headline6?.apply(fontSizeDelta: -2),
       ),
     );
   }

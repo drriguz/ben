@@ -32,7 +32,7 @@ class TransformedKey {
   final Uint8List seed;
   final Uint8List encryptionIV;
 
-  ProtectedValue _encryptionKeyCache;
+  ProtectedValue? _encryptionKeyCache;
 
   TransformedKey._internal(
     this.clientId,
@@ -59,7 +59,7 @@ class TransformedKey {
   static Future<ProtectedValue> _derivePassword(
       ProtectedValue password, Uint8List transformSeed) async {
     final Uint8List passwordHash =
-        sha256.convert(sha256.convert(password.binaryValue).bytes).bytes;
+        Uint8List.fromList(sha256.convert(sha256.convert(password.binaryValue).bytes).bytes);
     final Uint8List transformedKey =
         await _kdf.derive(passwordHash, transformSeed);
     return ProtectedValue.ofBinary(transformedKey);
@@ -70,14 +70,14 @@ class TransformedKey {
     if (_encryptionKeyCache == null) {
       _encryptionKeyCache = await _transformKey(seed);
     }
-    return _encryptionKeyCache;
+    return _encryptionKeyCache!;
   }
 
   Future<ProtectedValue> _transformKey(Uint8List seed) async {
     final List<int> source = List.from(seed)
       ..addAll(transformedKey.binaryValue);
     final key = sha256.convert(source).bytes;
-    return ProtectedValue.ofBinary(key);
+    return ProtectedValue.ofBinary(Uint8List.fromList(key));
   }
 
   Future<ProtectedValue> getHmacKey(final Uint8List itemId) async {
@@ -89,6 +89,6 @@ class TransformedKey {
         .bytes;
     final key = sha512.convert(List.from(itemId)..addAll(temp)).bytes;
 
-    return ProtectedValue.ofBinary(key);
+    return ProtectedValue.ofBinary(Uint8List.fromList(key));
   }
 }

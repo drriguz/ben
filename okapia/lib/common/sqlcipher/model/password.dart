@@ -1,29 +1,29 @@
 import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
-import 'package:native_sqlcipher/database.dart';
+import 'package:native_sqlcipher/native_sqlcipher.dart';
 
 import '../repository.dart';
 
 class PasswordModel extends Entity {
-  String name;
-  String account;
-  String url;
-  Uint8List icon;
-  Uint8List content;
+  String? name;
+  String? account;
+  String? url;
+  Uint8List? icon;
+  Uint8List? content;
 
   static final String TABLE = "password";
   static final String FIELDS = "name, account, url, icon, content";
 
   PasswordModel(
-      {int id,
+      {int? id,
       this.name,
       this.account,
       this.url,
       this.icon,
       this.content,
-      int createdTime,
-      int lastUpdatedTime})
+      int? createdTime,
+      int? lastUpdatedTime})
       : super(id, createdTime, lastUpdatedTime);
 
   static PasswordModel fromResult(Row r) {
@@ -39,7 +39,7 @@ class PasswordModel extends Entity {
     );
   }
 
-  String _encode(Uint8List value) {
+  String _encode(Uint8List? value) {
     return value == null ? 'null' : "x'${hex.encode(value)}'";
   }
 

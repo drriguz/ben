@@ -11,18 +11,18 @@ class NoteDetailStore extends PageStatusNotifier with Store {
   final NoteService _noteService;
 
   @observable
-  NoteModel _data;
+  NoteModel? _data;
 
   NoteDetailStore(this._id, this._userStore, this._noteService);
 
   @action
   Future<void> fetch() async {
     setBusy();
-    return _noteService
-        .fetchById(_userStore.database, _id)
+    await _noteService
+        .fetchById(_userStore.database!, _id)
         .then((data) => _data = data)
         .whenComplete(() => setIdle());
   }
 
-  NoteModel get data => _data;
+  NoteModel? get data => _data;
 }

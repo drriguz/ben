@@ -12,9 +12,9 @@ class InitializeStore = _InitializeStore with _$InitializeStore;
 abstract class _InitializeStore extends PageStatusNotifier with Store {
   final InitializeService _initializeService;
 
-  ProtectedValue _masterPassword;
+  ProtectedValue? _masterPassword;
 
-  ProtectedValue _secondaryPassword;
+  ProtectedValue? _secondaryPassword;
 
   @observable
   bool enableFingerPrint;
@@ -23,7 +23,7 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
   bool agreeUserAgreement;
 
   @observable
-  String errorMessage;
+  String? errorMessage;
 
   @observable
   bool isSettingsCompleted;
@@ -66,7 +66,7 @@ abstract class _InitializeStore extends PageStatusNotifier with Store {
 
     setBusy();
     await _initializeService.initialize(
-        _masterPassword, _secondaryPassword, enableFingerPrint);
+        _masterPassword!, _secondaryPassword!, enableFingerPrint);
     setIdle();
   }
 }

@@ -12,13 +12,13 @@ mixin _$EventDetailStore on _EventDetailStore, Store {
   final _$_dataAtom = Atom(name: '_EventDetailStore._data');
 
   @override
-  EventModel get _data {
+  EventModel? get _data {
     _$_dataAtom.reportRead();
     return super._data;
   }
 
   @override
-  set _data(EventModel value) {
+  set _data(EventModel? value) {
     _$_dataAtom.reportWrite(value, super._data, () {
       super._data = value;
     });

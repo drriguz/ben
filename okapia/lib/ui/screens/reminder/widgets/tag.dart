@@ -4,7 +4,7 @@ import 'package:okapia/ui/theme/icons.dart';
 class Tag extends StatelessWidget {
   final String name;
 
-  const Tag(this.name, {Key key}) : super(key: key);
+  const Tag(this.name, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

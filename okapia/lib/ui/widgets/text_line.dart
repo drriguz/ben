@@ -5,7 +5,7 @@ class TextLine extends StatelessWidget {
   final String name;
   final String value;
 
-  const TextLine(this.value, {Key key, this.name}) : super(key: key);
+  const TextLine(this.value, {Key? key, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class TextLine extends StatelessWidget {
     return TextFormField(
       initialValue: notAvailable ? S.of(context).not_available : value,
       style: notAvailable
-          ? Theme.of(context).textTheme.bodyText1.apply(color: Colors.grey)
+          ? Theme.of(context).textTheme.bodyText1?.apply(color: Colors.grey)
           : null,
       readOnly: true,
       maxLines: null,

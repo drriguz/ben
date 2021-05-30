@@ -22,7 +22,7 @@ abstract class _PasswordDetailStore extends PageStatusNotifier with Store {
   final PasswordService _service;
 
   @observable
-  PasswordModel _data;
+  PasswordModel? _data;
 
   @observable
   bool _secondaryPasswordVerified = false;
@@ -41,13 +41,13 @@ abstract class _PasswordDetailStore extends PageStatusNotifier with Store {
 
   _PasswordDetailStore(this._id, this._userStore, this._service);
 
-  ProtectedValue decryptedPassword;
+  ProtectedValue? decryptedPassword;
 
   @action
   Future<void> fetch() async {
     setBusy();
-    return _service
-        .fetchById(_userStore.database, _id)
+    await _service
+        .fetchById(_userStore.database!, _id)
         .then((data) => _data = data)
         .whenComplete(() => setIdle());
   }
@@ -57,14 +57,14 @@ abstract class _PasswordDetailStore extends PageStatusNotifier with Store {
     _secondaryPasswordVerified = true;
     _decrypting = true;
     Encrypter encrypter = Encrypter(secondaryKey);
-    Uint8List rawPassword = await encrypter.decrypt(_data.content);
+    Uint8List rawPassword = await encrypter.decrypt(_data!.content!);
     decryptedPassword = ProtectedValue.ofBinary(rawPassword);
     _decrypting = false;
 
     _startTimer();
   }
 
-  Timer _timer;
+  Timer? _timer;
 
   Future<void> _startTimer() async {
     _remainSeconds = 10;
@@ -80,8 +80,8 @@ abstract class _PasswordDetailStore extends PageStatusNotifier with Store {
   }
 
   void dispose() {
-    if (_timer != null) _timer.cancel();
+    _timer?.cancel();
   }
 
-  PasswordModel get data => _data;
+  PasswordModel? get data => _data;
 }

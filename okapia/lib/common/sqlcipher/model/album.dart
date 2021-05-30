@@ -1,20 +1,20 @@
-import 'package:native_sqlcipher/database.dart';
+import 'package:native_sqlcipher/native_sqlcipher.dart';
 
 import '../repository.dart';
 
 class AlbumModel extends Entity {
-  String name;
-  int coverImageId;
+  String? name;
+  int? coverImageId;
 
   static final String TABLE = "album";
   static final String FIELDS = "name, cover_image_id";
 
   AlbumModel(
-      {int id,
+      {int? id,
       this.name,
       this.coverImageId,
-      int createdTime,
-      int lastUpdatedTime})
+      int? createdTime,
+      int? lastUpdatedTime})
       : super(id, createdTime, lastUpdatedTime);
 
   static AlbumModel fromResult(Row r) {

@@ -7,7 +7,7 @@ import '../widgets/list_item.dart';
 class EventItem extends AbstractListItem {
   final EventModel model;
 
-  EventItem(this.model, {Key key}) : super(key: key);
+  EventItem(this.model, {Key? key}) : super(key: key);
 
   @override
   Widget buildContent(BuildContext context) {

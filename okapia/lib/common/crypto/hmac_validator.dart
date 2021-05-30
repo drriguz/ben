@@ -9,6 +9,6 @@ class HmacValidator {
 
   Uint8List computeChecksum(Uint8List bytes) {
     assert(bytes != null);
-    return hmac.convert(bytes).bytes;
+    return Uint8List.fromList(hmac.convert(bytes).bytes);
   }
 }

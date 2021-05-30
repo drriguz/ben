@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class EditAlbumPage extends StatefulWidget {
   final int _id;
 
-  EditAlbumPage(this._id, {Key key}) : super(key: key);
+  EditAlbumPage(this._id, {Key? key}) : super(key: key);
 
   @override
   _EditAlbumPageState createState() => _EditAlbumPageState(_id);

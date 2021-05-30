@@ -1,4 +1,4 @@
-import 'package:native_sqlcipher/database.dart';
+import 'package:native_sqlcipher/native_sqlcipher.dart';
 import 'package:okapia/common/sqlcipher/model/album.dart';
 import 'package:okapia/common/sqlcipher/model/event.dart';
 import 'package:okapia/common/sqlcipher/model/image.dart';

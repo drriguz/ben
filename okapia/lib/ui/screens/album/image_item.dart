@@ -20,7 +20,7 @@ class ImageItem extends StatelessWidget {
   final String _name;
   final Uint8List _thumb;
 
-  ImageItem(this._id, this._name, this._thumb, {Key key})
+  ImageItem(this._id, this._name, this._thumb, {Key? key})
       : super(key: ValueKey(_id));
 
   @override

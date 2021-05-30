@@ -28,7 +28,7 @@ abstract class _PasswordEditStore with Store {
   bool downloading = false;
 
   @observable
-  Uint8List icon;
+  Uint8List? icon;
 
   _PasswordEditStore(this._id, this._userStore, this._listStore, this._service);
 
@@ -39,7 +39,7 @@ abstract class _PasswordEditStore with Store {
     Uri uri = Uri.parse(loginUrl);
     String favico = "${uri.scheme}://${uri.host}/favicon.ico";
     print("downloading ${favico}");
-    return get(favico).then((response) {
+    return get(Uri.parse(favico)).then((response) {
       icon = response.bodyBytes;
     }).whenComplete(() => downloading = false);
   }
@@ -60,8 +60,8 @@ abstract class _PasswordEditStore with Store {
       icon: icon,
       content: await encrypter.encrypt(password.binaryValue),
     );
-    return _service
-        .create(_userStore.database, item)
+    await _service
+        .create(_userStore.database!, item)
         .whenComplete(() => _listStore.refresh());
   }
 }

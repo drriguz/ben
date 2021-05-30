@@ -11,12 +11,12 @@ class IDUtil {
   }
 
   static Uint8List generateUUIDasBytes() {
-    final List<int> buffer = new List<int>(32);
+    final List<int> buffer = List.filled(32, 0);
     return Uint8List.fromList(_uuid.v4buffer(buffer));
   }
 
   static Uint8List parseUUID(final String uuid) {
-    return Uint8List.fromList(_uuid.parse(uuid));
+    return Uint8List.fromList(Uuid.parse(uuid));
   }
 
   static final RegExp UUID_REGEX = new RegExp(

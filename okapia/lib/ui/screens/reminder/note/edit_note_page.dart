@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 class EditNotePage extends StatefulWidget {
   final int _id;
 
-  EditNotePage(this._id, {Key key}) : super(key: key);
+  EditNotePage(this._id, {Key? key}) : super(key: key);
 
   @override
   _EditNotePageState createState() => _EditNotePageState(_id);

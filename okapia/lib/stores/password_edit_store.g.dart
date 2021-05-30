@@ -42,13 +42,13 @@ mixin _$PasswordEditStore on _PasswordEditStore, Store {
   final _$iconAtom = Atom(name: '_PasswordEditStore.icon');
 
   @override
-  Uint8List get icon {
+  Uint8List? get icon {
     _$iconAtom.reportRead();
     return super.icon;
   }
 
   @override
-  set icon(Uint8List value) {
+  set icon(Uint8List? value) {
     _$iconAtom.reportWrite(value, super.icon, () {
       super.icon = value;
     });

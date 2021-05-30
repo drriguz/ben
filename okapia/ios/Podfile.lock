@@ -3,13 +3,13 @@ PODS:
     - Flutter
   - encryptions (0.0.1):
     - Flutter
-  - fast_rsa (0.2.0):
+  - fast_rsa (0.6.0):
     - Flutter
   - Flutter (1.0.0)
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
-  - "geolocator (6.0.0+4)":
+  - geolocator (6.2.0):
     - Flutter
   - image_picker (0.0.1):
     - Flutter
@@ -21,6 +21,12 @@ PODS:
     - Flutter
   - Toast (4.0.0)
   - url_launcher (0.0.1):
+    - Flutter
+  - video_player (0.0.1):
+    - Flutter
+  - wakelock (0.0.1):
+    - Flutter
+  - webview_flutter (0.0.1):
     - Flutter
 
 DEPENDENCIES:
@@ -35,6 +41,9 @@ DEPENDENCIES:
   - opencv_helper (from `.symlinks/plugins/opencv_helper/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - video_player (from `.symlinks/plugins/video_player/ios`)
+  - wakelock (from `.symlinks/plugins/wakelock/ios`)
+  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
   trunk:
@@ -63,20 +72,29 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
+  wakelock:
+    :path: ".symlinks/plugins/wakelock/ios"
+  webview_flutter:
+    :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
   camera: a0ca5080336f7af47b88436e5e26da3dee5568f0
   encryptions: a374d8610fbe88a7f00a14e059ff1df3f100d9e2
-  fast_rsa: 54f63d880791665452491cd6ea4ba2d12e9bdf2a
+  fast_rsa: 348fa9c4afd02ab8659480e679f647f454acc80e
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
-  geolocator: 1ae40084cc6c1586ce5ad12cfc3fd38c64d05f2f
-  image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
+  geolocator: f5e3de65e241caba7ce3e8a618803387bda73384
+  image_picker: 50e7c7ff960e5f58faa4d1f4af84a771c671bc4a
   native_sqlcipher: 6d6f5a8c43c5db0cfb22d384d8282c02c54583ef
   opencv_helper: 8890108accf45e9b9d4cc04261c7b1857d145cb8
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
+  wakelock: b0843b2479edbf6504d8d262c2959446f35373aa
+  webview_flutter: 9f491a9b5a66f2573946a389b2677987b0ff8c0b
 
 PODFILE CHECKSUM: a43c82cc0965a0eb7822fd2731ec088d6eec5b88
 

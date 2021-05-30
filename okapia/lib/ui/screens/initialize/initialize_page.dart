@@ -10,7 +10,7 @@ import 'widgets/system_settings.dart';
 import 'widgets/user_agreement.dart';
 
 class InitializePage extends StatefulWidget {
-  const InitializePage({Key key}) : super(key: key);
+  const InitializePage({Key? key}) : super(key: key);
 
   @override
   _InitializePageState createState() => _InitializePageState();

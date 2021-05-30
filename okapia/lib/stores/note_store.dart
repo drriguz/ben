@@ -26,9 +26,9 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   Future<void> refresh() async {
     setBusy();
     data.clear();
-    return _noteService.refresh(_userStore.database).then((items) {
+    return _noteService.refresh(_userStore.database!).then((items) {
       if (items.isNotEmpty) {
-        lastId = items.last.id;
+        lastId = items.last.id!;
         data.addAll(items);
       }
     }).whenComplete(() => setIdle());
@@ -38,9 +38,9 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   Future<void> fetchMore() async {
     isLoading = true;
 
-    return _noteService.fetch(_userStore.database, lastId).then((items) {
+    return _noteService.fetch(_userStore.database!, lastId).then((items) {
       if (items.isNotEmpty) {
-        lastId = items.last.id;
+        lastId = items.last.id!;
         data.addAll(items);
       }
     }).whenComplete(() => isLoading = false);
@@ -58,7 +58,7 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
     existing.content = content;
 
     _noteService
-        .update(_userStore.database, existing)
+        .update(_userStore.database!, existing)
         .whenComplete(() => setIdle());
   }
 
@@ -68,7 +68,7 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
     final String title = content.split("\n")[0];
     NoteModel note = NoteModel(title: title, content: content);
     _noteService
-        .create(_userStore.database, note)
+        .create(_userStore.database!, note)
         .then((created) => data.insert(0, created))
         .whenComplete(() => setIdle());
   }
@@ -77,7 +77,7 @@ abstract class _NoteStore<M> extends PageStatusNotifier with Store {
   Future<void> delete(int id) async {
     setBusy();
     _noteService
-        .delete(_userStore.database, id)
+        .delete(_userStore.database!, id)
         .then((id) => data.removeWhere((element) => element.id == id))
         .whenComplete(() => setIdle());
   }

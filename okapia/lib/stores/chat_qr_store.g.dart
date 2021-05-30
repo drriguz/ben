@@ -12,13 +12,13 @@ mixin _$ChatQrStore on _ChatQrStore, Store {
   final _$myKeyAtom = Atom(name: '_ChatQrStore.myKey');
 
   @override
-  String get myKey {
+  String? get myKey {
     _$myKeyAtom.reportRead();
     return super.myKey;
   }
 
   @override
-  set myKey(String value) {
+  set myKey(String? value) {
     _$myKeyAtom.reportWrite(value, super.myKey, () {
       super.myKey = value;
     });

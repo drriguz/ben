@@ -17,14 +17,14 @@ const List<MenuChoice> menuItems = const <MenuChoice>[
 class NoteDetailPage extends StatefulWidget {
   final int _id;
 
-  NoteDetailPage(this._id, {Key key}) : super(key: key);
+  NoteDetailPage(this._id, {Key? key}) : super(key: key);
 
   @override
   _NoteDetailPageState createState() => _NoteDetailPageState();
 }
 
 class _NoteDetailPageState extends State<NoteDetailPage> {
-  NoteDetailStore _detailStore;
+  NoteDetailStore? _detailStore;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
       Provider.of<UserStore>(context, listen: false),
       Provider.of<NoteService>(context, listen: false),
     );
-    _detailStore.fetch();
+    _detailStore?.fetch();
   }
 
   @override

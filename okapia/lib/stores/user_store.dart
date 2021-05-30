@@ -1,4 +1,4 @@
-import 'package:native_sqlcipher/database.dart';
+import 'package:native_sqlcipher/native_sqlcipher.dart';
 import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/services/login_service.dart';
@@ -15,20 +15,20 @@ class UserStore = _UserStore with _$UserStore;
 abstract class _UserStore extends PageStatusNotifier with Store {
   final LoginService _loginService;
 
-  TransformedKey _userCredential;
+  TransformedKey? _userCredential;
 
-  TransformedKey get userCredential => _userCredential;
+  TransformedKey? get userCredential => _userCredential;
 
-  Database _database;
+  Database? _database;
 
-  Database get database => _database;
+  Database? get database => _database;
 
   bool isPausedToTakePhoto = false;
 
   @observable
-  String _errorMessage;
+  String? _errorMessage;
 
-  String get errorMessage => _errorMessage;
+  String? get errorMessage => _errorMessage;
 
   @computed
   bool get hasError => _errorMessage != null;
@@ -42,7 +42,7 @@ abstract class _UserStore extends PageStatusNotifier with Store {
   void dispose() {
     if (_database != null) {
       print("closing database connection.");
-      _database.close();
+      _database?.close();
     }
   }
 
@@ -80,13 +80,13 @@ abstract class _UserStore extends PageStatusNotifier with Store {
      * https://github.com/dart-lang/sdk/issues/35770
      * https://github.com/tekartik/sqflite/blob/master/sqflite_common_ffi/lib/src/database_tracker.dart
      */
-    _database = await _loginService.openSqlcipher(_userCredential);
+    _database = await _loginService.openSqlcipher(_userCredential!);
   }
 
   Future<void> _closeDatabaseConnection() async {
     print("closing existing database");
     if (_database != null) {
-      _database.close();
+      _database?.close();
       _database = null;
     }
   }

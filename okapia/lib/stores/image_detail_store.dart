@@ -12,7 +12,7 @@ abstract class _ImageDetailStore with Store {
   final int _id;
 
   @observable
-  ImageProvider<dynamic> item;
+  ImageProvider<dynamic>? item;
 
   _ImageDetailStore(this._userStore, this._id);
 

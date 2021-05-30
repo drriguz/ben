@@ -6,7 +6,7 @@ import 'package:okapia/ui/widgets/text_input.dart';
 class ConfirmPasswordDialog extends StatelessWidget {
   final ProtectedValue expected;
 
-  const ConfirmPasswordDialog(this.expected, {Key key}) : super(key: key);
+  const ConfirmPasswordDialog(this.expected, {Key? key}) : super(key: key);
 
   String _validatePassword(BuildContext context, ProtectedValue password) {
     if (password != expected) return S.of(context).password_not_match;

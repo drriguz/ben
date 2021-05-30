@@ -1,6 +1,9 @@
 [submodule "opencv_helper"]
 	path = opencv_helper
 	url = https://github.com/drriguz/opencv_helper.git
-[submodule "flutter_sqlcipher"]
-	path = flutter_sqlcipher
-	url = https://github.com/drriguz/flutter_sqlcipher.git
+[submodule "native_sqlcipher"]
+	path = native_sqlcipher
+	url = https://github.com/drriguz/native_sqlcipher.git
+[submodule "encryptions"]
+	path = encryptions
+	url = git@github.com:drriguz/encryptions.git

@@ -16,7 +16,7 @@ abstract class _EventDetailStore extends PageStatusNotifier with Store {
   final EventService _noteService;
 
   @observable
-  EventModel _data;
+  EventModel? _data;
 
   @observable
   DateTime selectedDate = DateTime.now();
@@ -29,8 +29,8 @@ abstract class _EventDetailStore extends PageStatusNotifier with Store {
   @action
   Future<void> fetch() async {
     setBusy();
-    return _noteService
-        .fetchById(_userStore.database, _id)
+    await _noteService
+        .fetchById(_userStore.database!, _id)
         .then((data) => _data = data)
         .whenComplete(() => setIdle());
   }
@@ -45,5 +45,5 @@ abstract class _EventDetailStore extends PageStatusNotifier with Store {
     selectedTime = time;
   }
 
-  EventModel get data => _data;
+  EventModel? get data => _data;
 }

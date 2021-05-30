@@ -12,13 +12,13 @@ mixin _$SecondaryPasswordInputStore on _SecondaryPasswordInputStore, Store {
   final _$_errorAtom = Atom(name: '_SecondaryPasswordInputStore._error');
 
   @override
-  String get _error {
+  String? get _error {
     _$_errorAtom.reportRead();
     return super._error;
   }
 
   @override
-  set _error(String value) {
+  set _error(String? value) {
     _$_errorAtom.reportWrite(value, super._error, () {
       super._error = value;
     });
@@ -44,7 +44,7 @@ mixin _$SecondaryPasswordInputStore on _SecondaryPasswordInputStore, Store {
       AsyncAction('_SecondaryPasswordInputStore.submitSecondaryPassword');
 
   @override
-  Future<TransformedKey> submitSecondaryPassword(
+  Future<TransformedKey?> submitSecondaryPassword(
       ProtectedValue secondaryPassword) {
     return _$submitSecondaryPasswordAsyncAction
         .run(() => super.submitSecondaryPassword(secondaryPassword));

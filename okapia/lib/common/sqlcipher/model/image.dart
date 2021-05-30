@@ -1,22 +1,22 @@
-import 'package:native_sqlcipher/database.dart';
+import 'package:native_sqlcipher/native_sqlcipher.dart';
 
 import '../repository.dart';
 
 class ImageModel extends Entity {
-  String thumb;
-  String path;
-  int albumId;
+  String? thumb;
+  String? path;
+  int? albumId;
 
   static final String TABLE = "image";
   static final String FIELDS = "thumb, path, album_id";
 
   ImageModel(
-      {int id,
+      {int? id,
       this.thumb,
       this.path,
       this.albumId,
-      int createdTime,
-      int lastUpdatedTime})
+      int? createdTime,
+      int? lastUpdatedTime})
       : super(id, createdTime, lastUpdatedTime);
 
   static ImageModel fromResult(Row r) {

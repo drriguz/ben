@@ -1,9 +1,9 @@
-import 'package:native_sqlcipher/database.dart';
+import 'package:native_sqlcipher/native_sqlcipher.dart';
 
 abstract class Entity {
-  int id;
-  int createdTime;
-  int lastUpdatedTime;
+  int? id;
+  int? createdTime;
+  int? lastUpdatedTime;
 
   static final String FIELDS = "id, created_time, last_updated_time,";
 
@@ -37,7 +37,7 @@ abstract class Sqlite3Repository<E extends Entity> {
     Result result = database.query("select $fields from $table $where;");
 
     try {
-      List<E> list = new List<E>();
+      List<E> list = [];
       for (Row r in result) {
         E item = convert(r);
         list.add(item);
@@ -71,17 +71,17 @@ abstract class Sqlite3Repository<E extends Entity> {
        ${item.lastUpdatedTime},
        ${item.toSqlValues()});
     """);
-    int id = database.last_insert_rowid();
+    int id = database.lastInsertRowid();
     item.id = id;
     return item;
   }
 
   Future<E> update(
       final Database database, final int id, final E updated) async {
-    final E existing = await selectById(database, id);
+    final E? existing = await selectById(database, id);
     assert(existing != null);
 
-    E merged = merge(existing, updated);
+    E merged = merge(existing!, updated);
     merged.lastUpdatedTime = DateTime.now().millisecondsSinceEpoch;
     _executeSql(database, """
     update $table set last_updated_time=${merged.lastUpdatedTime}, ${merged.toUpdateSql()}

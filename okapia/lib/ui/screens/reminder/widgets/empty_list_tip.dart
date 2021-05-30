@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class EmptyListTipWidget extends StatelessWidget {
   final VoidCallback _onRefresh;
 
-  const EmptyListTipWidget({Key key, VoidCallback onRefresh})
+  const EmptyListTipWidget({Key? key, required VoidCallback onRefresh})
       : _onRefresh = onRefresh,
         super(key: key);
 

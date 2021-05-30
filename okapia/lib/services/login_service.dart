@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:native_sqlcipher/database.dart';
+import 'package:native_sqlcipher/native_sqlcipher.dart';
 import 'package:okapia/common/crypto/hmac_validator.dart';
 import 'package:okapia/common/crypto/key.dart';
 import 'package:okapia/common/crypto/protected_value.dart';

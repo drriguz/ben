@@ -12,13 +12,13 @@ mixin _$PasswordDetailStore on _PasswordDetailStore, Store {
   final _$_dataAtom = Atom(name: '_PasswordDetailStore._data');
 
   @override
-  PasswordModel get _data {
+  PasswordModel? get _data {
     _$_dataAtom.reportRead();
     return super._data;
   }
 
   @override
-  set _data(PasswordModel value) {
+  set _data(PasswordModel? value) {
     _$_dataAtom.reportWrite(value, super._data, () {
       super._data = value;
     });

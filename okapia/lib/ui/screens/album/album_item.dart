@@ -5,7 +5,7 @@ class AlbumItem extends StatelessWidget {
   final String _name;
   final int _imageCount;
 
-  const AlbumItem(this._id, this._name, this._imageCount, {Key key}) : super(key: key);
+  const AlbumItem(this._id, this._name, this._imageCount, {Key? key}) : super(key: key);
 
   static const TextStyle _labelStyle = TextStyle(color: Colors.white, fontSize: 18);
   static const TextStyle _subtitleStyle = TextStyle(color: Colors.white, fontSize: 14);

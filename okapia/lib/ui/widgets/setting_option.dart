@@ -8,7 +8,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 abstract class SettingOption extends StatelessWidget {
   final String _description;
 
-  const SettingOption(this._description, {Key key}) : super(key: key);
+  const SettingOption(this._description, {Key? key}) : super(key: key);
 
   List<Widget> getFormFields();
 

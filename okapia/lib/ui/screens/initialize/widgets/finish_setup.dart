@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 class FinishSetupPage extends StatelessWidget {
   final InitializeStore _store;
 
-  const FinishSetupPage(this._store, {Key key}) : super(key: key);
+  const FinishSetupPage(this._store, {Key? key}) : super(key: key);
 
   Future<void> _onStartUsingPressed(BuildContext context) async {
     await _store.initialize();

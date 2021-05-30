@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TextTip extends StatelessWidget {
   final String _text;
 
-  const TextTip(this._text, {Key key}) : super(key: key);
+  const TextTip(this._text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

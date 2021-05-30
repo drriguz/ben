@@ -9,10 +9,10 @@ class ToolButton extends StatelessWidget {
   final TextStyle labelStyle;
 
   const ToolButton(
-      {Key key,
-      @required this.onTap,
-      this.label,
-      this.icon,
+      {Key? key,
+      required this.onTap,
+      required this.label,
+      required this.icon,
       this.iconSize = 24,
       this.labelStyle = const TextStyle(fontSize: 12)})
       : super(key: key);

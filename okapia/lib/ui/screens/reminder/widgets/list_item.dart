@@ -25,13 +25,13 @@ abstract class AbstractListItem extends StatelessWidget {
 
   void onClick(BuildContext context);
 
-  AbstractListItem({Key key}) : super(key: key);
+  AbstractListItem({Key? key}) : super(key: key);
 }
 
 abstract class AbstractDataListItem<T> extends StatelessWidget {
   final T model;
 
-  const AbstractDataListItem({Key key, this.model}) : super(key: key);
+  const AbstractDataListItem({Key? key, required this.model}) : super(key: key);
 
   ImageProvider getItemIcon();
 

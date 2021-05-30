@@ -1,4 +1,3 @@
-import 'package:native_sqlcipher/database.dart';
 import 'package:okapia/common/sqlcipher/model/album.dart';
 import 'package:okapia/common/sqlcipher/repository/album_repository.dart';
 

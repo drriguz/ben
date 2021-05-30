@@ -16,6 +16,6 @@ abstract class _AlbumStore extends DataListStore<AlbumModel> with Store {
 
   @override
   Future<List<AlbumModel>> fetch() async {
-    return _albumService.fetchAll(_userStore.database);
+    return _albumService.fetchAll(_userStore.database!);
   }
 }

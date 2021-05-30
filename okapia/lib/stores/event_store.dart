@@ -26,9 +26,9 @@ abstract class _EventStore<M> extends PageStatusNotifier with Store {
   Future<void> refresh() async {
     setBusy();
     data.clear();
-    return _eventService.refresh(_userStore.database).then((items) {
+    return _eventService.refresh(_userStore.database!).then((items) {
       if (items.isNotEmpty) {
-        lastId = items.last.id;
+        lastId = items.last.id!;
         data.addAll(items);
       }
     }).whenComplete(() => setIdle());
@@ -38,9 +38,9 @@ abstract class _EventStore<M> extends PageStatusNotifier with Store {
   Future<void> fetchMore() async {
     isLoading = true;
 
-    return _eventService.fetch(_userStore.database, lastId).then((items) {
+    return _eventService.fetch(_userStore.database!, lastId).then((items) {
       if (items.isNotEmpty) {
-        lastId = items.last.id;
+        lastId = items.last.id!;
         data.addAll(items);
       }
     }).whenComplete(() => isLoading = false);
@@ -56,7 +56,7 @@ abstract class _EventStore<M> extends PageStatusNotifier with Store {
     existing.eventTime = eventTime.millisecondsSinceEpoch;
 
     _eventService
-        .update(_userStore.database, existing)
+        .update(_userStore.database!, existing)
         .whenComplete(() => setIdle());
   }
 
@@ -66,7 +66,7 @@ abstract class _EventStore<M> extends PageStatusNotifier with Store {
     EventModel note =
         EventModel(title: title, eventTime: eventTime.millisecondsSinceEpoch);
     _eventService
-        .create(_userStore.database, note)
+        .create(_userStore.database!, note)
         .then((created) => data.insert(0, created))
         .whenComplete(() => setIdle());
   }
@@ -75,7 +75,7 @@ abstract class _EventStore<M> extends PageStatusNotifier with Store {
   Future<void> delete(int id) async {
     setBusy();
     _eventService
-        .delete(_userStore.database, id)
+        .delete(_userStore.database!, id)
         .then((id) => data.removeWhere((element) => element.id == id))
         .whenComplete(() => setIdle());
   }
