@@ -37,15 +37,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "introduction_about": MessageLookupByLibrary.simpleMessage(
             "<h5>Fully encrypted</h5><br/><p>Everything inside OKAPIA is fully encrypted with <strong>AES-256</strong> algorithm, it\'s theoretically impossible to decrypt without your master password.</p><p><a href=\"\">Learn more about security details</a></p>"),
         "label_about": MessageLookupByLibrary.simpleMessage("About"),
+        "label_chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "label_get_started":
             MessageLookupByLibrary.simpleMessage("Get Started"),
         "label_license":
             MessageLookupByLibrary.simpleMessage("User Agreements"),
         "label_master_password":
             MessageLookupByLibrary.simpleMessage("Master Password"),
+        "label_minder": MessageLookupByLibrary.simpleMessage("Minder"),
+        "label_notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "label_secondary_password":
             MessageLookupByLibrary.simpleMessage("Secondary Password"),
         "label_settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "label_tools": MessageLookupByLibrary.simpleMessage("Tools"),
         "tip_input_password": MessageLookupByLibrary.simpleMessage(
             "Please input your master password"),
         "tip_mandatory": MessageLookupByLibrary.simpleMessage(

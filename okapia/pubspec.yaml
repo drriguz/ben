@@ -35,5 +35,9 @@ flutter:
     - assets/
     - assets/images/
     - assets/db/init.sql
+  fonts:
+    - family: iconfont
+      fonts:
+        - asset: assets/iconfont.ttf
 flutter_intl:
   enabled: true

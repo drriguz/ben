@@ -120,6 +120,46 @@ class S {
     );
   }
 
+  /// `Notes`
+  String get label_notes {
+    return Intl.message(
+      'Notes',
+      name: 'label_notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chat`
+  String get label_chat {
+    return Intl.message(
+      'Chat',
+      name: 'label_chat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minder`
+  String get label_minder {
+    return Intl.message(
+      'Minder',
+      name: 'label_minder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tools`
+  String get label_tools {
+    return Intl.message(
+      'Tools',
+      name: 'label_tools',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Master password will be the only credential for you to manage other passwords, we use it to initialize storage but it will never be stored. Once you forget the password, this is no way to find it. So please trying to set a password which is strong enough and also easy for yourself to remember.`
   String get description_master_password {
     return Intl.message(
