@@ -46,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Master Password"),
         "label_minder": MessageLookupByLibrary.simpleMessage("Minder"),
         "label_notes": MessageLookupByLibrary.simpleMessage("Notes"),
+        "label_okapia": MessageLookupByLibrary.simpleMessage("Okapia™"),
+        "label_passwords": MessageLookupByLibrary.simpleMessage("Passwords"),
         "label_secondary_password":
             MessageLookupByLibrary.simpleMessage("Secondary Password"),
         "label_settings": MessageLookupByLibrary.simpleMessage("Settings"),

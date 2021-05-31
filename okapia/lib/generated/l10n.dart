@@ -160,6 +160,26 @@ class S {
     );
   }
 
+  /// `Okapia™`
+  String get label_okapia {
+    return Intl.message(
+      'Okapia™',
+      name: 'label_okapia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords`
+  String get label_passwords {
+    return Intl.message(
+      'Passwords',
+      name: 'label_passwords',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Master password will be the only credential for you to manage other passwords, we use it to initialize storage but it will never be stored. Once you forget the password, this is no way to find it. So please trying to set a password which is strong enough and also easy for yourself to remember.`
   String get description_master_password {
     return Intl.message(
