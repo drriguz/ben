@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:okapia/generated/l10n.dart';
-import 'package:okapia/states/InitializationState.dart';
+import 'package:okapia/states/initialization_state.dart';
 import 'package:provider/provider.dart';
 import '../common/text_input.dart';
 import '../../common/crypto/protected_value.dart';

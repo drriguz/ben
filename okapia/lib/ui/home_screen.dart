@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:okapia/generated/l10n.dart';
 import 'package:okapia/ui/not_implemented.dart';
 
-import 'icons.dart';
+import 'common/icons.dart';
 import 'notes_screen.dart';
 
 class HomeScreen extends StatefulWidget {

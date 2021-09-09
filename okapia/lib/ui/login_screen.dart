@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:okapia/generated/l10n.dart';
 
 import '../common/crypto/protected_value.dart';
-import '../states/UserState.dart';
+import '../states/user_state.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

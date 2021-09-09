@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:okapia/generated/l10n.dart';
+import 'package:okapia/states/note_state.dart';
+import 'package:provider/provider.dart';
 
-import 'icons.dart';
+import 'common/icons.dart';
 import 'notes/notes_page.dart';
 
 class NotesScreen extends StatefulWidget {

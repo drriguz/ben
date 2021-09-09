@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:okapia/generated/l10n.dart';
-import 'package:okapia/states/InitializationState.dart';
+import 'package:okapia/states/initialization_state.dart';
 import 'package:provider/provider.dart';
 
 class StartPage extends StatelessWidget {
@@ -19,7 +19,7 @@ class StartPage extends StatelessWidget {
                   return const CircularProgressIndicator();
                 } else {
                   return TextButton(
-                    onPressed: state.initializeApplication,
+                    onPressed: () => _OnInitialize(state, context),
                     child: Text(S.of(context).button_start),
                   );
                 }
@@ -29,5 +29,11 @@ class StartPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _OnInitialize(
+      InitializationState state, BuildContext context) async {
+    await state.initializeApplication();
+    await Navigator.pushReplacementNamed(context, "/home");
   }
 }

@@ -7,7 +7,7 @@ import 'initialize/settings_page.dart';
 import 'initialize/start_page.dart';
 import 'initialize/about_page.dart';
 
-import '../states/InitializationState.dart';
+import '../states/initialization_state.dart';
 
 class InitializeScreen extends StatefulWidget {
   @override
